@@ -1,329 +1,1099 @@
-﻿<!DOCTYPE html>
-<!--[if IE 7]>
-<html class="ie ie7" lang="zh-CN" xmlns:wb="http://open.weibo.com/wb">
-<![endif]-->
-<!--[if IE 8]>
-<html class="ie ie8" lang="zh-CN">
-<![endif]-->
-<!--[if !(IE 7) | !(IE 8)  ]><!-->
-<html lang="zh-CN">
-<!--<![endif]-->
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width" />
-
-<title>HTML5物理实验 CSS3模拟齿轮转动 | HTML5资源教程</title>
-
-<link rel="profile" href="http://gmpg.org/xfn/11" />
-<link rel="pingback" href="http://www.html5tricks.com/xmlrpc.php" />
-<!--[if lt IE 9]>
-<script src="http://www.html5tricks.com/wp-content/themes/twentytwelve/js/html5.js" type="text/javascript"></script>
-<![endif]-->
-
-<link rel="alternate" type="application/rss+xml" title="HTML5资源教程 &raquo; Feed" href="http://www.html5tricks.com/feed" />
-<link rel="alternate" type="application/rss+xml" title="HTML5资源教程 &raquo; 评论Feed" href="http://www.html5tricks.com/comments/feed" />
-<link rel="alternate" type="application/rss+xml" title="HTML5资源教程 &raquo; HTML5物理实验 CSS3模拟齿轮转动评论Feed" href="http://www.html5tricks.com/css3-gear-animation.html/feed" />
-<link rel='stylesheet' id='twentytwelve-style-css'  href='http://www.html5tricks.com/wp-content/themes/twentytwelve/style.css?ver=3.6-RC2' type='text/css' media='all' />
-<!--[if lt IE 9]>
-<link rel='stylesheet' id='twentytwelve-ie-css'  href='http://www.html5tricks.com/wp-content/themes/twentytwelve/css/ie.css?ver=20121010' type='text/css' media='all' />
-<![endif]-->
-<link rel='stylesheet' id='wp-pagenavi-css'  href='http://www.html5tricks.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.70' type='text/css' media='all' />
-<script type='text/javascript' src='http://www.html5tricks.com/wp-includes/js/comment-reply.min.js?ver=3.6-RC2'></script>
-<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.html5tricks.com/xmlrpc.php?rsd" />
-<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.html5tricks.com/wp-includes/wlwmanifest.xml" /> 
-<link rel='prev' title='冒泡动画CSS3按钮 绚丽多彩' href='http://www.html5tricks.com/css3-bubble-buttons.html' />
-<link rel='next' title='7组CSS3动画按钮 CSS3按钮很时尚' href='http://www.html5tricks.com/7-css3-animation-buttons.html' />
-<meta name="generator" content="WordPress 3.6-RC2" />
-<link rel='canonical' href='http://www.html5tricks.com/css3-gear-animation.html' />
-<style type="text/css">
-.tricksButtons{
-text-align:center;
-}
-.tricksButtons a,.read-more a {
-margin-right: 16px;
-margin-bottom: 10px;
-display: inline-block;
-text-transform: uppercase;
-padding: 1em 1.5em 0.75em;
-border-radius: 2px;
-font-weight: bold;
-border: none;
-color: #fff !important;
-text-decoration: none;
-font-family: 'Open Sans Condensed',sans-serif;
-font-size: 14px;
-line-height: 1;
-cursor: pointer;
-}
-.tricksButtons a:hover,.read-more a:hover{
-opacity:0.9;
-}
-.tricksButtons .demo{
-font-size: 18px;
-padding: 1.2em 2.5em 1em;
-background-color: #a5d16d;
-box-shadow: 0 0 5px #a4cf6c inset, 0 1px 1px #eee;
-}
-.tricksButtons .download{
-margin-right:0;
-font-size: 18px;
-padding: 1.2em 2.5em 1em;
-background-color: #93d0ea;
-box-shadow: 0 0 5px #8fcde7 inset, 0 1px 1px #eee;
-}
-
-.read-more{
-text-align:center
-}
-.read-more a{
-font-size: 18px;
-padding: 1.2em 2.5em 1em;
-background-color: #a5d16d;
-box-shadow: 0 0 5px #a4cf6c inset, 0 1px 1px #eee;
-}
-
-.contactItem{ float:right;margin-left:70px;text-align:center}
-.contactItem .txt{font-weight:bold;font-size:16px;text-align:center;padding:3px 0}
-.contactItem a{ text-decoration:none;color:#6a6a6a}
-</style>
-</head>
-
-<body class="single single-post postid-88 single-format-standard single-author">
-<div id="page" class="hfeed site">
-	<header id="masthead" class="site-header" role="banner">
-<div style="width:701px;height:90px;float:right;">
-    <div class="contactItem"><a href="http://www.html5tricks.com/follow-rss#weibo" target="_blank"><img src="http://www.html5tricks.com/wp-content/uploads/2014/05/icon_weibo.jpg" /><p class="txt">微博关注</p></p></div>
-    <div class="contactItem"><a href="http://www.html5tricks.com/follow-rss#mail" target="_blank"><img src="http://www.html5tricks.com/wp-content/uploads/2014/05/icon_email.png" /><p class="txt">邮件订阅</p></a></div>
-    <div class="contactItem"><a href="http://www.html5tricks.com/follow-rss#rss" target="_blank"><img src="http://www.html5tricks.com/wp-content/uploads/2014/05/icon_rss.png" /><p class="txt">RSS订阅</p></a></div>
-</div>
-		<hgroup style="width:252px;float:left">
-<a href="http://www.html5tricks.com/" title="HTML5资源教程" rel="home">
-<img src="http://www.html5tricks.com/wp-content/uploads/2014/06/html5tricks-logo.jpg" alt="HTML5资源教程" title="HTML5资源教程" /></a>
-			
-<!--<div style="margin-top:10px">
-<div style="float:left">
-<wb:follow-button uid="5052963352" type="red_2" width="115" height="24" ></wb:follow-button></div>
-<iframe  src="http://follow.v.t.qq.com/index.php?c=follow&a=quick&appkey=801484131&sign=b9b10d49&v=2&name=html5tricks&style=5&t=1396508619628&f=1" frameborder="0" scrolling="auto" width="110" height="24" marginwidth="0" marginheight="0" allowtransparency="true"></iframe>
-</div>-->
-
-		</hgroup>
-<div style="clear:both;"></div>
-		<nav id="site-navigation" class="main-navigation" role="navigation">
-			<h3 class="menu-toggle">菜单</h3>
-			<a class="assistive-text" href="#content" title="跳至内容">跳至内容</a>
-			<div class="menu-menu-1-container"><ul id="menu-menu-1" class="nav-menu"><li id="menu-item-4" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-4"><a href="http://www.html5tricks.com/">首页</a></li>
-<li id="menu-item-2193" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2193"><a target="_blank" href="http://news.html5tricks.com/">IT新闻</a></li>
-<li id="menu-item-6" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-6"><a href="http://www.html5tricks.com/category/html5-demo">HTML5应用</a></li>
-<li id="menu-item-7" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-7"><a href="http://www.html5tricks.com/category/html5-tutorials">HTML5教程</a></li>
-<li id="menu-item-1286" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1286"><a href="http://www.html5tricks.com/category/css3-tutorials">CSS3教程</a></li>
-<li id="menu-item-197" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-197"><a href="http://www.html5tricks.com/category/jquery-plugin">jQuery插件</a>
-<ul class="sub-menu">
-	<li id="menu-item-2931" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2931"><a href="http://www.html5tricks.com/category/jquery-plugin/jquery-paging">jQuery分页插件</a></li>
-</ul>
-</li>
-<li id="menu-item-1154" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1154"><a href="http://www.html5tricks.com/category/html-tutorials">HTML教程</a></li>
-<li id="menu-item-1153" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1153"><a href="http://www.html5tricks.com/category/css-tutorials">CSS教程</a></li>
-</ul></div>		</nav><!-- #site-navigation -->
-
-			</header><!-- #masthead -->
-	<div id="main" class="wrapper">
-	<div id="primary" class="site-content">
-		<div id="content" role="main">
-
-			
-				
-	<article id="post-88" class="post-88 post type-post status-publish format-standard hentry category-html5-demo tag-css3 tag-html5">
-				<header class="entry-header">
-									<h1 class="entry-title">HTML5物理实验 CSS3模拟齿轮转动</h1>
-						<div class="comments-link" style="float:left;margin-top:20px;margin-right:30px;margin-left:5px">
-8,648 人浏览</div>
-				<div class="comments-link" style="float:left;margin-top:20px">
-					<a href="http://www.html5tricks.com/css3-gear-animation.html#comments" title="《HTML5物理实验 CSS3模拟齿轮转动》上的评论">1条回复</a>				</div><!-- .comments-link -->
-<style type="text/css">
-.comments-link a{text-decoration:none}
-</style>
-			<div id="bdshare" class="bdshare_t bds_tools_24 get-codes-bdshare" style="float:right;margin-top:10px">
-<a class="bds_tsina"></a>
-<a class="bds_tqq"></a>
-<a class="bds_renren"></a>
-<a class="bds_qzone"></a>
-<a class="bds_xg"></a>
-<a class="bds_douban"></a>
-<a class="bds_diandian"></a>
-<a class="bds_ty"></a>
-<span class="bds_more"></span>
-<a class="shareCount"></a>
-</div>
-
-<div style="clear:both"></div>
-		</header><!-- .entry-header -->
-
-				<div class="entry-content">
-
-
-
-
-			<p>利用<span class='wp_keywordlink'><a href="http://www.html5tricks.com/" title="HTML5" target="_blank">HTML5</a></span>可以模拟出很多物理特性的实验，比如天体运动、自由落体等，今天要分享一个利用纯CSS3实现的齿轮转动实验，实验由多个齿轮组合在一起，主动轮转动后可以带动其他从动轮转动，从而将重物吊起。这个过程没有利用Javascript，而是利用纯CSS3实现，效果很棒。</p>
-<p><a href="http://www.html5tricks.com/demo/jiaoben1984/index.html" target="_blank"><img class="alignnone size-full wp-image-89" alt="css3-gear-animation" src="http://www.html5tricks.com/wp-content/uploads/2014/02/css3-gear-animation.jpg" width="588" height="370" /></a></p>
-<p class="tricksButtons"><a class="demo" href="http://www.html5tricks.com/demo/jiaoben1984/index.html" target="_blank">在线演示</a><a class="download" href="http://zjdx1.sc.chinaz.com/Files/DownLoad/webjs1/201402/jiaoben1984.rar" target="_blank">源码下载</a></p>
-					</div><!-- .entry-content -->
-		
-<div style="width:336px;margin:40px auto">
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- html5tricks-bottom-rect-big -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:336px;height:280px"
-     data-ad-client="ca-pub-4188263447419139"
-     data-ad-slot="2857854807"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-</div>
-
-
-<!-- Baidu Button BEGIN -->
-
-<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare" style="margin-left:-3px">
-<a class="bds_tsina"></a>
-<a class="bds_tqq"></a>
-<a class="bds_renren"></a>
-<a class="bds_qzone"></a>
-<a class="bds_xg"></a>
-<a class="bds_douban"></a>
-<a class="bds_diandian"></a>
-<a class="bds_ty"></a>
-<span class="bds_more"></span>
-<a class="shareCount"></a>
-</div>
-<div style="clear:both"></div>
-<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=0" ></script>
-<script type="text/javascript" id="bdshell_js"></script>
-<script type="text/javascript">
-document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
-</script>
-<!-- Baidu Button END -->
-
-
-
-
-
-		<footer class="entry-meta">
-			本条目发布于<a href="http://www.html5tricks.com/css3-gear-animation.html" title="1:32 下午" rel="bookmark"><time class="entry-date" datetime="2014-02-13T13:32:31+08:00">二月 13, 2014</time></a>。属于<a href="http://www.html5tricks.com/category/html5-demo" title="查看HTML5应用中的全部文章" rel="category tag">HTML5应用</a>分类，被贴了 <a href="http://www.html5tricks.com/tag/css3%e5%8a%a8%e7%94%bb" rel="tag">CSS3动画</a>、<a href="http://www.html5tricks.com/tag/html5%e5%8a%a8%e7%94%bb" rel="tag">HTML5动画</a> 标签。<span class="by-author">作者是<span class="author vcard"><a class="url fn n" href="http://www.html5tricks.com/author/sxwgf" title="查看所有由sxwgf发布的文章" rel="author">sxwgf</a></span>。</span>								</footer><!-- .entry-meta -->
-	</article><!-- #post -->
-<div class="entry-content" style="border-bottom: 4px double #ededed;">
-<h2 style="border-bottom:4px double #ededed">热门推荐</h2>
-<div class="hot">
-<a href="http://www.html5tricks.com/html5-video-player-mobile.html" target="_blank" style="color:#000">
-<h2>超炫酷的HTML5视频播放器</h2>
-    <img src="http://www.html5tricks.com/wp-content/uploads/2015/12/html5-video-player-mobile.png" alt="超炫酷的HTML5视频播放器" />
-</a>
-</div>
-
-<div class="hot">
-<a href="http://www.html5tricks.com/css3-iphone-ipad-imac-iwatch.html" target="_blank" style="color:#000">
-<h2>纯CSS3实现苹果设备 iPhone iPad iMac及iWatch</h2>
-    <img src="http://www.html5tricks.com/wp-content/uploads/2015/11/css3-iphone-ipad-imac-iwatch.png" alt="纯CSS3实现苹果设备 iPhone iPad iMac及iWatch" />
-</a>
-</div>
-<div class="hot">
-<a href="http://www.html5tricks.com/pure-css3-elephant-animation.html" target="_blank" style="color:#000">
-<h2>纯CSS3实现大象走路动画</h2>
-    <img src="http://www.html5tricks.com/wp-content/uploads/2015/11/pure-css3-elephant-animation.png" alt="纯CSS3实现大象走路动画" />
-</a>
-</div>
-<div class="hot">
-<a href="http://www.html5tricks.com/html5-css3-elasticity.html" target="_blank" style="color:#000">
-<h2>HTML5/CSS3图片左右切换弹性动画</h2>
-    <img src="http://www.html5tricks.com/wp-content/uploads/2015/07/html5-css3-elasticity.png" alt="HTML5/CSS3图片左右切换弹性动画" />
-</a>
-</div>
-<div class="hot">
-<a href="http://www.html5tricks.com/html5-map-distribute-animation.html" target="_blank" style="color:#000">
-<h2>超绚丽的HTML5地图分布动画</h2>
-    <img src="http://www.html5tricks.com/wp-content/uploads/2016/10/html5-map-distribute-animation.png" alt="超绚丽的HTML5地图分布动画" />
-</a>
-</div>
-<div class="hot">
-<a href="http://www.html5tricks.com/css3-pretty-cat-face.html" target="_blank" style="color:#000">
-<h2>纯CSS3绘制的小猫笑脸动画 超呆萌</h2>
-    <img src="http://www.html5tricks.com/wp-content/uploads/2016/10/css3-pretty-cat-face.png" alt="纯CSS3绘制的小猫笑脸动画 超呆萌" />
-</a>
-</div>
-</div>
-
-
-				<nav class="nav-single">
-					<h3 class="assistive-text">文章导航</h3>
-					<span class="nav-previous"><a href="http://www.html5tricks.com/css3-bubble-buttons.html" rel="prev"><span class="meta-nav">&larr;</span> 冒泡动画CSS3按钮 绚丽多彩</a></span>
-					<span class="nav-next"><a href="http://www.html5tricks.com/7-css3-animation-buttons.html" rel="next">7组CSS3动画按钮 CSS3按钮很时尚 <span class="meta-nav">&rarr;</span></a></span>
-				</nav><!-- .nav-single -->
-
-				
-
-
-
-
-
-
-			
-		</div><!-- #content -->
-	</div><!-- #primary -->
-
-
-			<div id="secondary" class="widget-area" role="complementary">
-			<aside id="text-3" class="widget widget_text">			<div class="textwidget"><style type="text/css">
-.hot{margin-bottom:30px}
-.hot h2{font-size:18px}
-.hot a{text-decoration:none}
-.weibo{margin-bottom:20px}
-.rss{margin-bottom:20px;text-align:center;border:#333 solid 2px;padding:10px 5px 5px 5px}
-</style>
-
-<div class="hot">
-<script type="text/javascript">
-var cpro_id="u2564050";
-(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"300",rsi1:"250",pat:"17",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0"}
-</script>
-<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
-</div>
-
-<div class="hot">
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- html5tricks-left-big -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:300px;height:600px"
-     data-ad-client="ca-pub-4188263447419139"
-     data-ad-slot="5829084807"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-</div>
-
-<script type="text/javascript">
-    /*html5tricks侧边悬停*/
-    var cpro_id = "u2803564";
-</script>
-<script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script></div>
-		</aside>		</div><!-- #secondary -->
-		</div><!-- #main .wrapper -->
-	<footer id="colophon" role="contentinfo">
-		<div class="site-info">
-			<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010502000956"><p>浙公网安备 33010502000956号</p></a>
-		</div><!-- .site-info -->
-	</footer><!-- #colophon -->
-</div><!-- #page -->
-
-<script type='text/javascript' src='http://www.html5tricks.com/wp-content/themes/twentytwelve/js/navigation.js?ver=1.0'></script>
-<div style="display:none">
-<script language="javascript" type="text/javascript" src="/16741667.js"></script>
-
-<script type="text/javascript">
-var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F9346d6b49a73fab9c4d557ed45e0dad0' type='text/javascript'%3E%3C/script%3E"));
-</script>
-
-</div>
-
-
-</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta name="generator" content= "HTML Tidy for Linux/x86 (vers 11 February 2007), see www.w3.org" />
+        <meta http-equiv="Content-type" content="text/html; charset=us-ascii" />
+        <title>iOS Icons in Pure CSS</title>
+        <link rel="stylesheet" href="css/iosicons-style.css" type="text/css" /> 
+        
+    </head>
+    <body>
+	</div>
+        <div id="wrapper">
+            <div class="youtube icon">
+                <div class="tv">
+                    <div class="screen-border">
+                        <div class="screen">
+                            <div class="screen-gloss"></div>
+                        </div>
+                    </div>
+                    <div class="knob-left">
+                        <div class="knob-handle">
+                            <div class="knob-handle-center"></div>
+                        </div>
+                    </div>
+                    <div class="speaker-grill">
+                        <div class="slit1"></div>
+                        <div class="slit2"></div>
+                        <div class="slit3"></div>
+                        <div class="slit4"></div>
+                    </div>
+                    <div class="knob-right">
+                        <div class="knob-handle">
+                            <div class="knob-handle-center"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="notes icon">
+                <div class="header"></div>
+                <div class="paper">
+                    <div class="paper-rip"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line-last"></div>
+                    <div class="margin-lines"></div>
+                </div>
+            </div>
+            <div class="maps icon">
+                <div class="white-streets">
+                    <div class="top-street"></div>
+                    <div class="small-street">
+                        <div class="small-street street1"></div>
+                        <div class="small-street street2"></div>
+                        <div class="small-street street3"></div>
+                        <div class="small-street street4"></div>
+                    </div>
+                    <div class="right-street"></div>
+                    <div class="right-street-below-horz"></div>
+                    <div class="right-street-below"></div>
+                    <div class="outer-loop">
+                        <div class="inner-loop"></div>
+                    </div>
+                    <div class="upper-pathto-loop-left"></div>
+                    <div class="upper-pathto-loop"></div>
+                    <div class="lower-pathto-loop-left"></div>
+                    <div class="lower-pathto-loop"></div>
+                    <div class="intersection"></div>
+                </div>
+                <div class="yellow-street-border">
+                    <div class="yellow-street"></div>
+                </div>
+                <div class="orange-street"></div>
+                <div class="road-sign">
+                    <div class="road-sign-top"></div>
+                    <div class="road-sign-bottom">
+                        280
+                    </div>
+                </div>
+                <div class="pin-top"></div>
+                <div class="pin-rod"></div>
+                <div class="pin-hole"></div>
+                <div class="pin-rod-shadow"></div>
+                <div class="pin-head-shadow"></div>
+            </div>
+            <div class="idisk icon">
+                <div class="top">
+                    <div class="gloss"></div>
+                    <div class="cloud-base"></div>
+                    <div class="large-puff"></div>
+                    <div class="small-puff"></div>
+                </div>
+                <div class="front">
+                    <div class="LED"></div>
+                </div>
+            </div>
+            <div class="itunes icon">
+                <div class="starburst">
+                    <div class="ray-1"></div>
+                    <div class="ray-2"></div>
+                    <div class="ray-3"></div>
+                    <div class="ray-4"></div>
+                    <div class="ray-5"></div>
+                    <div class="ray-6"></div>
+                    <div class="ray-7"></div>
+                    <div class="ray-8"></div>
+                    <div class="ray-9"></div>
+                    <div class="ray-10"></div>
+                    <div class="ray-11"></div>
+                    <div class="ray-12"></div>
+                    <div class="ray-13"></div>
+                    <div class="ray-14"></div>
+                    <div class="ray-15"></div>
+                    <div class="ray-16"></div>
+                    <div class="ray-17"></div>
+                    <div class="ray-18"></div>
+                    <div class="ray-19"></div>
+                    <div class="ray-20"></div>
+                    <div class="ray-21"></div>
+                    <div class="ray-22"></div>
+                    <div class="ray-23"></div>
+                    <div class="ray-24"></div>
+                    <div class="ray-25"></div>
+                    <div class="ray-26"></div>
+                    <div class="ray-27"></div>
+                    <div class="ray-28"></div>
+                    <div class="ray-29"></div>
+                    <div class="ray-30"></div>
+                </div>
+                <div class="starburst burst-2">
+                    <div class="ray-1"></div>
+                    <div class="ray-2"></div>
+                    <div class="ray-3"></div>
+                    <div class="ray-4"></div>
+                    <div class="ray-5"></div>
+                    <div class="ray-6"></div>
+                    <div class="ray-7"></div>
+                    <div class="ray-8"></div>
+                    <div class="ray-9"></div>
+                    <div class="ray-10"></div>
+                    <div class="ray-11"></div>
+                    <div class="ray-12"></div>
+                    <div class="ray-13"></div>
+                    <div class="ray-14"></div>
+                    <div class="ray-15"></div>
+                    <div class="ray-16"></div>
+                    <div class="ray-17"></div>
+                    <div class="ray-18"></div>
+                    <div class="ray-19"></div>
+                    <div class="ray-20"></div>
+                    <div class="ray-21"></div>
+                    <div class="ray-22"></div>
+                    <div class="ray-23"></div>
+                    <div class="ray-24"></div>
+                    <div class="ray-25"></div>
+                    <div class="ray-26"></div>
+                    <div class="ray-27"></div>
+                    <div class="ray-28"></div>
+                    <div class="ray-29"></div>
+                    <div class="ray-30"></div>
+                </div>
+                <div class="gloss"></div>
+                <div class="circle">
+                    <div class="circle-center"></div>
+                    <div class="note-top"></div>
+                    <div class="note-legs">
+                        <div class="note-leg-left"></div>
+                        <div class="note-leg-right"></div>
+                    </div>
+                    <div class="note-feet">
+                        <div class="note-foot-left"></div>
+                        <div class="note-foot-right"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="contacts icon">
+                <div class="cover">
+                   <div class="binding">
+                        <div class="holes">
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                        </div>
+                        <div class="rings">
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                        </div>
+                    </div>                
+                    <div class="cover-overlay"></div>
+                    <div class="head"></div>
+                    <div class="neck"></div>
+                    <div class="shoulder"></div>
+                    <div class="shoulder shoulder-shadow"></div>
+                 </div>
+                <div class="tabs">
+                    <div class="tab-first"
+                         id="tab1"></div>
+                    <div class="tab-mid"
+                         id="tab2"></div>
+                    <div class="tab-mid"
+                         id="tab3"></div>
+                    <div class="tab-mid"
+                         id="tab4"></div>
+                    <div class="tab-last"
+                         id="tab5"></div>
+                    <div id="tab6"></div>
+                </div>
+            </div>
+            <div class="calendar icon">
+                <div class="header">
+                    <p class="weekday">
+                        Monday
+                    </p>
+                </div>
+                <div class="paper">
+                    <p class="daynumber">
+                        7
+                    </p>
+                </div>
+            </div>
+            <div class="voicememos icon">
+                <div class="gloss"></div>
+                <div class="mic">
+                    <div class="holes">
+                        <div class="hole-row-1">
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                        </div>
+                        <div class="hole-row-2">
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                        </div>
+                        <div class="hole-row-3">
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                        </div>
+                        <div class="hole-row-4">
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                        </div>
+                        <div class="hole-row-5">
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                        </div>
+                        <div class="hole-row-6">
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                        </div>
+                        <div class="hole-row-7">
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                        </div>
+                        <div class="hole-row-6">
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                        </div>
+                        <div class="hole-row-5">
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                        </div>
+                        <div class="hole-row-4">
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                        </div>
+                        <div class="hole-row-3">
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                        </div>
+                        <div class="hole-row-2">
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                        </div>
+                        <div class="hole-row-1">
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                            <div class="hole"></div>
+                        </div>
+                    </div>
+                    <div class="mic-body">
+                        <div class="front-highlights"></div>
+                        <div class="front-shading"></div>
+                        <div class="top-highlight"></div>
+                        <div class="band">
+                            <div class="band-symbol">
+                                z
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shell">
+                        <div class="left-knob-base"></div>
+                        <div class="right-knob-base"></div>
+                        <div class="left-knob-head"></div>
+                        <div class="right-knob-head"></div>
+                    </div>
+                    <div class="stem"></div>
+                </div>
+            </div>
+            <div class="messages icon">
+                <div class="diagonal-lines">
+                    <div class="diag-1"></div>
+                    <div class="diag-2"></div>
+                    <div class="diag-3"></div>
+                    <div class="diag-4"></div>
+                    <div class="diag-5"></div>
+                    <div class="diag-6"></div>
+                    <div class="diag-7"></div>
+                    <div class="diag-8"></div>
+                    <div class="diag-9"></div>
+                    <div class="diag-10"></div>
+                    <div class="diag-11"></div>
+                    <div class="diag-12"></div>
+                    <div class="diag-13"></div>
+                    <div class="diag-14"></div>
+                    <div class="diag-15"></div>
+                    <div class="diag-16"></div>
+                    <div class="diag-17"></div>
+                    <div class="diag-18"></div>
+                    <div class="diag-19"></div>
+                    <div class="diag-20"></div>
+                    <div class="diag-21"></div>
+                    <div class="diag-22"></div>
+                </div>
+                <div class="gloss"></div>
+                <div class="oval-speech"></div>
+                <div class="oval-speech oval-speech-shadow"></div>
+            </div>
+            <div class="calculator icon">
+                <div class="top-left">
+                    +
+                </div>
+                <div class="top-right">
+                    &minus;
+                </div>
+                <div class="bottom-left">
+                    &times;
+                </div>
+                <div class="bottom-right">
+                    =
+                </div>
+                <div class="vertical-divider"></div>
+                <div class="horizontal-divider"></div>
+            </div>
+            <div class="weather icon">
+                <div class="gloss"></div>
+                <div class="sun-container">
+                    <div class="sun-shadow"></div>
+                    <div class="sun">
+                        <div class="sun-highlight"></div>
+                        <div class="sun-glow"></div>
+                    </div>
+                    <div class="rays">
+                        <div class="ray-1"></div>
+                        <div class="ray-2"></div>
+                        <div class="ray-3"></div>
+                        <div class="ray-4"></div>
+                        <div class="ray-5"></div>
+                        <div class="ray-6"></div>
+                        <div class="ray-7"></div>
+                        <div class="ray-8"></div>
+                        <div class="ray-9"></div>
+                        <div class="ray-10"></div>
+                        <div class="ray-11"></div>
+                        <div class="ray-12"></div>
+                        <div class="ray-13"></div>
+                        <div class="ray-14"></div>
+                        <div class="ray-15"></div>
+                        <div class="ray-16"></div>
+                    </div>
+                </div>
+               
+            <!-- End of Wrapper -->
+        </div>
+        
+        
+    </body>
 </html>

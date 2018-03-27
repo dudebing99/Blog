@@ -180,3 +180,9 @@ pidof 进程名|xargs kill -9
 pkill -9 进程名
 killall -9 进程名
 ```
+
+# 查询、启动、停止服务
+```bash
+systemctl start/status/enable/disable/stop/restart xxx_service
+service xxx_service start/status/stop/restart
+```

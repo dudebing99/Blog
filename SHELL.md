@@ -176,5 +176,7 @@ nohup java -classpath xxx_service_1.0.jar xxx_entry > xxx_service.log 2>&1 &
 ```bash
 ps afx|grep 进程名|grep -v grep|awk '{print $1}'|xargs kill -9
 pgrep 进程名|xargs kill -9
-pkill 进程名
+pidof 进程名|xargs kill -9
+pkill -9 进程名
+killall -9 进程名
 ```

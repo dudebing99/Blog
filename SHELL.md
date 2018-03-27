@@ -1,4 +1,4 @@
-# 统计网络状态及数目
+# 统计网络连接状态及数目
 ```bash
 netstat -n|awk '/^tcp/ {++state[$NF]} END {for(i in state) print i, state[i]}'
 ```

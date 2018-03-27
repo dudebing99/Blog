@@ -168,4 +168,13 @@ done
 ```
 
 # nohup 后台启动 java 进程
+```bash
 nohup java -classpath xxx_service_1.0.jar xxx_entry > xxx_service.log 2>&1 &
+```
+
+# 获取进程号、杀进程
+```bash
+ps afx|grep 进程名|grep -v grep|awk '{print $1}'|xargs kill -9
+pgrep 进程名|xargs kill -9
+pkill 进程名
+```

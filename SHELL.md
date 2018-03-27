@@ -166,3 +166,6 @@ do
     sleep 1
 done
 ```
+
+# nohup 后台启动 java 进程
+nohup java -classpath xxx_service_1.0.jar xxx_entry > xxx_service.log 2>&1 &

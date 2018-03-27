@@ -186,3 +186,12 @@ killall -9 进程名
 systemctl start/status/enable/disable/stop/restart xxx_service
 service xxx_service start/status/stop/restart
 ```
+
+# 显示已经登录的用户、执行的命令
+```bash
+# 显示已经登录的用户以及正在执行的命令
+w
+
+# 显示已经登录的用户、登录的终端
+who
+```

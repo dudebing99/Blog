@@ -131,3 +131,38 @@ CheckIPAddr 192.168.1.1
 ```bash
 sed -i 's/\r//g' FILE
 ```
+
+# 检查进程是否重启
+```bash
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+    echo "Usage: [Process Name]"
+    exit 0
+fi
+
+PID=`ps afx|grep $1|grep -v "grep"|grep -v "/bin/bash"|head -n 1|awk '{print $1}'`
+
+while [ 1 ]
+do
+    PID2=`ps afx|grep $1|grep -v "grep"|grep -v "/bin/bash"|head -n 1|awk '{print $1}'`
+
+    if [ $PID2 ]; then
+        if [ ! $PID ]; then
+            PID=$PID2
+            echo "PID: $PID"
+        else
+            if [ $PID -ne $PID2 ]; then
+                echo "Server is reboot, PID: $PID --> $PID2"
+                PID=$PID2
+            else
+                echo "Server is running, PID: $PID2"
+            fi
+        fi
+    else
+        echo "Server is not running"
+    fi
+
+    sleep 1
+done
+```

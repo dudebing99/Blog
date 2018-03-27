@@ -195,6 +195,25 @@ service xxx_service start/status/stop/restart
 # 显示已经登录的用户以及正在执行的命令
 w
 
+# 示例
+> w
+ 18:27:34 up 89 days,  6:41,  6 users,  load average: 0.46, 0.46, 0.34
+USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT
+root     pts/1    172.13.30.133    14:30    3:56m  0.33s  0.33s -bash
+kevin    pts/2    172.13.30.219    Thu08   19:14   3.06s  3.06s -bash
+kevin    pts/5    172.13.30.219    17:48    0.00s  0.60s  0.01s w
+root     pts/6    172.13.30.219    18:09   17:10   0.04s  0.04s -bash
+kevin    pts/7    172.13.30.219    18:06   20:42   0.00s  0.00s -bash
+
 # 显示已经登录的用户、登录的终端
 who
+
+# 示例
+> who
+root     pts/1        2018-03-27 14:30 (172.13.30.133)
+kevin    pts/2        2018-03-22 08:09 (172.13.30.219)
+root     pts/3        2018-03-27 14:31 (172.13.30.133)
+kevin    pts/5        2018-03-27 17:48 (172.13.30.219)
+root     pts/6        2018-03-27 18:09 (172.13.30.219)
+kevin    pts/7        2018-03-27 18:06 (172.13.30.219)
 ```

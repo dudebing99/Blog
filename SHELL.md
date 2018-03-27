@@ -217,3 +217,42 @@ kevin    pts/5        2018-03-27 17:48 (172.13.30.219)
 root     pts/6        2018-03-27 18:09 (172.13.30.219)
 kevin    pts/7        2018-03-27 18:06 (172.13.30.219)
 ```
+
+# 添加定时任务
+```bash
+### at 定时任务
+# 示例：添加一个 1 分钟之后执行的任务，按 Ctrl + D 退出
+> at now +1 minutes
+at> echo hello > ~/at.log
+at> <EOT>
+job 6 at 2018-03-27 19:20
+
+# 示例：查询所有 at 任务
+> atq
+6       2018-03-27 19:20 a kevin
+
+# 示例：删除 at 定时任务（6 位 job ID）
+> atrm 6
+```
+
+### crontab 定时任务
+```bash
+# 添加定时任务
+crontab -e
+
+# 查询所有 crontab 任务
+crontab -l
+
+# 示例
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR
+# sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name command to be executed
+# 每个小时第 05 分执行同步系统时间、硬件时钟
+05 */1 * * * rdate -t 30 -s time.nist.gov && /usr/sbin/hwclock -w
+```

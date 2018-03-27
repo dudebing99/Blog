@@ -256,3 +256,9 @@ crontab -l
 # 每个小时第 05 分执行同步系统时间、硬件时钟
 05 */1 * * * rdate -t 30 -s time.nist.gov && /usr/sbin/hwclock -w
 ```
+
+# watch 持续监视命令的执行情况
+```bash
+# 每隔 3s，打印一次指定端口 9999 处于连接已建立的连接数目
+watch -n 3 'netstat -anp|grep 9999|wc -l'
+```

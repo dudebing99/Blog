@@ -82,3 +82,15 @@ do
     echo $i
 done
 ```
+
+# 分割、合并大文件
+```bash
+# 按照指定行数分割
+split -l 500 large_file.log new_file_prefix
+
+# 按照文件大小分割
+split -b 100m large_file.log new_file_prefix
+
+# 使用 cat 进行文件合并
+cat new_file_prefix* > large_file.log
+```

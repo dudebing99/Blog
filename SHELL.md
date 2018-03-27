@@ -183,7 +183,10 @@ killall -9 进程名
 
 # 查询、启动、停止服务
 ```bash
+# 新管理方式，如 Cent OS >= 7.x
 systemctl start/status/enable/disable/stop/restart xxx_service
+
+# 旧管理方式，如 Cent OS < 7.x
 service xxx_service start/status/stop/restart
 ```
 

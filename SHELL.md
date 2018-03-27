@@ -126,3 +126,8 @@ CheckIPAddr()
 # 调用
 CheckIPAddr 192.168.1.1
 ```
+
+# 替换文件中所有 \r
+```bash
+sed -i 's/\r//g' FILE
+```

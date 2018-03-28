@@ -291,14 +291,15 @@ done < $FILE
 ```
 ### 重定向法（管道法）
 ```bash
-cat $FILE | while read LINE
+cat $FILE|while read LINE
 do
     echo $LINE
 done
 ```
 ### 文件描述符法
 ```bash
-# 或 exec 3<&0 exec 0<$FILE
+# 如下两个操作可合并
+# exec 3<&0 exec 0<$FILE
 exec 3<&0
 exec 0<$FILE
 

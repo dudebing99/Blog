@@ -317,3 +317,51 @@ do
     echo $LINE
 done
 ```
+
+# 如何解决 Linux Error: No space left on device
+### 判断磁盘空间是否满，inode 是否耗尽
+```bash
+df -h
+df -i
+```
+### 查找大文件
+```bash
+# 按照大小降序排列（取出前 10 个大文件）
+du -sh target.dir|sort -n|head
+
+# 查找目录下大于 1M 且小于 10M 的文件
+find  target.dir +1M -10M
+
+# 指定查询目录层级
+du -h --max-depth=1
+```
+### 查找访问某个目录的进程
+```bash
+lsof +d /tmp
+
+# 示例
+> lsof +d ~/blog/
+COMMAND   PID  USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME
+bash     6936 kevin  cwd    DIR  253,2     4096 3675368 /home/kevin/blog
+vim     24969 kevin  cwd    DIR  253,2     4096 3675368 /home/kevin/blog
+vim     24969 kevin    4u   REG  253,2    20480 3675605 /home/kevin/blog/.SHELL.md.swp
+```
+### 删除文件（少量）
+```bash
+find /tmp -type f -exec rm {} \;
+
+# 可能存在大小为 0 字节的空文件，同样也会占用 inode
+find /tmp -type f -exec rm {} \;
+```
+### 删除文件（大量）
+```bash
+# 先建立一个空目录
+mkdir /data/blank
+
+# 用 rsync 删除目标目录
+rsync --delete-before -d /data/blank/ /tmp/
+```
+### 删除大文件
+```bash
+cat /dev/null > target.file
+```

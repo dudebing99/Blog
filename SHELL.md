@@ -125,6 +125,10 @@ CheckIPAddr()
 
 # 调用
 CheckIPAddr 192.168.1.1
+
+if [ $? -ne 0 ]; then
+    echo "invalid"
+fi
 ```
 
 # 替换文件中所有 \r
@@ -275,4 +279,40 @@ nc 127.0.0.1 1234
 ### telnet
 ```bash
 telnet 127.0.0.1 1234
+```
+
+# 逐行读取文件
+### while 循环
+```bash
+while read LINE
+do
+    echo $LINE
+done < $FILE
+```
+### 重定向法（管道法）
+```bash
+cat $FILE | while read LINE
+do
+    echo $LINE
+done
+```
+### 文件描述符法
+```bash
+# 或 exec 3<&0 exec 0<$FILE
+exec 3<&0
+exec 0<$FILE
+
+while read LINE
+do
+    echo $LINE
+done
+
+exec 0<&3
+```
+### for 循环
+```bash
+for LINE in `cat $FILE`
+do
+    echo $LINE
+done
 ```

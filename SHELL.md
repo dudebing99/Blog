@@ -351,7 +351,7 @@ vim     24969 kevin    4u   REG  253,2    20480 3675605 /home/kevin/blog/.SHELL.
 find /tmp -type f -exec rm {} \;
 
 # 可能存在大小为 0 字节的空文件，同样也会占用 inode
-find /tmp -type f -exec rm {} \;
+find /tmp -type f -size 0 -exec rm {} \;
 ```
 ### 删除文件（大量）
 ```bash

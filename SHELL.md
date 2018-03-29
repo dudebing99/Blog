@@ -350,8 +350,7 @@ vim     24969 kevin    4u   REG  253,2    20480 3675605 /home/kevin/blog/.SHELL.
 ```bash
 find /tmp -type f -exec rm {} \;
 
-# 注意：xargs
-# 默认是以空白字符（空格，TAB，换行符）来分割记录的，如果文件名中间有空格，例如 /tmp/file 1.log，
+# 注意：xargs 默认是以空白字符（空格，TAB，换行符）来分割记录的，如果文件名中间有空格，例如 /tmp/file 1.log，
 # 此时自动被当做两个文件 /tmp/file 与 1.log，执行命令报错：No such file or directory
 find -name '*.log' -print0|xargs -0 rm
 

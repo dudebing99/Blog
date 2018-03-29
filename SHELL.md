@@ -330,7 +330,7 @@ df -i
 du -sh target.dir|sort -n|head
 
 # 查找目录下大于 1M 且小于 10M 的文件
-find  target.dir +1M -10M
+find  target.dir -size +1M -size -10M -type f -name "*.jpg"
 
 # 指定查询目录层级
 du -h --max-depth=1
@@ -349,6 +349,11 @@ vim     24969 kevin    4u   REG  253,2    20480 3675605 /home/kevin/blog/.SHELL.
 ### 删除文件（少量）
 ```bash
 find /tmp -type f -exec rm {} \;
+
+# 注意：xargs
+# 默认是以空白字符（空格，TAB，换行符）来分割记录的，如果文件名中间有空格，例如 /tmp/file 1.log，
+# 此时自动被当做两个文件 /tmp/file 与 1.log，执行命令报错：No such file or directory
+find -name '*.log' -print0|xargs -0 rm
 
 # 可能存在大小为 0 字节的空文件，同样也会占用 inode
 find /tmp -type f -size 0 -exec rm {} \;

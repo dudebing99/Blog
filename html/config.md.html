@@ -475,22 +475,125 @@ pre.editor-colors .bracket-matcher .region {
   </head>
   <body class='markdown-preview'><h2>git 客户端基本配置项</h2>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;执行方式：命令行执行即可</span></span></span>
-</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;提交/检出&nbsp;不转换&nbsp;&nbsp;</span></span></span>
-</div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;core.autocrlf&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>false</span></span><span>&nbsp;&nbsp;</span></span>
-</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;拒绝提交包含混合换行符的文件&nbsp;&nbsp;</span></span></span>
-</div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;core.safecrlf&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>true</span></span><span>&nbsp;&nbsp;</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;提交/检出&nbsp;不转换</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;core.autocrlf&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>false</span></span></span>
-</div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;core.safecrlf&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>true</span></span><span>&nbsp;&nbsp;</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;拒绝提交包含混合换行符的文件</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;core.safecrlf&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>true</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;core.autocrlf&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>false</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;core.safecrlf&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>true</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;alias.st&nbsp;status</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;alias.co&nbsp;checkout</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;alias.ct&nbsp;commit</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;alias.df&nbsp;diff</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;alias.br&nbsp;branch</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;color.ui&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>true</span></span></span>
-</div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;alias.lg&nbsp;</span><span class="syntax--string syntax--quoted syntax--double syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>"</span></span><span>log&nbsp;--color&nbsp;--graph&nbsp;--pretty=format:</span></span></span>
-</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--string syntax--quoted syntax--double syntax--shell"><span>'%Cred%h%Creset&nbsp;%C(bold&nbsp;blue)&lt;%an&gt;%Creset&nbsp;---%C(yellow)%d%Creset&nbsp;%s&nbsp;%Cgreen(%cr)'</span></span></span>
-</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--string syntax--quoted syntax--double syntax--shell"><span>&nbsp;--abbrev-commit</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>"</span></span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;alias.lg&nbsp;</span><span class="syntax--string syntax--quoted syntax--double syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>"</span></span><span>log&nbsp;--color&nbsp;--graph&nbsp;--pretty=format:'%Cred%h%Creset&nbsp;%C(bold&nbsp;blue)&nbsp;&nbsp;</span><span class="syntax--constant syntax--character syntax--escape syntax--shell"><span>\</span></span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--string syntax--quoted syntax--double syntax--shell"><span>&lt;%an&gt;%Creset&nbsp;---%C(yellow)%d%Creset&nbsp;%s&nbsp;%Cgreen(%cr)'&nbsp;--abbrev-commit</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>"</span></span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;user.name&nbsp;xx</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;user.email&nbsp;xx@xxx.cn</span></span>
+</div></pre>
+<h2>基于 vsftpd 的 ftp 服务器</h2>
+<h3>授权用户访问模式</h3>
+<pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span>0.&nbsp;运行环境：Cent&nbsp;OS&nbsp;6.8/vsftpd&nbsp;2.2.2</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>1.&nbsp;安装配置vsftpd</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>yum&nbsp;install&nbsp;vsftpd&nbsp;ftp&nbsp;-y</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>chkconfig&nbsp;vsftpd&nbsp;on</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>2.&nbsp;添加用户</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--keyword syntax--operator syntax--redirect syntax--shell"><span>&gt;</span></span><span>useradd&nbsp;-d&nbsp;/home/ftp&nbsp;-g&nbsp;ftp&nbsp;-s&nbsp;/sbin/nologin&nbsp;XXXftp&nbsp;-p&nbsp;XXX123</span><span class="syntax--keyword syntax--operator syntax--pipe syntax--shell"><span>!</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--keyword syntax--operator syntax--redirect syntax--shell"><span>&gt;</span></span><span>passwd&nbsp;XXXftp</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>3.&nbsp;修改配置&nbsp;/etc/vsftpd/vsftpd.conf</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>anonymous_enable=NO</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>local_enable=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>write_enable=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>local_umask=022</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>dirmessage_enable=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>xferlog_enable=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>connect_from_port_20=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>xferlog_std_format=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>ftpd_banner=Welcome&nbsp;to&nbsp;FTP&nbsp;service.</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>listen=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>pam_service_name=vsftpd</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>userlist_enable=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>userlist_deny=NO</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>tcp_wrappers=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>download_enable=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;限速&nbsp;500KByte</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>local_max_rate=500000</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>4.&nbsp;修改配置文件&nbsp;/etc/vsftpd/user_list</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;vsftpd&nbsp;userlist</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;If&nbsp;userlist_deny=NO,&nbsp;only&nbsp;allow&nbsp;users&nbsp;in&nbsp;this&nbsp;file</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;If&nbsp;userlist_deny=YES&nbsp;(default),&nbsp;never&nbsp;allow&nbsp;users&nbsp;in&nbsp;this&nbsp;file,&nbsp;and</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;do&nbsp;not&nbsp;even&nbsp;prompt&nbsp;for&nbsp;a&nbsp;password.</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;Note&nbsp;that&nbsp;the&nbsp;default&nbsp;vsftpd&nbsp;pam&nbsp;config&nbsp;also&nbsp;checks&nbsp;/etc/vsftpd/ftpusers</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;for&nbsp;users&nbsp;that&nbsp;are&nbsp;denied.</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>root</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>bin</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>daemon</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>adm</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>lp</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>sync</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>shutdown</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>halt</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>mail</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>news</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>uucp</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>operator</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>games</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>nobody</span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>XXXftp</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>5.&nbsp;防火墙开放&nbsp;21&nbsp;端口</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>6.&nbsp;启动服务&nbsp;service&nbsp;vsftpd&nbsp;start</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>7.&nbsp;验证</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--keyword syntax--operator syntax--redirect syntax--shell"><span>&gt;</span></span><span>&nbsp;ftp&nbsp;ftp.xxx.cn</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>Connected&nbsp;to&nbsp;ftp.xxx.cn&nbsp;</span><span class="syntax--meta syntax--scope syntax--subshell syntax--shell"><span class="syntax--punctuation syntax--definition syntax--subshell syntax--shell"><span>(</span></span><span>xxx.xxx.xxx.xxx</span><span class="syntax--punctuation syntax--definition syntax--subshell syntax--shell"><span>)</span></span></span><span>.</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>220&nbsp;</span><span class="syntax--meta syntax--scope syntax--subshell syntax--shell"><span class="syntax--punctuation syntax--definition syntax--subshell syntax--shell"><span>(</span></span><span>vsFTPd&nbsp;2.2.2</span><span class="syntax--punctuation syntax--definition syntax--subshell syntax--shell"><span>)</span></span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>Name&nbsp;</span><span class="syntax--meta syntax--scope syntax--subshell syntax--shell"><span class="syntax--punctuation syntax--definition syntax--subshell syntax--shell"><span>(</span></span><span>ftp.xxx.cn:kevin</span><span class="syntax--punctuation syntax--definition syntax--subshell syntax--shell"><span>)</span></span></span><span>:&nbsp;XXXftp</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>331&nbsp;Please&nbsp;specify&nbsp;the&nbsp;password.</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>Password:</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>230&nbsp;Login&nbsp;successful.</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>Remote&nbsp;system&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>type</span></span><span>&nbsp;is&nbsp;UNIX.</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>Using&nbsp;binary&nbsp;mode&nbsp;to&nbsp;transfer&nbsp;files.</span></span>
+</div></pre>
+<h3>匿名用户访问模式</h3>
+<pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span>0.&nbsp;运行环境：Cent&nbsp;OS&nbsp;6.8/vsftpd&nbsp;2.2.2</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>1.&nbsp;安装配置vsftpd</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>yum&nbsp;install&nbsp;vsftpd&nbsp;ftp&nbsp;-y</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>chkconfig&nbsp;vsftpd&nbsp;on</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>2.&nbsp;修改配置文件</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>anonymous_enable=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>local_enable=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>local_umask=022</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>write_enable=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>dirmessage_enable=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>xferlog_enable=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>chown_uploads=NO</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>xferlog_std_format=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>chroot_local_user=NO</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>listen=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>userlist_enable=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>anon_umask=022</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>anon_upload_enable=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>anon_mkdir_write_enable=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>anon_other_write_enable=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>pam_service_name=vsftpd</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>connect_from_port_20=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>tcp_wrappers=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>pasv_enable=YES</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>pasv_min_port=30000</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>pasv_max_port=31000</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>3.&nbsp;开启防火墙</span></span>
 </div></pre></body>
 </html>

@@ -462,7 +462,7 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 make -j4
 
 echo "[INFO] packing all ..."
-PKGNAME=danbay_access_$ENV\_$VERSION
+PKGNAME=xxx_access_$ENV\_$VERSION
 PKGACCESS=$PKGNAME/access
 PKGPROXY=$PKGNAME/proxy
 PKGLOGGER=$PKGNAME/logger
@@ -596,10 +596,10 @@ cat > README.md << EOF
 ===========================================================================
 [ACCESS]
 DESC:
-    danbay's access service, connecting gateway and cloud.
+    xxx's access service, connecting gateway and cloud.
 
 LIST:
-    access          danbay's access service
+    access          xxx's access service
 
 Usage:
     ./access -h     show help
@@ -611,11 +611,11 @@ order to ensure the forwarding client can access the listening port.
 ===========================================================================
 [PROXY]
 DESC:
-    danbay's access proxy service, assigning access service instances to
+    xxx's access proxy service, assigning access service instances to
 gateway.
 
 LIST:
-    proxy           danbay's access proxy service
+    proxy           xxx's access proxy service
     client          fetch an access instance by sending a request
 
 Usage:
@@ -628,10 +628,10 @@ order to ensure the forwarding client can access the listening port.
 ===========================================================================
 [LOGGER]
 DESC:
-    danbay's logger server for HuaWei gateway
+    xxx's logger server for HuaWei gateway
 
 LIST:
-    logger          danbay's logger server
+    logger          xxx's logger server
     client          test logger server's health by sending 'helloworld'
 
 Usage:
@@ -662,4 +662,315 @@ echo "[INFO] =========================================="
 echo ""
 
 exit $?
+```
+
+# openssl 自签证书
+### 初始化 CA init_ca.sh
+```bash
+#!/bin/sh
+
+echo ""
+echo -e "\e[1;33m===============================================\e[0m"
+echo -e "\e[1;33mFunction: construct your own private CA.\e[0m"
+echo -e "\e[1;33mSupported OS: CentOS 6.8\e[0m"
+echo -e "\e[1;33m===============================================\e[0m"
+echo ""
+
+# check root permission
+if [ $UID -ne 0 ]; then
+    echo -e "\e[1;31m[Failed] superuser privileges are required\e[0m"
+    exit 1
+else
+    echo -e "\e[1;32m[Passed] superuser privileges meeted\e[0m"
+fi
+
+if [ -e /etc/pki/CA/cacert.pem ]; then
+    echo -e -n "\e[1;31m[WARN] re-init CA? (Y/n)\e[0m"
+    while [ 1 ]
+    do
+        read Confirm
+        if [ "$Confirm"x = "Y"x -o "$Confirm"x = "y"x ]; then
+            echo -e "\e[1;33m[INFO] start to re-init CA\e[0m"
+            break;
+        elif [ "$Confirm"x = "n"x ]; then
+            exit 1
+        else
+            echo -e -n "\e[1;31m[ERROR] invalid option, re-init CA? (Y/n)\e[0m"
+            continue
+        fi
+    done
+fi
+
+OS=`cat /etc/redhat-release | awk '{print $1 " " $3}'`
+SupportedOS="CentOS 6.8"
+if [ "$OS"x = "$SupportedOS"x ]; then
+    echo -e "\e[1;32m[Passed] OS: $OS\e[0m"
+else
+    echo -e "\e[1;31m[Failed] $SupportedOS supported only\e[0m"
+    exit 1;
+fi
+
+# install openssl
+Found=`openssl version | grep "command not found"`
+if [ -n $Found ]; then
+    echo -e "\e[1;33m[INFO] openssl installed\e[0m"
+else
+    echo -e "\e[1;33m[INFO] install openssl\e[0m"
+    yum install openssl -y > /dev/null
+fi
+
+echo -e "\e[1;33m[INFO] generate CA's private key\e[0m"
+(umask 077; openssl genrsa -out /etc/pki/CA/private/cakey.pem 2048)
+
+echo -e "\e[1;33m[INFO] generate CACert\e[0m"
+cat > gen_cert.exp << EOF
+#!/usr/bin/expect -f
+
+set timeout 30
+
+spawn openssl req -new -x509 -key /etc/pki/CA/private/cakey.pem -out \
+/etc/pki/CA/cacert.pem -days 3655
+
+expect {
+    "Country Name (2 letter code)" {
+        send "cn\r";
+        exp_continue
+    }
+
+    "State or Province Name (full name)" {
+        send "Guang Dong\r";
+        exp_continue
+    }
+
+    "Locality Name (eg, city)" {
+        send "Shen Zhen\r";
+        exp_continue
+    }
+
+    "Organization Name (eg, company)" {
+        send "XXX Tech Ltd.\r";
+        exp_continue
+    }
+
+    "Organizational Unit Name (eg, section)" {
+        send "XXX's CA\r";
+        exp_continue
+    }
+
+    "Common Name (eg, your name or your server's hostname)" {
+        send "xxx.cn\r";
+        exp_continue
+    }
+
+    "Email Address" {
+        send "cloud@xxx.cn\r";
+        exp_continue
+    }
+}
+EOF
+
+chmod +x gen_cert.exp
+./gen_cert.exp
+rm -rf gen_cert.exp
+
+echo -e "\e[1;33m[INFO] CACert's information in detail:\e[0m"
+openssl x509 -noout -text -in /etc/pki/CA/cacert.pem
+
+echo -e "\e[1;33m[INFO] Verify CACert's invalidism\e[0m"
+openssl verify /etc/pki/CA/cacert.pem
+
+echo -e "\e[1;33m[INFO] init CA's serial\e[0m"
+touch /etc/pki/CA/{index.txt,serial}
+echo 01 > /etc/pki/CA/serial
+
+echo -e "\e[1;33m[INFO] Congratulations! Everything is done.\e[0m"
+```
+
+### 颁发证书 gen_cert.sh
+```bash
+#!/bin/sh
+
+# check root permission
+validate_superuser() {
+    if [ $UID -ne 0 ]; then
+        echo -e "\e[1;31m[Failed] superuser privileges are required\e[0m"
+        exit 1
+    else
+        echo -e "\e[1;32m[Passed] superuser privileges meeted\e[0m"
+    fi
+}
+
+usage() {
+    echo -e "\e[1;31mUsage: $0 <organization> <number>\e[0m"
+    echo -e "\e[1;33mOption:\e[0m"
+    echo -e "\e[1;33m    Organization   for example, Gateway or Access\e[0m"
+    echo -e "\e[1;33m    number         [1, 9999] number of certification(s) \
+generated in batch\e[0m"
+}
+
+introduction() {
+    echo ""
+    echo -e "\e[1;33m====================================================\e[0m"
+    echo -e "\e[1;33mFunction: Issue Certification.\e[0m"
+    echo -e "\e[1;33mSupported OS: CentOS 6.8\e[0m"
+    echo -e "\e[1;33m====================================================\e[0m"
+    echo ""
+}
+
+if [ $# -ne 2 ]; then
+    usage
+    exit 1
+else
+    echo $2|grep "^[1-9][0-9]\{0,3\}$" > /dev/null
+
+    if [ $? -ne 0 ]; then
+        usage
+        echo -e "\e[1;31m[ERROR] ARGUMENT INVALID\e[0m"
+        exit 1
+    fi
+fi
+
+validate_superuser
+
+introduction
+
+if [ -e /etc/pki/CA/cacert.pem ]; then
+    echo -e "\e[1;33m[INFO] start to issue certification\e[0m"
+else
+    exit 1
+fi
+
+OS=`cat /etc/redhat-release | awk '{print $1 " " $3}'`
+SupportedOS="CentOS 6.8"
+if [ "$OS"x = "$SupportedOS"x ]; then
+    echo -e "\e[1;32m[Passed] OS: $OS\e[0m"
+else
+    echo -e "\e[1;31m[Failed] $SupportedOS supported only\e[0m"
+    exit 1;
+fi
+
+# install openssl
+Found=`openssl version | grep "command not found"`
+if [ -n $Found ]; then
+    echo -e "\e[1;33m[INFO] openssl installed\e[0m"
+else
+    echo -e "\e[1;33m[INFO] install openssl\e[0m"
+    yum install openssl -y > /dev/null
+fi
+
+mkdir -p cert
+rm -rf cert/*
+
+for ((count=1; count <= $2; ++ count))
+do
+echo -e "\e[1;33m[INFO] generate $1's private key\e[0m"
+(umask 077;openssl genrsa -out ./cert/$1\.key 2048)
+
+echo -e "\e[1;33m[INFO] generate $1's Cert\e[0m"
+cat /etc/pki/CA/index.txt >> /etc/pki/CA/index.txt.bak
+cat /dev/null > /etc/pki/CA/index.txt
+
+cat > gen_cert.exp << EOF
+#!/usr/bin/expect -f
+
+set timeout 30
+
+spawn openssl req -new -key ./cert/$1\.key -out ./cert/$1\.csr
+
+expect {
+    "Country Name (2 letter code)" {
+        send "cn\r";
+        exp_continue
+    }
+
+    "State or Province Name (full name)" {
+        send "Guang Dong\r";
+        exp_continue
+    }
+
+    "Locality Name (eg, city)" {
+        send "Shen Zhen\r";
+        exp_continue
+    }
+
+    "Organization Name (eg, company)" {
+        send "xxx Tech Ltd.\r";
+        exp_continue
+    }
+
+    "Organizational Unit Name (eg, section)" {
+        send "$1\r";
+        exp_continue
+    }
+
+    "Common Name (eg, your name or your server's hostname)" {
+        send "xxx.cn\r";
+        exp_continue
+    }
+
+    "Email Address" {
+        send "cloud@xxx.cn\r";
+        exp_continue
+    }
+
+    "A challenge password" {
+        send "xxx666!\r";
+        exp_continue
+    }
+
+    "An optional company name" {
+        send "XXX Tech Ltd.\r";
+        exp_continue
+    }
+}
+EOF
+
+chmod +x gen_cert.exp
+./gen_cert.exp
+
+# sign certification
+cat > sign_cert.exp << EOF
+#!/usr/bin/expect -f
+
+set timeout 30
+
+spawn openssl ca -in ./cert/$1\.csr -out ./cert/$1\.crt -days 3655
+
+expect {
+    "Sign the certificate" {
+        send "y\r";
+        exp_continue
+    }
+
+    "1 out of 1 certificate requests certified, commit" {
+        send "y\r";
+        exp_continue
+    }
+}
+EOF
+
+chmod +x sign_cert.exp
+./sign_cert.exp
+
+(umask 077;touch ./cert/$1\.pem)
+cat ./cert/$1\.crt >> ./cert/$1\.pem
+cat ./cert/$1\.key >> ./cert/$1\.pem
+openssl rsa -in ./cert/$1\.pem -pubout -out ./cert/$1\.pub
+
+# rename
+cd cert > /dev/null
+rm -rf $1\.csr
+for file in `ls $1\.*`
+do
+    mv $file `echo "$count-$file" `
+done
+cd - > /dev/null
+done
+
+rm -rf gen_cert.exp
+rm -rf sign_cert.exp
+
+echo -e "\e[1;33m[INFO] Total: $2 certification(s).\e[0m"
+echo -e "\e[1;33m[INFO] Output Directory: ./cert\e[0m"
+echo -e "\e[1;33m[INFO] Congratulations! Everything is done.\e[0m"
 ```

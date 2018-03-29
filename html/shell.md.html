@@ -473,14 +473,14 @@ pre.editor-colors .bracket-matcher .region {
 }
 </style>
   </head>
-  <body class='markdown-preview'><h1>统计网络连接状态及数目</h1>
+  <body class='markdown-preview'><h2>统计网络连接状态及数目</h2>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span>netstat&nbsp;-n</span><span class="syntax--keyword syntax--operator syntax--pipe syntax--shell"><span>|</span></span><span>awk&nbsp;</span><span class="syntax--string syntax--quoted syntax--single syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>'</span></span><span>/^tcp/&nbsp;{++state[$NF]}&nbsp;END&nbsp;{for(i&nbsp;in&nbsp;state)&nbsp;print&nbsp;i,&nbsp;state[i]}</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>'</span></span></span></span>
 </div></pre>
-<h1>统计进程打开的文件句柄数目</h1>
+<h2>统计进程打开的文件句柄数目</h2>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span>lsof&nbsp;-p&nbsp;PID</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>lsof&nbsp;-p&nbsp;PID</span><span class="syntax--keyword syntax--operator syntax--pipe syntax--shell"><span>|</span></span><span>wc&nbsp;-l</span></span>
 </div></pre>
-<h1>awk getline: 过滤行、改变奇数偶数行</h1>
+<h2>awk getline: 过滤行、改变奇数偶数行</h2>
 <h3>打印出从 1 到 10 之间的偶数</h3>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span>seq&nbsp;10</span><span class="syntax--keyword syntax--operator syntax--pipe syntax--shell"><span>|</span></span><span>awk&nbsp;</span><span class="syntax--string syntax--quoted syntax--single syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>'</span></span><span>{getline;&nbsp;print&nbsp;$0}</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>'</span></span></span></span>
 </div></pre>
@@ -490,7 +490,7 @@ pre.editor-colors .bracket-matcher .region {
 <h3>交换奇数、偶数行</h3>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span>seq&nbsp;10</span><span class="syntax--keyword syntax--operator syntax--pipe syntax--shell"><span>|</span></span><span>awk&nbsp;</span><span class="syntax--string syntax--quoted syntax--single syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>'</span></span><span>{getline&nbsp;tmp;&nbsp;print&nbsp;tmp;&nbsp;print&nbsp;$0}</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>'</span></span></span></span>
 </div></pre>
-<h1>for 循环的常用写法</h1>
+<h2>for 循环的常用写法</h2>
 <h3>数值类型</h3>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;i&nbsp;=&nbsp;i*3+1</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>for</span><span class="syntax--string syntax--other syntax--math syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>((</span></span><span>i</span><span class="syntax--keyword syntax--operator syntax--arithmetic syntax--shell"><span>=</span></span><span class="syntax--constant syntax--numeric syntax--integer syntax--shell"><span>1</span></span><span>;&nbsp;i</span><span class="syntax--keyword syntax--operator syntax--arithmetic syntax--shell"><span>&lt;=</span></span><span class="syntax--constant syntax--numeric syntax--integer syntax--shell"><span>10</span></span><span>;&nbsp;i</span><span class="syntax--keyword syntax--operator syntax--arithmetic syntax--shell"><span>++</span></span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>))</span></span></span></span>
@@ -532,7 +532,7 @@ pre.editor-colors .bracket-matcher .region {
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--meta syntax--scope syntax--for-in-loop syntax--shell"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>echo</span></span><span>&nbsp;</span><span class="syntax--variable syntax--other syntax--normal syntax--shell"><span class="syntax--punctuation syntax--definition syntax--variable syntax--shell"><span>$</span></span><span>i</span></span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--meta syntax--scope syntax--for-in-loop syntax--shell"><span class="syntax--keyword syntax--control syntax--shell"><span>done</span></span></span></span>
 </div></pre>
-<h1>分割、合并大文件</h1>
+<h2>分割、合并大文件</h2>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;按照指定行数分割</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>split&nbsp;-l&nbsp;500&nbsp;large_file.log&nbsp;new_file_prefix</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
@@ -542,7 +542,7 @@ pre.editor-colors .bracket-matcher .region {
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;使用&nbsp;cat&nbsp;进行文件合并</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>cat&nbsp;new_file_prefix</span><span class="syntax--keyword syntax--operator syntax--glob syntax--shell"><span>*</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--redirect syntax--shell"><span>&gt;</span></span><span>&nbsp;large_file.log</span></span>
 </div></pre>
-<h1>检查 IPv4 地址合法性</h1>
+<h2>检查 IPv4 地址合法性</h2>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--meta syntax--function syntax--shell"><span class="syntax--entity syntax--name syntax--function syntax--shell"><span>CheckIPAddr</span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--shell"><span>()</span></span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--meta syntax--scope syntax--group syntax--shell"><span class="syntax--punctuation syntax--definition syntax--group syntax--shell"><span>{</span></span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--meta syntax--scope syntax--group syntax--shell"><span class="syntax--punctuation syntax--whitespace syntax--comment syntax--leading syntax--shell"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;IP地址必须为全数字</span></span></span></span>
@@ -576,10 +576,10 @@ pre.editor-colors .bracket-matcher .region {
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--meta syntax--scope syntax--if-block syntax--shell"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>echo</span></span><span>&nbsp;</span><span class="syntax--string syntax--quoted syntax--double syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>"</span></span><span>invalid</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>"</span></span></span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--meta syntax--scope syntax--if-block syntax--shell"><span class="syntax--keyword syntax--control syntax--shell"><span>fi</span></span></span></span>
 </div></pre>
-<h1>替换文件中所有 \r</h1>
+<h2>替换文件中所有 \r</h2>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span>sed&nbsp;-i&nbsp;</span><span class="syntax--string syntax--quoted syntax--single syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>'</span></span><span>s/\r//g</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>'</span></span></span><span>&nbsp;FILE</span></span>
 </div></pre>
-<h1>检查进程是否重启</h1>
+<h2>检查进程是否重启</h2>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shebang syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shebang syntax--shell"><span>#!</span></span><span>/bin/bash</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--meta syntax--scope syntax--if-block syntax--shell"><span class="syntax--keyword syntax--control syntax--shell"><span>if</span></span><span>&nbsp;</span><span class="syntax--meta syntax--scope syntax--logical-expression syntax--shell"><span class="syntax--punctuation syntax--definition syntax--logical-expression syntax--shell"><span>[</span></span><span>&nbsp;</span><span class="syntax--variable syntax--other syntax--special syntax--shell"><span class="syntax--punctuation syntax--definition syntax--variable syntax--shell"><span>$</span></span><span>#</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--logical syntax--shell"><span>-ne</span></span><span>&nbsp;1&nbsp;</span><span class="syntax--punctuation syntax--definition syntax--logical-expression syntax--shell"><span>]</span></span></span><span class="syntax--keyword syntax--operator syntax--list syntax--shell"><span>;</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--control syntax--shell"><span>then</span></span></span></span>
@@ -612,24 +612,24 @@ pre.editor-colors .bracket-matcher .region {
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--meta syntax--scope syntax--while-loop syntax--shell"><span>&nbsp;&nbsp;&nbsp;&nbsp;sleep&nbsp;1</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--meta syntax--scope syntax--while-loop syntax--shell"><span class="syntax--keyword syntax--control syntax--shell"><span>done</span></span></span></span>
 </div></pre>
-<h1>nohup 后台启动 java 进程</h1>
+<h2>nohup 后台启动 java 进程</h2>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span>nohup&nbsp;java&nbsp;-classpath&nbsp;xxx_service_1.0.jar&nbsp;xxx_entry&nbsp;</span><span class="syntax--keyword syntax--operator syntax--redirect syntax--shell"><span>&gt;</span></span><span>&nbsp;xxx_service.log&nbsp;</span><span class="syntax--keyword syntax--operator syntax--redirect syntax--shell"><span>2&gt;&amp;1</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--list syntax--shell"><span>&amp;</span></span></span>
 </div></pre>
-<h1>获取进程号、杀进程</h1>
+<h2>获取进程号、杀进程</h2>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span>ps&nbsp;afx</span><span class="syntax--keyword syntax--operator syntax--pipe syntax--shell"><span>|</span></span><span>grep&nbsp;进程名</span><span class="syntax--keyword syntax--operator syntax--pipe syntax--shell"><span>|</span></span><span>grep&nbsp;-v&nbsp;grep</span><span class="syntax--keyword syntax--operator syntax--pipe syntax--shell"><span>|</span></span><span>awk&nbsp;</span><span class="syntax--string syntax--quoted syntax--single syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>'</span></span><span>{print&nbsp;$1}</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>'</span></span></span><span class="syntax--keyword syntax--operator syntax--pipe syntax--shell"><span>|</span></span><span>xargs&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>kill</span></span><span>&nbsp;-9</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>pgrep&nbsp;进程名</span><span class="syntax--keyword syntax--operator syntax--pipe syntax--shell"><span>|</span></span><span>xargs&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>kill</span></span><span>&nbsp;-9</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>pidof&nbsp;进程名</span><span class="syntax--keyword syntax--operator syntax--pipe syntax--shell"><span>|</span></span><span>xargs&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>kill</span></span><span>&nbsp;-9</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>pkill&nbsp;-9&nbsp;进程名</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>killall&nbsp;-9&nbsp;进程名</span></span>
 </div></pre>
-<h1>查询、启动、停止服务</h1>
+<h2>查询、启动、停止服务</h2>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;新管理方式，如&nbsp;Cent&nbsp;OS&nbsp;&gt;=&nbsp;7.x</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>systemctl&nbsp;start/status/enable/disable/stop/restart&nbsp;xxx_service</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;旧管理方式，如&nbsp;Cent&nbsp;OS&nbsp;&lt;&nbsp;7.x</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>service&nbsp;xxx_service&nbsp;start/status/stop/restart</span></span>
 </div></pre>
-<h1>显示已经登录的用户、执行的命令</h1>
+<h2>显示已经登录的用户、执行的命令</h2>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;显示已经登录的用户以及正在执行的命令</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>w</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
@@ -655,9 +655,9 @@ pre.editor-colors .bracket-matcher .region {
 </div><div class="line"><span class="syntax--source syntax--shell"><span>root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pts/6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2018-03-27&nbsp;18:09&nbsp;</span><span class="syntax--meta syntax--scope syntax--subshell syntax--shell"><span class="syntax--punctuation syntax--definition syntax--subshell syntax--shell"><span>(</span></span><span>172.13.30.219</span><span class="syntax--punctuation syntax--definition syntax--subshell syntax--shell"><span>)</span></span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>kevin&nbsp;&nbsp;&nbsp;&nbsp;pts/7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2018-03-27&nbsp;18:06&nbsp;</span><span class="syntax--meta syntax--scope syntax--subshell syntax--shell"><span class="syntax--punctuation syntax--definition syntax--subshell syntax--shell"><span>(</span></span><span>172.13.30.219</span><span class="syntax--punctuation syntax--definition syntax--subshell syntax--shell"><span>)</span></span></span></span>
 </div></pre>
-<h1>添加定时任务</h1>
-<pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>##&nbsp;at&nbsp;定时任务</span></span></span>
-</div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;示例：添加一个&nbsp;1&nbsp;分钟之后执行的任务，按&nbsp;Ctrl&nbsp;+&nbsp;D&nbsp;退出</span></span></span>
+<h2>添加定时任务</h2>
+<h3>at 定时任务</h3>
+<pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;示例：添加一个&nbsp;1&nbsp;分钟之后执行的任务，按&nbsp;Ctrl&nbsp;+&nbsp;D&nbsp;退出</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--keyword syntax--operator syntax--redirect syntax--shell"><span>&gt;</span></span><span>&nbsp;at&nbsp;now&nbsp;+1&nbsp;minutes</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>at</span><span class="syntax--keyword syntax--operator syntax--redirect syntax--shell"><span>&gt;</span></span><span>&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>echo</span></span><span>&nbsp;hello&nbsp;</span><span class="syntax--keyword syntax--operator syntax--redirect syntax--shell"><span>&gt;</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--tilde syntax--shell"><span>~</span></span><span>/at.log</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>at</span><span class="syntax--keyword syntax--operator syntax--redirect syntax--shell"><span>&gt;</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--redirect syntax--shell"><span>&lt;</span></span><span>EOT</span><span class="syntax--keyword syntax--operator syntax--redirect syntax--shell"><span>&gt;</span></span></span>
@@ -690,11 +690,11 @@ pre.editor-colors .bracket-matcher .region {
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;每个小时第&nbsp;05&nbsp;分执行同步系统时间、硬件时钟</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>05&nbsp;</span><span class="syntax--keyword syntax--operator syntax--glob syntax--shell"><span>*</span></span><span>/1&nbsp;</span><span class="syntax--keyword syntax--operator syntax--glob syntax--shell"><span>*</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--glob syntax--shell"><span>*</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--operator syntax--glob syntax--shell"><span>*</span></span><span>&nbsp;rdate&nbsp;-t&nbsp;30&nbsp;-s&nbsp;time.nist.gov&nbsp;</span><span class="syntax--keyword syntax--operator syntax--list syntax--shell"><span>&amp;&amp;</span></span><span>&nbsp;/usr/sbin/hwclock&nbsp;-w</span></span>
 </div></pre>
-<h1>watch 持续监视命令的执行情况</h1>
+<h2>watch 持续监视命令的执行情况</h2>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;每隔&nbsp;3s，打印一次指定端口&nbsp;9999&nbsp;处于连接已建立的连接数目</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>watch&nbsp;-n&nbsp;3&nbsp;</span><span class="syntax--string syntax--quoted syntax--single syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>'</span></span><span>netstat&nbsp;-anp|grep&nbsp;9999|wc&nbsp;-l</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>'</span></span></span></span>
 </div></pre>
-<h1>TCP/UDP 收发数据、探测端口是否打开</h1>
+<h2>TCP/UDP 收发数据、探测端口是否打开</h2>
 <h3>nc</h3>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;监听&nbsp;1234</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>nc&nbsp;-l&nbsp;1234</span></span>
@@ -705,7 +705,7 @@ pre.editor-colors .bracket-matcher .region {
 <h3>telnet</h3>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span>telnet&nbsp;127.0.0.1&nbsp;1234</span></span>
 </div></pre>
-<h1>逐行读取文件</h1>
+<h2>逐行读取文件</h2>
 <h3>while 循环</h3>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--meta syntax--scope syntax--while-loop syntax--shell"><span class="syntax--keyword syntax--control syntax--shell"><span>while</span></span><span>&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>read</span></span><span>&nbsp;LINE</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--meta syntax--scope syntax--while-loop syntax--shell"><span class="syntax--keyword syntax--control syntax--shell"><span>do</span></span></span></span>
@@ -737,7 +737,7 @@ pre.editor-colors .bracket-matcher .region {
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--meta syntax--scope syntax--for-in-loop syntax--shell"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>echo</span></span><span>&nbsp;</span><span class="syntax--variable syntax--other syntax--normal syntax--shell"><span class="syntax--punctuation syntax--definition syntax--variable syntax--shell"><span>$</span></span><span>LINE</span></span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--meta syntax--scope syntax--for-in-loop syntax--shell"><span class="syntax--keyword syntax--control syntax--shell"><span>done</span></span></span></span>
 </div></pre>
-<h1>如何解决 Linux Error: No space left on device</h1>
+<h2>如何解决 Linux Error: No space left on device</h2>
 <h3>判断磁盘空间是否满，inode 是否耗尽</h3>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span>df&nbsp;-h</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>df&nbsp;-i</span></span>
@@ -782,14 +782,14 @@ pre.editor-colors .bracket-matcher .region {
 <h3>删除大文件</h3>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span>cat&nbsp;/dev/null&nbsp;</span><span class="syntax--keyword syntax--operator syntax--redirect syntax--shell"><span>&gt;</span></span><span>&nbsp;target.file</span></span>
 </div></pre>
-<h1>查找指定范围内的日志信息</h1>
+<h2>查找指定范围内的日志信息</h2>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;查找时间范围&nbsp;2018/03/28&nbsp;05:00:00&nbsp;~&nbsp;2018/03/28&nbsp;07:59:59&nbsp;的所有日志</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>sed&nbsp;-n&nbsp;</span><span class="syntax--string syntax--quoted syntax--single syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>'</span></span><span>#2018/03/28&nbsp;05:[0-9][0-9]:[0-9][0-9]#,#2018/03/28&nbsp;07:[0-9][0-9]:[0-9][0-9]#p</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>'</span></span></span><span>&nbsp;log</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;查找&nbsp;2018-03-29&nbsp;00:24:00&nbsp;~&nbsp;2018-03-29&nbsp;00:25:59&nbsp;的所有日志</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>cat&nbsp;log</span><span class="syntax--keyword syntax--operator syntax--pipe syntax--shell"><span>|</span></span><span>grep&nbsp;&nbsp;-E&nbsp;</span><span class="syntax--string syntax--quoted syntax--single syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>'</span></span><span>2018-03-29&nbsp;00:2[4-5]:[0-9][0-9]</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>'</span></span></span></span>
 </div></pre>
-<h1>tr 字符进行替换、压缩和删除</h1>
+<h2>tr 字符进行替换、压缩和删除</h2>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shell"><span>#</span></span><span>&nbsp;将输入字符由大写转换为小写</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--keyword syntax--operator syntax--redirect syntax--shell"><span>&gt;</span></span><span>&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>echo</span></span><span>&nbsp;</span><span class="syntax--string syntax--quoted syntax--double syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>"</span></span><span>Hello&nbsp;World</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>"</span></span></span><span class="syntax--keyword syntax--operator syntax--pipe syntax--shell"><span>|</span></span><span>tr&nbsp;</span><span class="syntax--string syntax--quoted syntax--single syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>'</span></span><span>a-z</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>'</span></span></span><span>&nbsp;</span><span class="syntax--string syntax--quoted syntax--single syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>'</span></span><span>A-Z</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>'</span></span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>HELLO&nbsp;WORLD</span></span>
@@ -817,7 +817,7 @@ pre.editor-colors .bracket-matcher .region {
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--keyword syntax--operator syntax--redirect syntax--shell"><span>&gt;</span></span><span>&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>echo</span></span><span>&nbsp;</span><span class="syntax--string syntax--quoted syntax--double syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>"</span></span><span>2018/03/29&nbsp;16:00:22&nbsp;bc:ec:29:39:d4:2f&nbsp;online</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>"</span></span></span><span class="syntax--keyword syntax--operator syntax--pipe syntax--shell"><span>|</span></span><span>awk&nbsp;-F&nbsp;</span><span class="syntax--string syntax--quoted syntax--single syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>'</span></span><span>&nbsp;</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>'</span></span></span><span>&nbsp;</span><span class="syntax--string syntax--quoted syntax--single syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>'</span></span><span>{print&nbsp;$3}</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>'</span></span></span><span class="syntax--keyword syntax--operator syntax--pipe syntax--shell"><span>|</span></span><span>tr&nbsp;&nbsp;</span><span class="syntax--string syntax--quoted syntax--single syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>'</span></span><span>a-z</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>'</span></span></span><span>&nbsp;</span><span class="syntax--string syntax--quoted syntax--single syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>'</span></span><span>A-Z</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>'</span></span></span><span class="syntax--keyword syntax--operator syntax--pipe syntax--shell"><span>|</span></span><span>tr&nbsp;-d&nbsp;</span><span class="syntax--string syntax--quoted syntax--single syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>'</span></span><span>:</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>'</span></span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>BCEC2939D42F</span></span>
 </div></pre>
-<h1>编译、打包脚本</h1>
+<h2>编译、打包脚本</h2>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shebang syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shebang syntax--shell"><span>#!</span></span><span>/bin/sh</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--meta syntax--function syntax--shell"><span class="syntax--entity syntax--name syntax--function syntax--shell"><span>usage</span></span><span class="syntax--punctuation syntax--definition syntax--arguments syntax--shell"><span>()</span></span><span>&nbsp;</span><span class="syntax--meta syntax--scope syntax--group syntax--shell"><span class="syntax--punctuation syntax--definition syntax--group syntax--shell"><span>{</span></span></span></span></span>
@@ -1074,7 +1074,7 @@ pre.editor-colors .bracket-matcher .region {
 </div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>exit</span></span><span>&nbsp;</span><span class="syntax--variable syntax--other syntax--special syntax--shell"><span class="syntax--punctuation syntax--definition syntax--variable syntax--shell"><span>$</span></span><span>?</span></span></span>
 </div></pre>
-<h1>openssl 自签证书</h1>
+<h2>openssl 自签证书</h2>
 <h3>初始化 CA init_ca.sh</h3>
 <pre class="editor-colors lang-bash"><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--comment syntax--line syntax--number-sign syntax--shebang syntax--shell"><span class="syntax--punctuation syntax--definition syntax--comment syntax--shebang syntax--shell"><span>#!</span></span><span>/bin/sh</span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>

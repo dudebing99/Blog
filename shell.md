@@ -1,15 +1,15 @@
-# 统计网络连接状态及数目
+## 统计网络连接状态及数目
 ```bash
 netstat -n|awk '/^tcp/ {++state[$NF]} END {for(i in state) print i, state[i]}'
 ```
 
-# 统计进程打开的文件句柄数目
+## 统计进程打开的文件句柄数目
 ```bash
 lsof -p PID
 lsof -p PID|wc -l
 ```
 
-# awk getline: 过滤行、改变奇数偶数行
+## awk getline: 过滤行、改变奇数偶数行
 ### 打印出从 1 到 10 之间的偶数
 ```bash
 seq 10|awk '{getline; print $0}'
@@ -25,7 +25,7 @@ seq 10|awk '{print $0; getline}'
 seq 10|awk '{getline tmp; print tmp; print $0}'
 ```
 
-# for 循环的常用写法
+## for 循环的常用写法
 ### 数值类型
 ```bash
 # i = i*3+1
@@ -83,7 +83,7 @@ do
 done
 ```
 
-# 分割、合并大文件
+## 分割、合并大文件
 ```bash
 # 按照指定行数分割
 split -l 500 large_file.log new_file_prefix
@@ -95,7 +95,7 @@ split -b 100m large_file.log new_file_prefix
 cat new_file_prefix* > large_file.log
 ```
 
-# 检查 IPv4 地址合法性
+## 检查 IPv4 地址合法性
 ```bash
 CheckIPAddr()
 {
@@ -131,12 +131,12 @@ if [ $? -ne 0 ]; then
 fi
 ```
 
-# 替换文件中所有 \r
+## 替换文件中所有 \r
 ```bash
 sed -i 's/\r//g' FILE
 ```
 
-# 检查进程是否重启
+## 检查进程是否重启
 ```bash
 #!/bin/bash
 
@@ -171,12 +171,12 @@ do
 done
 ```
 
-# nohup 后台启动 java 进程
+## nohup 后台启动 java 进程
 ```bash
 nohup java -classpath xxx_service_1.0.jar xxx_entry > xxx_service.log 2>&1 &
 ```
 
-# 获取进程号、杀进程
+## 获取进程号、杀进程
 ```bash
 ps afx|grep 进程名|grep -v grep|awk '{print $1}'|xargs kill -9
 pgrep 进程名|xargs kill -9
@@ -185,7 +185,7 @@ pkill -9 进程名
 killall -9 进程名
 ```
 
-# 查询、启动、停止服务
+## 查询、启动、停止服务
 ```bash
 # 新管理方式，如 Cent OS >= 7.x
 systemctl start/status/enable/disable/stop/restart xxx_service
@@ -194,7 +194,7 @@ systemctl start/status/enable/disable/stop/restart xxx_service
 service xxx_service start/status/stop/restart
 ```
 
-# 显示已经登录的用户、执行的命令
+## 显示已经登录的用户、执行的命令
 ```bash
 # 显示已经登录的用户以及正在执行的命令
 w
@@ -222,9 +222,9 @@ root     pts/6        2018-03-27 18:09 (172.13.30.219)
 kevin    pts/7        2018-03-27 18:06 (172.13.30.219)
 ```
 
-# 添加定时任务
-```bash
+## 添加定时任务
 ### at 定时任务
+```bash
 # 示例：添加一个 1 分钟之后执行的任务，按 Ctrl + D 退出
 > at now +1 minutes
 at> echo hello > ~/at.log
@@ -261,13 +261,13 @@ crontab -l
 05 */1 * * * rdate -t 30 -s time.nist.gov && /usr/sbin/hwclock -w
 ```
 
-# watch 持续监视命令的执行情况
+## watch 持续监视命令的执行情况
 ```bash
 # 每隔 3s，打印一次指定端口 9999 处于连接已建立的连接数目
 watch -n 3 'netstat -anp|grep 9999|wc -l'
 ```
 
-# TCP/UDP 收发数据、探测端口是否打开
+## TCP/UDP 收发数据、探测端口是否打开
 ### nc
 ```bash
 # 监听 1234
@@ -281,7 +281,7 @@ nc 127.0.0.1 1234
 telnet 127.0.0.1 1234
 ```
 
-# 逐行读取文件
+## 逐行读取文件
 ### while 循环
 ```bash
 while read LINE
@@ -318,7 +318,7 @@ do
 done
 ```
 
-# 如何解决 Linux Error: No space left on device
+## 如何解决 Linux Error: No space left on device
 ### 判断磁盘空间是否满，inode 是否耗尽
 ```bash
 df -h
@@ -370,7 +370,7 @@ rsync --delete-before -d /data/blank/ /tmp/
 cat /dev/null > target.file
 ```
 
-# 查找指定范围内的日志信息
+## 查找指定范围内的日志信息
 ```bash
 # 查找时间范围 2018/03/28 05:00:00 ~ 2018/03/28 07:59:59 的所有日志
 sed -n '#2018/03/28 05:[0-9][0-9]:[0-9][0-9]#,#2018/03/28 07:[0-9][0-9]:[0-9][0-9]#p' log
@@ -379,7 +379,7 @@ sed -n '#2018/03/28 05:[0-9][0-9]:[0-9][0-9]#,#2018/03/28 07:[0-9][0-9]:[0-9][0-
 cat log|grep  -E '2018-03-29 00:2[4-5]:[0-9][0-9]'
 ```
 
-# tr 字符进行替换、压缩和删除
+## tr 字符进行替换、压缩和删除
 ```bash
 # 将输入字符由大写转换为小写
 > echo "Hello World"|tr 'a-z' 'A-Z'
@@ -409,7 +409,7 @@ hello world
 BCEC2939D42F
 ```
 
-# 编译、打包脚本
+## 编译、打包脚本
 ```bash
 #!/bin/sh
 
@@ -668,7 +668,7 @@ echo ""
 exit $?
 ```
 
-# openssl 自签证书
+## openssl 自签证书
 ### 初始化 CA init_ca.sh
 ```bash
 #!/bin/sh

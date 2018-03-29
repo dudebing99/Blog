@@ -13,7 +13,7 @@ git config --global alias.ct commit
 git config --global alias.df diff
 git config --global alias.br branch
 git config --global color.ui true
-git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset %C(bold blue)  \
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset %C(bold blue)\
 <%an>%Creset ---%C(yellow)%d%Creset %s %Cgreen(%cr)' --abbrev-commit"
 git config --global user.name xx
 git config --global user.email xx@xxx.cn

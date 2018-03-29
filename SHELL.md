@@ -371,3 +371,29 @@ cat /dev/null > target.file
 # 查找时间范围 2018/03/28 05:00:00 ~ 2018/03/28 07:59:59 的所有日志
 sed -n '#2018/03/28 05:[0-9][0-9]:[0-9][0-9]#,#2018/03/28 07:[0-9][0-9]:[0-9][0-9]#p' log
 ```
+
+# tr 字符进行替换、压缩和删除
+```bash
+# 将输入字符由大写转换为小写
+> echo "Hello World"|tr 'a-z' 'A-Z'
+HELLO WORLD
+
+# 删除字符
+> echo "hello 123 world 456"|tr -d '0-9'
+hello world
+
+# 将制表符转换为空格
+cat text|tr '\t' ' '
+
+# 将不再指定字符集合中的所有字符删除
+> echo aa.,a 1 b#$bb 2 c*/cc 3 ddd 4 | tr -d -c '0-9 \n'
+1 2 3 4
+
+# 去掉重复的字符
+> echo "hell   oooo wwwworld"|tr -d ' ow'
+hello world
+
+# 数字相加操作
+> seq 100| xargs -n1 | echo $[ $(tr '\n' '+')0]
+5050
+```

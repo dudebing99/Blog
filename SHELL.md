@@ -403,6 +403,10 @@ hello world
 # 数字相加操作
 > seq 100|xargs -n1|echo $[ $(tr '\n' '+')0 ]
 5050
+
+# 取出 mac 地址，去掉冒号，转换为大写
+> echo "2018/03/29 16:00:22 bc:ec:29:39:d4:2f online"|awk -F ' ' '{print $3}'|tr  'a-z' 'A-Z'|tr -d ':'
+BCEC2939D42F
 ```
 
 # 编译、打包脚本

@@ -385,7 +385,7 @@ hello world
 # 将制表符转换为空格
 cat text|tr '\t' ' '
 
-# 将不再指定字符集合中的所有字符删除
+# 将不在指定字符集合中的所有字符删除
 > echo aa.,a 1 b#$bb 2 c*/cc 3 ddd 4 | tr -d -c '0-9 \n'
 1 2 3 4
 

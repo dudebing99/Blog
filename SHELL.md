@@ -393,7 +393,7 @@ hello world
 cat text|tr '\t' ' '
 
 # 将不在指定字符集合中的所有字符删除
-> echo aa.,a 1 b#$bb 2 c*/cc 3 ddd 4 | tr -d -c '0-9 \n'
+> echo "aa.,a 1 b#$bb 2 c*/cc 3 ddd 4"|tr -d -c '0-9 \n'
 1 2 3 4
 
 # 去掉重复的字符
@@ -401,6 +401,6 @@ cat text|tr '\t' ' '
 hello world
 
 # 数字相加操作
-> seq 100| xargs -n1 | echo $[ $(tr '\n' '+')0]
+> seq 100|xargs -n1|echo $[ $(tr '\n' '+')0 ]
 5050
 ```

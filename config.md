@@ -128,3 +128,351 @@ pasv_max_port=31000
 -A INPUT -p tcp -m state --state NEW -m tcp --dport 21 -j ACCEPT
 -A INPUT -p tcp --dport 30000:31000 -j ACCEPT
 ```
+
+## 安装配置 Apache Tomcat 9，支持 http2
+```bash
+#!/bin/sh
+
+PWD=`pwd`
+ROOT=$PWD
+
+echo "install gcc"
+yum install gcc -y
+
+echo "install expect"
+yum install expect -y
+
+echo "yum install curl"
+yum install curl -y
+
+echo "install jdk"
+tar -zxvf jdk-8u111-linux-x64.tar.gz
+mv jdk1.8.0_111/ /usr/local
+
+cat >> /etc/profile << EOF
+#add jdk related environment variables
+JAVA_HOME=/usr/local/jdk1.8.0_111
+CLASSPATH=.:\$JAVA_HOME/jre/lib/rt.jar:\$JAVA_HOME/lib/dt.jar:\$JAVA_HOME/lib/tools.jar
+JRE_HOME=\$JAVA_HOME/jre
+
+export JAVA_HOME=\$JAVA_HOME
+export CLASSPATH=\$CLASSPATH
+export JRE_HOME=\$JRE_HOME
+export PATH=\$PATH:\$JAVA_HOME/bin
+EOF
+
+echo "set env temporary"
+JAVA_HOME=/usr/local/jdk1.8.0_111
+CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+JRE_HOME=$JAVA_HOME/jre
+export JAVA_HOME=$JAVA_HOME
+export CLASSPATH=$CLASSPATH
+export JRE_HOME=$JRE_HOME
+export PATH=$PATH:$JAVA_HOME/bin
+
+echo "install apr"
+tar -xzvf apr-1.5.2.tar.gz
+cd apr-1.5.2
+./configure --prefix=/usr/local/apr
+make -j4
+make install
+cd -
+rm -rf apr-1.5.2
+
+echo "install apr-util"
+tar -xzvf apr-util-1.5.4.tar.gz
+cd apr-util-1.5.4
+./configure --prefix=/usr/local/apr-util --with-apr=/usr/local/apr
+make -j4
+make install
+cd -
+rm -rf apr-util-1.5.4
+
+echo "install openssl"
+tar -xzvf openssl-1.0.2h.tar.gz
+cd openssl-1.0.2h
+./config shared --prefix=/usr/local/openssl
+make depend
+make -j4
+make install
+cd -
+rm -rf openssl-1.0.2h
+
+echo "install apache tomcat"
+tar -xzvf apache-tomcat-9.0.0.M17.tar.gz
+mv apache-tomcat-9.0.0.M17 /usr/local
+cd /usr/local/apache-tomcat-9.0.0.M17/bin
+tar -xzvf tomcat-native.tar.gz
+cd tomcat-native-1.2.10-src/native
+./configure --prefix=/usr/local/native --with-apr=/usr/local/apr --with-ssl=/usr/local/openssl
+make -j4
+make install
+
+cat >> /etc/profile << EOF
+#add native related environment variables
+NATIVE_HOME=/usr/local/native
+
+export NATIVE_HOME=\$NATIVE_HOME
+export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$NATIVE_HOME/lib
+EOF
+
+NATIVE_HOME=/usr/local/native
+export NATIVE_HOME=$NATIVE_HOME
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NATIVE_HOME/lib
+
+echo "gen cert related"
+mkdir $ROOT/cert
+cd $ROOT/cert
+openssl genrsa -out server.key 2048
+openssl rsa -in server.key -out server.key
+
+cat > gen_cert.sh << EOF
+#!/usr/bin/expect -f
+
+set timeout 30
+
+spawn openssl req -new -x509 -key server.key -out ca.crt -days 3650
+expect {
+    "Country Name (2 letter code)" {
+        send "cn\r";
+        exp_continue
+    }
+
+    "State or Province Name (full name)" {
+        send "Guang Dong\r";
+        exp_continue
+    }
+
+    "Locality Name (eg, city)" {
+        send "Shen Zhen\r";
+        exp_continue
+    }
+
+    "Organization Name (eg, company)" {
+        send "xxx.com\r";
+        exp_continue
+    }
+
+    "Organizational Unit Name (eg, section)" {
+        send "Dev\r";
+        exp_continue
+    }
+
+    "Common Name (eg, your name or your server's hostname)" {
+        send "stream service\r";
+        exp_continue
+    }
+
+    "Email Address" {
+        send "dev@xxx.com\r";
+        exp_continue
+    }
+}
+EOF
+
+chmod +x gen_cert.sh
+./gen_cert.sh
+cd $ROOT
+cp -r $ROOT/cert/* /usr/local/apache-tomcat-9.0.0.M17/conf
+rm -rf $ROOT/cert
+
+echo "modify tomcat conf"
+cat > /usr/local/apache-tomcat-9.0.0.M17/conf/server.xml << EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- Note:  A "Server" is not itself a "Container", so you may not
+     define subcomponents such as "Valves" at this level.
+     Documentation at /docs/config/server.html
+ -->
+<Server port="8005" shutdown="SHUTDOWN">
+  <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
+  <!-- Security listener. Documentation at /docs/config/listeners.html
+  <Listener className="org.apache.catalina.security.SecurityListener" />
+  -->
+  <!--APR library loader. Documentation at /docs/apr.html -->
+  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+  <!-- Prevent memory leaks due to use of particular java/javax APIs-->
+  <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+  <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+
+  <!-- Global JNDI resources
+       Documentation at /docs/jndi-resources-howto.html
+  -->
+  <GlobalNamingResources>
+    <!-- Editable user database that can also be used by
+         UserDatabaseRealm to authenticate users
+    -->
+    <Resource name="UserDatabase" auth="Container"
+              type="org.apache.catalina.UserDatabase"
+              description="User database that can be updated and saved"
+              factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+              pathname="conf/tomcat-users.xml" />
+  </GlobalNamingResources>
+
+  <!-- A "Service" is a collection of one or more "Connectors" that share
+       a single "Container" Note:  A "Service" is not itself a "Container",
+       so you may not define subcomponents such as "Valves" at this level.
+       Documentation at /docs/config/service.html
+   -->
+  <Service name="Catalina">
+
+    <!--The connectors can use a shared executor, you can define one or more named thread pools-->
+    <!--
+    <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
+        maxThreads="150" minSpareThreads="4"/>
+    -->
+
+
+    <!-- A "Connector" represents an endpoint by which requests are received
+         and responses are returned. Documentation at :
+         Java HTTP Connector: /docs/config/http.html
+         Java AJP  Connector: /docs/config/ajp.html
+         APR (HTTP/AJP) Connector: /docs/apr.html
+         Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
+    -->
+    <Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
+    <!-- A "Connector" using the shared thread pool-->
+    <!--
+    <Connector executor="tomcatThreadPool"
+               port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
+    -->
+    <!-- Define a SSL/TLS HTTP/1.1 Connector on port 8443
+         This connector uses the NIO implementation. The default
+         SSLImplementation will depend on the presence of the APR/native
+         library and the useOpenSSL attribute of the
+         AprLifecycleListener.
+         Either JSSE or OpenSSL style configuration may be used regardless of
+         the SSLImplementation selected. JSSE style configuration is used below.
+    -->
+    <!--
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+               maxThreads="150" SSLEnabled="true">
+        <SSLHostConfig>
+            <Certificate certificateKeystoreFile="conf/localhost-rsa.jks"
+                         type="RSA" />
+        </SSLHostConfig>
+    </Connector>
+    -->
+    <!-- Define a SSL/TLS HTTP/1.1 Connector on port 8443 with HTTP/2
+         This connector uses the APR/native implementation which always uses
+         OpenSSL for TLS.
+         Either JSSE or OpenSSL style configuration may be used. OpenSSL style
+         configuration is used below.
+    -->
+    <!--
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11AprProtocol"
+               maxThreads="150" SSLEnabled="true" >
+        <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
+        <SSLHostConfig>
+            <Certificate certificateKeyFile="conf/localhost-rsa-key.pem"
+                         certificateFile="conf/localhost-rsa-cert.pem"
+                         certificateChainFile="conf/localhost-rsa-chain.pem"
+                         type="RSA" />
+        </SSLHostConfig>
+    </Connector>
+    -->
+
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11AprProtocol"
+               maxThreads="150" SSLEnabled="true" >
+        <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
+        <SSLHostConfig>
+            <Certificate certificateKeyFile="conf/server.key"
+                certificateFile="conf/ca.crt"
+                         type="RSA" />
+        </SSLHostConfig>
+    </Connector>
+
+    <!-- Define an AJP 1.3 Connector on port 8009 -->
+    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
+
+
+    <!-- An Engine represents the entry point (within Catalina) that processes
+         every request.  The Engine implementation for Tomcat stand alone
+         analyzes the HTTP headers included with the request, and passes them
+         on to the appropriate Host (virtual host).
+         Documentation at /docs/config/engine.html -->
+
+    <!-- You should set jvmRoute to support load-balancing via AJP ie :
+    <Engine name="Catalina" defaultHost="localhost" jvmRoute="jvm1">
+    -->
+    <Engine name="Catalina" defaultHost="localhost">
+
+      <!--For clustering, please take a look at documentation at:
+          /docs/cluster-howto.html  (simple how to)
+          /docs/config/cluster.html (reference documentation) -->
+      <!--
+      <Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster"/>
+      -->
+
+      <!-- Use the LockOutRealm to prevent attempts to guess user passwords
+           via a brute-force attack -->
+      <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <!-- This Realm uses the UserDatabase configured in the global JNDI
+             resources under the key "UserDatabase".  Any edits
+             that are performed against this UserDatabase are immediately
+             available for use by the Realm.  -->
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+               resourceName="UserDatabase"/>
+      </Realm>
+
+      <Host name="localhost"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true">
+
+        <!-- SingleSignOn valve, share authentication between web applications
+             Documentation at: /docs/config/valve.html -->
+        <!--
+        <Valve className="org.apache.catalina.authenticator.SingleSignOn" />
+        -->
+
+        <!-- Access log processes all example.
+             Documentation at: /docs/config/valve.html
+             Note: The pattern used is equivalent to using pattern="common" -->
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+               prefix="localhost_access_log" suffix=".txt"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+
+      </Host>
+    </Engine>
+  </Service>
+</Server>
+EOF
+
+echo "start tomcat"
+cd /usr/local/apache-tomcat-9.0.0.M17/bin
+./startup.sh
+
+sleep 5
+
+echo "test tomcat"
+curl -k -I https://localhost:8443
+
+echo "stop tomcat"
+cd /usr/local/apache-tomcat-9.0.0.M17/bin
+./shutdown.sh
+
+echo "############################################"
+echo "#                                          #"
+echo "#  ATTENTION: RUN 'source /etc/profile'    #"
+echo "#                                          #"
+echo "############################################"
+```

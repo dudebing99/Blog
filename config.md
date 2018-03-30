@@ -29,8 +29,8 @@ yum install vsftpd ftp -y
 chkconfig vsftpd on
 
 2. 添加用户
->useradd -d /home/ftp -g ftp -s /sbin/nologin XXXftp -p XXX123!
->passwd XXXftp
+> useradd -d /home/ftp -g ftp -s /sbin/nologin XXXftp -p XXX123!
+> passwd XXXftp
 
 3. 修改配置 /etc/vsftpd/vsftpd.conf
 anonymous_enable=NO

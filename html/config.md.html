@@ -487,7 +487,7 @@ pre.editor-colors .bracket-matcher .region {
 </div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;alias.df&nbsp;diff</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;alias.br&nbsp;branch</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;color.ui&nbsp;</span><span class="syntax--support syntax--function syntax--builtin syntax--shell"><span>true</span></span></span>
-</div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;alias.lg&nbsp;</span><span class="syntax--string syntax--quoted syntax--double syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>"</span></span><span>log&nbsp;--color&nbsp;--graph&nbsp;--pretty=format:'%Cred%h%Creset&nbsp;%C(bold&nbsp;blue)&nbsp;&nbsp;</span><span class="syntax--constant syntax--character syntax--escape syntax--shell"><span>\</span></span></span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;alias.lg&nbsp;</span><span class="syntax--string syntax--quoted syntax--double syntax--shell"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--shell"><span>"</span></span><span>log&nbsp;--color&nbsp;--graph&nbsp;--pretty=format:'%Cred%h%Creset&nbsp;%C(bold&nbsp;blue)</span><span class="syntax--constant syntax--character syntax--escape syntax--shell"><span>\</span></span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span class="syntax--string syntax--quoted syntax--double syntax--shell"><span>&lt;%an&gt;%Creset&nbsp;---%C(yellow)%d%Creset&nbsp;%s&nbsp;%Cgreen(%cr)'&nbsp;--abbrev-commit</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--shell"><span>"</span></span></span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;user.name&nbsp;xx</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>git&nbsp;config&nbsp;--global&nbsp;user.email&nbsp;xx@xxx.cn</span></span>
@@ -594,6 +594,9 @@ pre.editor-colors .bracket-matcher .region {
 </div><div class="line"><span class="syntax--source syntax--shell"><span>pasv_min_port=30000</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>pasv_max_port=31000</span></span>
 </div><div class="line"><span class="syntax--source syntax--shell"><span>&nbsp;</span></span>
-</div><div class="line"><span class="syntax--source syntax--shell"><span>3.&nbsp;开启防火墙</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>3.&nbsp;开启防火墙&nbsp;/etc/sysconfig/iptables</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>-A&nbsp;INPUT&nbsp;-p&nbsp;tcp&nbsp;-m&nbsp;multiport&nbsp;--dport&nbsp;20,21&nbsp;&nbsp;-m&nbsp;state&nbsp;--state&nbsp;NEW&nbsp;-j&nbsp;ACCEPT</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>-A&nbsp;INPUT&nbsp;-p&nbsp;tcp&nbsp;-m&nbsp;state&nbsp;--state&nbsp;NEW&nbsp;-m&nbsp;tcp&nbsp;--dport&nbsp;21&nbsp;-j&nbsp;ACCEPT</span></span>
+</div><div class="line"><span class="syntax--source syntax--shell"><span>-A&nbsp;INPUT&nbsp;-p&nbsp;tcp&nbsp;--dport&nbsp;30000:31000&nbsp;-j&nbsp;ACCEPT</span></span>
 </div></pre></body>
 </html>

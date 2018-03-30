@@ -471,8 +471,6 @@ cd /usr/local/apache-tomcat-9.0.0.M17/bin
 ./shutdown.sh
 
 echo "############################################"
-echo "#                                          #"
-echo "#  ATTENTION: RUN 'source /etc/profile'    #"
-echo "#                                          #"
+echo "    ATTENTION: RUN 'source /etc/profile'"
 echo "############################################"
 ```

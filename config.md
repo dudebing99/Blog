@@ -123,5 +123,8 @@ pasv_enable=YES
 pasv_min_port=30000
 pasv_max_port=31000
 
-3. 开启防火墙
+3. 开启防火墙 /etc/sysconfig/iptables
+-A INPUT -p tcp -m multiport --dport 20,21  -m state --state NEW -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 21 -j ACCEPT
+-A INPUT -p tcp --dport 30000:31000 -j ACCEPT
 ```

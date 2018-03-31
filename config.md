@@ -514,4 +514,4 @@ echo ""
    - vncpasswd *修改 VNC 连接密码*
    - vncserver --list *查看启动的会话实例（session）*
    - vncserver :2 *启动第二个实例*，默认监听 5902 端口，具体可通过 netstat 命令查看
-   - vncserver -kill :2 停止第二个实例
+   - vncserver -kill :2 *停止第二个实例*

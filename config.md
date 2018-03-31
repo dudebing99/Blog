@@ -19,6 +19,8 @@ git config --global alias.df diff
 git config --global alias.br branch
 git config --global color.ui true
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset %C(bold blue)<%an>%Creset ---%C(yellow)%d%Creset %s %Cgreen(%cr)' --abbrev-commit"
+# 指定 vim 作为默认的编辑器
+git config core.editor vim --global
 git config --global user.name xx
 git config --global user.email xx@xxx.cn
 ```

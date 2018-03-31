@@ -993,3 +993,10 @@ echo -e "\e[1;33m[INFO] Congratulations! Everything is done.\e[0m"
 valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reachable=no \
 --workaround-gcc296-bugs=yes ./a.out
 ```
+
+## 拷贝并忽略特定的文件
+
+```bash
+cp `ls|grep -v dummy.txt|xargs` target_dir
+```
+

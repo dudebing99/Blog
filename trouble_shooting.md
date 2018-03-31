@@ -129,6 +129,4 @@ SecretFx 显示中文文件名时出现乱码
 
 1. 打开安装目录，进入子目录：SecureCRT7\App\VanDyke Clients\CONFIG\Sessions
 2. 找到 D:"Filenames Always Use UTF8"=00000000 改成 00000001，如下所示
-
-
 ![](pic/securefx/filename.png)

@@ -39,3 +39,55 @@ lvextend -L +300G /dev/mapper/VolGroup-lv_root
 # 重设分区大小
 resize2fs -p /dev/mapper/VolGroup-lv_root
 ```
+
+## Host SMbus controller not enabled
+
+### 系统环境
+
+CentOS/VMware® Workstation 12 Pro 
+
+### 问题描述
+
+在 VMWare 虚拟机启动 CentOS 时，出现如上警告信息
+
+### 解决方式
+
+在 /etc/modprobe.d/blacklist.conf 文件里添加如下内容：
+blacklist i2c_piix4
+
+## intel_rapl: no valid rapl domains found in package 0
+
+### 系统环境
+
+CentOS/VMware® Workstation 12 Pro 
+
+### 问题描述
+
+在 VMWare 虚拟机启动 CentOS 时，出现如上警告信息
+
+### 解决方式
+
+在 /etc/modprobe.d/blacklist.conf 文件里添加如下内容：
+blacklist intel_rapl
+
+## sd 0:0:0:0: [sda] Assuming drive cache: write through
+
+### 系统环境
+
+CentOS/VMware® Workstation 12 Pro 
+
+### 问题描述
+
+在 VMWare 虚拟机启动 CentOS 时，出现如上警告信息
+
+### 解决方式
+
+1. 在 /etc/default/grub 文件里去掉 rhgb 参数
+
+2. 执行 grub2-mkconfig -o /boot/grub2/grub.cfg
+
+   > "rhgb" 表示 "redhat graphics boot"，就是图形进度条模式
+
+
+
+3. 最后reboot

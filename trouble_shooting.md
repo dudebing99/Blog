@@ -1,4 +1,9 @@
+[TOC]
+
+------
+
 ## 解决 root 分区空间不足的问题
+
 ### 系统环境
 CentOS release 6.8 (Final)
 ### 问题描述

@@ -113,4 +113,5 @@ MySQL
 
 正确写法：INSERT into tb_map(\`key\`, value) VALUES('a',' 123'); 
 
-> 使用 转移符号：\`关键字\`
+> 使用 转义符号：\`关键字\`
+

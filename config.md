@@ -478,3 +478,40 @@ echo ""
 echo "ATTENTION: RUN 'source /etc/profile'"
 echo ""
 ```
+
+## CentOS 配置 VNC
+
+1. 安装软件包
+
+   yum install tigervnc* -y
+
+2. 修改 /root/.vnc/xstartup 文件，包括注释、新增，如下所示
+
+   \# xterm -geometry 80x24+10+10 -ls -title "VNCDESKTOP Desktop" &
+
+   \# twm &
+
+   gnome-session &
+
+3. 修改 /etc/sysconfig/vncservers，修改如下行
+
+   VNCSERVERARGS[1]="-geometry 1360x768"
+
+4. 配置防火墙，允许默认端口 5901（或者，关闭防火墙）
+
+5. 启动服务
+
+   service vncserver start
+
+6. 安装客户端，并连接
+
+   客户端连接服务器信息 VNC Server: xxx.xxx.xxx.xxx:5901
+
+   > xxx.xxx.xxx.xxx 为 VNC Server 的 IP 地址
+
+7. 其他命令
+
+   - vncpasswd *修改 VNC 连接密码*
+   - vncserver --list *查看启动的会话实例（session）*
+   - vncserver :2 *启动第二个实例*，默认监听 5902 端口，具体可通过 netstat 命令查看
+   - vncserver -kill :2 停止第二个实例

@@ -5,6 +5,7 @@
 ## 解决 root 分区空间不足的问题
 
 ### 系统环境
+
 CentOS release 6.8 (Final)
 ### 问题描述
 ​在安装操作系统时采取默认分区策略或者当初分配的策略与后面实际使用差异，导致某些分区仍然有大量的可用空间，但是 root 分区空间不够。
@@ -91,3 +92,25 @@ CentOS/VMware® Workstation 12 Pro
 
 
 3. 最后reboot
+
+## MySQL 插入关键字导致 SQL 执行失败
+
+###系统环境
+
+MySQL
+
+### 问题描述
+
+在 MySQL 表中某字段包含关键字 key，导致 SQL 语句执行报错，数据无法正常插入表中。错误信息大致如下：
+
+*You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ...*
+
+### 解决方式
+
+执行如下 SQL  报错：INSERT into tb_map(key, value) VALUES('a',' 123'); 
+
+> key 是 MySQL 关键字之一
+
+正确写法：INSERT into tb_map(\`key\`, value) VALUES('a',' 123'); 
+
+> 使用 转移符号：\`关键字\`

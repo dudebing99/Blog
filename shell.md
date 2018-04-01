@@ -988,12 +988,6 @@ echo -e "\e[1;33m[INFO] Congratulations! Everything is done.\e[0m"
 :w !sudo sh -c "cat >'%'" or :w !sudo tee "%"
 ```
 
-## vagringd 的 memcheck 工具检测内存泄露
-```bash
-valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reachable=no \
---workaround-gcc296-bugs=yes ./a.out
-```
-
 ## 拷贝并忽略特定的文件
 
 ```bash

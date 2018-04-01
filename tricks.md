@@ -43,7 +43,7 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 
 - B -> A : seq = w （B 发出连接释放报文段，进入最后确认状态 LAST-ACK）
 
-  ==注意：如果 B 收到 A 的 FIN 报文之后，无数据待发，上述两个步骤合并，即，B 发送一个既包含对 A 报文的确认，又包含主动发起的 FIN 报文。==
+  ==注意：如果 B 收到 A 的 FIN 报文之后，无数据待发，上述两个步骤合并，即，B 发送一个既包含对 A 的 FIN 报文的确认，又包含主动发起的 FIN 报文。==
 
   ==B -> A : ack = u + 1, seq = w（即，FIN 报文序号为 w）==
 
@@ -75,7 +75,7 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 1. 服务器端（172.13.31.14）监听 12345 端口
 2. 客户端（172.13.31.15）连接服务器
 3. 客户端向服务器端发送 nice to meet you from client
-4. 服务器端向客户端发送 nice to meet you too from server
+4. 服务器端向客户端发送 nice to meet you, too from server
 5. 服务器端主动关闭连接
 
 ![](pic/tcpdump/tcp_connect_fin_with_S_flag.png)

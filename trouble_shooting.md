@@ -158,3 +158,18 @@ pkill mysqld_safe
 service mysql start
 ```
 
+## SecureCRT 冻结终端/解除冻结/全屏
+
+### 系统环境
+
+SecureCRT Version 7.0.3 (build 480)
+
+### 问题描述
+
+略。
+
+### 解决方式
+
+- Ctrl + s：冻结终端
+- Ctrl + q：解除冻结
+- Alt + Enter：全屏/退出全屏

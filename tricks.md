@@ -79,3 +79,37 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 5. 服务器端主动关闭连接
 
 ![](pic/tcpdump/tcp_connect_fin_with_S_flag.png)
+
+## SVN 周报自动提交
+
+```bash
+#!/bin/sh
+
+# 说明：自动拉取上周已提交周报，并复制一份以当天日期命名的周报，逃脱检查周报是否提交。
+
+cd /home/kevin/daily/Kevin
+
+echo "svn update"
+svn up
+
+old_file=工作周报-Kevin-`date +%Y%m%d --date="-7 day"`.doc
+new_file=工作周报-Kevin-`date +%Y%m%d`.doc
+
+# 周报未提交，才进行操作
+if [ -f $new_file ]; then
+    echo "file existed, exit"
+    exit 0
+else
+    echo "create file"
+    cp $old_file $new_file
+
+    echo "commit file"
+    svn add $new_file
+    svn commit $new_file -m "M Commit week report"
+    exit 0
+fi
+
+添加 crontab 任务
+3 18 * * 5 sh /home/kevin/daily/auto.sh
+```
+

@@ -994,3 +994,19 @@ echo -e "\e[1;33m[INFO] Congratulations! Everything is done.\e[0m"
 cp `ls|grep -v dummy.txt|xargs` target_dir
 ```
 
+## 统计文件数目
+
+```bash
+# 统计普通文件数目，不包括隐藏文件(即，以'.'开头的文件)
+ls -l|grep "^-"|wc -l
+find . -maxdepth 1 -type f|grep  -v "\./\."|wc -l
+
+# 统计普通文件数目，包括隐藏文件
+ls -al|grep "^"|wc -l
+find . -maxdepth 1 -type f|wc -l
+
+# 统计目录数目
+ls -l|grep "^d"|wc -l
+find . -maxdepth 1 -type f|grep  -v "\./\."|wc -l
+```
+

@@ -517,3 +517,35 @@ echo ""
    - vncserver --list *查看启动的会话实例（session）*
    - vncserver :2 *启动第二个实例*，默认监听 5902 端口，具体可通过 netstat 命令查看
    - vncserver -kill :2 *停止第二个实例*
+
+## Makefile 模板
+
+```bash
+INCLUDES := -I. -I./include -I/opt/Ice-3.5.1/include
+LIBS := -Wl,--enable-new-dtags -Wl,-rpath,/opt/Ice-3.5/lib64
+LIBS += -Wl,-Bstatic  -L./lib -lcpp_redis -ltacopie
+LIBS += -Wl,-Bdynamic -L/opt/Ice-3.5.1/lib64 -lIce -lIceUtil
+
+CXX := g++ -std=c++11
+CXXFLAGS := -rdynamic -m64 -Wall -Wextra -pthread -fPIC -g $(INCLUDES)
+# 把所有警告当做错误提示
+#CXXFLAGS +=  -Werror
+
+TARGETS := server
+TARGETS += client
+
+all: $(TARGETS)
+
+db.cpp db.h: db.ice
+	slice2cpp $^
+
+server: db.o dbi.o server.o
+	$(CXX) -o $@ $^ $(LIBS)
+
+client: db.o dbi.o client.o
+	$(CXX) -o $@ $^ $(LIBS)
+
+clean:
+	rm -f *.o $(TARGETS)
+```
+

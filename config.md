@@ -25,7 +25,53 @@ git config --global user.name xx
 git config --global user.email xx@xxx.cn
 ```
 
+## VIM 基础配置
+
+> VIM 配置文件位置：~/.vimrc
+
+```bash
+set incsearch
+set number
+set hlsearch
+set ignorecase
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set fileencodings=utf-8,gbk
+set relativenumber " show relative line number
+set ruler          " show the current line number and column number
+set showcmd        " show the current typing command
+set scrolloff=7    " Set 7 lines to the cursor - when moving vertically using j/k
+set encoding=utf-8
+set fileencodings=utf-8,ucs-bom,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+set helplang=en
+set termencoding=utf-8
+set laststatus=2
+set cursorline
+
+set guifont=Courier_New:h14:cANSI
+set history=2222
+set selection=exclusive
+set selectmode=mouse,key
+set fillchars=vert:\ ,stl:\ ,stlnc:\
+set showmatch
+set matchtime=1
+set linebreak
+set colorcolumn=80
+set wrap
+set tw=80
+
+let mapleader = "\<Space>"
+nmap <Leader><Leader> V
+nnoremap <Leader>w :wq!<CR> "save file"
+nmap <leader><Space><Space> :%s/\s\+$//<CR> "连续三个空格去掉行末空白（包括tab/space）"
+```
+
+
+
 ## 基于 vsftpd 的 ftp 服务器
+
 ### 授权用户访问模式
 ```bash
 0. 运行环境：Cent OS 6.8/vsftpd 2.2.2

@@ -130,3 +130,31 @@ SecretFx 显示中文文件名时出现乱码
 1. 打开安装目录，进入子目录：SecureCRT7\App\VanDyke Clients\CONFIG\Sessions
 2. 找到 D:"Filenames Always Use UTF8"=00000000 改成 00000001，如下所示
 ![](pic/securefx/filename.png)
+
+## MySQL 重置密码
+
+### 系统环境
+
+CentOS 6.8 x64/MySQL 5.6.35
+
+### 问题描述
+
+MySQL 用户密码丢失，重置用户密码
+
+### 解决方式
+
+```bash
+service mysqld stop
+
+mysqld_safe --skip-grant-talbes &
+
+mysql -uroot
+> use mysql;
+> update user set password=PASSWORD('123456') where user='root';
+> flush privileges;
+
+pkill mysqld_safe
+
+service mysql start
+```
+

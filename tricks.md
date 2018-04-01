@@ -8,6 +8,7 @@
 
 2. 重命名为 GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}
 ## 网页自动刷新
+
 功能：实现每 10s 自动刷新
 
 头部加入 \<meta http-equiv="refresh" content="10">
@@ -34,7 +35,7 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 >
 > 防止失效的连接请求突然传到服务器端，让服务器端误认为要建立连接。
 
-### TCP连接释放（四次挥手）
+### TCP 连接释放（四次挥手）
 
 - A -> B : seq = u （A 发出连接释放报文段，进入终止等待1状态 FIN-WAIT-1）
 

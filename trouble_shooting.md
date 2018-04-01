@@ -4,13 +4,16 @@
 
 ## 解决 root 分区空间不足的问题
 
-### 系统环境
+**系统环境**
 
 CentOS release 6.8 (Final)
-### 问题描述
-​在安装操作系统时采取默认分区策略或者当初分配的策略与后面实际使用差异，导致某些分区仍然有大量的可用空间，但是 root 分区空间不够。
 
-### 解决方式
+**问题描述**
+
+在安装操作系统时采取默认分区策略或者当初分配的策略与后面实际使用差异，导致某些分区仍然有大量的可用空间，但是 root 分区空间不够。
+
+**解决方式**
+
 ```bash
 # 前提：home 分区仍有大量空间，root 分区空间不够
 # 查看分区
@@ -43,45 +46,45 @@ resize2fs -p /dev/mapper/VolGroup-lv_root
 
 ## Host SMbus controller not enabled
 
-### 系统环境
+**系统环境**
 
 CentOS/VMware® Workstation 12 Pro 
 
-### 问题描述
+**问题描述**
 
 在 VMWare 虚拟机启动 CentOS 时，出现如上警告信息
 
-### 解决方式
+**解决方式**
 
 在 /etc/modprobe.d/blacklist.conf 文件里添加如下内容：
 blacklist i2c_piix4
 
 ## intel_rapl: no valid rapl domains found in package 0
 
-### 系统环境
+**系统环境**
 
 CentOS/VMware® Workstation 12 Pro 
 
-### 问题描述
+**问题描述**
 
 在 VMWare 虚拟机启动 CentOS 时，出现如上警告信息
 
-### 解决方式
+**解决方式**
 
 在 /etc/modprobe.d/blacklist.conf 文件里添加如下内容：
 blacklist intel_rapl
 
 ## sd 0:0:0:0: [sda] Assuming drive cache: write through
 
-### 系统环境
+**系统环境**
 
 CentOS/VMware® Workstation 12 Pro 
 
-### 问题描述
+**问题描述**
 
 在 VMWare 虚拟机启动 CentOS 时，出现如上警告信息
 
-### 解决方式
+**解决方式**
 
 1. 在 /etc/default/grub 文件里去掉 rhgb 参数
 
@@ -95,17 +98,17 @@ CentOS/VMware® Workstation 12 Pro
 
 ## MySQL 插入关键字导致 SQL 执行失败
 
-###系统环境
+**系统环境**
 
 MySQL
 
-### 问题描述
+**问题描述**
 
 在 MySQL 表中某字段包含关键字 key，导致 SQL 语句执行报错，数据无法正常插入表中。错误信息大致如下：
 
 *You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ...*
 
-### 解决方式
+**解决方式**
 
 执行如下 SQL  报错：INSERT into tb_map(key, value) VALUES('a',' 123'); 
 
@@ -117,15 +120,15 @@ MySQL
 
 ## SecureFX 中文文件名乱码
 
-### 系统环境
+**系统环境**
 
 SecureFx Version 7.0.3 (build 480)
 
-### 问题描述
+**问题描述**
 
 SecretFx 显示中文文件名时出现乱码
 
-### 解决方式
+**解决方式**
 
 1. 打开安装目录，进入子目录：SecureCRT7\App\VanDyke Clients\CONFIG\Sessions
 2. 找到 D:"Filenames Always Use UTF8"=00000000 改成 00000001，如下所示
@@ -133,15 +136,15 @@ SecretFx 显示中文文件名时出现乱码
 
 ## MySQL 重置密码
 
-### 系统环境
+**系统环境**
 
 CentOS 6.8 x64/MySQL 5.6.35
 
-### 问题描述
+**问题描述**
 
 MySQL 用户密码丢失，重置用户密码
 
-### 解决方式
+**解决方式**
 
 ```bash
 service mysqld stop
@@ -160,15 +163,15 @@ service mysql start
 
 ## SecureCRT 冻结终端/解除冻结/全屏
 
-### 系统环境
+**系统环境**
 
 SecureCRT Version 7.0.3 (build 480)
 
-### 问题描述
+**问题描述**
 
 略。
 
-### 解决方式
+**解决方式**
 
 - Ctrl + s：冻结终端
 - Ctrl + q：解除冻结

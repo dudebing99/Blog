@@ -1010,3 +1010,50 @@ ls -l|grep "^d"|wc -l
 find . -maxdepth 1 -type f|grep  -v "\./\."|wc -l
 ```
 
+## shell 实现多进程
+
+```bash
+#!/bin/bash
+# 命令加'&'后台运行
+cmd1 &
+cmd2 &
+# ...
+cmdN&
+# 必须加上，否则脚本执行完毕导致所以进程被结束
+wait
+```
+
+## expect 自动登陆
+
+```bash
+#!/usr/bin/expect -f
+
+# 脚本运行参数：ip、root 用户密码
+
+set ip [lindex $argv 0]
+set password [lindex $argv 1]
+set timeout 30000
+
+spawn ssh root@$ip
+expect {
+  "*yes/no" {
+    send "yes\r"; 
+    exp_continue
+  }
+  
+  "*password:" { 
+    send "$password\r" 
+  }
+}
+
+expect "*#"
+
+# 在目标机器执行任何命令，例如 echo
+send "echo hello\r"
+expect "*#"
+
+# 退出
+send "exit\r"
+expect eof
+```
+

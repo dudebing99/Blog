@@ -528,8 +528,8 @@ LIBS += -Wl,-Bdynamic -L/opt/Ice-3.5.1/lib64 -lIce -lIceUtil
 
 CXX := g++ -std=c++11
 CXXFLAGS := -rdynamic -m64 -Wall -Wextra -pthread -fPIC -g $(INCLUDES)
-# 把所有警告当做错误提示
-#CXXFLAGS +=  -Werror
+# 把所有警告当做错误：-Werror，支持 C++ 11：-std=c++11
+#CXXFLAGS +=  -Werror -std=c++11
 
 TARGETS := server
 TARGETS += client

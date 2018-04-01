@@ -176,3 +176,17 @@ SecureCRT Version 7.0.3 (build 480)
 - Ctrl + s：冻结终端
 - Ctrl + q：解除冻结
 - Alt + Enter：全屏/退出全屏
+
+## SourceInSight 支持 .cc 文件
+
+**系统环境**
+
+Windows 7 Ultimate/SourceInSight 4.0
+
+**问题描述**
+
+略。
+
+**解决方式**
+
+Options -> Document Options，Document Type 下拉选 C++ Source File, File Filter 中加入 *.cc

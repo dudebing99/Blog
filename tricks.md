@@ -176,3 +176,29 @@ echo 清除系统LJ完成！
 echo. & pause
 ```
 
+## Windows 图标显示异常修复
+
+使用说明：保存为 icon_recover.bat，双击运行即可。
+
+```bash
+taskkill /f /im explorer.exe
+
+echo 清理系统图标缓存数据库
+
+attrib -h -s -r "%userprofile%\AppData\Local\IconCache.db"
+
+del /f "%userprofile%\AppData\Local\IconCache.db"
+
+attrib /s /d -h -s -r "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\*"
+
+del /f "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_32.db"
+del /f "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_96.db"
+del /f "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_102.db"
+del /f "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_256.db"
+del /f "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_1024.db"
+del /f "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_idx.db"
+del /f "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_sr.db"
+
+start explorer
+```
+

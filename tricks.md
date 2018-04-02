@@ -203,3 +203,15 @@ del /f "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_sr.db"
 start explorer
 ```
 
+## 同步机器时间、硬件时钟
+
+```bash
+yum install rdate -y
+# 设置时区
+timedatectl set-timezone Asia/Shanghai
+# 同步机器时间、硬件时钟
+rdate -t 30 -s time.nist.gov && hwclock -w 
+```
+
+
+

@@ -213,5 +213,3 @@ timedatectl set-timezone Asia/Shanghai
 rdate -t 30 -s time.nist.gov && hwclock -w 
 ```
 
-
-

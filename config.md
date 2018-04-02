@@ -595,15 +595,15 @@ clean:
 	rm -f *.o $(TARGETS)
 ```
 
-## CentOS 6.5 安装 Python 3.5
+## CentOS 安装 Python 3.5
 
 ```bash
-1、CentOS 6.5 安装 Python 的依赖包
+1. CentOS 6.5 安装 Python 的依赖包
 
 yum groupinstall "Development tools"
 yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
 
-2、下载 Python3.5 的源码包并编译
+2. 下载 Python3.5 的源码包并编译
 
 wget https://www.python.org/ftp/python/3.5.0/Python-3.5.0.tgz
 tar xf Python-3.5.0.tgz
@@ -613,20 +613,66 @@ make
 make install
 ln –s /usr/local/bin/python3 /usr/bin/python3
 
-3、在运行 Python 之前需要配置库
+3. 在运行 Python 之前需要配置库
 
 echo /usr/local/lib >> /etc/ld.so.conf.d/local.conf
 ldconfig
 
-4、运行演示
+4. 运行演示
 python3 --version
 Python 3.5.0
 
-5、删除编译 Python 时所需要的库（可不删除）
+5. 删除编译 Python 时所需要的库（可不删除）
 yum groupremove "Development tools" --remove-leaveas
 yum remove zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel --remove-leaves
 
-6、设置别名方便使用
+6. 设置别名方便使用
 alias py=python3
+```
+
+## CentOS 安装 ICE
+
+```bash
+1.下载 Ice 源码
+cd /opt
+wget http://www.zeroc.com/download/Ice/3.5/Ice-3.5.1.tar.gz
+wget http://www.zeroc.com/download/Ice/3.5/ThirdParty-Sources-3.5.1.tar.gz
+
+2. 安装依赖库
+yum -y install gcc gcc-c++ expat-devel bzip2 bzip2-devel
+yum -y install openssl*
+
+2.1 安装第三方资源
+tar xvf ThirdParty-Sources-3.5.1.tar.gz
+cd ThirdParty-Sources-3.5.1
+tar xvf mcpp-2.7.2.tar.gz
+cd mcpp-2.7.2
+patch -p0 < ../mcpp/patch.mcpp.2.7.2
+./configure CFLAGS=-fPIC --enable-mcpplib --disable-shared
+make && make install
+cd ../
+
+2.2 安装 BerkeleyDB
+tar zxf db-5.3.21.NC.tar.gz
+cd db-5.3.21.NC
+patch -p0 < ../db/patch.db.5.3.21
+cd build_unix
+../dist/configure --prefix=/usr --enable-cxx
+make && make install
+
+（说明：db 的默认安装 prefix 路径是：/usr/local/BerkeleyDB.5.3，需要改为 /usr，否则 make Ice 时会找不到路径）
+
+3. 安装 ICE
+cd /opt
+tar xvf Ice-3.5.1.tar.gz
+cd Ice-3.5.1/cpp
+make && make install
+
+4. 环境变量设置（vim /etc/profile）
+#add ice install dir to path for all users
+ICE_HOME=/opt/Ice-3.5.1
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ICE_HOME/lib:$ICE_HOME/lib64
+export PATH=$PATH:$ICE_HOME/bin
 ```
 

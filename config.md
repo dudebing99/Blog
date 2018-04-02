@@ -595,3 +595,38 @@ clean:
 	rm -f *.o $(TARGETS)
 ```
 
+## CentOS 6.5 安装 Python 3.5
+
+```bash
+1、CentOS 6.5 安装 Python 的依赖包
+
+yum groupinstall "Development tools"
+yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
+
+2、下载 Python3.5 的源码包并编译
+
+wget https://www.python.org/ftp/python/3.5.0/Python-3.5.0.tgz
+tar xf Python-3.5.0.tgz
+cd Python-3.5.0
+./configure --prefix=/usr/local --enable-shared
+make
+make install
+ln –s /usr/local/bin/python3 /usr/bin/python3
+
+3、在运行 Python 之前需要配置库
+
+echo /usr/local/lib >> /etc/ld.so.conf.d/local.conf
+ldconfig
+
+4、运行演示
+python3 --version
+Python 3.5.0
+
+5、删除编译 Python 时所需要的库（可不删除）
+yum groupremove "Development tools" --remove-leaveas
+yum remove zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel --remove-leaves
+
+6、设置别名方便使用
+alias py=python3
+```
+

@@ -108,8 +108,10 @@ else
     svn commit $new_file -m "M Commit week report"
     exit 0
 fi
+```
 
-添加 crontab 任务
+```bash
+# 添加 crontab 任务
 3 18 * * 5 sh /home/kevin/daily/auto.sh
 ```
 

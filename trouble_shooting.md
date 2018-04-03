@@ -209,3 +209,23 @@ CentOS
 ONBOOT=no 修改为 ONBOOT=yes
 
 > 备注：重启网卡或系统生效。
+
+## CentOS 图形、多用户（命令行）模式切换
+
+**系统环境**
+
+CentOS 7.x
+
+**问题描述**
+
+CentOS 7.x 不在使用 init 托管服务，systemd 取而代之。
+
+**解决方式**
+
+1. 命令（多用户）模式
+
+   systemctl set-default multi-user.target
+
+2. 图形模式
+
+   systemctl set-default graphical.target

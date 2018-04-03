@@ -1056,3 +1056,42 @@ expect "*#"
 send "exit\r"
 expect eof
 ```
+
+## 获取字符串的长度
+
+```bash
+# 利用${#str}来获取字符串的长度
+[root@localhost ~]# str="hello"
+[root@localhost ~]# echo ${#str}
+5
+
+# 利用 awk 的 length 方法来获取字符串的长度
+[root@localhost ~]# echo hello|awk '{print length($0)}'
+5
+
+# 利用 awk 的 NF 项来获取字符串的长度
+[root@localhost ~]# echo hello|awk -F '' '{print NF}'
+5
+
+# 利用 wc -L 来获取字符串的长度，详见 man wc
+[root@localhost ~]# echo hello|wc -L
+5
+
+# 利用 wc -c 来获取字符串的长度
+[root@localhost ~]# echo hello|wc -c
+6
+# -n: 不统计换行符
+[root@localhost ~]# echo -n hello|wc -c 
+5
+
+# 利用 expr 的 length 方法来获取字符串的长度
+[root@localhost ~]# str=hello
+[root@localhost ~]# expr length ${str}
+5
+
+# 利用 expr 的 $str : ".*" 来获取字符串的长度
+# 备注：.* 代表任意字符，即，用任意字符来匹配字符串 hello，结果能够匹配 5 个
+[root@localhost ~]# str="hello"; expr $str : ".*"
+5
+```
+

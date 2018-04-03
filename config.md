@@ -722,7 +722,7 @@ export PATH=$PATH:$ICE_HOME/bin
 	make install
 ```
 
-## zookeeper/kafka 配置
+## zookeeper/kafka 安装配置
 
 ```bash
 zookeeper-3.4.6 安装配置

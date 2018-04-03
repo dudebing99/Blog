@@ -213,3 +213,30 @@ timedatectl set-timezone Asia/Shanghai
 rdate -t 30 -s time.nist.gov && hwclock -w 
 ```
 
+## ssh 机器互信（免密登陆）
+
+**目标：**client 被 server 信任，即，client 可以通过免密 ssh 登陆 server。
+
+1. client 产生公钥
+
+   ```bash
+   ssh-keygen -t rsa
+   # 后续回车即可
+   ```
+
+2. 将步骤 1 中产生的 id_rsa.pub 拷贝并追加到 server 已授权 key 文件中
+
+   ```bash
+   cat id_rsa.pub >> root/.ssh/authorized_keys
+   ```
+
+3. 重启 server 端 ssh 服务
+
+   ```bash
+   service sshd restart
+   ```
+
+   ​
+
+
+

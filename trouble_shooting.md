@@ -191,3 +191,21 @@ Windows 7 Ultimate/SourceInSight 4.0
 **解决方式**
 
 Options -> Document Options，Document Type 下拉选 C++ Source File, File Filter 中加入 *.cc
+
+## 设置网卡自启动
+
+**系统环境**
+
+CentOS
+
+**问题描述**
+
+略。
+
+**解决方式**
+
+将 /etc/sysconfig/network-scripts/ifctg-xxx 中如下内容修改
+
+ONBOOT=no 修改为 ONBOOT=yes
+
+> 备注：重启网卡或系统生效。

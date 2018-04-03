@@ -676,3 +676,51 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ICE_HOME/lib:$ICE_HOME/lib64
 export PATH=$PATH:$ICE_HOME/bin
 ```
 
+## CentOS 安装 GCC 4.9.2
+
+> 注意：GCC 4.8.1 支持 C++11 全部特性
+
+```bash
+1. 下载 GCC 的源码包 gcc-4.9.2.tar.gz，以及三个依赖的安装包，依赖包的版本机器地址在 GCC 源码包目录 gcc-4.9.2/contrib/download_prerequisites 脚本文件中有指明。
+	ftp://ftp.gnu.org/gnu/gmp/gmp-4.3.2.tar.bz2
+	http://www.mpfr.org/mpfr-2.4.2/mpfr-2.4.2.tar.bz2
+	http://www.multiprecision.org/mpc/download/mpc-0.8.1.tar.gz
+	
+	备用下载地址：http://ftp.vim.org/languages/gcc/infrastructure/
+
+2. 编译、安装依赖包
+2.1 安装 gmp-4.3.2
+	cd gmp-4.3.2
+	mkdir build && cd build
+	../configure --prefix=/usr/local/gmp-4.3.2
+	make -j4
+	make install
+
+2.2 安装 mpfr
+	cd mpfr-2.4.2
+	mkdir build && cd build
+	../configure --prefix=/usr/local/mpfr-2.4.2 --with-gmp=/usr/local/gmp-4.3.2
+	make -j4
+	make install
+
+2.3 安装 mpc
+	cd mpc-0.8.1
+	mkdir build && cd build
+	../configure --prefix=/usr/local/mpc-0.8.1 --with-gmp=/usr/local/gmp-4.3.2 --with-mpfr=/usr/local/mpfr-2.4.2
+	make -j4
+	make install
+
+2.4 在 /etc/profile 添加环境变量
+	GCC_RELATED_LIBS=/usr/local/gmp-4.3.2/lib:/usr/local/mpfr-2.4.2/lib:/usr/local/mpc-0.8.1/lib
+	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GCC_RELATED_LIBS
+
+3. 安装 GCC
+	cd gcc-4.9.2
+	mkdir build && cd build
+	../configure --prefix=/usr/local/gcc-4.9.2 --enable-threads=posix --disable-checking --disable-multilib --enable-languages=c,c++ --with-gmp=/usr/local/gmp-4.3.2 --with-mpfr=/usr/local/mpfr-2.4.2 --with-mpc=/usr/local/mpc-0.8.1
+	make -j4
+	make install
+```
+
+
+

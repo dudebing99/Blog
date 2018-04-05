@@ -5,7 +5,26 @@
 ## 统计网络连接状态及数目
 
 ```bash
+# netstat 工具
 netstat -n|awk '/^tcp/ {++state[$NF]} END {for(i in state) print i, state[i]}'
+
+# ss 工具(自动统计)
+ss -s
+
+# 示例
+[root@localhost ~]# netstat -n|awk '/^tcp/ {++state[$NF]} END {for(i in state) print i, state[i]}'
+ESTABLISHED 1
+[root@localhost ~]# ss -s
+Total: 425 (kernel 442)
+TCP:   8 (estab 1, closed 0, orphaned 0, synrecv 0, timewait 0/0), ports 3
+
+Transport Total     IP        IPv6
+*         442       -         -        
+RAW       0         0         0        
+UDP       1         1         0        
+TCP       8         5         3        
+INET      9         6         3        
+FRAG      0         0         0
 ```
 
 ## 统计进程打开的文件句柄数目
@@ -16,7 +35,7 @@ lsof -p PID|wc -l
 
 ## 字符串截取
 
-> **Tips:** man bash 获取更全面的语法
+> **Tips:** man bash 获取更全面的语法（[在线手册](http://www.gnu.org/software/bash/manual/bash.html)）
 
 ```bash
 # ${parameter#word} 最小限度从前面截取 word

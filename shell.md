@@ -26,6 +26,7 @@ seq 10|awk '{print $0; getline}'
 ```
 
 ### 交换奇数、偶数行
+
 ```bash
 seq 10|awk '{getline tmp; print tmp; print $0}'
 ```
@@ -674,9 +675,16 @@ exit $?
 ```
 
 ## openssl 自签证书
-### 初始化 CA init_ca.sh
+
+> **download:** [自签证书](https://github.com/dudebing99/blog/blob/master/archives/script/ca.tar.gz)
+
+### 初始化 CA
+
 ```bash
 #!/bin/sh
+
+# name: init_ca.sh
+# author: kevin
 
 echo ""
 echo -e "\e[1;33m===============================================\e[0m"
@@ -795,9 +803,13 @@ echo 01 > /etc/pki/CA/serial
 echo -e "\e[1;33m[INFO] Congratulations! Everything is done.\e[0m"
 ```
 
-### 颁发证书 gen_cert.sh
+### 颁发证书
+
 ```bash
 #!/bin/sh
+
+# name:  gen_cert.sh
+# author: kevin
 
 # check root permission
 validate_superuser() {
@@ -1095,3 +1107,387 @@ expect eof
 5
 ```
 
+## 一键部署 zookeeper/kafka 集群
+
+> **功能：**部署 zookeeper/kafka 集群
+>
+> **说明：**
+> 1. 需要提前规划好 zookeeper/kafka 集群，并配置好 basic.info，详见 basic.info。
+>
+> 2. 可以支持 zookeeper/kafka 单机或集群部署
+>   单机部署，配置信息参考 basic_example_standalone.info
+>   集群部署，配置信息参考 basic_example_cluster.info
+>
+> **使用步骤：**
+>
+> 1. 修改 install_zk_kafka.tar.gz 中 install_zookeeper.sh/install_kafka 中安装包的路径（建议从内网下载安装包，可搭建 ftp 或 http 服务器），重新生成 install_zk_kafka.tar.gz
+> 2. 将步骤 1 中生成的压缩包上传到  ftp 或 http 服务器
+> 3. 将 zk_kafka_deploy.tar.gz 拷贝到操作机器（操作机器能够访问集群中所有机器即可）
+> 4. 解压，修改 zk_kafka_deploy.sh 中 install_zk_kafka.tar.gz 的路径
+> 5. 修改集群配置信息 basic.info
+> 6. 执行脚本 ./zk_kafka_deploy.sh
+>
+> **download：**
+>
+> 1. install_zk_kafka.tar.gz: [安装](https://github.com/dudebing99/blog/blob/master/archives/script/install_zk_kafka.tar.gz)
+> 2. zk_kafka_deploy.tar.gz: [一键部署](https://github.com/dudebing99/blog/blob/master/archives/script/zk_kafka_deploy.tar.gz)
+
+### 部署
+
+```bash
+#!/bin/bash
+
+# name: zk_kafka_deploy.sh
+# author: kevin
+
+# check root permission
+if [ $UID -ne 0 ]; then
+    echo "Superuser privileges are required to run this script."
+    echo "e.g. \"sudo $0\""
+    exit 1
+fi
+
+zookeepers=`cat basic.info | grep zookeeper`
+zookeepers=`echo ${zookeepers#*=}`
+
+kafkas=`cat basic.info | grep kafka`
+kafkas=`echo ${kafkas#*=}`
+
+password=`cat basic.info | grep cluster_common_passwd`
+password=`echo ${password#*=}`
+
+zookeeper_array=($zookeepers)
+kafka_array=($kafkas)
+zookeeper_num=${#zookeeper_array[@]}
+kafka_num=${#kafka_array[@]}
+
+# 校验 IP 是否有效
+CheckIPAddr()
+{
+    # IP地址必须为全数字
+    echo $1|grep "^[0-9]\{1,3\}\.\([0-9]\{1,3\}\.\)\{2\}[0-9]\{1,3\}$" > /dev/null
+
+    if [ $? -ne 0 ]
+    then
+        return 1
+    fi
+
+    ipaddr=$1
+    a=`echo $ipaddr | awk -F . '{print $1}'`  # 以"."分隔，取出每个列的值
+    b=`echo $ipaddr | awk -F . '{print $2}'`
+    c=`echo $ipaddr | awk -F . '{print $3}'`
+    d=`echo $ipaddr | awk -F . '{print $4}'`
+
+    for num in $a $b $c $d
+    do
+        if [ $num -gt 255 ] || [ $num -lt 0 ]; then
+            return 1
+        fi
+    done
+
+    return 0
+}
+
+if [ $zookeeper_num -eq 0 -o $kafka_num -eq 0 ]; then
+    echo "ERROR: cluster info invalid"
+    exit 1;
+fi
+
+for zk in $zookeepers
+do
+    CheckIPAddr $zk
+
+    if [ $? -ne 0 ]; then
+        echo "ERROR: ip addr [$zk] invalid"
+        exit 1;
+    fi
+done
+
+for kafka in $kafkas
+do
+    CheckIPAddr $kafka
+
+    if [ $? -ne 0 ]; then
+        echo "ERROR: ip addr [$kafka] invalid"
+        exit 1;
+    fi
+done
+
+cat > gen_rsa_pub.exp << EOF
+#!/usr/bin/expect -f
+
+set ip [lindex \$argv 0]
+set password [lindex \$argv 1]
+set timeout 30
+
+spawn ssh root@\$ip
+expect {
+  "*yes/no" {
+    send "yes\r";
+    exp_continue
+  }
+
+  "*password:" {
+    send "\$password\r"
+  }
+}
+
+expect "*#"
+
+send "yum install expect -y\r"
+expect "*#"
+
+send "curl -O ftp://192.168.2.2/pub/install_zk_kafka.tar.gz\r"
+expect "*#"
+
+send "tar -xzvf install_zk_kafka.tar.gz\r"
+expect "*#"
+
+send "cd install_zk_kafka\r"
+expect "*#"
+
+send "./gen_rsa_pub.sh\r"
+expect "*#"
+
+send "cd ~\r"
+expect "*#"
+
+send "rm -rf install_zk_kafka*\r"
+expect "*#"
+
+send "exit\r"
+expect eof
+EOF
+
+cat > scp_rsa_pub.exp << EOF
+#!/usr/bin/expect -f
+
+set ip [lindex \$argv 0]
+set password [lindex \$argv 1]
+set timeout 30
+
+spawn scp root@\$ip:~/.ssh/id_rsa.pub .
+expect {
+  "*yes/no" {
+    send "yes\r";
+    exp_continue
+  }
+
+  "*password:" {
+    send "\$password\r"
+  }
+}
+
+send "exit\r"
+expect eof
+EOF
+
+cat > write_rsa_pubs.exp << EOF
+#!/usr/bin/expect -f
+
+set ip [lindex \$argv 0]
+set password [lindex \$argv 1]
+set timeout 30
+
+spawn scp zk_id_rsa.pub root@\$ip:~
+expect {
+  "*yes/no" {
+    send "yes\r";
+    exp_continue
+  }
+
+  "*password:" {
+    send "\$password\r"
+  }
+}
+
+send "exit\r"
+expect eof
+
+spawn ssh root@\$ip
+expect {
+  "*yes/no" {
+    send "yes\r";
+    exp_continue
+  }
+
+  "*password:" {
+    send "\$password\r"
+  }
+}
+
+expect "*#"
+send "cat ~/zk_id_rsa.pub >> ~/.ssh/authorized_keys\r"
+
+expect "*#"
+send "rm -rf ~/zk_id_rsa.pub\r"
+
+expect "*#"
+send "exit\r"
+
+expect eof
+EOF
+
+if [ $zookeeper_num -gt 1 ]; then
+    cat /dev/null > zk_id_rsa.pub
+    chmod +x gen_rsa_pub.exp
+    chmod +x scp_rsa_pub.exp
+    chmod +x write_rsa_pubs.exp
+
+    for zk in $zookeepers
+    do
+        ./gen_rsa_pub.exp $zk $password
+        ./scp_rsa_pub.exp $zk $password
+        cat id_rsa.pub >> zk_id_rsa.pub
+        rm -rf id_rsa.pub
+    done
+
+    for zk in $zookeepers
+    do
+        ./write_rsa_pubs.exp $zk $password
+    done
+
+    rm -rf zk_id_rsa.pub
+fi
+
+    rm -rf gen_rsa_pub.exp
+    rm -rf scp_rsa_pub.exp
+    rm -rf write_rsa_pubs.exp
+
+cat > install_zookeeper.exp << EOF
+#!/usr/bin/expect -f
+
+set ip [lindex \$argv 0]
+set password [lindex \$argv 1]
+set zookeepers [lindex \$argv 2]
+set id [lindex \$argv 3]
+set timeout 600
+
+spawn ssh root@\$ip
+expect {
+  "*yes/no" {
+    send "yes\r";
+    exp_continue
+  }
+
+  "*password:" {
+    send "\$password\r"
+  }
+}
+
+expect "*#"
+
+send "curl -O ftp://192.168.2.2/pub/install_zk_kafka.tar.gz\r"
+expect "*#"
+
+send "tar -xzvf install_zk_kafka.tar.gz\r"
+expect "*#"
+
+send "cd install_zk_kafka\r"
+expect "*#"
+
+send "./install_zookeeper.sh \$zookeepers \$id\r"
+expect "*#"
+
+send "cd ~\r"
+expect "*#"
+
+send "rm -rf install_zk_kafka*\r"
+expect "*#"
+
+send "exit\r"
+expect eof
+EOF
+
+chmod +x install_zookeeper.exp
+
+id=0
+for zk in $zookeepers
+do
+    # in order to avoid info expired when the machine is rebuild
+    sed -i "/$ip/d" ~/.ssh/known_hosts >/dev/null 2>&1
+
+    ./install_zookeeper.exp $zk $password "'$zookeepers'" $id
+    id=`expr $id + 1`
+done
+
+rm -rf install_zookeeper.exp
+
+zookeeper_connect=""
+for zk in $zookeepers
+do
+    zookeeper_connect=${zookeeper_connect}${zk}":2181,"
+done
+zookeeper_connect=${zookeeper_connect%,*}
+
+cat > install_kafka.exp << EOF
+#!/usr/bin/expect -f
+
+set ip [lindex \$argv 0]
+set password [lindex \$argv 1]
+set broker_id [lindex \$argv 2]
+set zookeeper_connect [lindex \$argv 3]
+set timeout 600
+
+spawn ssh root@\$ip
+expect {
+  "*yes/no" {
+    send "yes\r";
+    exp_continue
+  }
+
+  "*password:" {
+    send "\$password\r"
+  }
+}
+
+expect "*#"
+
+send "curl -O ftp://192.168.2.2/pub/install_zk_kafka.tar.gz\r"
+expect "*#"
+
+send "tar -xzvf install_zk_kafka.tar.gz\r"
+expect "*#"
+
+send "cd install_zk_kafka\r"
+expect "*#"
+
+send "./install_kafka.sh \$broker_id \$ip \$zookeeper_connect\r"
+expect "*#"
+
+send "cd ~\r"
+expect "*#"
+
+send "rm -rf install_zk_kafka*\r"
+expect "*#"
+
+send "exit\r"
+expect eof
+EOF
+
+chmod +x install_kafka.exp
+
+id=0
+for kafka in $kafkas
+do
+    # in order to avoid info expired when the machine is rebuild
+    sed -i "/$ip/d" ~/.ssh/known_hosts >/dev/null 2>&1
+
+    ./install_kafka.exp $kafka $password $id $zookeeper_connect
+    id=`expr $id + 1`
+done
+
+rm -rf install_kafka.exp
+
+echo $?
+```
+
+### 集群配置信息
+
+```bash
+# 此文件只能修改 value，不能修改 key
+# 即，只能修改等号右边的值，根据实际集群信息修改
+zookeeper=192.168.2.3 192.168.2.4 192.168.2.5
+kafka=192.168.2.3 192.168.2.4 192.168.2.5
+cluster_common_passwd=123456
+```

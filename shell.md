@@ -547,7 +547,7 @@ cp -rP test/proxy/test_proxy $PKGPROXY/proxy
 cp -rP test/proxy/test_client $PKGPROXY/client
 
 echo "[INFO] generating default configuration file"
-cat > $PKGACCESS/default.conf << EOF
+cat > $PKGACCESS/default.conf.template << EOF
 {
     "sub_topic" : "$ENV-access",
     "pub_topic" : "$ENV-device_management_system",
@@ -573,13 +573,13 @@ cat > $PKGACCESS/default.conf << EOF
 }
 EOF
 
-cat > $PKGLOGGER/default.conf << EOF
+cat > $PKGLOGGER/default.conf.template << EOF
 {
     "listen_port" : 10998
 }
 EOF
 
-cat > $PKGPROXY/default.conf << EOF
+cat > $PKGPROXY/default.conf.template << EOF
 {
     "sub_topic" : "$ENV-proxy",
     "kafka_brokers" : "xxx.xxx.xxx.xxx:9092",

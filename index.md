@@ -13,13 +13,3 @@
 [Tricks](https://dudebing99.github.io/blog/tricks.html)
 
 [Code Snippet](https://dudebing99.github.io/blog/code_snippet.html)
-
-
-
-------
-
-> **Contact with me at :**
->
-> ```bash
-> echo Yy5yMjAwOUAxNjMuY29t|base64 -d
-> ```

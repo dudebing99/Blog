@@ -25,9 +25,9 @@ git config --global user.name xx
 git config --global user.email xx@xxx.cn
 ```
 
-## VIM 基础配置
+## vim 基础配置
 
-> VIM 配置文件位置：~/.vimrc
+> vim配置文件位置：~/.vimrc
 
 ```bash
 set incsearch
@@ -527,7 +527,7 @@ echo "ATTENTION: RUN 'source /etc/profile'"
 echo ""
 ```
 
-## CentOS 配置 VNC
+## CentOS 配置 vnc
 
 1. 安装软件包
 

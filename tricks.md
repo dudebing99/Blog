@@ -80,7 +80,7 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 
 ![](pic/tcpdump/tcp_connect_fin_with_S_flag.png)
 
-## SVN 周报自动提交
+## svn 周报自动提交
 
 ```bash
 #!/bin/sh
@@ -115,7 +115,7 @@ fi
 3 18 * * 5 sh /home/kevin/daily/auto.sh
 ```
 
-## VIM 小技巧
+## vim小技巧
 
 ```bash
 # vim 替换时带确认，即，对于任何一个匹配项，需要确认是否替换

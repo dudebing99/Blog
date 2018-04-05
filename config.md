@@ -924,3 +924,25 @@ auto.leader.rebalance.enable=true
 3. 启动 nohup ./kafka-server-start.sh ../config/server.properties &
 ```
 
+## gerrit 使用者初始配置
+
+> **Tips:** 公司启用 gerrit 代码审查，作为使用者，例如开发人员，须完成初始配置之后才能使用 gerrit。
+
+1. 使用 CM 分配的 gerrit 账号登陆 gerrit WEB 服务器
+
+2. 进入设置（setting），填写个人邮箱，点击注册邮箱（Register New Mail）
+
+3. 登陆个人邮箱，找到 gerrit 发送的验证邮件，点击邮件链接进行确认激活
+
+4. 安装 git 客户端
+
+5. 生成 ssh 公钥（ssh-kengen -t rsa）
+
+   **备注：**如果客户端使用的 openssl 库版本较高而服务器端版本较低，openssl 高版本禁用某些安全性较低的算法，这种情形下，需要在客户端的 .ssh 目录（即，id_rsa.pub所在目录）新建一个文件 config（Windows 下注意去掉后缀），内容如下
+
+   ```bash
+   Host 172.13.31.14
+       KexAlgorithms +diffie-hellman-group1-sha1
+   ```
+
+6. 登陆 gerrit，进入个人中心，将上一步产生的公钥 id_rsa.pub 添加到 SSH 公钥（SSH Public Keys）

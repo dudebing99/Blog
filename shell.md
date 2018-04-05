@@ -14,7 +14,48 @@ lsof -p PID
 lsof -p PID|wc -l
 ```
 
+## 字符串截取
+
+> **Tips:** man bash 获取更全面的语法
+
+```bash
+# ${parameter#word} 最小限度从前面截取 word
+[root@localhost ~]# str="http://www.bigsillybear.com/index.html"
+[root@localhost ~]# echo ${str#*//}
+www.bigsillybear.com/index.html
+
+# ${parameter##word} 最大限度从前面截取 word
+[root@localhost ~]# str="http://www.bigsillybear.com/index.html"
+[root@localhost ~]# echo ${str##*/}                             
+index.html
+
+# ${parameter%word} 最小限度从后面截取 word
+[root@localhost ~]# str="http://www.bigsillybear.com/index.html"
+[root@localhost ~]# echo ${str%/*}
+http://www.bigsillybear.com
+
+# ${parameter%%word} 最大限度从后面截取 word
+[root@localhost ~]# str="http://www.bigsillybear.com/index.html"
+[root@localhost ~]# echo ${str%%/*}
+http:
+
+# ${parameter:offset} 从指定位置截取字
+# ${parameter:offset:length} 从指定位置截取指定长度
+[root@localhost ~]# str="http://www.bigsillybear.com/index.html"
+[root@localhost ~]# echo ${str:7}
+www.bigsillybear.com/index.html
+[root@localhost ~]# echo ${str:7:20}                            
+www.bigsillybear.com
+[root@localhost ~]# echo ${str:0-10}                            
+index.html
+[root@localhost ~]# echo ${str:0-10:5}
+index
+```
+
+
+
 ## awk getline: 过滤行、改变奇数偶数行
+
 ### 打印出从 1 到 10 之间的偶数
 ```bash
 seq 10|awk '{getline; print $0}'

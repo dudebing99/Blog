@@ -155,6 +155,35 @@ gooood
 1:goood
 3:good
 4:gooood
+
+# 匹配多个条件，例如，去除空白行和以 '#' 开头的行
+cat file|grep -v '^$'|grep -v '^#'
+
+# grep 扩展正则（grep -E 或 egrep）
+[root@localhost ~]# cat file
+goood
+god
+good
+gooood
+# '+'，匹配一个或多个重复字符
+[root@localhost ~]# cat file|grep -E 'goo+d'
+goood
+good
+gooood
+# '.'，匹配 0 个或 1 个字符
+[root@localhost ~]# cat file|grep -E 'goo?d'
+god
+good
+# '|'，匹配多个条件
+[root@localhost ~]# cat file|grep -E 'good|goood'
+goood
+good
+# '()'，将部分内容合成一个单元组，如下分别匹配 0 个或 1 个 oo，匹配一个或多个 oo
+[root@localhost ~]# cat file|grep -E 'g(oo)?d'
+good
+[root@localhost ~]# cat file|grep -E 'g(oo)+d'
+good
+gooood
 ```
 
 ## for 循环的常用写法

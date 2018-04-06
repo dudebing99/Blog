@@ -80,7 +80,7 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 
 ![](pic/tcpdump/tcp_connect_fin_with_S_flag.png)
 
-## svn 周报自动提交
+## SVN 周报自动提交
 
 ```bash
 #!/bin/sh
@@ -115,10 +115,10 @@ fi
 3 18 * * 5 sh /home/kevin/daily/auto.sh
 ```
 
-## vim小技巧
+## VIM 小技巧
 
 ```bash
-# vim 替换时带确认，即，对于任何一个匹配项，需要确认是否替换
+# VIM 替换时带确认，即，对于任何一个匹配项，需要确认是否替换
 :%s/a/b/gc
 
 # 上下(垂直）分割当前打开的文件
@@ -213,7 +213,7 @@ timedatectl set-timezone Asia/Shanghai
 rdate -t 30 -s time.nist.gov && hwclock -w 
 ```
 
-## ssh 机器互信（免密登陆）
+## SSH 机器互信（免密登陆）
 
 **目标：**client 被 server 信任，即，client 可以通过免密 ssh 登陆 server。
 

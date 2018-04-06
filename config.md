@@ -2,7 +2,7 @@
 
 ------
 
-##  读取文件
+##  git 客户端基本配置项
 
 ```bash
 # 执行方式：命令行执行即可
@@ -25,9 +25,9 @@ git config --global user.name xx
 git config --global user.email xx@xxx.cn
 ```
 
-## vim 基础配置
+## VIM 基础配置
 
-> vim配置文件位置：~/.vimrc
+> VIM 配置文件位置：~/.vimrc
 
 ```bash
 set incsearch

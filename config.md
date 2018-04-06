@@ -681,7 +681,7 @@ export PATH=$PATH:$ICE_HOME/bin
 > 注意：GCC 4.8.1 支持 C++11 全部特性
 
 ```bash
-1. 下载 GCC 的源码包 gcc-4.9.2.tar.gz，以及三个依赖的安装包，依赖包的版本机器地址在 GCC 源码包目录 gcc-4.9.2/contrib/download_prerequisites 脚本文件中有指明。
+1. 下载 GCC 的源码包 gcc-4.9.2.tar.gz，以及三个依赖的安装包，依赖包的版本及其下载地址在 GCC 源码包目录 gcc-4.9.2/contrib/download_prerequisites 脚本文件中有指明。
 	ftp://ftp.gnu.org/gnu/gmp/gmp-4.3.2.tar.bz2
 	http://www.mpfr.org/mpfr-2.4.2/mpfr-2.4.2.tar.bz2
 	http://www.multiprecision.org/mpc/download/mpc-0.8.1.tar.gz

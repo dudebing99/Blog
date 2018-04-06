@@ -93,6 +93,11 @@ cat file|awk '/target/ {print $0}'
 
 ### grep
 
+> **Tips:** 
+>
+> 1. '\*' 在 shell 中代表通配符，用来代表任意字符，但是在正则表达式中，其含义不同，代表有  0 个或多个某个字符（'\*' 前面指定的字符）。例如  oo* 表示第一个 o 一定存在，第二个 o 可以有一个或多个，也可以没有，因此代表至少一个 0
+> 2. shell 中的反向选择为 [!range]，正则里面为 \[^range]
+
 ```
 # 匹配指定行，并输出行号
 cat file|grep -n 'target'
@@ -112,6 +117,44 @@ cat file|grep '^[a-z]'
 
 # 匹配不是以英文字母开头的行
 grep '^[^a-zA-Z]' file
+
+# 匹配非空行
+cat file|grep -v '^$'
+
+# grep 正则表达式中， '.' 代表任意一个字符，'*' 代表重复字符。
+# 匹配 g??d，例如 good，gabd，goxd ……
+cat file|grep 'g..d'
+
+# 匹配两个 o 以上的字符串
+cat file|grep 'ooo*'
+
+# 匹配以 g 开头和结尾，中间至少有一个 o 字符串
+cat file|grep 'goo*g'
+
+# 匹配以 g 开头和结尾的字符串，'.*' 代表 0 个或多个任意字符
+cat file|grep 'g.*g'
+
+# 匹配包含 2 个 o 的字符串的行
+cat file|grep 'o\{2\}'
+
+# 匹配包含 2~5 个 o 的字符串的行
+grep -n 'o\{2,5\}' file
+
+# 匹配包含 g 后面跟 2~3 个 o，再跟 d 的字符串的行
+[root@localhost ~]# cat file
+goood
+god
+good
+gooood
+[root@localhost ~]# grep -n 'go\{2,3\}d' file 
+1:goood
+3:good
+
+# 匹配包含 g 后面跟 2 个以上 o，再跟 d 的字符串的行
+[root@localhost ~]# grep -n 'go\{2,\}d' file 
+1:goood
+3:good
+4:gooood
 ```
 
 
@@ -119,6 +162,7 @@ grep '^[^a-zA-Z]' file
 ## for 循环的常用写法
 
 ### 数值类型
+
 ```bash
 # i = i*3+1
 for((i=1; i<=10; i++))

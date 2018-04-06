@@ -73,25 +73,51 @@ index
 
 
 
-## awk getline: 过滤行、改变奇数偶数行
+## 匹配、过滤指定行
 
-### 打印出从 1 到 10 之间的偶数
+### awk
+
 ```bash
+# 打印出从 1 到 10 之间的偶数
 seq 10|awk '{getline; print $0}'
-```
 
-### 打印出从 1 到 10 之前的奇数
-```bash
+# 打印出从 1 到 10 之前的奇数
 seq 10|awk '{print $0; getline}'
-```
 
-### 交换奇数、偶数行
-
-```bash
+# 交换奇数、偶数行
 seq 10|awk '{getline tmp; print tmp; print $0}'
+
+# 匹配指定行
+cat file|awk '/target/ {print $0}'
 ```
+
+### grep
+
+```
+# 匹配指定行，并输出行号
+cat file|grep -n 'target'
+
+# 未匹配上的所有行
+cat file|grep -v 'target'
+
+# 匹配 tast 或者 test
+cat file|grep 't[ae]st'
+
+# 行首、行尾关键词匹配
+cat file|grep '^key'
+cat file|grep 'key$'
+
+# 匹配以小写字母开头的行
+cat file|grep '^[a-z]'
+
+# 匹配不是以英文字母开头的行
+grep '^[^a-zA-Z]' file
+```
+
+
 
 ## for 循环的常用写法
+
 ### 数值类型
 ```bash
 # i = i*3+1

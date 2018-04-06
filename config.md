@@ -2,7 +2,7 @@
 
 ------
 
-## git 客户端基本配置项
+##  读取文件
 
 ```bash
 # 执行方式：命令行执行即可
@@ -527,7 +527,7 @@ echo "ATTENTION: RUN 'source /etc/profile'"
 echo ""
 ```
 
-## CentOS 配置 vnc
+## CentOS 配置 VNC
 
 1. 安装软件包
 

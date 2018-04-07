@@ -175,6 +175,8 @@ int main(int argc, char **argv)
 
 ## OpenSSL 客户端
 
+> **源码路径：**[openssl_client.c](https://github.com/dudebing99/blog/blob/master/archives/code_snippet/openssl_client.c)
+
 ```c
 #include <stdio.h>
 #include <string.h>

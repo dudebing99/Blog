@@ -14,6 +14,8 @@
 
 [Code Snippet](https://dudebing99.github.io/blog/code_snippet.html)
 
+[Practice & Principle](https://github.com/dudebing99/blog/blob/master/practice%20%26%20principle.html)
+
 
 
 ------

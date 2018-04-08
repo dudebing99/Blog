@@ -947,9 +947,9 @@ auto.leader.rebalance.enable=true
 
 6. 登陆 Gerrit，进入个人中心，将上一步产生的公钥 id_rsa.pub 添加到 SSH 公钥（SSH Public Keys）
 
-## gsoap 2.8.18 安装
+## gSOAP 2.8.18 安装
 
-1. 安装 gsoap 2.8.18
+1. 安装 gSOAP 2.8.18
 
 ```bash
 unzip gsoap_2.8.18.zip

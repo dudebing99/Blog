@@ -152,8 +152,8 @@ Ctrl+w h/j/k/l
 
 # 显示空格、TAB
 # TAB 键显示为 ^I，$ 显示在每行的结尾，表示换行；空格仍然显示为空格。
-:set list		进入List Mode
-:set nolist		退出List Mode
+:set list		进入 List Mode
+:set nolist		退出 List Mode
 ```
 
 ## Windows 清理系统垃圾

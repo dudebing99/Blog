@@ -1014,79 +1014,79 @@ make -j4 && make install
 #### Nginx 同时支持 http/https
 
    ```bash
-   server {
-           listen	80;
-           listen  443;
+ server {
+   listen	80;
+   listen  443;
 
-           ssl_certificate      /etc/letsencrypt/live/api.danbay.cn/fullchain.pem;
-           ssl_certificate_key  /etc/letsencrypt/live/api.danbay.cn/privkey.pem;
+   ssl_certificate      /etc/letsencrypt/live/api.danbay.cn/fullchain.pem;
+   ssl_certificate_key  /etc/letsencrypt/live/api.danbay.cn/privkey.pem;
 
-           ssl_session_timeout 1d;
-           ssl_session_cache shared:SSL:32m;
-           ssl_session_tickets off;
+   ssl_session_timeout 1d;
+   ssl_session_cache shared:SSL:32m;
+   ssl_session_tickets off;
 
-           # modern configuration. tweak to your needs.
-           ssl_protocols TLSv1.2;
-           ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
-           ssl_prefer_server_ciphers on;
+   # modern configuration. tweak to your needs.
+   ssl_protocols TLSv1.2;
+   ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
+   ssl_prefer_server_ciphers on;
 
-           server_name          api.danbay.cn;
-           root         		/usr/share/nginx/html;
+   server_name          api.danbay.cn;
+   root         		/usr/share/nginx/html;
 
-           # Load configuration files for the default server block.
-           include /etc/nginx/default.d/*.conf;
+   # Load configuration files for the default server block.
+   include /etc/nginx/default.d/*.conf;
 
-           location / {
-           }
-
-           error_page 404 /404.html;
-           location = /40x.html {
-           }
-
-           error_page 500 502 503 504 /50x.html;
-           location = /50x.html {
-           }
+   location / {
    }
+
+   error_page 404 /404.html;
+   location = /40x.html {
+   }
+
+   error_page 500 502 503 504 /50x.html;
+   location = /50x.html {
+   }
+}
    ```
 
 #### Nginx 强制启用 https
 
 ```bash
 server {
-        listen  80;
-        listen  443;
+    listen  80;
+    listen  443;
 
-        server_name          api.danbay.cn;
-        root         		/usr/share/nginx/html;
-        ssl             		on;
-        error_page 497   https://$host:7443$uri; 
-        #error_page 497  https://$host:7443$request_uri?$args;
+    server_name             api.danbay.cn;
+    root         		    /usr/share/nginx/html;
+    ssl             		on;
+    error_page 497          https://$host:443$uri; 
+    #error_page 497         https://$host:443$request_uri?$args;
 
-        ssl_certificate      /etc/letsencrypt/live/dev3.danbay.cn/fullchain.pem;
-        ssl_certificate_key  /etc/letsencrypt/live/dev3.danbay.cn/privkey.pem;
+    ssl_certificate         /etc/letsencrypt/live/dev3.danbay.cn/fullchain.pem;
+    ssl_certificate_key     /etc/letsencrypt/live/dev3.danbay.cn/privkey.pem;
 
-        ssl_session_timeout 1d;
-        ssl_session_cache shared:SSL:32m;
-        ssl_session_tickets off;
+    ssl_session_timeout 1d;
+    ssl_session_cache shared:SSL:32m;
+    ssl_session_tickets off;
 
-        # modern configuration. tweak to your needs.
-        ssl_protocols TLSv1.2;
-        ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
-        ssl_prefer_server_ciphers on;
+    # modern configuration. tweak to your needs.
+    ssl_protocols TLSv1.2;
+    ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
+    ssl_prefer_server_ciphers on;
 
-        # Load configuration files for the default server block.
-        include /etc/nginx/default.d/*.conf;
+    # Load configuration files for the default server block.
+    include /etc/nginx/default.d/*.conf;
 
-        location / {
-        }
+    location / {
+    }
 
-        error_page 404 /404.html;
-        location = /40x.html {
-        }
+    error_page 404 /404.html;
+    location = /40x.html {
+    }
 
-        error_page 500 502 503 504 /50x.html;
-        location = /50x.html {
-        }
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+    }
 }
 ```
 
@@ -1094,46 +1094,46 @@ server {
 
 ```bash
 upstream tomcat {
-        server 127.0.0.1:7080;
+    server 127.0.0.1:7080;
 }
 
 server {
-        listen  80;
-        listen  443;
+    listen  80;
+    listen  443;
 
-        server_name          api.danbay.cn;
-        root         		/usr/share/nginx/html;
-        ssl             		on;
+    server_name             api.danbay.cn;
+    root         		    /usr/share/nginx/html;
+    ssl             		on;
 
-        #error_page 497  https://$host$uri?$args;
-        error_page 497  https://$host:7443$request_uri; 
+    #error_page 497         https://$host:443$uri?$args;
+    error_page 497          https://$host:443$request_uri; 
 
-        ssl_certificate      /etc/letsencrypt/live/api.danbay.cn/fullchain.pem;
-        ssl_certificate_key  /etc/letsencrypt/live/api.danbay.cn/privkey.pem;
+    ssl_certificate         /etc/letsencrypt/live/api.danbay.cn/fullchain.pem;
+    ssl_certificate_key     /etc/letsencrypt/live/api.danbay.cn/privkey.pem;
 
-        ssl_session_timeout 1d;
-        ssl_session_cache shared:SSL:32m;
-        ssl_session_tickets off;
+    ssl_session_timeout 1d;
+    ssl_session_cache shared:SSL:32m;
+    ssl_session_tickets off;
 
-        # modern configuration. tweak to your needs.
-        ssl_protocols TLSv1.2;
-        ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
-        ssl_prefer_server_ciphers on;
+    # modern configuration. tweak to your needs.
+    ssl_protocols TLSv1.2;
+    ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
+    ssl_prefer_server_ciphers on;
 
-        # Load configuration files for the default server block.
-        include /etc/nginx/default.d/*.conf;
+    # Load configuration files for the default server block.
+    include /etc/nginx/default.d/*.conf;
 
-        location / {
-                proxy_pass http://tomcat;
-        }
+    location / {
+            proxy_pass http://tomcat;
+    }
 
-        error_page 404 /404.html;
-        location = /40x.html {
-        }
+    error_page 404 /404.html;
+    location = /40x.html {
+    }
 
-        error_page 500 502 503 504 /50x.html;
-        location = /50x.html {
-        }
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+    }
 }
 ```
 

@@ -967,3 +967,180 @@ make -j4 && make install
    export PATH
 
 3. source /etc/profile
+
+## Lets Encrypt 证书制作、部署
+
+> **References:**
+>
+> [Lets Encrypt](https://community.letsencrypt.org/t/trying-to-renew-got-message-cert-not-yet-due-for-renewal/36303)
+>
+> [Nginx 与 Apache Tomcat 组合的简单使用]([Nginx与tomcat组合的简单使用](http://www.cnblogs.com/naaoveGIS/p/5478208.html))
+
+### 基础环境
+
+- CentOS 6.8
+- Nginx 1.10.2
+- Apache Tomcat 8.0.47
+- 配置域名解析 api.danbay.cn xxx.xxx.xxx.xxx
+
+### 证书制作
+
+1. 获取 certbot 客户端
+
+   ```bash
+   wget https://dl.eff.org/certbot-auto
+   chmod a+x certbot-auto
+   ```
+
+   ​
+
+2. 生成证书
+
+   ```bash
+   /opt/certbot-auto certonly --webroot -w /usr/share/nginx/html --agree-tos --email xuchao@danbay.cn -d api.danbay.cn
+   ```
+
+   ![生成证书](pic/certbot/certbot.jpg)
+
+3. 查看证书文件
+
+   ```bash
+   tree /etc/letsencrypt/live/
+   ```
+
+   ![证书文件](pic/certbot/cert.jpg)
+### 部署
+
+#### Nginx 同时支持 http/https
+
+   ```bash
+   server {
+           listen	80;
+           listen  443;
+
+           ssl_certificate      /etc/letsencrypt/live/api.danbay.cn/fullchain.pem;
+           ssl_certificate_key  /etc/letsencrypt/live/api.danbay.cn/privkey.pem;
+
+           ssl_session_timeout 1d;
+           ssl_session_cache shared:SSL:32m;
+           ssl_session_tickets off;
+
+           # modern configuration. tweak to your needs.
+           ssl_protocols TLSv1.2;
+           ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
+           ssl_prefer_server_ciphers on;
+
+           server_name          api.danbay.cn;
+           root         		/usr/share/nginx/html;
+
+           # Load configuration files for the default server block.
+           include /etc/nginx/default.d/*.conf;
+
+           location / {
+           }
+
+           error_page 404 /404.html;
+           location = /40x.html {
+           }
+
+           error_page 500 502 503 504 /50x.html;
+           location = /50x.html {
+           }
+   }
+   ```
+
+#### Nginx 强制启用 https
+
+```bash
+server {
+        listen  80;
+        listen  443;
+
+        server_name          api.danbay.cn;
+        root         		/usr/share/nginx/html;
+        ssl             		on;
+        error_page 497   https://$host:7443$uri; 
+        #error_page 497  https://$host:7443$request_uri?$args;
+
+        ssl_certificate      /etc/letsencrypt/live/dev3.danbay.cn/fullchain.pem;
+        ssl_certificate_key  /etc/letsencrypt/live/dev3.danbay.cn/privkey.pem;
+
+        ssl_session_timeout 1d;
+        ssl_session_cache shared:SSL:32m;
+        ssl_session_tickets off;
+
+        # modern configuration. tweak to your needs.
+        ssl_protocols TLSv1.2;
+        ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
+        ssl_prefer_server_ciphers on;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+        }
+
+        error_page 404 /404.html;
+        location = /40x.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+        }
+}
+```
+
+#### Nginx 代理 Apache Tomcat
+
+```bash
+upstream tomcat {
+        server 127.0.0.1:7080;
+}
+
+server {
+        listen  80;
+        listen  443;
+
+        server_name          api.danbay.cn;
+        root         		/usr/share/nginx/html;
+        ssl             		on;
+
+        #error_page 497  https://$host$uri?$args;
+        error_page 497  https://$host:7443$request_uri; 
+
+        ssl_certificate      /etc/letsencrypt/live/api.danbay.cn/fullchain.pem;
+        ssl_certificate_key  /etc/letsencrypt/live/api.danbay.cn/privkey.pem;
+
+        ssl_session_timeout 1d;
+        ssl_session_cache shared:SSL:32m;
+        ssl_session_tickets off;
+
+        # modern configuration. tweak to your needs.
+        ssl_protocols TLSv1.2;
+        ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
+        ssl_prefer_server_ciphers on;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+                proxy_pass http://tomcat;
+        }
+
+        error_page 404 /404.html;
+        location = /40x.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+        }
+}
+```
+
+### 更新证书
+
+```bash
+# 证书默认 90 有效，更新不能太频繁，同一域名一周之内最多只能更新5次
+/opt/certbot-auto renew
+```
+

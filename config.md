@@ -10,8 +10,6 @@
 git config --global core.autocrlf false
 # 拒绝提交包含混合换行符的文件
 git config --global core.safecrlf true
-git config --global core.autocrlf false
-git config --global core.safecrlf true
 git config --global alias.st status
 git config --global alias.co checkout
 git config --global alias.ct commit

@@ -1142,3 +1142,38 @@ server {
 /opt/certbot-auto renew
 ```
 
+## 安装配置 CURL 支持 http2
+
+###基础环境
+
+- CentOS 6.8
+- Python 2.6.6
+- CURL 7.19.7
+
+### 确认 CURL 版本以及是否支持 http2
+
+```bash
+# 查看 CURL 版本以及所有支持的协议、特性
+[root@localhost ~]# curl --version                      
+curl 7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2
+Protocols: tftp ftp telnet dict ldap ldaps http file https ftps scp sftp 
+Features: GSS-Negotiate IDN IPv6 Largefile NTLM SSL libz 
+
+# 如下提示则表明此版本 CURL 不支持 http2
+[root@localhost ~]# curl --http2 -I https://nghttp2.org/
+curl: option --http2: is unknown
+curl: try 'curl --help' or 'curl --manual' for more information
+```
+
+### 安装依赖库
+
+```bash
+yum install -y readline-devel sqlite-devel lz4 lz4-devel gdbm gdbm-devel bzip2 openssl openssl-devel libdbi-devel ncurses-libs zlib-devel _bsddb bz2 dl
+```
+
+### 安装 Python 2.7.3
+
+### 安装 nghttp2
+
+> CURL 依赖 nghttp2 提供对 http2 的支持，因此，需要先安装 nghttp2
+

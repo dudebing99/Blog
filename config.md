@@ -1173,6 +1173,21 @@ yum install -y readline-devel sqlite-devel lz4 lz4-devel gdbm gdbm-devel bzip2 o
 
 ### 安装 Python 2.7.3
 
+```bash
+# 下载、安装 Python 2.7.3
+wget http://python.org/ftp/python/2.7.3/Python-2.7.3.tar.bz2 
+tar -jxvf Python-2.7.3.tar.bz2
+cd Python-2.7.3
+./configure
+make -j4 all
+make install
+
+# 修复其他服务（如，YUM）对旧版本 Python 2.6.6 的依赖
+mv /usr/bin/python /usr/bin/python-2.6.6
+ln -sf /usr/local/bin/python2.7 /usr/bin/python
+sed -i "s/#\!\/usr\/bin\/python/#\!\/usr\/bin\/python-2.6.6/" /usr/bin/yum
+```
+
 ### 安装 nghttp2
 
 > CURL 依赖 nghttp2 提供对 http2 的支持，因此，需要先安装 nghttp2

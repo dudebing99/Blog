@@ -1150,21 +1150,6 @@ server {
 - Python 2.6.6
 - CURL 7.19.7
 
-### 确认 CURL 版本以及是否支持 http2
-
-```bash
-# 查看 CURL 版本以及所有支持的协议、特性
-[root@localhost ~]# curl --version                      
-curl 7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2
-Protocols: tftp ftp telnet dict ldap ldaps http file https ftps scp sftp 
-Features: GSS-Negotiate IDN IPv6 Largefile NTLM SSL libz 
-
-# 如下提示则表明此版本 CURL 不支持 http2
-[root@localhost ~]# curl --http2 -I https://nghttp2.org/
-curl: option --http2: is unknown
-curl: try 'curl --help' or 'curl --manual' for more information
-```
-
 ### 安装依赖库
 
 ```bash
@@ -1172,6 +1157,8 @@ yum install -y readline-devel sqlite-devel lz4 lz4-devel gdbm gdbm-devel bzip2 o
 ```
 
 ### 安装 Python 2.7.3
+
+> nghttp2 依赖 Python 2.7.x
 
 ```bash
 # 下载、安装 Python 2.7.3
@@ -1188,7 +1175,63 @@ ln -sf /usr/local/bin/python2.7 /usr/bin/python
 sed -i "s/#\!\/usr\/bin\/python/#\!\/usr\/bin\/python-2.6.6/" /usr/bin/yum
 ```
 
-### 安装 nghttp2
+### 安装 nghttp2 v1.14.x
 
 > CURL 依赖 nghttp2 提供对 http2 的支持，因此，需要先安装 nghttp2
+
+```bash
+git clone https://github.com/tatsuhiro-t/nghttp2.git
+cd nghttp2
+# 默认 master 分支，切换到特定的分支，例如 v1.14.x
+
+autoreconf -i
+automake
+autoconf
+./configure
+make -j4
+make install
+
+# 查看 nghttp2
+[root@localhost curl-7.46.0]# whereis libnghttp2
+libnghttp2: /usr/local/lib/libnghttp2.a /usr/local/lib/libnghttp2.la /usr/local/lib/libnghttp2.so
+```
+
+### 安装 CURL 7.46.0
+
+```bash
+wget http://curl.haxx.se/download/curl-7.46.0.tar.bz2
+tar -xvjf curl-7.46.0.tar.bz2
+cd curl-7.46.0
+./configure --with-nghttp2=/usr/local --with-ssl
+make -j4
+make install
+ln -sf /usr/local/bin/curl /usr/bin/curl
+```
+
+### 确认 CURL 版本以及是否支持 http2
+
+```bash
+# 查看 CURL 版本以及所有支持的协议、特性
+[root@localhost curl-7.46.0]# curl --version
+curl 7.46.0 (x86_64-pc-linux-gnu) libcurl/7.46.0 OpenSSL/1.0.1e zlib/1.2.3 nghttp2/1.14.1
+Protocols: dict file ftp ftps gopher http https imap imaps pop3 pop3s rtsp smb smbs smtp smtps telnet tftp 
+Features: IPv6 Largefile NTLM NTLM_WB SSL libz HTTP2 UnixSockets 
+
+# 如下提示则表明此版本 CURL 支持 http2
+[root@localhost curl-7.46.0]# curl --http2 -I https://nghttp2.org/
+HTTP/2.0 200
+date:Thu, 12 Apr 2018 16:31:22 GMT
+content-type:text/html
+last-modified:Thu, 12 Apr 2018 15:17:17 GMT
+etag:"5acf787d-19d8"
+accept-ranges:bytes
+content-length:6616
+x-backend-header-rtt:0.001775
+strict-transport-security:max-age=31536000
+server:nghttpx
+via:2 nghttpx
+x-frame-options:SAMEORIGIN
+x-xss-protection:1; mode=block
+x-content-type-options:nosniff
+```
 

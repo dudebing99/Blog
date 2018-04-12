@@ -1182,7 +1182,9 @@ sed -i "s/#\!\/usr\/bin\/python/#\!\/usr\/bin\/python-2.6.6/" /usr/bin/yum
 ```bash
 git clone https://github.com/tatsuhiro-t/nghttp2.git
 cd nghttp2
+
 # 默认 master 分支，切换到特定的分支，例如 v1.14.x
+git checkout -b v1.14.x origin/v1.14.x
 
 autoreconf -i
 automake
@@ -1190,6 +1192,8 @@ autoconf
 ./configure
 make -j4
 make install
+echo '/usr/local/lib' > /etc/ld.so.conf.d/local.conf
+ldconfig
 
 # 查看 nghttp2
 [root@localhost curl-7.46.0]# whereis libnghttp2
@@ -1199,12 +1203,15 @@ libnghttp2: /usr/local/lib/libnghttp2.a /usr/local/lib/libnghttp2.la /usr/local/
 ### 安装 CURL 7.46.0
 
 ```bash
+# 安装 CURL 7.46.0
 wget http://curl.haxx.se/download/curl-7.46.0.tar.bz2
 tar -xvjf curl-7.46.0.tar.bz2
 cd curl-7.46.0
 ./configure --with-nghttp2=/usr/local --with-ssl
 make -j4
 make install
+
+# 替换旧版本
 ln -sf /usr/local/bin/curl /usr/bin/curl
 ```
 

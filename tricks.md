@@ -180,6 +180,29 @@ git merge dev
 git push origin master
 ```
 
+### 查看历史提交信息
+
+```bash
+# 查看所有提交日志
+git log
+
+# 查看某次 commit 的修改内容
+git show <commit-id>
+
+# 查看某个文件的所有的修改内容
+git log -p <filename>
+
+# 查看某个文件的最近 2 次的更新内容
+git log -p -2 <filename>
+
+# 查看最近一次所有的更新内容（如下两种方法）
+git log -p -1
+git diff HEAD^
+
+# 查看某个文件的最后一次更新内容由谁提交（对应到每一行）
+git blame <filename>
+```
+
 ## Windows 清理系统垃圾
 
 使用说明：保存为 clear.bat，双击运行即可。

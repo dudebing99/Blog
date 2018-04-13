@@ -156,6 +156,30 @@ Ctrl+w h/j/k/l
 :set nolist		退出 List Mode
 ```
 
+## Git 小技巧
+
+### 合并分支到主干
+
+```bash
+# 假设在 dev 分支开发完
+git add .
+git commit -m "feat: ..."
+git push -u origin dev
+
+# 切换到（本地）master
+git checkout master
+# 拉取最新
+git pull
+
+# 将 dev 合并到（本地）master
+git merge dev
+
+# 可能需要解决冲突，然后 add，commit
+
+# 推送到远程 master
+git push origin master
+```
+
 ## Windows 清理系统垃圾
 
 使用说明：保存为 clear.bat，双击运行即可。

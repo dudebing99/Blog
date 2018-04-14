@@ -175,6 +175,9 @@ git commit
 git commit -m "fix(module): free memory"
 # 追加新的变更到上次提交（即，commit id 不变，多次修改的内容合并到一次提交）
 git commit --amend
+
+# 修改本次提交的作者信息
+git commit --amend --author="kevin <dudebing99@gmail.com>" -C HEAD
 ```
 
 

@@ -178,6 +178,47 @@ git commit --amend
 
 # 修改本次提交的作者信息
 git commit --amend --author="kevin <dudebing99@gmail.com>" -C HEAD
+
+# 查看当前所在分支
+git branch
+# 查看远程分支
+git branch -r
+```
+
+### git stash
+
+> - [x] 默认情况下，git stash 缓存文件的策略如下：
+>
+>
+> 1. **会缓存下列文件**
+>
+> - 添加到暂存区的修改（staged changes）
+> - Git 跟踪的但并未添加到暂存区的修改（unstaged changes）
+> 2. **不会缓存以下文件**
+> - 在工作目录中新的文件（untracked files）
+> - 被忽略的文件（ignored files）
+>
+> - [x] 使用 -u 或者 --include-untracked 可以 stash untracked 的文件
+> - [x] 使用 -a 或者 --all 命令可以  stash 当前目录下的所有修改
+
+```bash
+# 保存未提交的变更(建议通过 sava "fix(xxx): xxx)" 备注变更说明）
+git stash save "fix(xxx): xxx"
+# 可在 git stash 之后拉取远程最新代码
+git pull
+# 然后，pop 之前保存的未提交的更新，做修改、合并，最后再提交
+git stash pop
+
+# pop 指定栈层次， git stash pop stash@{0} 命令等同于 git stash pop
+git stash pop stash@{id}
+
+# 查看所有的 stash
+git stash list
+
+# 移除某个 stash
+git stash drop stash@{id}
+# 移除所有的 stash
+git stash clear
 ```
 
 ### 合并分支到主干

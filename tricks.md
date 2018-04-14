@@ -180,8 +180,6 @@ git commit --amend
 git commit --amend --author="kevin <dudebing99@gmail.com>" -C HEAD
 ```
 
-
-
 ### 合并分支到主干
 
 ```bash

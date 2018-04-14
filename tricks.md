@@ -158,6 +158,27 @@ Ctrl+w h/j/k/l
 
 ## Git 小技巧
 
+### 基本操作
+
+```bash
+# 克隆远程仓库到本地
+git clone ssh://kevin@192.168.5.32:29418/dummy.git
+
+# 查看本地变更信息
+git status
+# 查看本地当前目录变更信息
+git status .
+
+# 添加提交信息（交互式编辑）
+git commit
+# 添加提交信息（非交互式）
+git commit -m "fix(module): free memory"
+# 追加新的变更到上次提交（即，commit id 不变，多次修改的内容合并到一次提交）
+git commit --amend
+```
+
+
+
 ### 合并分支到主干
 
 ```bash

@@ -1242,3 +1242,23 @@ x-xss-protection:1; mode=block
 x-content-type-options:nosniff
 ```
 
+## Mail 发送邮件
+
+1. 配置 /etc/mail.rc
+
+   ```bash
+   set from=xuchao@bigsillybear.com smtp="smtp.bigsillybear.com"
+   set smtp-auth-user="xuchao@bigsillybear.com" smtp-auth-password="HiBigsillybear"
+   set smtp-auth=login
+   ```
+
+2. 发送邮件
+
+   ```bash
+   # 发送主题为 test，邮件正文为 ca.pem 文件内容，包含附件 ca.pem 的邮件到 cloud_dev@bigsillybear.com
+   mail -s "test" -a ca.pem cloud_dev@bigsillybear.com < ca.pem
+
+   # 发送主题为 test，邮件正文为 hello world 的邮件到 cloud_dev@bigsillybear.com
+   echo "hello world"|mail -s "test" cloud_dev@bigsillybear.com
+   ```
+

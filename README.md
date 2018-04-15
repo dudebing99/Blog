@@ -16,7 +16,7 @@
 
 [Practice & Principle](https://dudebing99.github.io/blog/practice%20%26%20principle.html)
 
-
+[Golang Study](https://dudebing99.github.io/blog/go.html)
 
 ------
 

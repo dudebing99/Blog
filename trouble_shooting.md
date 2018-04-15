@@ -229,3 +229,23 @@ CentOS 7.x 不在使用 init 托管服务，systemd 取而代之。
 2. 图形模式
 
    systemctl set-default graphical.target
+
+## IceGrid 应用进程权限
+
+#### 系统环境
+
+CentOS 7.x/Ice 3.6.1
+
+#### 问题描述
+
+IceGrid Node 节点部署的应用进程无法创建日志目录
+
+#### 原因分析
+
+IceGrid Node 节点应用进程默认以 everyone 用户启动，进程需要在运行目录写日志文件，而 everyone 用户不具备该目录的写权限，导致无法创建日志目录。
+
+#### 解决方式
+
+**方法 1：**将应用写日志文件的目录赋予 everyone 用户权限。
+
+**方法 2：**IceGrid 机制允许修改用户进程启动默认启动的用户，详见 ICE 官方文档。

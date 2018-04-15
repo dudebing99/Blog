@@ -1279,14 +1279,17 @@ x-content-type-options:nosniff
 
    ```bash
    mysql -uroot -p123456（初始密码为空）
-   >use mysql;
-   >update user set password=password('123456') where user='root';
-   >flush privileges;
+   > use mysql;
+   > update user set password=password('123456') where user='root';
+   > flush privileges;
    ```
 
 3. 允许远程访问
 
    ```bash
-   >grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
+   > grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
    ```
+
+
+
 

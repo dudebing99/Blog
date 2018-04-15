@@ -346,7 +346,56 @@ rdate -t 30 -s time.nist.gov && hwclock -w
    service sshd restart
    ```
 
+## MySQL 重置 root 密码
+
+1. 停止服务，以不验证权限模式运行
+
+   ```bash
+   [root@localhost ~]# service mysqld stop
+   Stopping mysqld:                                           [  OK  ]
+   [root@localhost ~]# mysqld_safe --skip-grant-tables &
+   [2] 9371
+   [root@localhost ~]# 180416 00:10:05 mysqld_safe Logging to '/var/log/mysqld.log'.
+   180416 00:10:05 mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
+
+   [root@localhost ~]# mysql -u root
+   Welcome to the MySQL monitor.  Commands end with ; or \g.
+   Your MySQL connection id is 1
+   Server version: 5.1.73 Source distribution
+
+   Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.
+
+   Oracle is a registered trademark of Oracle Corporation and/or its
+   affiliates. Other names may be trademarks of their respective
+   owners.
+
+   Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+   mysql> use mysql;
+   Reading table information for completion of table and column names
+   You can turn off this feature to get a quicker startup with -A
+
+   Database changed
+   mysql> update user set password=password('123456') where user='root';
+   Query OK, 0 rows affected (0.00 sec)
+   Rows matched: 2  Changed: 0  Warnings: 0
+
+   mysql> flush privileges;
+   Query OK, 0 rows affected (0.00 sec)
+
+   mysql> exit
+   Bye
+   ```
+
+2. 重启服务即可
+
+   ```bash
+   [root@localhost ~]# service mysqld restart
+   180416 00:10:56 mysqld_safe mysqld from pid file /var/run/mysqld/mysqld.pid ended
+   Stopping mysqld:                                           [  OK  ]
+   Starting mysqld:                                           [  OK  ]
+   [2]-  Done                    mysqld_safe --skip-grant-tables
+   ```
+
    ​
-
-
 

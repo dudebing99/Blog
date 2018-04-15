@@ -1664,3 +1664,79 @@ zookeeper=192.168.2.3 192.168.2.4 192.168.2.5
 kafka=192.168.2.3 192.168.2.4 192.168.2.5
 cluster_common_passwd=123456
 ```
+## 添加自定义系统服务
+
+> 备注：源码编译安装 Apache Tomcat 之后，可以将其添加到系统服务**（此方法仅适用于 CentOS 7 之前版本）**
+
+1. 进入 /etc/ini.d 文件夹，新建文件 tomcat
+
+   ```bash
+   #!/bin/bash 
+   # 2345是要设为要启动的运行级别，10启动优先级，90杀死进程的优先级
+   # chkconfig: 2345 10 90 
+   # description: script to start/stop tomcat service 
+   # by dudebing99 2014-10-28 
+
+   source /etc/profile 
+
+   case $1 in 
+
+   #start service 
+   start) 
+   sh /usr/share/apache-tomcat-7.0.56/bin/startup.sh 
+   echo "" 
+   ;; 
+
+   #stop service 
+   stop) 
+   sh /usr/share/apache-tomcat-7.0.56/bin/shutdown.sh 
+   echo "" 
+   ;; 
+
+   #restart service 
+   restart) 
+   sh /usr/share/apache-tomcat-7.0.56/bin/shutdown.sh 
+   echo "" 
+   #status 
+   status) 
+   var=$(ps -ef | grep tomcat | grep -v "grep" | wc -l) 
+   if [[ $var -eq 4 ]] ; then 
+   echo -e "\nTomcat is running.\n" 
+   else 
+   echo -e "\nTomcat is stopped.\n" 
+   fi 
+   ;;
+   #help 
+   help) 
+   echo -e "\nUsage:start|stop|restart|status\n"
+   ;; 
+
+   #other 
+   *) 
+   echo -e "\nUnexpected command, tips as follows.\n" 
+   echo -e "Usage:start|stop|restart|status\n" 
+   ;; 
+
+   esac 
+   ```
+
+2. 更改文件权限
+
+   ```bash
+   chmod 755  /etc/init.d/tomcat
+   ```
+
+3. 添加服务
+
+   ```bash
+   chkconfig --add tomcat
+   ```
+
+4. 确认服务是否已开启
+
+   ```bash
+   chkconfig tomcat --list
+   ```
+
+
+

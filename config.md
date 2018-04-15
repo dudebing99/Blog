@@ -1262,3 +1262,31 @@ x-content-type-options:nosniff
    echo "hello world"|mail -s "test" cloud_dev@bigsillybear.com
    ```
 
+
+## CentOS 配置 MySQL
+
+> - 主要包括配置**防火墙**、**修改初始密码**、**允许远程访问**三部分
+> - MySQL 配置文件位置： /etc/my.cnf
+
+1. 开启 3306 端口
+
+   ```bash
+   /sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
+   /etc/rc.d/init.d/iptables save
+   ```
+
+2. 修改初始密码
+
+   ```bash
+   mysql -uroot -p123456（初始密码为空）
+   >use mysql;
+   >update user set password=password('123456') where user='root';
+   >flush privileges;
+   ```
+
+3. 允许远程访问
+
+   ```bash
+   >grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
+   ```
+

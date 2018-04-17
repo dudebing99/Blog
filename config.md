@@ -1291,9 +1291,11 @@ x-content-type-options:nosniff
    ```
 
 
-### Windows 下 nodejs/npm 安装配置
+## Windows 下 nodejs /npm 安装配置
 
-> 使用 Node.js 的 npm 命令需要访问国外的站点，但由于国内网络的问题，可能安装 react-native-cli 的速度会比较慢，甚至完全无法安装，淘宝为国内开发者提供了 npm 镜像服务。
+> **说明：**使用 Node.js 的 npm 命令需要访问国外的站点，但由于国内网络的问题，可能安装 react-native-cli 的速度会比较慢，甚至完全无法安装，淘宝为国内开发者提供了 npm 镜像服务。
+>
+> **环境：**node-v8.11.1-x64/Windows 7 64位旗舰版
 
 1. 下载 nodejs（已包含 npm），官网 https://nodejs.org/en/
 2. 使用淘宝 npm 镜像安装 react-native-cli

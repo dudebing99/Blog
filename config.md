@@ -1325,3 +1325,45 @@ cnpm install -g react-native-cli
 1. 下载 [make-4.2.1-without-guile-w32-bin.zip](https://sourceforge.net/projects/ezwinports/files/make-4.2.1-without-guile-w32-bin.zip/download)（适用于 Windows 64 位系统）
 2. 解压
 3. 将解压后的所有文件拷贝到 Git 安装目录，默认路径 C:\Program Files\Git\mingw64\（需根据 Git 实际安装路径调整，**另外，如果某些文件原来此目录已存在，切记不要覆盖，选择跳过即可**）
+
+
+## Visual Studio Code 配置 GoLang 开发环境
+
+1. 官网下载 GoLang 安装包，安装之后 go version 查看版本
+
+   ```bash
+   $ go version
+   go version go1.10.1 windows/amd64	
+   ```
+
+   > **安装时勾选添加环境变量，不需要单独添加环境变量；否则，需要新添加环境变量，如下：**
+   >
+   > ​	计算机（右键）-> 属性 -> 高级系统设置 -> 高级 -> 环境变量 -> 系统变量 
+   >
+   > - 添加 变量名 GOROOT，值为安装目录，如  C:\app\Go\
+   > - 变量名 Path，追加值  C:\app\Go\bin;
+
+2. 设置环境变量 GOPATH，具体操作如步骤 1 所示，值为后续你存放源码的目录，如 D:\go
+
+3. 打开 Git Bash，依次安装如下依赖项
+
+   ```bash
+   go get -u -v github.com/nsf/gocode
+   go get -u -v github.com/rogpeppe/godef
+   go get -u -v github.com/golang/lint/golint
+   go get -u -v github.com/lukehoban/go-outline
+   go get -u -v sourcegraph.com/sqs/goreturns
+   go get -u -v golang.org/x/tools/cmd/gorename
+   go get -u -v github.com/tpng/gopkgs
+   go get -u -v github.com/newhook/go-symbols
+   go get -u -v golang.org/x/tools/cmd/guru
+   ```
+
+   > **请注意大坑：**步骤  3 需要墙外操作，F**K
+
+4. 安装 VS Code
+
+5. 安装 VS Code 各种插件，打开 VS Code，按 Ctrl+Shift+P，输入 install ext，输入 go，选中安装即可
+
+   > VS Code 支持各种语法，同理，安装对应的插件即可，如，需要支持 C++，安装 C++ 插件即可
+

@@ -66,8 +66,6 @@ nnoremap <Leader>w :wq!<CR> "save file"
 nmap <leader><Space><Space> :%s/\s\+$//<CR> "连续三个空格去掉行末空白（包括tab/space）"
 ```
 
-
-
 ## 基于 vsftpd 的 ftp 服务器
 
 ### 授权用户访问模式

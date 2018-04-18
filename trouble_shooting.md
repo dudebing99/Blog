@@ -250,3 +250,20 @@ IceGrid Node 节点应用进程默认以 everyone 用户启动，进程需要在
 
 **方法 2：**IceGrid 机制允许修改用户进程启动默认启动的用户，详见 ICE 官方文档。
 
+## Failed to continue: "Cannot find Delve debugger. Ensure it is in your \`GOPATH/bin\` or \`PATH\`."
+
+**系统环境**
+
+Windows 7 x64 Ultimate/VS Code v1.23.0
+
+**问题描述**
+
+略
+
+**解决方式**
+
+1. 确认已经正确设置 GOPATH 环境变量，并将  %GOPATH%\bin 追加到 PATH 环境变量
+
+2. 打开 Git Bash，运行 go get github.com/derekparker/delve/cmd/dlv
+
+

@@ -49,21 +49,31 @@ set laststatus=2
 set cursorline
 
 set guifont=Courier_New:h14:cANSI
-set history=2222
+set history=161202
 set selection=exclusive
 set selectmode=mouse,key
 set fillchars=vert:\ ,stl:\ ,stlnc:\
 set showmatch
 set matchtime=1
 set linebreak
-set colorcolumn=80
+set colorcolumn=100
 set wrap
-set tw=80
+set tw=100
 
 let mapleader = "\<Space>"
 nmap <Leader><Leader> V
 nnoremap <Leader>w :wq!<CR> "save file"
-nmap <leader><Space><Space> :%s/\s\+$//<CR> "连续三个空格去掉行末空白（包括tab/space）"
+nmap <leader><Space><Space> :%s/\s\+$//<CR> "trimTrailingWhitespace"
+
+" 自动补全 "
+" inoremap ( ()<ESC>i<CR><CR><ESC>k
+" inoremap [ []<ESC>i<CR><CR><ESC>k
+" inoremap { {}<ESC>i<CR><CR><ESC>k
+" inoremap " ""<ESC>i
+" inoremap ' ''<ESC>i
+" inoremap /* /* */<ESC>i
+
+imap jj <ESC>
 ```
 
 ## 基于 vsftpd 的 ftp 服务器

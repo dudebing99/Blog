@@ -1,30 +1,3 @@
-[TOC]
-
-------
-
-## Hello World
-
-> **功能：**向控制台打印 Hello World
->
-> **点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/hello_world/hello_world.go)
-
-```go
-package main
-
-import "fmt"
-
-func main() {
-    fmt.Printf("%s\n", "Hello World")
-}
-```
-
-## 自定义结构体 slice 排序
-
-> **功能：**自定义结构体 slice 对象，对其进行升序、降序排序
->
-> **点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/sort/slice_sort.go)
-
-```go
 package main
 
 import (
@@ -72,5 +45,3 @@ func main() {
 		fmt.Printf("Conent ID: %d, Score: %f\n", contentScore.ContentID, contentScore.Score)
 	}
 }
-```
-

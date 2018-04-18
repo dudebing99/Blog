@@ -1739,4 +1739,31 @@ cluster_common_passwd=123456
    ```
 
 
+## awk 转义单引号、双引号
+
+```bash
+# 转义双引号，直接使用 \" 即可
+[kevin@www mass]$ cat aaa 
+1   Q. Ngai
+2   T. Hoa
+3   T. Ninh
+4   D. Nai
+[kevin@www mass]$ cat aaa |awk '{print "{id: "$1", name: \"" $2" "$3"\"}"}'
+{id: 1, name: "Q. Ngai"}
+{id: 2, name: "T. Hoa"}
+{id: 3, name: "T. Ninh"}
+{id: 4, name: "D. Nai"}
+
+# 转义单引号，使用 '\''
+[kevin@www mass]$ cat aaa 
+1   Q. Ngai
+2   T. Hoa
+3   T. Ninh
+4   D. Nai
+[kevin@www mass]$ cat aaa |awk '{print "{id: "$1", name: '\''" $2" "$3"'\''}"}'
+{id: 1, name: 'Q. Ngai'}
+{id: 2, name: 'T. Hoa'}
+{id: 3, name: 'T. Ninh'}
+{id: 4, name: 'D. Nai'}
+```
 

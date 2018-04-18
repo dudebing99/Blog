@@ -76,9 +76,29 @@ nmap <leader><Space><Space> :%s/\s\+$//<CR> "trimTrailingWhitespace"
 imap jj <ESC>
 ```
 
+## VS Code 基础配置
+
+> **入口：**文件 -> 首选项 -> 配置
+>
+> **备注：**前两个配置项根据实际情况设置
+
+```json
+{
+    "go.gopath": "d:\\go",
+    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+    "editor.wordWrapColumn": 100,
+    "files.eol": "\n",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "files.trimTrailingWhitespace": true,
+    "files.autoSave": "afterDelay"
+}
+```
+
 ## 基于 vsftpd 的 ftp 服务器
 
 ### 授权用户访问模式
+
 ```bash
 0. 运行环境：Cent OS 6.8/vsftpd 2.2.2
 

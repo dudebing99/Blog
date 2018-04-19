@@ -18,6 +18,12 @@ func main() {
 }
 ```
 
+**输出**
+
+```basic
+Hello World
+```
+
 ## 自定义结构体 slice 排序
 
 > **功能：**自定义结构体 slice 对象，对其进行升序、降序排序
@@ -72,6 +78,21 @@ func main() {
 		fmt.Printf("Conent ID: %d, Score: %f\n", contentScore.ContentID, contentScore.Score)
 	}
 }
+```
+
+**输出**
+
+```basic
+按照 score 逆序排序
+Conent ID: 100, Score: 12.340000
+Conent ID: 200, Score: 9.350000
+Conent ID: 400, Score: 8.910000
+Conent ID: 99, Score: 7.900000
+按照 score 升序排序
+Conent ID: 99, Score: 7.900000
+Conent ID: 400, Score: 8.910000
+Conent ID: 200, Score: 9.350000
+Conent ID: 100, Score: 12.340000
 ```
 
 ## map 排序

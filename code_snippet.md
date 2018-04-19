@@ -177,8 +177,8 @@ int main(int argc, char **argv)
 
 > **源码路径：**
 >
-> 1. [openssl_client.c](https://github.com/dudebing99/blog/blob/master/archives/code_snippet/openssl_client.c)
-> 2. [boost_ssl_client.cpp](https://github.com/dudebing99/blog/blob/master/archives/code_snippet/boost_ssl_client.cpp)
+> 1. [openssl_client.c](https://dudebing99.github.io/blog/archives/code_snippet/openssl_client.c)
+> 2. [boost_ssl_client.cpp](https://dudebing99.github.io/blog/archives/code_snippet/boost_ssl_client.cpp)
 
 ```c
 #include <stdio.h>
@@ -523,7 +523,7 @@ int main(int argc, char* argv[])
 
 ## SSL/TLS 服务器端
 
-> **源码路径：**[boost_ssl_server.cpp](https://github.com/dudebing99/blog/blob/master/archives/code_snippet/boost_ssl_server.cpp)
+> **源码路径：**[boost_ssl_server.cpp](https://dudebing99.github.io/blog/archives/code_snippet/boost_ssl_server.cpp)
 
 ```cpp
 #include <cstdlib>

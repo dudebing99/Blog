@@ -849,7 +849,7 @@ exit $?
 
 ## openssl 自签证书
 
-> **download:** [自签证书](https://github.com/dudebing99/blog/blob/master/archives/script/ca.tar.gz)
+> **download:** [自签证书](https://dudebing99.github.io/blog/archives/script/ca.tar.gz)
 
 ### 初始化 CA
 
@@ -1302,8 +1302,8 @@ expect eof
 >
 > **download：**
 >
-> 1. install_zk_kafka.tar.gz: [安装](https://github.com/dudebing99/blog/blob/master/archives/script/install_zk_kafka.tar.gz)
-> 2. zk_kafka_deploy.tar.gz: [一键部署](https://github.com/dudebing99/blog/blob/master/archives/script/zk_kafka_deploy.tar.gz)
+> 1. install_zk_kafka.tar.gz: [安装](https://dudebing99.github.io/blog/archives/script/install_zk_kafka.tar.gz)
+> 2. zk_kafka_deploy.tar.gz: [一键部署](https://dudebing99.github.io/blog/archives/script/zk_kafka_deploy.tar.gz)
 
 ### 部署
 

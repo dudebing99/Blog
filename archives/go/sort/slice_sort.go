@@ -12,17 +12,17 @@ type ContentScore struct {
 
 type ContentScoreList []ContentScore
 
-func (cs ContentScoreList) Len() int {
-	return len(cs)
+func (csl ContentScoreList) Len() int {
+	return len(csl)
 }
 
-func (cs ContentScoreList) Swap(i, j int) {
-	cs[i], cs[j] = cs[j], cs[i]
+func (csl ContentScoreList) Swap(i, j int) {
+	csl[i], csl[j] = csl[j], csl[i]
 }
 
 // 按照 score 逆序排序
-func (cs ContentScoreList) Less(i, j int) bool {
-	return cs[j].Score < cs[i].Score
+func (csl ContentScoreList) Less(i, j int) bool {
+	return csl[j].Score < csl[i].Score
 }
 
 func main() {

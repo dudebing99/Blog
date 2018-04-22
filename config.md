@@ -23,6 +23,66 @@ git config --global user.name xx
 git config --global user.email xx@xxx.cn
 ```
 
+## Git .gitignore
+
+```basic
+# From https://github.com/github/gitignore
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# CMake
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+
+# Config
+*.conf
+
+# Log
+log/
+*.log
+
+# Debug
+debug/
+```
+
 ## VIM 基础配置
 
 > VIM 配置文件位置：~/.vimrc

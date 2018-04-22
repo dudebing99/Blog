@@ -52,4 +52,4 @@ log/
 *.log
 
 # Debug
-# debug/
+debug/

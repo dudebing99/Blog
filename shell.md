@@ -37,10 +37,10 @@ lsof -p PID|wc -l
 
 ```bash
 # 查看打开端口 80 的进程
-lsof -i:80
+lsof -i :80
 
 # 示例
-[root@localhost ~]# lsof -i:22
+[root@localhost ~]# lsof -i :22
 COMMAND  PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
 sshd    2159 root    3u  IPv4  14855      0t0  TCP *:ssh (LISTEN)
 sshd    2159 root    4u  IPv6  14865      0t0  TCP *:ssh (LISTEN)

@@ -309,3 +309,48 @@ key2 not existed ,  redis: nil
 key3 not existed ,  <nil>
 ```
 
+## HTTP 服务器
+
+> **功能：**启动一个 HTTP 服务器，监听 12306 端口
+>
+> **点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/server.go)
+
+```go
+package main
+
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
+
+func main() {
+	router := gin.Default()
+
+	router.GET("/", func(c *gin.Context) {
+		c.String(http.StatusOK, "Hello World")
+	})
+
+	router.Run(":12306")
+}
+```
+
+**输出**
+
+- 服务端启动成功，输出如下信息
+
+```basic
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+[GIN-debug] GET    /                         --> main.main.func1 (3 handlers)
+[GIN-debug] Listening and serving HTTP on :12306
+```
+
+- 通过 CURL 访问
+```basic
+$ curl http://localhost:12306/ -s
+Hello World
+```
+

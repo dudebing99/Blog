@@ -1398,6 +1398,9 @@ cnpm install -g react-native-cli
 
 ## CentOS 安装 Redis 4.0.9
 
+0. 运行环境：Cent OS 6.8
+
+
 1. 安装
 
    ```bash

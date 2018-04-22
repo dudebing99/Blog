@@ -243,7 +243,7 @@ key2 not existed ,  redis: nil
 key3 not existed ,  <nil>
 ```
 
-### Redis 单一节点
+### Redis Server
 
 > **功能：**连接 redis server，进行存取操作
 >

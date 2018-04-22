@@ -4,9 +4,9 @@
 
 ## Hello World
 
-> **功能：**向控制台打印 Hello World
->
-> **点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/hello_world/hello_world.go)
+**功能：**向控制台打印 Hello World
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/hello_world/hello_world.go)
 
 ```go
 package main
@@ -26,9 +26,9 @@ Hello World
 
 ## 自定义结构体 slice 排序
 
-> **功能：**自定义结构体 slice 对象，对其进行升序、降序排序
->
-> **点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/sort/slice_sort.go)
+**功能：**自定义结构体 slice 对象，对其进行升序、降序排序
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/sort/slice_sort.go)
 
 ```go
 package main
@@ -97,9 +97,9 @@ Conent ID: 100, Score: 12.340000
 
 ## map 排序
 
-> **功能：**借助 slice，实现 map 的按序输出
->
-> **点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/sort/map_sort.go)
+**功能：**借助 slice，实现 map 的按序输出
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/sort/map_sort.go)
 
 ```go
 package main
@@ -177,9 +177,9 @@ Key: unix , Value: 0
 
 ### Redis 集群
 
-> **功能：**连接 redis 集群，进行存取操作
->
-> **点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/redis/redis_cluster.go)
+**功能：**连接 redis 集群，进行存取操作
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/redis/redis_cluster.go)
 
 ```go
 package main
@@ -245,9 +245,9 @@ key3 not existed ,  <nil>
 
 ### Redis Server
 
-> **功能：**连接 redis server，进行存取操作
->
-> **点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/redis/redis.go)
+**功能：**连接 redis server，进行存取操作
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/redis/redis.go)
 
 ```go
 package main
@@ -313,17 +313,17 @@ key3 not existed ,  <nil>
 
 ### 基础 HTTP 服务器
 
-> **功能：**
->
-> - 启动一个 HTTP 服务器，监听 12306 端口
->
-> - 支持的请求
->
->   | 请求类型 | 请求 URL | 备注 |
->   | -------- | -------- | ---- |
->   | `GET`    | `/`      |      |
->
-> **点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/server.go)
+**功能：**
+
+- 启动一个 HTTP 服务器，监听 12306 端口
+
+- 支持的请求
+
+  | 请求类型 | 请求 URL | 备注 |
+  | -------- | -------- | ---- |
+  | `GET`    | `/`      |      |
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/server.go)
 
 ```go
 package main
@@ -366,19 +366,19 @@ Hello World
 
 ### 处理多路由请求的 HTTP 服务器
 
-> **功能：**
->
-> - 启动一个 HTTP 服务器，监听 12306 端口
->
-> - 支持的请求
->
->   | 请求类型     | 请求 URL       | 备注         |
->   | ------------ | -------------- | ------------ |
->   | `GET`        | `/`            |              |
->   | `GET` `POST` | `/api/version` | 获取版本信息 |
->   | `POST`       | `/debug/ping`  | PING         |
->
-> **点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/server_multirouter.go)
+**功能：**
+
+- 启动一个 HTTP 服务器，监听 12306 端口
+
+- 支持的请求
+
+  | 请求类型     | 请求 URL       | 备注         |
+  | ------------ | -------------- | ------------ |
+  | `GET`        | `/`            |              |
+  | `GET` `POST` | `/api/version` | 获取版本信息 |
+  | `POST`       | `/debug/ping`  | PING         |
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/server_multirouter.go)
 
 ```go
 package main
@@ -455,4 +455,3 @@ Hello World
 $ curl http://localhost:12306/ -X POST -s
 404 page not found
 ```
-

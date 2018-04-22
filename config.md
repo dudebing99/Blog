@@ -624,7 +624,7 @@ clean:
 ## CentOS 安装 Python 3.5
 
 ```bash
-1. CentOS 6.5 安装 Python 的依赖包
+1. CentOS 6.8 安装 Python 的依赖包
 
 yum groupinstall "Development tools"
 yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
@@ -1395,3 +1395,108 @@ cnpm install -g react-native-cli
 
    > VS Code 支持各种语法，同理，安装对应的插件即可，如，需要支持 C++，安装 C++ 插件即可
 
+
+## CentOS 安装 Redis 4.0.9
+
+1. 安装
+
+   ```bash
+   wget http://download.redis.io/releases/redis-4.0.9.tar.gz
+   tar -xzvf redis-4.0.9.tar.gz
+   cd redis-4.0.9
+   make -j4
+   # 测试，可跳过
+   make test
+   make install
+
+   # 拷贝默认配置文件
+   mkdir -p /etc/redis
+   cp sentinel.conf redis.conf /etc/redis/
+   ```
+
+2. 配置 redis.conf
+
+   > Redis server/cluster 对应的配置文件 redis.conf
+   >
+   > Redis Sentinel 对应的配置文件 sentinel.conf
+
+   ```bash
+   # 默认只监听 127.0.0.1:6379，一般情况下，需要添加外网监听
+   bind 127.0.0.1 192.168.2.99
+   protected-mode yes
+   port 6379
+   tcp-backlog 511
+   timeout 0
+   tcp-keepalive 300
+   daemonize yes
+   supervised no
+   pidfile /var/run/redis.pid
+   loglevel notice
+   logfile /var/log/redis.log
+   databases 16
+   always-show-logo yes
+   save 900 1
+   save 300 10
+   save 60 10000
+   stop-writes-on-bgsave-error yes
+   rdbcompression yes
+   rdbchecksum yes
+   dbfilename dump.rdb
+   dir /var/lib/redis
+   slave-serve-stale-data yes
+   slave-read-only yes
+   repl-diskless-sync no
+   repl-diskless-sync-delay 5
+   repl-disable-tcp-nodelay no
+   slave-priority 100
+   lazyfree-lazy-eviction no
+   lazyfree-lazy-expire no
+   lazyfree-lazy-server-del no
+   slave-lazy-flush no
+   appendonly no
+   appendfilename "appendonly.aof"
+   appendfsync everysec
+   no-appendfsync-on-rewrite no
+   auto-aof-rewrite-percentage 100
+   auto-aof-rewrite-min-size 64mb
+   aof-load-truncated yes
+   aof-use-rdb-preamble no
+   lua-time-limit 5000
+   slowlog-log-slower-than 10000
+   slowlog-max-len 128
+   latency-monitor-threshold 0
+   notify-keyspace-events ""
+   hash-max-ziplist-entries 512
+   hash-max-ziplist-value 64
+   list-max-ziplist-size -2
+   list-compress-depth 0
+   set-max-intset-entries 512
+   zset-max-ziplist-entries 128
+   zset-max-ziplist-value 64
+   hll-sparse-max-bytes 3000
+   activerehashing yes
+   client-output-buffer-limit normal 0 0 0
+   client-output-buffer-limit slave 256mb 64mb 60
+   client-output-buffer-limit pubsub 32mb 8mb 60
+   hz 10
+   aof-rewrite-incremental-fsync yes
+   ```
+
+3. 运行与测试
+
+   ```bash
+   redis_server /etc/redis/redis.conf
+   ```
+
+   ```bash
+   [root@localhost ~]# redis-cli 
+   127.0.0.1:6379> ping
+   PONG
+   127.0.0.1:6379> set name kevin
+   OK
+   127.0.0.1:6379> get name
+   "kevin"
+   127.0.0.1:6379> exit
+   ```
+
+   ​

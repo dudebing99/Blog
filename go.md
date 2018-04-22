@@ -311,7 +311,17 @@ key3 not existed ,  <nil>
 
 ## HTTP 服务器
 
-> **功能：**启动一个 HTTP 服务器，监听 12306 端口
+### 基础 HTTP 服务器
+
+> **功能：**
+>
+> - 启动一个 HTTP 服务器，监听 12306 端口
+>
+> - 支持的请求
+>
+>   | 请求类型 | 请求 URL | 备注 |
+>   | -------- | -------- | ---- |
+>   | `GET`    | `/`      |      |
 >
 > **点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/server.go)
 
@@ -352,5 +362,97 @@ func main() {
 ```basic
 $ curl http://localhost:12306/ -s
 Hello World
+```
+
+### 处理多路由请求的 HTTP 服务器
+
+> **功能：**
+>
+> - 启动一个 HTTP 服务器，监听 12306 端口
+>
+> - 支持的请求
+>
+>   | 请求类型     | 请求 URL       | 备注         |
+>   | ------------ | -------------- | ------------ |
+>   | `GET`        | `/`            |              |
+>   | `GET` `POST` | `/api/version` | 获取版本信息 |
+>   | `POST`       | `/debug/ping`  | PING         |
+>
+> **点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/server_multirouter.go)
+
+```go
+package main
+
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
+
+func version(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"code": 0, "version": "v1.0.1.0"})
+}
+
+func ping(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"code": 0, "message": "pong"})
+}
+
+func main() {
+	router := gin.Default()
+	rGroup := router.Group("api")
+	{
+		rGroup.GET("version", version)
+	}
+
+	rGroup = router.Group("debug")
+	{
+		rGroup.GET("ping", ping)
+		rGroup.POST("ping", ping)
+	}
+
+	router.GET("/", func(c *gin.Context) {
+		c.String(http.StatusOK, "Hello World")
+	})
+
+	router.Run(":12306")
+}
+```
+
+**输出**
+
+- 服务端启动成功，处理请求，输出如下信息
+
+```basic
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+[GIN-debug] GET    /api/version              --> main.version (3 handlers)
+[GIN-debug] GET    /debug/ping               --> main.ping (3 handlers)
+[GIN-debug] POST   /debug/ping               --> main.ping (3 handlers)
+[GIN-debug] GET    /                         --> main.main.func1 (3 handlers)
+[GIN-debug] Listening and serving HTTP on :12306
+[GIN] 2018/04/22 - 23:50:55 | 404 |            0s |             ::1 | POST     /api/version
+[GIN] 2018/04/22 - 23:51:02 | 200 |            0s |             ::1 | GET      /api/version
+[GIN] 2018/04/22 - 23:51:13 | 404 |            0s |             ::1 | GET      /api/ping
+[GIN] 2018/04/22 - 23:51:29 | 200 |            0s |             ::1 | GET      /api/version
+```
+
+- 通过 CURL 访问
+```basic
+$ curl http://localhost:12306/api/version -X GET -s
+{"code":0,"version":"v1.0.1.0"}
+$ curl http://localhost:12306/api/version -X POST -s
+404 page not found
+
+$ curl http://localhost:12306/debug/ping -X POST -s
+{"code":0,"message":"pong"}
+$ curl http://localhost:12306/debug/ping -X GET -s
+{"code":0,"message":"pong"}
+
+$ curl http://localhost:12306/ -X GET -s
+Hello World
+$ curl http://localhost:12306/ -X POST -s
+404 page not found
 ```
 

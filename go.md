@@ -455,3 +455,52 @@ Hello World
 $ curl http://localhost:12306/ -X POST -s
 404 page not found
 ```
+
+## HTTP 客户端
+
+**功能：**HTTP 客户端，请求 http://localhost:12306/api/version
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/client.go)
+
+```go
+package main
+
+import (
+	"fmt"
+	"io/ioutil"
+	"net/http"
+)
+
+func main() {
+	client := &http.Client{}
+	url := "http://localhost:12306/api/version"
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		panic(err)
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	code := resp.StatusCode
+	if code == http.StatusOK {
+		body, _ := ioutil.ReadAll(resp.Body)
+		fmt.Println("Code: ", code, ", Body: ", string(body))
+	} else {
+		fmt.Println("Code: ", resp.StatusCode)
+	}
+}
+```
+
+**输出**
+
+​	备注：当启动 HTTP 服务器端并能够处理该请求时，客户端返回结果如下所示
+
+```basic
+Code:  200 , Body:  {"code":0,"version":"v1.0.1.0"}
+```
+

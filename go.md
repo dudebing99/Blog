@@ -24,6 +24,77 @@ func main() {
 Hello World
 ```
 
+## for 循环
+
+**功能：**输出九九乘法口诀表
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/recycle/for.go)
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	for i := 1; i <= 9; i++ {
+		for j := 1; j <= i; j++ {
+			fmt.Printf("%d*%d=%d ", j, i, j*i)
+		}
+		fmt.Println("")
+	}
+}
+```
+
+**输出**
+
+```basic
+1*1=1 
+1*2=2 2*2=4 
+1*3=3 2*3=6 3*3=9 
+1*4=4 2*4=8 3*4=12 4*4=16 
+1*5=5 2*5=10 3*5=15 4*5=20 5*5=25 
+1*6=6 2*6=12 3*6=18 4*6=24 5*6=30 6*6=36 
+1*7=7 2*7=14 3*7=21 4*7=28 5*7=35 6*7=42 7*7=49 
+1*8=8 2*8=16 3*8=24 4*8=32 5*8=40 6*8=48 7*8=56 8*8=64 
+1*9=9 2*9=18 3*9=27 4*9=36 5*9=45 6*9=54 7*9=63 8*9=72 9*9=81 
+```
+
+**功能：**实现 while 逻辑（Golang 中无 while 循环，可借助 for 实现）
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/recycle/while.go)
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	var count uint32 = 0
+	for true {
+		count++
+		if count == 3 {
+			goto loop
+		}
+		fmt.Println("count: ", count, " in infinite loop")
+		time.Sleep(time.Second * 3)
+	}
+loop:
+	fmt.Println("Go to loop")
+}
+```
+
+**输出**
+
+```basic
+
+count:  1  in infinite loop
+count:  2  in infinite loop
+Go to loop
+```
+
 ## 自定义结构体 slice 排序
 
 **功能：**自定义结构体 slice 对象，对其进行升序、降序排序

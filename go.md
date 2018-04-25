@@ -164,6 +164,64 @@ count:  2  in infinite loop
 Go to loop
 ```
 
+## 字符串
+
+**功能：**字符串的基础使用
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/string.go)
+
+```go
+package main
+
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
+
+func main() {
+	// 查找
+	var str1, str2 string
+	str1 = "12,30,34"
+	str2 = str1[0:strings.Index(str1, ",")]
+	fmt.Println(str2)
+
+	tagIDs := make([]int, 0)
+	// 字符串切割
+	tagIDsStr := strings.Split("1,2,3,5,4", ",")
+	for _, tagIDStr := range tagIDsStr {
+		// 字符串转整数
+		tagID, err := strconv.Atoi(tagIDStr)
+		if err != nil {
+			fmt.Println("unexpected error: ", err.Error())
+		} else {
+			tagIDs = append(tagIDs, tagID)
+		}
+	}
+
+	for _, tagID := range tagIDs {
+		fmt.Println("TagID: ", tagID)
+	}
+
+	ids := []string{"a", "b", "c", "d"}
+	// 字符串拼接
+	idsStr := strings.Join(ids, "#")
+	fmt.Println("idsStr:", idsStr)
+}
+```
+
+**输出**
+
+```basic
+12
+TagID:  1
+TagID:  2
+TagID:  3
+TagID:  5
+TagID:  4
+idsStr: a#b#c#d
+```
+
 ## 自定义结构体 slice 排序
 
 **功能：**自定义结构体 slice 对象，对其进行升序、降序排序

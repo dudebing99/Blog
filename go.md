@@ -222,6 +222,47 @@ TagID:  4
 idsStr: a#b#c#d
 ```
 
+## 时间
+
+**功能：**时间相关的基础使用
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/time.go)
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	// 获取时间戳
+	fmt.Println(time.Now().Unix())
+	fmt.Println(time.Now().UnixNano())
+
+	// 获取年、月、日、星期
+	fmt.Println(time.Now().Year(),
+		time.Now().Month(),
+		time.Now().Day(),
+		time.Now().Weekday())
+
+	// 将当前时间以字符串形式输出
+	fmt.Println(time.Now().String())
+	fmt.Println(time.Now().Local())
+}
+```
+
+**输出**
+
+```basic
+1524675792
+1524675792249413100
+2018 April 26 Thursday
+2018-04-26 01:03:12.2934157 +0800 CST m=+0.053003101
+2018-04-26 01:03:12.2934157 +0800 CST
+```
+
 ## 自定义结构体 slice 排序
 
 **功能：**自定义结构体 slice 对象，对其进行升序、降序排序

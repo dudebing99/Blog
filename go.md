@@ -24,75 +24,6 @@ func main() {
 Hello World
 ```
 
-## slice 切片
-
-**功能：**slice 基础使用
-
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/slice.go)
-
-```go
-package main
-
-import "fmt"
-
-func main() {
-	// 创建切片
-	numbers := []int{0, 1, 2, 3, 4, 5, 6, 7, 8}
-
-	// 初始化
-	numbers2 := numbers[1:5]
-	numbers3 := numbers[:2]
-	numbers4 := numbers[3:]
-	numbers5 := numbers[:]
-
-	printSlice(numbers)
-	printSlice(numbers2)
-	printSlice(numbers3)
-	printSlice(numbers4)
-	printSlice(numbers5)
-
-	// 子切片是切片的引用，对子切片的修改也直接反映到切片
-	numbers2[1] = 100
-	printSlice(numbers2)
-	printSlice(numbers)
-
-	// 切片元素追加
-	numbers2 = append(numbers2, 99)
-	printSlice(numbers2)
-
-	// 遍历切片
-	for index, value := range numbers {
-		fmt.Println("index: ", index, ", value: ", value)
-	}
-}
-
-func printSlice(x []int) {
-	fmt.Printf("len=%d cap=%d slice=%v\n", len(x), cap(x), x)
-}
-```
-
-**输出**
-
-```basic
-len=9 cap=9 slice=[0 1 2 3 4 5 6 7 8]
-len=4 cap=8 slice=[1 2 3 4]
-len=2 cap=9 slice=[0 1]
-len=6 cap=6 slice=[3 4 5 6 7 8]
-len=9 cap=9 slice=[0 1 2 3 4 5 6 7 8]
-len=4 cap=8 slice=[1 100 3 4]
-len=9 cap=9 slice=[0 1 100 3 4 5 6 7 8]
-len=5 cap=8 slice=[1 100 3 4 99]
-index:  0 , value:  0
-index:  1 , value:  1
-index:  2 , value:  100
-index:  3 , value:  3
-index:  4 , value:  4
-index:  5 , value:  99
-index:  6 , value:  6
-index:  7 , value:  7
-index:  8 , value:  8
-```
-
 ## for 循环
 
 **功能：**输出九九乘法口诀表
@@ -277,6 +208,74 @@ func main() {
 2018/04/26 21
 ```
 
+## slice 切片
+
+**功能：**slice 基础使用
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/slice.go)
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	// 创建切片
+	numbers := []int{0, 1, 2, 3, 4, 5, 6, 7, 8}
+
+	// 初始化
+	numbers2 := numbers[1:5]
+	numbers3 := numbers[:2]
+	numbers4 := numbers[3:]
+	numbers5 := numbers[:]
+
+	printSlice(numbers)
+	printSlice(numbers2)
+	printSlice(numbers3)
+	printSlice(numbers4)
+	printSlice(numbers5)
+
+	// 子切片是切片的引用，对子切片的修改也直接反映到切片
+	numbers2[1] = 100
+	printSlice(numbers2)
+	printSlice(numbers)
+
+	// 切片元素追加
+	numbers2 = append(numbers2, 99)
+	printSlice(numbers2)
+
+	// 遍历切片
+	for index, value := range numbers {
+		fmt.Println("index: ", index, ", value: ", value)
+	}
+}
+
+func printSlice(x []int) {
+	fmt.Printf("len=%d cap=%d slice=%v\n", len(x), cap(x), x)
+}
+```
+
+**输出**
+
+```basic
+len=9 cap=9 slice=[0 1 2 3 4 5 6 7 8]
+len=4 cap=8 slice=[1 2 3 4]
+len=2 cap=9 slice=[0 1]
+len=6 cap=6 slice=[3 4 5 6 7 8]
+len=9 cap=9 slice=[0 1 2 3 4 5 6 7 8]
+len=4 cap=8 slice=[1 100 3 4]
+len=9 cap=9 slice=[0 1 100 3 4 5 6 7 8]
+len=5 cap=8 slice=[1 100 3 4 99]
+index:  0 , value:  0
+index:  1 , value:  1
+index:  2 , value:  100
+index:  3 , value:  3
+index:  4 , value:  4
+index:  5 , value:  99
+index:  6 , value:  6
+index:  7 , value:  7
+index:  8 , value:  8
+```
 ## 自定义结构体 slice 排序
 
 **功能：**自定义结构体 slice 对象，对其进行升序、降序排序

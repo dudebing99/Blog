@@ -207,6 +207,11 @@ func main() {
 	// 字符串拼接
 	idsStr := strings.Join(ids, "#")
 	fmt.Println("idsStr:", idsStr)
+
+	// 字符串替换
+	str := "kevin's blog"
+	str = strings.Replace(str, "'", "\\'", -1)
+	fmt.Println(str)
 }
 ```
 
@@ -220,6 +225,7 @@ TagID:  3
 TagID:  5
 TagID:  4
 idsStr: a#b#c#d
+kevin\'s blog
 ```
 
 ## 时间

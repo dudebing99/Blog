@@ -118,6 +118,28 @@ MySQL
 
 > 使用 转义符号：\`关键字\`
 
+## MySQL 字段包含单引号、双引号导致 SQL 语法错误
+
+**系统环境**
+
+CentOS 6.8 x64/MySQL 5.6.35
+
+**问题描述**
+
+略
+
+**解决方式**
+
+SQL 中利用 `\` 转义即可，如下两种方式均可
+
+```sql
+-- 单引号转义
+insert into blog_info_tbl (title, url) values ('kevin\'s blog', 'https://dudebing99.github.io/blog/');
+
+-- 双引号转义
+insert into blog_info_tbl (title, url) values ('\"kevin\" blog', 'https://dudebing99.github.io/blog/');
+```
+
 ## MySQL 重置密码
 
 **系统环境**

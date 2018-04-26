@@ -118,22 +118,6 @@ MySQL
 
 > 使用 转义符号：\`关键字\`
 
-## SecureFX 中文文件名乱码
-
-**系统环境**
-
-SecureFx Version 7.0.3 (build 480)
-
-**问题描述**
-
-SecretFx 显示中文文件名时出现乱码
-
-**解决方式**
-
-1. 打开安装目录，进入子目录：SecureCRT7\App\VanDyke Clients\CONFIG\Sessions
-2. 找到 D:"Filenames Always Use UTF8"=00000000 改成 00000001，如下所示
-![](pic/securefx/filename.png)
-
 ## MySQL 重置密码
 
 **系统环境**
@@ -160,6 +144,22 @@ pkill mysqld_safe
 
 service mysql start
 ```
+
+## SecureFX 中文文件名乱码
+
+**系统环境**
+
+SecureFx Version 7.0.3 (build 480)
+
+**问题描述**
+
+SecretFx 显示中文文件名时出现乱码
+
+**解决方式**
+
+1. 打开安装目录，进入子目录：SecureCRT7\App\VanDyke Clients\CONFIG\Sessions
+2. 找到 D:"Filenames Always Use UTF8"=00000000 改成 00000001，如下所示
+![](pic/securefx/filename.png)
 
 ## SecureCRT 冻结终端/解除冻结/全屏/清屏
 

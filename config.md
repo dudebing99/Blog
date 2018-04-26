@@ -1562,7 +1562,7 @@ cnpm install -g react-native-cli
    127.0.0.1:6379> exit
    ```
 
-### CentOS 安装 Siege
+## CentOS 安装 Siege
 
 > **Siege** 是 linux 下的一个 web 系统的压力测试工具，支持多链接，支持 get 和 post 请求，可以对 web 系统进行多并发下持续请求的压力测试。
 

@@ -1398,7 +1398,7 @@ npm install -g cnpm --registry=https://registry.npm.taobao.org
 # npm 后接参数的命令都可以把 npm 换为 cnpm 来加快速度，比如安装 react-native-cli
 cnpm install -g react-native-cli
 ```
-## Windows 下 Git Bash 支持 wget/make
+## Windows 下 Git Bash 支持 wget/make/protoc
 
 > **参考资料：**[How to add more to Git Bash on Windows](https://gist.github.com/evanwill/0207876c3243bbb6863e65ec5dc3f058)
 
@@ -1411,9 +1411,27 @@ cnpm install -g react-native-cli
 ### make
 
 1. 下载 [make-4.2.1-without-guile-w32-bin.zip](https://sourceforge.net/projects/ezwinports/files/make-4.2.1-without-guile-w32-bin.zip/download)（适用于 Windows 64 位系统）
+
 2. 解压
+
 3. 将解压后的所有文件拷贝到 Git 安装目录，默认路径 C:\Program Files\Git\mingw64\（需根据 Git 实际安装路径调整，**另外，如果某些文件原来此目录已存在，切记不要覆盖，选择跳过即可**）
 
+### protoc
+
+1. 下载 [exe](https://github.com/google/protobuf/releases)
+
+2. 解压
+
+3. 将解压后的所有文件拷贝到 Git 安装目录，默认路径 C:\Program Files\Git\mingw64\（需根据 Git 实际安装路径调整，**另外，如果某些文件原来此目录已存在，切记不要覆盖，选择跳过即可**）
+
+4. 确认配置成功
+
+   打开 Git Bash，输入 protoc --version
+
+   ```bash
+   $ protoc --version
+   libprotoc 3.5.1
+   ```
 
 ## Visual Studio Code 配置 GoLang 开发环境
 

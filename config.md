@@ -155,6 +155,36 @@ imap jj <ESC>
 }
 ```
 
+## Makefile 模板
+
+```bash
+INCLUDES := -I. -I./include -I/opt/Ice-3.5.1/include
+LIBS := -Wl,--enable-new-dtags -Wl,-rpath,/opt/Ice-3.5/lib64
+LIBS += -Wl,-Bstatic  -L./lib -lcpp_redis -ltacopie
+LIBS += -Wl,-Bdynamic -L/opt/Ice-3.5.1/lib64 -lIce -lIceUtil
+
+CXX := g++ -std=c++11
+CXXFLAGS := -rdynamic -m64 -Wall -Wextra -pthread -fPIC -g $(INCLUDES)
+# 把所有警告当做错误：-Werror，支持 C++ 11：-std=c++11
+#CXXFLAGS +=  -Werror -std=c++11
+
+TARGETS := server
+TARGETS += client
+
+all: $(TARGETS)
+
+db.cpp db.h: db.ice
+	slice2cpp $^
+
+server: db.o dbi.o server.o
+	$(CXX) -o $@ $^ $(LIBS)
+
+client: db.o dbi.o client.o
+	$(CXX) -o $@ $^ $(LIBS)
+
+clean:
+	rm -f *.o $(TARGETS)
+```
 ## 基于 vsftpd 的 ftp 服务器
 
 ### 授权用户访问模式
@@ -650,36 +680,6 @@ echo ""
    - vncserver :2 *启动第二个实例*，默认监听 5902 端口，具体可通过 netstat 命令查看
    - vncserver -kill :2 *停止第二个实例*
 
-## Makefile 模板
-
-```bash
-INCLUDES := -I. -I./include -I/opt/Ice-3.5.1/include
-LIBS := -Wl,--enable-new-dtags -Wl,-rpath,/opt/Ice-3.5/lib64
-LIBS += -Wl,-Bstatic  -L./lib -lcpp_redis -ltacopie
-LIBS += -Wl,-Bdynamic -L/opt/Ice-3.5.1/lib64 -lIce -lIceUtil
-
-CXX := g++ -std=c++11
-CXXFLAGS := -rdynamic -m64 -Wall -Wextra -pthread -fPIC -g $(INCLUDES)
-# 把所有警告当做错误：-Werror，支持 C++ 11：-std=c++11
-#CXXFLAGS +=  -Werror -std=c++11
-
-TARGETS := server
-TARGETS += client
-
-all: $(TARGETS)
-
-db.cpp db.h: db.ice
-	slice2cpp $^
-
-server: db.o dbi.o server.o
-	$(CXX) -o $@ $^ $(LIBS)
-
-client: db.o dbi.o client.o
-	$(CXX) -o $@ $^ $(LIBS)
-
-clean:
-	rm -f *.o $(TARGETS)
-```
 
 ## CentOS 安装 Python 3.5
 
@@ -806,6 +806,166 @@ export PATH=$PATH:$ICE_HOME/bin
 	../configure --prefix=/usr/local/gcc-4.9.2 --enable-threads=posix --disable-checking --disable-multilib --enable-languages=c,c++ --with-gmp=/usr/local/gmp-4.3.2 --with-mpfr=/usr/local/mpfr-2.4.2 --with-mpc=/usr/local/mpc-0.8.1
 	make -j4
 	make install
+```
+
+## CentOS 配置 MySQL
+
+> - 主要包括**配置防火墙**、**修改初始密码**、**允许远程访问**三部分
+> - MySQL 配置文件位置： /etc/my.cnf
+
+1. 开启 3306 端口
+
+   ```bash
+   /sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
+   /etc/rc.d/init.d/iptables save
+   ```
+
+2. 修改初始密码
+
+   ```bash
+   mysql -uroot -p123456（初始密码为空）
+   > use mysql;
+   > update user set password=password('123456') where user='root';
+   > flush privileges;
+   ```
+
+3. 允许远程访问
+
+   ```bash
+   > grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
+   ```
+
+## CentOS 安装 Redis 4.0.9
+
+1. 运行环境：Cent OS 6.8
+2. 安装
+
+```bash
+wget http://download.redis.io/releases/redis-4.0.9.tar.gz
+tar -xzvf redis-4.0.9.tar.gz
+cd redis-4.0.9
+make -j4
+# 测试，可跳过
+make test
+make install
+
+# 拷贝默认配置文件
+mkdir -p /etc/redis
+cp sentinel.conf redis.conf /etc/redis/
+```
+3. 配置 redis.conf
+
+> Redis server/cluster 对应的配置文件 redis.conf
+>
+> Redis Sentinel 对应的配置文件 sentinel.conf
+
+```bash
+# 默认只监听 127.0.0.1:6379，一般情况下，需要添加外网监听
+bind 127.0.0.1 192.168.2.99
+protected-mode yes
+port 6379
+tcp-backlog 511
+timeout 0
+tcp-keepalive 300
+daemonize yes
+supervised no
+pidfile /var/run/redis.pid
+loglevel notice
+logfile /var/log/redis.log
+databases 16
+always-show-logo yes
+save 900 1
+save 300 10
+save 60 10000
+stop-writes-on-bgsave-error yes
+rdbcompression yes
+rdbchecksum yes
+dbfilename dump.rdb
+dir /var/lib/redis
+slave-serve-stale-data yes
+slave-read-only yes
+repl-diskless-sync no
+repl-diskless-sync-delay 5
+repl-disable-tcp-nodelay no
+slave-priority 100
+lazyfree-lazy-eviction no
+lazyfree-lazy-expire no
+lazyfree-lazy-server-del no
+slave-lazy-flush no
+appendonly no
+appendfilename "appendonly.aof"
+appendfsync everysec
+no-appendfsync-on-rewrite no
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb
+aof-load-truncated yes
+aof-use-rdb-preamble no
+lua-time-limit 5000
+slowlog-log-slower-than 10000
+slowlog-max-len 128
+latency-monitor-threshold 0
+notify-keyspace-events ""
+hash-max-ziplist-entries 512
+hash-max-ziplist-value 64
+list-max-ziplist-size -2
+list-compress-depth 0
+set-max-intset-entries 512
+zset-max-ziplist-entries 128
+zset-max-ziplist-value 64
+hll-sparse-max-bytes 3000
+activerehashing yes
+client-output-buffer-limit normal 0 0 0
+client-output-buffer-limit slave 256mb 64mb 60
+client-output-buffer-limit pubsub 32mb 8mb 60
+hz 10
+aof-rewrite-incremental-fsync yes
+```
+4. 运行与测试
+
+```bash
+redis_server /etc/redis/redis.conf
+```
+
+```bash
+[root@localhost ~]# redis-cli 
+127.0.0.1:6379> ping
+PONG
+127.0.0.1:6379> set name kevin
+OK
+127.0.0.1:6379> get name
+"kevin"
+127.0.0.1:6379> exit
+```
+## CentOS 安装 Siege
+
+> **Siege** 是 linux 下的一个 web 系统的压力测试工具，支持多链接，支持 get 和 post 请求，可以对 web 系统进行多并发下持续请求的压力测试。
+
+1. 运行环境：Cent OS 6.8
+
+2. 安装
+
+   ```bash
+   wget http://download.joedog.org/siege/siege-latest.tar.gz
+   tar -xzvf siege-latest.tar.gz
+   # 根据实际情况切换目录
+   cd siege-4.0.4/
+   ./configure
+   make -j4
+   make install
+   ```
+
+3. 使用 siege -h 查看简要使用说明；使用 man siege 查看详细使用说明，包括示例。
+
+## CentOS 安装 protobuf 3.5.1
+
+```bash
+# 墙内需要找其他下载源
+wget https://github.com/google/protobuf/releases/download/v3.5.1/protobuf-cpp-3.5.1.tar.gz
+tar -xzvf protobuf-cpp-3.5.1.tar.gz
+cd protobuf-3.5.1/
+./configure
+make -j4
+make install
 ```
 
 ## zookeeper/kafka 安装配置
@@ -1351,32 +1511,7 @@ x-content-type-options:nosniff
    ```
 
 
-## CentOS 配置 MySQL
 
-> - 主要包括**配置防火墙**、**修改初始密码**、**允许远程访问**三部分
-> - MySQL 配置文件位置： /etc/my.cnf
-
-1. 开启 3306 端口
-
-   ```bash
-   /sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
-   /etc/rc.d/init.d/iptables save
-   ```
-
-2. 修改初始密码
-
-   ```bash
-   mysql -uroot -p123456（初始密码为空）
-   > use mysql;
-   > update user set password=password('123456') where user='root';
-   > flush privileges;
-   ```
-
-3. 允许远程访问
-
-   ```bash
-   > grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
-   ```
 
 
 ## Windows 下 nodejs /npm 安装配置
@@ -1463,6 +1598,13 @@ cnpm install -g react-native-cli
    go get -u -v github.com/tpng/gopkgs
    go get -u -v github.com/newhook/go-symbols
    go get -u -v golang.org/x/tools/cmd/guru
+
+   # 可选择性下载
+   # protobuf 相关，需要安装 protoc
+   go get -u -v github.com/golang/protobuf/protoc-gen-go
+   go get -u -v github.com/golang/protobuf/proto
+   # grpc
+   go get -u -v google.golang.org/grpc
    ```
 
    > **请注意大坑：**步骤  3 需要墙外操作，F**K
@@ -1474,128 +1616,3 @@ cnpm install -g react-native-cli
    > VS Code 支持各种语法，同理，安装对应的插件即可，如，需要支持 C++，安装 C++ 插件即可
 
 
-## CentOS 安装 Redis 4.0.9
-
-0. 运行环境：Cent OS 6.8
-
-
-1. 安装
-
-   ```bash
-   wget http://download.redis.io/releases/redis-4.0.9.tar.gz
-   tar -xzvf redis-4.0.9.tar.gz
-   cd redis-4.0.9
-   make -j4
-   # 测试，可跳过
-   make test
-   make install
-
-   # 拷贝默认配置文件
-   mkdir -p /etc/redis
-   cp sentinel.conf redis.conf /etc/redis/
-   ```
-
-2. 配置 redis.conf
-
-   > Redis server/cluster 对应的配置文件 redis.conf
-   >
-   > Redis Sentinel 对应的配置文件 sentinel.conf
-
-   ```bash
-   # 默认只监听 127.0.0.1:6379，一般情况下，需要添加外网监听
-   bind 127.0.0.1 192.168.2.99
-   protected-mode yes
-   port 6379
-   tcp-backlog 511
-   timeout 0
-   tcp-keepalive 300
-   daemonize yes
-   supervised no
-   pidfile /var/run/redis.pid
-   loglevel notice
-   logfile /var/log/redis.log
-   databases 16
-   always-show-logo yes
-   save 900 1
-   save 300 10
-   save 60 10000
-   stop-writes-on-bgsave-error yes
-   rdbcompression yes
-   rdbchecksum yes
-   dbfilename dump.rdb
-   dir /var/lib/redis
-   slave-serve-stale-data yes
-   slave-read-only yes
-   repl-diskless-sync no
-   repl-diskless-sync-delay 5
-   repl-disable-tcp-nodelay no
-   slave-priority 100
-   lazyfree-lazy-eviction no
-   lazyfree-lazy-expire no
-   lazyfree-lazy-server-del no
-   slave-lazy-flush no
-   appendonly no
-   appendfilename "appendonly.aof"
-   appendfsync everysec
-   no-appendfsync-on-rewrite no
-   auto-aof-rewrite-percentage 100
-   auto-aof-rewrite-min-size 64mb
-   aof-load-truncated yes
-   aof-use-rdb-preamble no
-   lua-time-limit 5000
-   slowlog-log-slower-than 10000
-   slowlog-max-len 128
-   latency-monitor-threshold 0
-   notify-keyspace-events ""
-   hash-max-ziplist-entries 512
-   hash-max-ziplist-value 64
-   list-max-ziplist-size -2
-   list-compress-depth 0
-   set-max-intset-entries 512
-   zset-max-ziplist-entries 128
-   zset-max-ziplist-value 64
-   hll-sparse-max-bytes 3000
-   activerehashing yes
-   client-output-buffer-limit normal 0 0 0
-   client-output-buffer-limit slave 256mb 64mb 60
-   client-output-buffer-limit pubsub 32mb 8mb 60
-   hz 10
-   aof-rewrite-incremental-fsync yes
-   ```
-
-3. 运行与测试
-
-   ```bash
-   redis_server /etc/redis/redis.conf
-   ```
-
-   ```bash
-   [root@localhost ~]# redis-cli 
-   127.0.0.1:6379> ping
-   PONG
-   127.0.0.1:6379> set name kevin
-   OK
-   127.0.0.1:6379> get name
-   "kevin"
-   127.0.0.1:6379> exit
-   ```
-
-## CentOS 安装 Siege
-
-> **Siege** 是 linux 下的一个 web 系统的压力测试工具，支持多链接，支持 get 和 post 请求，可以对 web 系统进行多并发下持续请求的压力测试。
-
-0. 运行环境：Cent OS 6.8
-
-   1. 安装
-
-      ```bash
-      wget http://download.joedog.org/siege/siege-latest.tar.gz
-      tar -xzvf siege-latest.tar.gz
-      # 根据实际情况切换目录
-      cd siege-4.0.4/
-      ./configure
-      make -j4
-      make install
-      ```
-
-   2. 使用 siege -h 查看简要使用说明；使用 man siege 查看详细使用说明，包括示例。

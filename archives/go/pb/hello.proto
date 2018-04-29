@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package hello;
+
+message Message {
+    int32 id = 1;
+    string message = 2;
+}

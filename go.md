@@ -756,3 +756,83 @@ func main() {
 Code:  200 , Body:  {"code":0,"version":"v1.0.1.0"}
 ```
 
+## protobuf
+
+**功能：**使用 protobuf
+
+**点击下载：**
+
+- [hello.proto](https://dudebing99.github.io/blog/archives/go/pb/hello.proto)
+
+- 利用 hello.proto 生成的 [Golang 文件](https://dudebing99.github.io/blog/archives/go/pb/hello.pb.go)
+
+- [源码](https://dudebing99.github.io/blog/archives/go/protobuf/protobuf.go)
+
+1. 定义 proto 文件
+
+```basic
+   syntax = "proto3";
+
+   package hello;
+
+   message Message {
+       int32 id = 1;
+       string message = 2;
+   }
+```
+
+2. 利用 protoc 编译 proto 文件，生成对应的 Golang 文件，命令如下（根据实际情况替换目录）
+
+```basic
+   protoc.exe --proto_path=/d/blog/archives/go/pb --go_out=/d/blog/archives/go/pb hello.proto
+```
+
+3. 使用 protobuf 示例
+
+```go
+   package main
+
+   import (
+   	"fmt"
+   	"../pb"
+
+   	"github.com/golang/protobuf/proto"
+   )
+
+   func main() {
+   	hello1 := &hello.Message{
+   		Id:      *proto.Int32(99),
+   		Message: *proto.String("hello world"),
+   	}
+
+   	data, err := proto.Marshal(hello1)
+   	if err != nil {
+   		fmt.Println("marshaling error: ", err)
+   	}
+
+   	hello2 := &hello.Message{}
+   	err = proto.Unmarshal(data, hello2)
+   	if err != nil {
+   		fmt.Println("unmarshaling error: ", err)
+   	}
+
+   	fmt.Println("ID: ", hello2.Id, ", Message: ", hello2.Message)
+   }
+```
+
+**输出**
+
+```basic
+ID:  99 , Message:  hello world
+```
+
+**附**：工程目录结构
+
+```basic
+├── pb
+│   ├── hello.pb.go
+│   └── hello.proto
+└── protobuf
+    └── protobuf.go
+```
+

@@ -32,9 +32,9 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 
 - B -> A : seq = w （B 发出连接释放报文段，进入最后确认状态 LAST-ACK）
 
-  ==注意：如果 B 收到 A 的 FIN 报文之后，无数据待发，上述两个步骤合并，即，B 发送一个既包含对 A 的 FIN 报文的确认，又包含主动发起的 FIN 报文。==
+  **注意：**如果 B 收到 A 的 FIN 报文之后，无数据待发，上述两个步骤合并，即，B 发送一个既包含对 A 的 FIN 报文的确认，又包含主动发起的 FIN 报文。
 
-  ==B -> A : ack = u + 1, seq = w（即，FIN 报文序号为 w）==
+  B -> A : ack = u + 1, seq = w（即，FIN 报文序号为 w）
 
 - A -> B : ack = w + 1 （A 发出确认，进入时间等待状态 TIME-WAIT）
 

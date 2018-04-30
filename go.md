@@ -756,7 +756,9 @@ func main() {
 Code:  200 , Body:  {"code":0,"version":"v1.0.1.0"}
 ```
 
-## protobuf
+## protobuf 使用
+
+### 数据结构无嵌套
 
 **功能：**使用 protobuf
 
@@ -790,40 +792,43 @@ Code:  200 , Body:  {"code":0,"version":"v1.0.1.0"}
 3. 使用 protobuf 示例
 
 ```go
-   package main
+package main
 
-   import (
-   	"fmt"
-   	"../pb"
+import (
+	"fmt"
 
-   	"github.com/golang/protobuf/proto"
-   )
+	"../pb"
 
-   func main() {
-   	hello1 := &hello.Message{
-   		Id:      *proto.Int32(99),
-   		Message: *proto.String("hello world"),
-   	}
+	"github.com/golang/protobuf/proto"
+)
 
-   	data, err := proto.Marshal(hello1)
-   	if err != nil {
-   		fmt.Println("marshaling error: ", err)
-   	}
+func main() {
+	hello1 := &hello.Message{
+		Id:      *proto.Int32(99),
+		Message: *proto.String("hello world"),
+	}
 
-   	hello2 := &hello.Message{}
-   	err = proto.Unmarshal(data, hello2)
-   	if err != nil {
-   		fmt.Println("unmarshaling error: ", err)
-   	}
+	data, err := proto.Marshal(hello1)
+	if err != nil {
+		fmt.Println("marshaling error: ", err)
+	}
 
-   	fmt.Println("ID: ", hello2.Id, ", Message: ", hello2.Message)
-   }
+	hello2 := &hello.Message{}
+	err = proto.Unmarshal(data, hello2)
+	if err != nil {
+		fmt.Println("unmarshaling error: ", err)
+	}
+
+	fmt.Println("ID: ", hello2.GetId())
+	fmt.Println("Message: ", hello2.GetMessage())
+}
 ```
 
 **输出**
 
 ```basic
-ID:  99 , Message:  hello world
+ID:  99
+Message:  hello world
 ```
 
 **附**：工程目录结构

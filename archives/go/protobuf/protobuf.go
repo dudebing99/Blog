@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"../pb"
 
 	"github.com/golang/protobuf/proto"
@@ -24,5 +25,6 @@ func main() {
 		fmt.Println("unmarshaling error: ", err)
 	}
 
-	fmt.Println("ID: ", hello2.Id, ", Message: ", hello2.Message)
+	fmt.Println("ID: ", hello2.GetId())
+	fmt.Println("Message: ", hello2.GetMessage())
 }

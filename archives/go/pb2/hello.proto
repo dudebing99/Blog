@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package hello;
+
+enum ErrorCode {
+    EnumSuccess = 0;
+    EnumError = 1;
+    EnumUnknown = 2;
+}
+
+message Message {
+    int32 id = 1;
+    string message = 2;
+    ErrorCode errorCode = 3;
+    repeated string extra = 4;
+}
+
+message MessageBox {
+    repeated Message messages = 1;
+}

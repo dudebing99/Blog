@@ -841,3 +841,128 @@ Message:  hello world
     └── protobuf.go
 ```
 
+### 数据结构有嵌套
+
+**功能：**使用 protobuf
+
+**点击下载：**
+
+- [hello.proto](https://dudebing99.github.io/blog/archives/go/pb2/hello.proto)
+- 利用 hello.proto 生成的 [Golang 文件](https://dudebing99.github.io/blog/archives/go/pb2/hello.pb.go)
+- [源码](https://dudebing99.github.io/blog/archives/go/protobuf2/protobuf.go)
+
+1. 定义 proto 文件
+
+```basic
+syntax = "proto3";
+
+package hello;
+
+enum ErrorCode {
+    EnumSuccess = 0;
+    EnumError = 1;
+    EnumUnknown = 2;
+}
+
+message Message {
+    int32 id = 1;
+    string message = 2;
+    ErrorCode errorCode = 3;
+    repeated string extra = 4;
+}
+
+message MessageBox {
+    repeated Message messages = 1;
+}
+```
+
+1. 利用 protoc 编译 proto 文件，生成对应的 Golang 文件，命令如下（根据实际情况替换目录）
+
+```basic
+   protoc.exe --proto_path=/d/blog/archives/go/pb2 --go_out=/d/blog/archives/go/pb2 hello.proto
+```
+
+1. 使用 protobuf 示例
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"../pb2"
+
+	"github.com/golang/protobuf/proto"
+)
+
+func main() {
+	message1 := &hello.Message{
+		Id:        *proto.Int32(99),
+		Message:   *proto.String("hello world 1"),
+		ErrorCode: hello.ErrorCode_EnumSuccess,
+		Extra: []string{
+			*proto.String("protobuf"),
+			*proto.String("example"),
+		},
+	}
+
+	message2 := &hello.Message{
+		Id:        *proto.Int32(99),
+		Message:   *proto.String("hello world 2"),
+		ErrorCode: hello.ErrorCode_EnumSuccess,
+		Extra: []string{
+			*proto.String("protobuf"),
+			*proto.String("example"),
+		},
+	}
+
+	messageBox := &hello.MessageBox{}
+	messageBox.Messages = append(messageBox.Messages, message1)
+	messageBox.Messages = append(messageBox.Messages, message2)
+
+	data, err := proto.Marshal(messageBox)
+	if err != nil {
+		fmt.Println("marshaling error: ", err)
+	}
+
+	messageBox2 := &hello.MessageBox{}
+	err = proto.Unmarshal(data, messageBox2)
+	if err != nil {
+		fmt.Println("unmarshaling error: ", err)
+	}
+
+	messages := messageBox2.GetMessages()
+	if messages != nil {
+		for _, message := range messages {
+			fmt.Println("ID: ", message.GetId())
+			fmt.Println("Message: ", message.GetMessage())
+			fmt.Println("ErrorCode: ", message.GetErrorCode())
+			fmt.Println("Extra: ", message.GetExtra())
+		}
+	}
+}
+```
+
+**输出**
+
+```basic
+ID:  99
+Message:  hello world 1
+ErrorCode:  EnumSuccess
+Extra:  [protobuf example]
+ID:  99
+Message:  hello world 2
+ErrorCode:  EnumSuccess
+Extra:  [protobuf example]
+```
+
+**附**：工程目录结构
+
+```basic
+├── pb2
+│   ├── hello.pb.go
+│   └── hello.proto
+└── protobuf2
+    └── protobuf.go
+```
+

@@ -51,5 +51,8 @@ CTestTestfile.cmake
 log/
 *.log
 
-# Debug
+# Generated binary file/directory
 debug/
+release/
+bin/
+debug

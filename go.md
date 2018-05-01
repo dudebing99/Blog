@@ -762,7 +762,7 @@ Code:  200 , Body:  {"code":0,"version":"v1.0.1.0"}
 
 **功能：**使用 protobuf
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/protobuf/1)
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/protobuf/1.tar.gz)
 
 1. 定义 proto 文件
 
@@ -791,7 +791,7 @@ package main
 import (
 	"fmt"
 
-	"../pb"
+	"../proto"
 
 	"github.com/golang/protobuf/proto"
 )
@@ -839,7 +839,7 @@ Message:  hello world
 
 **功能：**使用 protobuf
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/protobuf/2)
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/protobuf/2.tar.gz)
 
 1. 定义 proto 文件
 
@@ -880,7 +880,7 @@ package main
 import (
 	"fmt"
 
-	"../pb2"
+	"../proto"
 
 	"github.com/golang/protobuf/proto"
 )

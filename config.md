@@ -79,8 +79,11 @@ CTestTestfile.cmake
 log/
 *.log
 
-# Debug
+# Generated binary file/directory
 debug/
+release/
+bin/
+debug
 ```
 
 ## VIM 基础配置

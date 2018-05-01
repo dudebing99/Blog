@@ -839,7 +839,7 @@ Message:  hello world
 
 **功能：**使用 protobuf
 
-**点击下载：**源码](https://dudebing99.github.io/blog/archives/go/protobuf/2)
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/protobuf/2)
 
 1. 定义 proto 文件
 
@@ -866,13 +866,13 @@ message MessageBox {
 }
 ```
 
-1. 利用 protoc 编译 proto 文件，生成对应的 Golang 文件，命令如下（根据实际情况替换目录）
+2. 利用 protoc 编译 proto 文件，生成对应的 Golang 文件，命令如下（根据实际情况替换目录）
 
 ```basic
 protoc.exe --proto_path=/d/blog/archives/go/protobuf/2/proto --go_out=/d/blog/archives/go/protobuf/2/proto hello.proto
 ```
 
-1. 使用 protobuf 示例
+3. 使用 protobuf 示例
 
 ```go
 package main

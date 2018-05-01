@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"../pb2"
+	"../proto"
 
 	"github.com/golang/protobuf/proto"
 )
@@ -20,7 +20,7 @@ func main() {
 	}
 
 	message2 := &hello.Message{
-		Id:        *proto.Int32(99),
+		Id:        *proto.Int32(100),
 		Message:   *proto.String("hello world 2"),
 		ErrorCode: hello.ErrorCode_EnumSuccess,
 		Extra: []string{

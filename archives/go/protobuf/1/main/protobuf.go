@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"../pb"
+	"../proto"
 
 	"github.com/golang/protobuf/proto"
 )

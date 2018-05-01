@@ -762,13 +762,7 @@ Code:  200 , Body:  {"code":0,"version":"v1.0.1.0"}
 
 **功能：**使用 protobuf
 
-**点击下载：**
-
-- [hello.proto](https://dudebing99.github.io/blog/archives/go/pb/hello.proto)
-
-- 利用 hello.proto 生成的 [Golang 文件](https://dudebing99.github.io/blog/archives/go/pb/hello.pb.go)
-
-- [源码](https://dudebing99.github.io/blog/archives/go/protobuf/protobuf.go)
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/protobuf/1)
 
 1. 定义 proto 文件
 
@@ -786,7 +780,7 @@ Code:  200 , Body:  {"code":0,"version":"v1.0.1.0"}
 2. 利用 protoc 编译 proto 文件，生成对应的 Golang 文件，命令如下（根据实际情况替换目录）
 
 ```basic
-   protoc.exe --proto_path=/d/blog/archives/go/pb --go_out=/d/blog/archives/go/pb hello.proto
+protoc.exe --proto_path=/d/blog/archives/go/protobuf/1/proto --go_out=/d/blog/archives/go/protobuf/1/proto hello.proto
 ```
 
 3. 使用 protobuf 示例
@@ -834,10 +828,10 @@ Message:  hello world
 **附**：工程目录结构
 
 ```basic
-├── pb
+├── proto
 │   ├── hello.pb.go
 │   └── hello.proto
-└── protobuf
+└── main
     └── protobuf.go
 ```
 
@@ -845,11 +839,7 @@ Message:  hello world
 
 **功能：**使用 protobuf
 
-**点击下载：**
-
-- [hello.proto](https://dudebing99.github.io/blog/archives/go/pb2/hello.proto)
-- 利用 hello.proto 生成的 [Golang 文件](https://dudebing99.github.io/blog/archives/go/pb2/hello.pb.go)
-- [源码](https://dudebing99.github.io/blog/archives/go/protobuf2/protobuf.go)
+**点击下载：**源码](https://dudebing99.github.io/blog/archives/go/protobuf/2)
 
 1. 定义 proto 文件
 
@@ -879,7 +869,7 @@ message MessageBox {
 1. 利用 protoc 编译 proto 文件，生成对应的 Golang 文件，命令如下（根据实际情况替换目录）
 
 ```basic
-   protoc.exe --proto_path=/d/blog/archives/go/pb2 --go_out=/d/blog/archives/go/pb2 hello.proto
+protoc.exe --proto_path=/d/blog/archives/go/protobuf/2/proto --go_out=/d/blog/archives/go/protobuf/2/proto hello.proto
 ```
 
 1. 使用 protobuf 示例
@@ -907,7 +897,7 @@ func main() {
 	}
 
 	message2 := &hello.Message{
-		Id:        *proto.Int32(99),
+		Id:        *proto.Int32(100),
 		Message:   *proto.String("hello world 2"),
 		ErrorCode: hello.ErrorCode_EnumSuccess,
 		Extra: []string{
@@ -950,7 +940,7 @@ ID:  99
 Message:  hello world 1
 ErrorCode:  EnumSuccess
 Extra:  [protobuf example]
-ID:  99
+ID:  100
 Message:  hello world 2
 ErrorCode:  EnumSuccess
 Extra:  [protobuf example]
@@ -959,10 +949,10 @@ Extra:  [protobuf example]
 **附**：工程目录结构
 
 ```basic
-├── pb2
+├── proto
 │   ├── hello.pb.go
 │   └── hello.proto
-└── protobuf2
+└── main
     └── protobuf.go
 ```
 

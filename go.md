@@ -489,6 +489,7 @@ func main() {
 **输出**
 
 ```basic
+["Go","Java","Python","Android"]
 {"C":"No.3","Go":"No.1","Java":"No.2"}
 [{"ID":99,"Name":"Kevin"},{"ID":100,"Name":"Jianghai He"}]
 [

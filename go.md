@@ -425,6 +425,283 @@ Key: testing , Value: 4
 Key: unix , Value: 0
 ```
 
+## json 使用
+
+### 常见数据结构序列为 json
+
+**功能：**使用 json
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/json/json.go)
+
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type Person struct {
+	ID   int64
+	Name string
+}
+
+func main() {
+	// slice 序列化为 json
+	var s []string = []string{"Go", "Java", "Python", "Android"}
+	if j, err := json.Marshal(s); err != nil {
+		panic(err)
+	} else {
+		fmt.Println(string(j))
+	}
+
+	// map 序列化为 json
+	var m map[string]string = make(map[string]string)
+	m["Go"] = "No.1"
+	m["Java"] = "No.2"
+	m["C"] = "No.3"
+	if j, err := json.Marshal(m); err != nil {
+		panic(err)
+	} else {
+		fmt.Println(string(j))
+	}
+
+	// 自定义结构序列化为 json
+	var p []Person = []Person{
+		{99, "Kevin"},
+		{100, "Jianghai He"},
+	}
+	// 压缩输出
+	if j, err := json.Marshal(p); err != nil {
+		panic(err)
+	} else {
+		fmt.Println(string(j))
+	}
+	// 非压缩，带缩进、换行
+	if j, err := json.MarshalIndent(p, "", "  "); err != nil {
+		panic(err)
+	} else {
+		fmt.Println(string(j))
+	}
+}
+```
+
+**输出**
+
+```basic
+{"C":"No.3","Go":"No.1","Java":"No.2"}
+[{"ID":99,"Name":"Kevin"},{"ID":100,"Name":"Jianghai He"}]
+[
+  {
+    "ID": 99,
+    "Name": "Kevin"
+  },
+  {
+    "ID": 100,
+    "Name": "Jianghai He"
+  }
+]
+```
+
+## protobuf 使用
+
+### 数据结构无嵌套
+
+**功能：**使用 protobuf
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/protobuf/1.tar.gz)
+
+1. 定义 proto 文件
+
+```basic
+   syntax = "proto3";
+
+   package hello;
+
+   message Message {
+       int32 id = 1;
+       string message = 2;
+   }
+```
+
+2. 利用 protoc 编译 proto 文件，生成对应的 Golang 文件，命令如下（根据实际情况替换目录）
+
+```basic
+protoc.exe --proto_path=/d/blog/archives/go/protobuf/1/proto --go_out=/d/blog/archives/go/protobuf/1/proto hello.proto
+```
+
+3. 使用 protobuf 示例
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"../proto"
+
+	"github.com/golang/protobuf/proto"
+)
+
+func main() {
+	hello1 := &hello.Message{
+		Id:      *proto.Int32(99),
+		Message: *proto.String("hello world"),
+	}
+
+	data, err := proto.Marshal(hello1)
+	if err != nil {
+		fmt.Println("marshaling error: ", err)
+	}
+
+	hello2 := &hello.Message{}
+	err = proto.Unmarshal(data, hello2)
+	if err != nil {
+		fmt.Println("unmarshaling error: ", err)
+	}
+
+	fmt.Println("ID: ", hello2.GetId())
+	fmt.Println("Message: ", hello2.GetMessage())
+}
+```
+
+**输出**
+
+```basic
+ID:  99
+Message:  hello world
+```
+
+**附**：工程目录结构
+
+```basic
+├── proto
+│   ├── hello.pb.go
+│   └── hello.proto
+└── main
+    └── protobuf.go
+```
+
+### 数据结构有嵌套
+
+**功能：**使用 protobuf
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/protobuf/2.tar.gz)
+
+1. 定义 proto 文件
+
+```basic
+syntax = "proto3";
+
+package hello;
+
+enum ErrorCode {
+    EnumSuccess = 0;
+    EnumError = 1;
+    EnumUnknown = 2;
+}
+
+message Message {
+    int32 id = 1;
+    string message = 2;
+    ErrorCode errorCode = 3;
+    repeated string extra = 4;
+}
+
+message MessageBox {
+    repeated Message messages = 1;
+}
+```
+
+2. 利用 protoc 编译 proto 文件，生成对应的 Golang 文件，命令如下（根据实际情况替换目录）
+
+```basic
+protoc.exe --proto_path=/d/blog/archives/go/protobuf/2/proto --go_out=/d/blog/archives/go/protobuf/2/proto hello.proto
+```
+
+3. 使用 protobuf 示例
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"../proto"
+
+	"github.com/golang/protobuf/proto"
+)
+
+func main() {
+	message1 := &hello.Message{
+		Id:        *proto.Int32(99),
+		Message:   *proto.String("hello world 1"),
+		ErrorCode: hello.ErrorCode_EnumSuccess,
+		Extra: []string{
+			*proto.String("protobuf"),
+			*proto.String("example"),
+		},
+	}
+
+	message2 := &hello.Message{
+		Id:        *proto.Int32(100),
+		Message:   *proto.String("hello world 2"),
+		ErrorCode: hello.ErrorCode_EnumSuccess,
+		Extra: []string{
+			*proto.String("protobuf"),
+			*proto.String("example"),
+		},
+	}
+
+	messageBox := &hello.MessageBox{}
+	messageBox.Messages = append(messageBox.Messages, message1)
+	messageBox.Messages = append(messageBox.Messages, message2)
+
+	data, err := proto.Marshal(messageBox)
+	if err != nil {
+		fmt.Println("marshaling error: ", err)
+	}
+
+	messageBox2 := &hello.MessageBox{}
+	err = proto.Unmarshal(data, messageBox2)
+	if err != nil {
+		fmt.Println("unmarshaling error: ", err)
+	}
+
+	messages := messageBox2.GetMessages()
+	if messages != nil {
+		for _, message := range messages {
+			fmt.Println("ID: ", message.GetId())
+			fmt.Println("Message: ", message.GetMessage())
+			fmt.Println("ErrorCode: ", message.GetErrorCode())
+			fmt.Println("Extra: ", message.GetExtra())
+		}
+	}
+}
+```
+
+**输出**
+
+```basic
+ID:  99
+Message:  hello world 1
+ErrorCode:  EnumSuccess
+Extra:  [protobuf example]
+ID:  100
+Message:  hello world 2
+ErrorCode:  EnumSuccess
+Extra:  [protobuf example]
+```
+
+**附**：工程目录结构
+
+```basic
+├── proto
+│   ├── hello.pb.go
+│   └── hello.proto
+└── main
+    └── protobuf.go
+```
 ## Redis 客户端
 
 ### Redis 集群
@@ -756,203 +1033,4 @@ func main() {
 Code:  200 , Body:  {"code":0,"version":"v1.0.1.0"}
 ```
 
-## protobuf 使用
-
-### 数据结构无嵌套
-
-**功能：**使用 protobuf
-
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/protobuf/1.tar.gz)
-
-1. 定义 proto 文件
-
-```basic
-   syntax = "proto3";
-
-   package hello;
-
-   message Message {
-       int32 id = 1;
-       string message = 2;
-   }
-```
-
-2. 利用 protoc 编译 proto 文件，生成对应的 Golang 文件，命令如下（根据实际情况替换目录）
-
-```basic
-protoc.exe --proto_path=/d/blog/archives/go/protobuf/1/proto --go_out=/d/blog/archives/go/protobuf/1/proto hello.proto
-```
-
-3. 使用 protobuf 示例
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"../proto"
-
-	"github.com/golang/protobuf/proto"
-)
-
-func main() {
-	hello1 := &hello.Message{
-		Id:      *proto.Int32(99),
-		Message: *proto.String("hello world"),
-	}
-
-	data, err := proto.Marshal(hello1)
-	if err != nil {
-		fmt.Println("marshaling error: ", err)
-	}
-
-	hello2 := &hello.Message{}
-	err = proto.Unmarshal(data, hello2)
-	if err != nil {
-		fmt.Println("unmarshaling error: ", err)
-	}
-
-	fmt.Println("ID: ", hello2.GetId())
-	fmt.Println("Message: ", hello2.GetMessage())
-}
-```
-
-**输出**
-
-```basic
-ID:  99
-Message:  hello world
-```
-
-**附**：工程目录结构
-
-```basic
-├── proto
-│   ├── hello.pb.go
-│   └── hello.proto
-└── main
-    └── protobuf.go
-```
-
-### 数据结构有嵌套
-
-**功能：**使用 protobuf
-
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/protobuf/2.tar.gz)
-
-1. 定义 proto 文件
-
-```basic
-syntax = "proto3";
-
-package hello;
-
-enum ErrorCode {
-    EnumSuccess = 0;
-    EnumError = 1;
-    EnumUnknown = 2;
-}
-
-message Message {
-    int32 id = 1;
-    string message = 2;
-    ErrorCode errorCode = 3;
-    repeated string extra = 4;
-}
-
-message MessageBox {
-    repeated Message messages = 1;
-}
-```
-
-2. 利用 protoc 编译 proto 文件，生成对应的 Golang 文件，命令如下（根据实际情况替换目录）
-
-```basic
-protoc.exe --proto_path=/d/blog/archives/go/protobuf/2/proto --go_out=/d/blog/archives/go/protobuf/2/proto hello.proto
-```
-
-3. 使用 protobuf 示例
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"../proto"
-
-	"github.com/golang/protobuf/proto"
-)
-
-func main() {
-	message1 := &hello.Message{
-		Id:        *proto.Int32(99),
-		Message:   *proto.String("hello world 1"),
-		ErrorCode: hello.ErrorCode_EnumSuccess,
-		Extra: []string{
-			*proto.String("protobuf"),
-			*proto.String("example"),
-		},
-	}
-
-	message2 := &hello.Message{
-		Id:        *proto.Int32(100),
-		Message:   *proto.String("hello world 2"),
-		ErrorCode: hello.ErrorCode_EnumSuccess,
-		Extra: []string{
-			*proto.String("protobuf"),
-			*proto.String("example"),
-		},
-	}
-
-	messageBox := &hello.MessageBox{}
-	messageBox.Messages = append(messageBox.Messages, message1)
-	messageBox.Messages = append(messageBox.Messages, message2)
-
-	data, err := proto.Marshal(messageBox)
-	if err != nil {
-		fmt.Println("marshaling error: ", err)
-	}
-
-	messageBox2 := &hello.MessageBox{}
-	err = proto.Unmarshal(data, messageBox2)
-	if err != nil {
-		fmt.Println("unmarshaling error: ", err)
-	}
-
-	messages := messageBox2.GetMessages()
-	if messages != nil {
-		for _, message := range messages {
-			fmt.Println("ID: ", message.GetId())
-			fmt.Println("Message: ", message.GetMessage())
-			fmt.Println("ErrorCode: ", message.GetErrorCode())
-			fmt.Println("Extra: ", message.GetExtra())
-		}
-	}
-}
-```
-
-**输出**
-
-```basic
-ID:  99
-Message:  hello world 1
-ErrorCode:  EnumSuccess
-Extra:  [protobuf example]
-ID:  100
-Message:  hello world 2
-ErrorCode:  EnumSuccess
-Extra:  [protobuf example]
-```
-
-**附**：工程目录结构
-
-```basic
-├── proto
-│   ├── hello.pb.go
-│   └── hello.proto
-└── main
-    └── protobuf.go
-```
 

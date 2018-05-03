@@ -399,6 +399,38 @@ rdate -t 30 -s time.nist.gov && hwclock -w
 
 ## MySQL 小技巧
 
+### 快捷选择 MySQL 实例
+
+1. 创建脚本 xdb.sh
+
+```bash
+#!/bin/bash
+
+db=""
+case $1 in
+"log")
+    db="mysql -uroot -p123456 -h log.topnews.com -Dlog"
+    ;;
+"reclog")
+    db="mysql -uroot -p123456 -h 10.99.0.133 -Dreclog"
+    ;;
+"push")
+    db="mysql -uroot -p123456 -h 10.99.0.56 -Dpush"
+    ;;
+*)
+    echo "no param set"
+esac
+
+echo "Attention: connect to database: $1"
+$db
+```
+
+2. chmod +x xdb.sh
+
+3. 使用
+
+   ./xdb.sh log 即可快捷登陆 log.topnews.com 的数据库 log
+
 ### 条件插入
 
 > **场景：**先根据条件判断某条记录是否存在，不存在则插入；存在即跳过。

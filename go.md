@@ -504,6 +504,84 @@ func main() {
 ]
 ```
 
+### struct field's tag in json
+
+**功能：**在 json 中使用结构体字段标签，实现结构体与 json 的映射，一般在服务调用之间通过 json 打包数据场合，例如，解析 json 请求到结构体中，将结构体序列化到回复 json 中
+
+- \`\` 即，struct filed's tag
+- 第一个参数，指定别名，可以灵活地调整结构体与序列化对应的字段；如果不需要指定别名但需要指定其他参数，留空以逗号分隔即可
+- omitempty 修饰一个字段时，如果该字段值缺省或者赋值为`零`（非狭义的数字 0，例如，该字段为 bool 类型时，false 被当做`零`），序列化时将被忽略
+- \- 修饰一个字段时，序列化会忽略该字段
+- string 修改一个字段时，序列化时该字段被转换成 string 类型
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/json/struct_tag_json.go)
+
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type Person struct {
+	Name        string `json:"User"`
+	Age         int    `json:"Age"`
+	Gender      bool   `json:",omitempty"`
+	Profile     string
+	OmitContent string `json:"-"`
+	Count       int    `json:",string"`
+}
+
+func main() {
+	var p *Person = &Person{
+		Name:        "Kevin",
+		Age:         22,
+		Gender:      true,
+		Profile:     "Coding Dog",
+		OmitContent: "Hello World",
+	}
+	if j, err := json.Marshal(&p); err != nil {
+		panic(err)
+	} else {
+		fmt.Println(string(j))
+	}
+
+	var p2 *Person = &Person{
+		Name:        "Kevin",
+		Age:         22,
+		Gender:      false,
+		Profile:     "Coding Dog",
+		OmitContent: "Hello World",
+	}
+	if j, err := json.Marshal(&p2); err != nil {
+		panic(err)
+	} else {
+		fmt.Println(string(j))
+	}
+
+	var p3 *Person = &Person{
+		Name:        "Kevin",
+		Gender:      false,
+		Profile:     "Coding Dog",
+		OmitContent: "Hello World",
+	}
+	if j, err := json.Marshal(&p3); err != nil {
+		panic(err)
+	} else {
+		fmt.Println(string(j))
+	}
+}
+```
+
+**输出**
+
+```basic
+{"User":"Kevin","Age":22,"Gender":true,"Profile":"Coding Dog","Count":"0"}
+{"User":"Kevin","Age":22,"Profile":"Coding Dog","Count":"0"}
+{"User":"Kevin","Age":0,"Profile":"Coding Dog","Count":"0"}
+```
+
 ## protobuf 使用
 
 ### 数据结构无嵌套

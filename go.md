@@ -1114,7 +1114,10 @@ Code:  200 , Body:  {"code":0,"version":"v1.0.1.0"}
 
 ## 程序优雅退出（信号处理）
 
-**功能：**程序捕获信号，执行清理动作之后，优雅地退出
+**功能：**
+
+- 程序捕获信号，执行清理动作之后，优雅地退出
+- 一般地，捕获 SIGINT 信号（`Ctrl + C` 产生）、SIGTERM 信号（`kill PID`）即可
 
 **点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/signal/signal.go)
 
@@ -1164,4 +1167,3 @@ awaiting signal
 interrupt
 exiting
 ```
-

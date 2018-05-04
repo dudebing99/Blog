@@ -1106,10 +1106,62 @@ func main() {
 
 **输出**
 
-​	备注：当启动 HTTP 服务器端并能够处理该请求时，客户端返回结果如下所示
+​	当启动 HTTP 服务器端并能够处理该请求时，客户端返回结果如下所示
 
 ```basic
 Code:  200 , Body:  {"code":0,"version":"v1.0.1.0"}
 ```
 
+## 程序优雅退出（信号处理）
+
+**功能：**程序捕获信号，执行清理动作之后，优雅地退出
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/signal/signal.go)
+
+```go
+package main
+
+import "fmt"
+import "os"
+import "os/signal"
+import "syscall"
+
+func main() {
+	// Go signal notification works by sending `os.Signal`
+	// values on a channel. We'll create a channel to
+	// receive these notifications (we'll also make one to
+	// notify us when the program can exit).
+	sigs := make(chan os.Signal, 1)
+	done := make(chan bool, 1)
+	// `signal.Notify` registers the given channel to
+	// receive notifications of the specified signals.
+	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+	// This goroutine executes a blocking receive for
+	// signals. When it gets one it'll print it out
+	// and then notify the program that it can finish.
+	go func() {
+		sig := <-sigs
+		fmt.Println()
+		fmt.Println(sig)
+		done <- true
+	}()
+	// The program will wait here until it gets the
+	// expected signal (as indicated by the goroutine
+	// above sending a value on `done`) and then exit.
+	fmt.Println("awaiting signal")
+	<-done
+	fmt.Println("exiting")
+}
+```
+
+**输出**
+
+启动程序，按 `Ctrl + C`，输出如下
+
+```bash
+awaiting signal
+
+interrupt
+exiting
+```
 

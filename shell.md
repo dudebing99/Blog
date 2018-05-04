@@ -1767,11 +1767,43 @@ cluster_common_passwd=123456
 {id: 4, name: 'D. Nai'}
 ```
 
-### cp 拷贝同一个文件到多个目录
+## cp 拷贝同一个文件到多个目录
 
 ```bash
 # 拷贝 dummy.txt 到目录 /tmp/1 和 /tmp/2
 # -n 1 每次传递 1 个参数给 xargs
 echo /tmp/1 /tmp/2|xargs -n 1 cp dummy.txt
 ```
+
+## cp 同时拷贝多个文件到同一个目录
+
+- 利用 {file1,file2,...,fileN} 拷贝多个文件
+
+```bash
+[root@localhost ~]# ls /tmp/dummy/                      
+file1  file2  file3  file5
+[root@localhost ~]# cp /tmp/dummy/{file1,file5} destdir/
+[root@localhost ~]# ls destdir/
+file1  file5
+```
+
+- 文件名有共同前缀
+
+```bash
+[root@localhost ~]# ls destdir/                      
+[root@localhost ~]# ls /tmp/dummy/
+file1  file2  file3  file5
+[root@localhost ~]# cp /tmp/dummy/file{1..3} destdir/
+[root@localhost ~]# ls destdir/
+file1  file2  file3
+```
+
+  ```bash
+[root@localhost ~]# ls destdir/
+[root@localhost ~]# ls /tmp/dummy/
+file1  file2  file3  file5
+[root@localhost ~]# cp /tmp/dummy/file{{1..3},5} destdir/
+[root@localhost ~]# ls destdir/                          
+file1  file2  file3  file5
+  ```
 

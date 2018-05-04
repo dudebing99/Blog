@@ -433,11 +433,25 @@ $db
 
 ### 条件插入
 
-> **场景：**先根据条件判断某条记录是否存在，不存在则插入；存在即跳过。
->
-> **语法：**insert into table(column1, column2, ..., columnN) select value1, value2, value3, ..., valueN from dual where not exists (condition clause)
+**场景：**先根据条件判断某条记录是否存在，不存在则插入；存在即跳过。
+
+**语法：**insert into table(column1, column2, ..., columnN) select value1, value2, value3, ..., valueN from dual where not exists (condition clause)
 
    ```sql
    insert into push_log_tbl(`guid`, `doc_id`, `content_id`,`title`, `long_text`,`short_text`, `origin_url`,`new_url`,`push_enum`,`beg_ts`,`end_ts`,`ts`,`extra_info`,`material_item_id`) select '9f31efe9-f806-48c8-8039-f66732f1c548', '5482be29f264ba101d4cef6324e351be6690b658', 17015207, 'Quang Hải U23 khiến người hâm mộ tâm phục khẩu phục', 'Khi bị \'vuốt ve\' quá trớn, cầu thủ này đã có phản ứng mạnh mẽ', 'Khi bị \'vuốt ve\' quá trớn, cầu thủ này đã có phản ứng mạnh mẽ', 'http://2sao.vn/bi-cdv-nam-vuot-ve-qua-tron-quang-hai-dap-tra-vo-cung-van-minh-khien-nguoi-xem-ne-phuc-n-152162.html', 'https://news5.vnay.vn/v1/article/17015207/5482be29f264ba101d4cef6324e351be6690b658.html', 0, '2018-04-26 02:48:53', '2018-04-26 02:48:53', '2018-04-26 02:48:53', '', '1e8043f705f9c29a051b75fbd6122114fc740938' from dual where not exists (select material_item_id, push_enum from push_log_tbl where material_item_id='1e8043f705f9c29a051b75fbd6122114fc740938' and push_enum=0)
    ```
+
+### timestamp 字段查询
+
+**场景一：**查询某个时间范围的数据
+
+```sql
+ SELECT `id`, `create_time` FROM `record` WHERE (create_time >= '2011-05-27 11:27:00') ORDER BY id DESC LIMIT 0, 20
+```
+
+**场景二：**查询某一天数据
+
+```sql
+select guid, content_id, title, long_text, new_url, ttl, icon, picture, push_enum from vntopnews_push.push_content_tbl where date_format(create_time,'%Y-%m-%d')='2011-05-27' order by create_time asc
+```
 

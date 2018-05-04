@@ -1767,3 +1767,11 @@ cluster_common_passwd=123456
 {id: 4, name: 'D. Nai'}
 ```
 
+### cp 拷贝同一个文件到多个目录
+
+```bash
+# 拷贝 dummy.txt 到目录 /tmp/1 和 /tmp/2
+# -n 1 每次传递 1 个参数给 xargs
+echo /tmp/1 /tmp/2|xargs -n 1 cp dummy.txt
+```
+

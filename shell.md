@@ -1779,7 +1779,7 @@ echo /tmp/1 /tmp/2|xargs -n 1 cp dummy.txt
 
 - 利用 {file1,file2,...,fileN} 拷贝多个文件
 
-```basic
+```bash
 [root@localhost ~]# ls /tmp/dummy/                      
 file1  file2  file3  file5
 [root@localhost ~]# cp /tmp/dummy/{file1,file5} destdir/
@@ -1789,7 +1789,7 @@ file1  file5
 
 - 文件名有共同前缀
 
-```basic
+```bash
 [root@localhost ~]# ls destdir/                      
 [root@localhost ~]# ls /tmp/dummy/
 file1  file2  file3  file5
@@ -1798,12 +1798,12 @@ file1  file2  file3  file5
 file1  file2  file3
 ```
 
-  ```basic
+  ```bash
 [root@localhost ~]# ls destdir/
 [root@localhost ~]# ls /tmp/dummy/
 file1  file2  file3  file5
 [root@localhost ~]# cp /tmp/dummy/file{{1..3},5} destdir/
-[root@localhost ~]# ls destdir/                          
+[root@localhost ~]# ls destdir/
 file1  file2  file3  file5
   ```
 

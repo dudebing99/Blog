@@ -1777,33 +1777,21 @@ echo /tmp/1 /tmp/2|xargs -n 1 cp dummy.txt
 
 ## cp 同时拷贝多个文件到同一个目录
 
-- 利用 {file1,file2,...,fileN} 拷贝多个文件
-
-```bash
-[root@localhost ~]# ls /tmp/dummy/                      
-file1  file2  file3  file5
-[root@localhost ~]# cp /tmp/dummy/{file1,file5} destdir/
-[root@localhost ~]# ls destdir/
-file1  file5
-```
-
-- 文件名有共同前缀
-
-```bash
+```basic
 [root@localhost ~]# ls destdir/                      
 [root@localhost ~]# ls /tmp/dummy/
 file1  file2  file3  file5
-[root@localhost ~]# cp /tmp/dummy/file{1..3} destdir/
-[root@localhost ~]# ls destdir/
-file1  file2  file3
 ```
 
-  ```bash
-[root@localhost ~]# ls destdir/
-[root@localhost ~]# ls /tmp/dummy/
-file1  file2  file3  file5
-[root@localhost ~]# cp /tmp/dummy/file{{1..3},5} destdir/
-[root@localhost ~]# ls destdir/
-file1  file2  file3  file5
-  ```
+- 方法一：
+
+  `cp /tmp/dummy/{file1,file5} destdir/`
+
+- 方法二：文件名有共同前缀
+
+  `cp /tmp/dummy/file{1..3} destdir/`
+
+  `cp /tmp/dummy/file{{1..3},5} destdir/`
+
+
 

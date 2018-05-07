@@ -1,8 +1,6 @@
 [TOC]
 
-------
-
-##  读取文件
+##  [CPP]读取文件
 
 ```c++
 static bool ReadFile(const char *file, std::string &out)
@@ -22,7 +20,7 @@ static bool ReadFile(const char *file, std::string &out)
 }
 ```
 
-## 处理信号，服务优雅退出
+## [CPP]处理信号，服务优雅退出
 
 ```c++
 #include <chrono>
@@ -71,7 +69,7 @@ int main(int argc, char **argv)
 }
 ```
 
-## 自定义服务运行参数
+## [CPP]自定义服务运行参数
 
 ```c++
 static void ShowHelp()
@@ -173,7 +171,7 @@ int main(int argc, char **argv)
 }
 ```
 
-## SSL/TLS 客户端
+## [CPP]SSL/TLS 客户端
 
 > **源码路径：**
 >
@@ -521,7 +519,7 @@ int main(int argc, char* argv[])
 }
 ```
 
-## SSL/TLS 服务器端
+## [CPP]SSL/TLS 服务器端
 
 > **源码路径：**[boost_ssl_server.cpp](https://dudebing99.github.io/blog/archives/code_snippet/boost_ssl_server.cpp)
 

@@ -706,3 +706,26 @@ int main(int argc, char* argv[])
   return 0;
 }
 ```
+## [Python]获取 unixstamp
+
+```python
+import time
+
+original_seconds = time.time()
+print original_seconds
+
+seconds = int(time.time())
+print seconds
+
+millis = int(round(time.time() * 1000))
+print millis
+```
+
+**输出**
+
+```basic
+1525654611.52
+1525654611
+1525654611522
+```
+

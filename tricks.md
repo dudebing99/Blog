@@ -438,7 +438,7 @@ $db
 **语法：**insert into table(column1, column2, ..., columnN) select value1, value2, value3, ..., valueN from dual where not exists (condition clause)
 
    ```sql
-   insert into push_log_tbl(`guid`, `doc_id`, `content_id`,`title`, `long_text`,`short_text`, `origin_url`,`new_url`,`push_enum`,`beg_ts`,`end_ts`,`ts`,`extra_info`,`material_item_id`) select '9f31efe9-f806-48c8-8039-f66732f1c548', '5482be29f264ba101d4cef6324e351be6690b658', 17015207, 'Quang Hải U23 khiến người hâm mộ tâm phục khẩu phục', 'Khi bị \'vuốt ve\' quá trớn, cầu thủ này đã có phản ứng mạnh mẽ', 'Khi bị \'vuốt ve\' quá trớn, cầu thủ này đã có phản ứng mạnh mẽ', 'http://2sao.vn/bi-cdv-nam-vuot-ve-qua-tron-quang-hai-dap-tra-vo-cung-van-minh-khien-nguoi-xem-ne-phuc-n-152162.html', 'https://news5.vnay.vn/v1/article/17015207/5482be29f264ba101d4cef6324e351be6690b658.html', 0, '2018-04-26 02:48:53', '2018-04-26 02:48:53', '2018-04-26 02:48:53', '', '1e8043f705f9c29a051b75fbd6122114fc740938' from dual where not exists (select material_item_id, push_enum from push_log_tbl where material_item_id='1e8043f705f9c29a051b75fbd6122114fc740938' and push_enum=0)
+ insert into push_log_tbl(guid, origin_url, new_url, beg_ts) select '1111', '', '', sysdate() from dual where not exists (select guid from push_log_tbl where guid='1111');
    ```
 
 ### timestamp 字段查询

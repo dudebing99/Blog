@@ -288,4 +288,21 @@ Windows 7 x64 Ultimate/VS Code v1.23.0
 
 2. 打开 Git Bash，运行 go get github.com/derekparker/delve/cmd/dlv
 
+## [django] Signal only works in main thread
+
+**系统环境**
+
+CentOS 7.x/Python 2.7.x
+
+**问题描述**
+
+运行报错
+
+**解决方式**
+
+​	运行时加入追加如下参数 
+
+```basic
+--nothreading --noreload 
+```
 

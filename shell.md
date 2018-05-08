@@ -28,6 +28,7 @@ FRAG      0         0         0
 ```
 
 ## 统计进程打开的文件句柄数目
+
 ```bash
 lsof -p PID
 lsof -p PID|wc -l
@@ -1802,7 +1803,7 @@ file1  file2  file3
 [root@localhost ~]# ls destdir/
 [root@localhost ~]# ls /tmp/dummy/
 file1  file2  file3  file5
-[root@localhost ~]# cp /tmp/dummy/file{{1..3},5} destdir/
+[root@localhost ~]# 
 [root@localhost ~]# ls destdir/                          
 file1  file2  file3  file5
   ```

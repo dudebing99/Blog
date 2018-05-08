@@ -729,15 +729,22 @@ print millis
 1525654611522
 ```
 
-[Python] Redis 使用
+## [Python] Redis 使用
+
+> **环境：**Python 2.7.14 
+>
+> **安装 redis：**pip install redis *redis*-py-cluster
+>
+> **源码：**[点此下载](https://dudebing99.github.io/blog/archives/code_snippet/redis_helper.py)
 
 ```python
 # -*- coding:utf-8 -*-
 import datetime
 import time
 
-class MyRedis(object):
-    def __init__(self,redis_type=None,**args):
+
+class RedisHelper(object):
+    def __init__(self, redis_type=None, **args):
         if redis_type == "cluster":
             import rediscluster
             self.r_conn = rediscluster.StrictRedisCluster(**args)
@@ -745,49 +752,47 @@ class MyRedis(object):
             import redis
             self.r_conn = redis.StrictRedis(**args)
 
-
-    def GetValue(self,name):
+    def GetValue(self, name):
         return self.r_conn.get(name)
 
-    def IncrValue(self,name):
+    def IncrValue(self, name):
         return self.r_conn.incr(name)
 
-    def SetValue(self,name,value):
-        self.r_conn.set(name,value)
+    def SetValue(self, name, value):
+        self.r_conn.set(name, value)
 
-    def GetSetValue(self,name,value):
-        return self.r_conn.getset(name,value)
+    def GetSetValue(self, name, value):
+        return self.r_conn.getset(name, value)
+
 
 if __name__ == '__main__':
 
-    # # 单点
-    # conn_dict={'host':'127.0.0.1', 'port':6379}
-    # redis_type='single'
-    # myredis = MyRedis(redis_type,**conn_dict)
-    # print(myredis.SetValue('name','test'))
-    # print(myredis.GetValue('name'))
-    # print(myredis.GetSetValue('name1',0))
-    # print(myredis.GetValue('name'))
+    # 单点
+    conn_dict = {'host': '127.0.0.1', 'port': 6379}
+    redis_type = 'single'
 
     # 集群
-    conn_dict={"startup_nodes":[
-       {'host':'192.168.0.3', 'port':4000},
-       {'host':'192.168.0.3', 'port':5000},
-       {'host':'192.168.0.4', 'port':6000},
-       {'host':'192.168.0.5', 'port':7000}]}
+    # conn_dict={"startup_nodes":[
+    #    {'host':'192.168.0.3', 'port':4000},
+    #    {'host':'192.168.0.3', 'port':5000},
+    #    {'host':'192.168.0.4', 'port':6000},
+    #    {'host':'192.168.0.5', 'port':7000}]}
+    # redis_type='cluster'
 
-    redis_type='cluster'
-    myredis = MyRedis(redis_type,**conn_dict)
-    print(myredis.SetValue('name','kevin'))
+    myredis = RedisHelper(redis_type, **conn_dict)
+    print(myredis.SetValue('name', 'kevin'))
     print(myredis.GetValue('name'))
-    print(myredis.GetSetValue('name',0))
-    print(myredis.GetValue('name'))
-  
+    print(myredis.GetSetValue('nickname', 0))
+    print(myredis.GetValue('nickname'))
+
 ```
 
 **输出**
 
 ```basic
-
+None
+kevin
+0
+0
 ```
 

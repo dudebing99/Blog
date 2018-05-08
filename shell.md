@@ -1799,12 +1799,5 @@ file1  file2  file3  file5
 file1  file2  file3
 ```
 
-  ```bash
-[root@localhost ~]# ls destdir/
-[root@localhost ~]# ls /tmp/dummy/
-file1  file2  file3  file5
-[root@localhost ~]# 
-[root@localhost ~]# ls destdir/                          
-file1  file2  file3  file5
-  ```
+显然，也可以这样使用 `cp /tmp/dummy/file{{1..3},5} destdir/`
 

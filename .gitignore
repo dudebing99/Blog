@@ -56,3 +56,4 @@ debug/
 release/
 bin/
 debug
+.vscode/

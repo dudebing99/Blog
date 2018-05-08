@@ -1799,5 +1799,5 @@ file1  file2  file3  file5
 file1  file2  file3
 ```
 
-显然，也可以这样使用 `cp /tmp/dummy/file{{1..3},5} destdir/`
+
 

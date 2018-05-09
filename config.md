@@ -817,27 +817,24 @@ export PATH=$PATH:$ICE_HOME/bin
 > - MySQL 配置文件位置： /etc/my.cnf
 
 1. 开启 3306 端口
-
-   ```bash
-   /sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
-   /etc/rc.d/init.d/iptables save
-   ```
+```bash
+/sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
+/etc/rc.d/init.d/iptables save
+```
 
 2. 修改初始密码
 
-   ```bash
-   mysql -uroot -p123456（初始密码为空）
-   > use mysql;
-   > update user set password=password('123456') where user='root';
-   > flush privileges;
-   ```
-
+```bash
+mysql -uroot -p123456（初始密码为空）
+> use mysql;
+> update user set password=password('123456') where user='root';
+> flush privileges;
+```
 3. 允许远程访问
 
-   ```bash
-   > grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
-   ```
-
+```bash
+> grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
+```
 ## CentOS 安装 Redis 4.0.9
 
 1. 运行环境：Cent OS 6.8
@@ -944,18 +941,16 @@ OK
 > **Siege** 是 linux 下的一个 web 系统的压力测试工具，支持多链接，支持 get 和 post 请求，可以对 web 系统进行多并发下持续请求的压力测试。
 
 1. 运行环境：Cent OS 6.8
-
 2. 安装
-
-   ```bash
-   wget http://download.joedog.org/siege/siege-latest.tar.gz
-   tar -xzvf siege-latest.tar.gz
-   # 根据实际情况切换目录
-   cd siege-4.0.4/
-   ./configure
-   make -j4
-   make install
-   ```
+```bash
+wget http://download.joedog.org/siege/siege-latest.tar.gz
+tar -xzvf siege-latest.tar.gz
+# 根据实际情况切换目录
+cd siege-4.0.4/
+./configure
+make -j4
+make install
+```
 
 3. 使用 siege -h 查看简要使用说明；使用 man siege 查看详细使用说明，包括示例。
 
@@ -1188,11 +1183,10 @@ auto.leader.rebalance.enable=true
 5. 生成 SSH 公钥（ssh-kengen -t rsa）
 
    **备注：**如果客户端使用的 openssl 库版本较高而服务器端版本较低，openssl 高版本禁用某些安全性较低的算法，这种情形下，需要在客户端的 .ssh 目录（即，id_rsa.pub所在目录）新建一个文件 config（Windows 下注意去掉后缀），内容如下
-
-   ```bash
-   Host 172.13.31.14
-       KexAlgorithms +diffie-hellman-group1-sha1
-   ```
+```bash
+Host 172.13.31.14
+    KexAlgorithms +diffie-hellman-group1-sha1
+```
 
 6. 登陆 Gerrit，进入个人中心，将上一步产生的公钥 id_rsa.pub 添加到 SSH 公钥（SSH Public Keys）
 
@@ -1236,28 +1230,27 @@ make -j4 && make install
 
 1. 获取 certbot 客户端
 
-   ```bash
-   wget https://dl.eff.org/certbot-auto
-   chmod a+x certbot-auto
-   ```
-
-   ​
+```bash
+wget https://dl.eff.org/certbot-auto
+chmod a+x certbot-auto
+```
 
 2. 生成证书
 
-   ```bash
-   /opt/certbot-auto certonly --webroot -w /usr/share/nginx/html --agree-tos --email xuchao@danbay.cn -d api.danbay.cn
-   ```
+```bash
+/opt/certbot-auto certonly --webroot -w /usr/share/nginx/html --agree-tos --email xuchao@danbay.cn -d api.danbay.cn
+```
 
-   ![生成证书](pic/certbot/certbot.jpg)
+![生成证书](pic/certbot/certbot.jpg)
 
 3. 查看证书文件
 
-   ```bash
-   tree /etc/letsencrypt/live/
-   ```
+```bash
+tree /etc/letsencrypt/live/
+```
 
-   ![证书文件](pic/certbot/cert.jpg)
+![证书文件](pic/certbot/cert.jpg)
+
 ### 部署
 
 #### Nginx 同时支持 http/https
@@ -1496,27 +1489,21 @@ x-content-type-options:nosniff
 ## Mail 发送邮件
 
 1. 配置 /etc/mail.rc
-
-   ```bash
-   set from=xuchao@bigsillybear.com smtp="smtp.bigsillybear.com"
-   set smtp-auth-user="xuchao@bigsillybear.com" smtp-auth-password="HiBigsillybear"
-   set smtp-auth=login
-   ```
+```bash
+set from=xuchao@bigsillybear.com smtp="smtp.bigsillybear.com"
+set smtp-auth-user="xuchao@bigsillybear.com" smtp-auth-password="HiBigsillybear"
+set smtp-auth=login
+```
 
 2. 发送邮件
 
-   ```bash
-   # 发送主题为 test，邮件正文为 ca.pem 文件内容，包含附件 ca.pem 的邮件到 cloud_dev@bigsillybear.com
-   mail -s "test" -a ca.pem cloud_dev@bigsillybear.com < ca.pem
+```bash
+# 发送主题为 test，邮件正文为 ca.pem 文件内容，包含附件 ca.pem 的邮件到 cloud_dev@bigsillybear.com
+mail -s "test" -a ca.pem cloud_dev@bigsillybear.com < ca.pem
 
-   # 发送主题为 test，邮件正文为 hello world 的邮件到 cloud_dev@bigsillybear.com
-   echo "hello world"|mail -s "test" cloud_dev@bigsillybear.com
-   ```
-
-
-
-
-
+# 发送主题为 test，邮件正文为 hello world 的邮件到 cloud_dev@bigsillybear.com
+echo "hello world"|mail -s "test" cloud_dev@bigsillybear.com
+```
 ## Windows 下 nodejs /npm 安装配置
 
 > **说明：**使用 Node.js 的 npm 命令需要访问国外的站点，但由于国内网络的问题，可能安装 react-native-cli 的速度会比较慢，甚至完全无法安装，淘宝为国内开发者提供了 npm 镜像服务。
@@ -1566,56 +1553,53 @@ cnpm install -g react-native-cli
 
    打开 Git Bash，输入 protoc --version
 
-   ```bash
-   $ protoc --version
-   libprotoc 3.5.1
-   ```
-
+```bash
+$ protoc --version
+libprotoc 3.5.1
+```
 ## Visual Studio Code 配置 GoLang 开发环境
 
 1. 官网下载 GoLang 安装包，安装之后 go version 查看版本
 
-   ```bash
-   $ go version
-   go version go1.10.1 windows/amd64	
-   ```
+```bash
+$ go version
+go version go1.10.1 windows/amd64	
+```
 
-   > **安装时勾选添加环境变量，不需要单独添加环境变量；否则，需要新添加环境变量，如下：**
-   >
-   > ​	计算机（右键）-> 属性 -> 高级系统设置 -> 高级 -> 环境变量 -> 系统变量 
-   >
-   > - 添加 变量名 GOROOT，值为安装目录，如  C:\app\Go\
-   > - 变量名 Path，追加值  C:\app\Go\bin;
+> **安装时勾选添加环境变量，不需要单独添加环境变量；否则，需要新添加环境变量，如下：**
+>
+> ​	计算机（右键）-> 属性 -> 高级系统设置 -> 高级 -> 环境变量 -> 系统变量 
+>
+> - 添加 变量名 GOROOT，值为安装目录，如  C:\app\Go\
+> - 变量名 Path，追加值  C:\app\Go\bin;
 
 2. 设置环境变量 GOPATH，具体操作如步骤 1 所示，值为后续你存放源码的目录，如 D:\go
-
 3. 打开 Git Bash，依次安装如下依赖项
 
-   ```bash
-   go get -u -v github.com/nsf/gocode
-   go get -u -v github.com/rogpeppe/godef
-   go get -u -v github.com/golang/lint/golint
-   go get -u -v github.com/lukehoban/go-outline
-   go get -u -v sourcegraph.com/sqs/goreturns
-   go get -u -v golang.org/x/tools/cmd/gorename
-   go get -u -v github.com/tpng/gopkgs
-   go get -u -v github.com/newhook/go-symbols
-   go get -u -v golang.org/x/tools/cmd/guru
+```bash
+go get -u -v github.com/nsf/gocode
+go get -u -v github.com/rogpeppe/godef
+go get -u -v github.com/golang/lint/golint
+go get -u -v github.com/lukehoban/go-outline
+go get -u -v sourcegraph.com/sqs/goreturns
+go get -u -v golang.org/x/tools/cmd/gorename
+go get -u -v github.com/tpng/gopkgs
+go get -u -v github.com/newhook/go-symbols
+go get -u -v golang.org/x/tools/cmd/guru
 
-   # 可选择性下载
-   # protobuf 相关，需要安装 protoc
-   go get -u -v github.com/golang/protobuf/protoc-gen-go
-   go get -u -v github.com/golang/protobuf/proto
-   # grpc
-   go get -u -v google.golang.org/grpc
-   ```
+# 可选择性下载
+# protobuf 相关，需要安装 protoc
+go get -u -v github.com/golang/protobuf/protoc-gen-go
+go get -u -v github.com/golang/protobuf/proto
+# grpc
+go get -u -v google.golang.org/grpc
+```
 
-   > **请注意大坑：**步骤  3 需要墙外操作，F**K
+> **请注意大坑：**步骤  3 需要墙外操作，F**K
 
 4. 安装 VS Code
-
 5. 安装 VS Code 各种插件，打开 VS Code，按 Ctrl+Shift+P，输入 install ext，输入 go，选中安装即可
 
-   > VS Code 支持各种语法，同理，安装对应的插件即可，如，需要支持 C++，安装 C++ 插件即可
+> VS Code 支持各种语法，同理，安装对应的插件即可，如，需要支持 C++，安装 C++ 插件即可
 
 

@@ -276,17 +276,17 @@ ONBOOT=no 修改为 ONBOOT=yes
 
 **系统环境**
 
-Windows 7 x64 Ultimate/VS Code v1.23.0
+​	Windows 7 x64 Ultimate/VS Code v1.23.0
 
 **问题描述**
 
-略
+​	略
 
 **解决方式**
 
-1. 确认已经正确设置 GOPATH 环境变量，并将  %GOPATH%\bin 追加到 PATH 环境变量
+​	1. 确认已经正确设置 GOPATH 环境变量，并将  %GOPATH%\bin 追加到 PATH 环境变量
 
-2. 打开 Git Bash，运行 go get github.com/derekparker/delve/cmd/dlv
+​	2. 打开 Git Bash，运行 go get github.com/derekparker/delve/cmd/dlv
 
 ## [Django] Signal only works in main thread
 

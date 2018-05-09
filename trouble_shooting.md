@@ -6,11 +6,11 @@
 
 **系统环境**
 
-CentOS release 6.8 (Final)
+​	CentOS release 6.8 (Final)
 
 **问题描述**
 
-在安装操作系统时采取默认分区策略或者当初分配的策略与后面实际使用差异，导致某些分区仍然有大量的可用空间，但是 root 分区空间不够。
+​	在安装操作系统时采取默认分区策略或者当初分配的策略与后面实际使用差异，导致某些分区仍然有大量的可用空间，但是 root 分区空间不够。
 
 **解决方式**
 
@@ -48,15 +48,15 @@ resize2fs -p /dev/mapper/VolGroup-lv_root
 
 **系统环境**
 
-CentOS/VMware® Workstation 12 Pro 
+​	CentOS/VMware® Workstation 12 Pro 
 
 **问题描述**
 
-在 VMWare 虚拟机启动 CentOS 时，出现如上警告信息
+​	在 VMWare 虚拟机启动 CentOS 时，出现如上警告信息
 
 **解决方式**
 
-在 /etc/modprobe.d/blacklist.conf 文件里添加如下内容：
+​	在 /etc/modprobe.d/blacklist.conf 文件里添加如下内容：
 blacklist i2c_piix4
 
 ## intel_rapl: no valid rapl domains found in package 0
@@ -100,17 +100,17 @@ CentOS/VMware® Workstation 12 Pro
 
 **系统环境**
 
-MySQL
+​	MySQL 5.6.x
 
 **问题描述**
 
-在 MySQL 表中某字段包含关键字 key，导致 SQL 语句执行报错，数据无法正常插入表中。错误信息大致如下：
+​	在 MySQL 表中某字段包含关键字 key，导致 SQL 语句执行报错，数据无法正常插入表中。错误信息大致如下：
 
-*You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ...*
+​	*You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ...*
 
 **解决方式**
 
-执行如下 SQL  报错：INSERT into tb_map(key, value) VALUES('a',' 123'); 
+​	执行如下 SQL  报错：INSERT into tb_map(key, value) VALUES('a',' 123'); 
 
 > key 是 MySQL 关键字之一
 
@@ -122,15 +122,15 @@ MySQL
 
 **系统环境**
 
-CentOS 6.8 x64/MySQL 5.6.35
+​	CentOS 6.8 x64/MySQL 5.6.35
 
 **问题描述**
 
-略
+​	略
 
 **解决方式**
 
-SQL 中利用 `\` 转义即可，如下两种方式均可
+​	SQL 中利用 `\` 转义即可，如下两种方式均可
 
 ```sql
 -- 单引号转义
@@ -144,11 +144,11 @@ insert into blog_info_tbl (title, url) values ('\"kevin\" blog', 'https://dudebi
 
 **系统环境**
 
-CentOS 6.8 x64/MySQL 5.6.35
+​	CentOS 6.8 x64/MySQL 5.6.35
 
 **问题描述**
 
-MySQL 用户密码丢失，重置用户密码
+​	MySQL 用户密码丢失，重置用户密码
 
 **解决方式**
 
@@ -187,11 +187,11 @@ SecretFx 显示中文文件名时出现乱码
 
 **系统环境**
 
-SecureCRT Version 7.0.3 (build 480)
+​	SecureCRT Version 7.0.3 (build 480)
 
 **问题描述**
 
-略。
+​	略。
 
 **解决方式**
 
@@ -236,11 +236,11 @@ ONBOOT=no 修改为 ONBOOT=yes
 
 **系统环境**
 
-CentOS 7.x
+​	CentOS 7.x
 
 **问题描述**
 
-CentOS 7.x 不在使用 init 托管服务，systemd 取而代之。
+​	CentOS 7.x 不在使用 init 托管服务，systemd 取而代之。
 
 **解决方式**
 
@@ -256,15 +256,15 @@ CentOS 7.x 不在使用 init 托管服务，systemd 取而代之。
 
 **系统环境**
 
-CentOS 7.x/Ice 3.6.1
+​	CentOS 7.x/Ice 3.6.1
 
 **问题描述**
 
-IceGrid Node 节点部署的应用进程无法创建日志目录
+​	IceGrid Node 节点部署的应用进程无法创建日志目录
 
 **原因分析**
 
-IceGrid Node 节点应用进程默认以 everyone 用户启动，进程需要在运行目录写日志文件，而 everyone 用户不具备该目录的写权限，导致无法创建日志目录。
+​	IceGrid Node 节点应用进程默认以 everyone 用户启动，进程需要在运行目录写日志文件，而 everyone 用户不具备该目录的写权限，导致无法创建日志目录。
 
 **解决方式**
 
@@ -288,21 +288,32 @@ Windows 7 x64 Ultimate/VS Code v1.23.0
 
 2. 打开 Git Bash，运行 go get github.com/derekparker/delve/cmd/dlv
 
-## [django] Signal only works in main thread
+## [Django] Signal only works in main thread
 
 **系统环境**
 
-CentOS 7.x/Python 2.7.x
+​	CentOS 7.x/Python 2.7.x/django 1.11.7
 
 **问题描述**
 
-运行报错
+​	运行报错
 
 **解决方式**
 
-​	运行时加入追加如下参数 
+​	运行时加入追加如下参数 --nothreading --noreload
 
-```basic
---nothreading --noreload 
-```
+## Django memory leak with gunicorn
 
+**系统环境**
+
+​	CentOS 7.x/Python 2.7.x/django 1.11.7
+
+**问题描述**
+
+​	Django 项目运行时内存泄漏，正常情况下，应当找出内存泄漏的地方并且修复，但是如果是引入的第三方库引入的（或者团队的其他成员的代码引入），无法迅速地正面解决（find it and fix it）
+
+**解决方式**
+
+​	运行时添加如下参数 --max-requests 1000，该参数指定当工作线程（gunicorn workers）在处理完 1000 个请求时，主进程将其杀掉并释放这些工作线程占用（存在内存泄漏）的内存，然后重新分配新的工作线程。
+
+> 实际上，主进程杀掉并重新拉起新的子进程时，不会影响对客户端的请求的处理。例如，nginx 代理 Django 后端服务，客户端的请求不会受到影响。

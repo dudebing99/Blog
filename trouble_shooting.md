@@ -268,9 +268,9 @@ ONBOOT=no 修改为 ONBOOT=yes
 
 **解决方式**
 
-**方法 1：**将应用写日志文件的目录赋予 everyone 用户权限。
+​	**方法 1：**将应用写日志文件的目录赋予 everyone 用户权限。
 
-**方法 2：**IceGrid 机制允许修改用户进程启动默认启动的用户，详见 ICE 官方文档。
+​	**方法 2：**IceGrid 机制允许修改用户进程启动默认启动的用户，详见 ICE 官方文档。
 
 ## Failed to continue: "Cannot find Delve debugger. Ensure it is in your \`GOPATH/bin\` or \`PATH\`."
 

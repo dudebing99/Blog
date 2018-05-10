@@ -25,4 +25,6 @@ func main() {
 	fmt.Println(strTime)
 	strTime = time.Now().Format("2006/01/02 15")
 	fmt.Println(strTime)
+	strTime = time.Now().UTC().Add(8 * time.Hour).Format("20060102_1504")
+	fmt.Println(strTime)
 }

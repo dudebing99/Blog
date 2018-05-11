@@ -263,7 +263,62 @@ do
 done
 ```
 
+## shell 数组与字典
+
+```bash
+#/!/bin/bash
+
+echo "shell 定义字典"
+declare -A dic
+dic=([key1]="value1" [key2]="value2" [key3]="value3")
+
+# 打印指定 key 的 value
+echo ${dic["key1"]}
+
+# 打印所有key值
+echo ${!dic[*]}
+
+# 打印所有value
+echo ${dic[*]}
+
+# 字典添加一个新元素
+dic+=([key4]="value4")
+
+# 遍历key值
+for key in $(echo ${!dic[*]})
+do
+    echo "$key, ${dic[$key]}"
+done
+
+echo "shell 定义数组"
+list=("value1" "value2" "value3")
+
+# 打印指定下标
+echo ${list[1]}
+
+# 打印所有下标
+echo ${!list[*]}
+
+# 打印数组下标
+echo ${list[*]}
+
+# 数组增加一个元素
+list=("${list[@]}" "value3")
+
+# 按序号遍历
+for i in "${!arr[@]}"; do 
+    echo "$i, ${arr[$i]}"
+done
+
+#按数据遍历
+for v in ${ARR[*]}
+do
+    echo $v
+done
+```
+
 ## 分割、合并大文件
+
 ```bash
 # 按照指定行数分割
 split -l 500 large_file.log new_file_prefix

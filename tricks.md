@@ -255,6 +255,15 @@ git diff HEAD^
 git blame <filename>
 ```
 
+### 仓库迁移
+
+```bash
+# 1. 本地有仓库 project1
+# 2. 在 github 新建仓库 project2
+# 3. 以镜像推送到 project2 上，可以保留 project1 的所有提交记录
+git push --mirror git@github.com:dudebing99/project2.git
+```
+
 ## Windows 清理系统垃圾
 
 使用说明：保存为 clear.bat，双击运行即可。

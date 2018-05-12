@@ -797,6 +797,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/go-redis/redis"
 )
@@ -807,7 +808,11 @@ func main() {
 			"192.168.0.3:6371",
 			"192.168.0.3:6372",
 			"192.168.0.3:6373"},
-		Password: "", // no password set
+		Password:     "", // no password set
+		PoolSize:     50,
+		ReadTimeout:  30 * time.Second,
+		WriteTimeout: 30 * time.Second,
+		PoolTimeout:  30 * time.Second,
 	})
 
 	pong, err := client.Ping().Result()
@@ -865,15 +870,20 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/go-redis/redis"
 )
 
 func main() {
 	client := redis.NewClient(&redis.Options{
-		Addr:     "192.168.2.99:6379",
-		Password: "", // no password set,
-		DB:       1,
+		Addr:         "192.168.2.99:6379",
+		Password:     "", // no password set,
+		DB:           1,
+		PoolSize:     50,
+		ReadTimeout:  30 * time.Second,
+		WriteTimeout: 30 * time.Second,
+		PoolTimeout:  30 * time.Second,
 	})
 
 	pong, err := client.Ping().Result()

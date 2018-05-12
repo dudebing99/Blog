@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/go-redis/redis"
 )
@@ -12,7 +13,11 @@ func main() {
 			"192.168.0.3:6371",
 			"192.168.0.3:6372",
 			"192.168.0.3:6373"},
-		Password: "", // no password set
+		Password:     "", // no password set
+		PoolSize:     50,
+		ReadTimeout:  30 * time.Second,
+		WriteTimeout: 30 * time.Second,
+		PoolTimeout:  30 * time.Second,
 	})
 
 	pong, err := client.Ping().Result()

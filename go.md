@@ -1180,6 +1180,37 @@ awaiting signal
 interrupt
 exiting
 ```
+## 匿名函数
+
+**功能：**介绍匿名函数的使用
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/anonymous_func.go)
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	func(x, y int) {
+		fmt.Printf("x + y = %d\n", x+y)
+	}(19, 96)
+
+	f := func(x, y int) int {
+		return x * y
+	}
+
+	fmt.Printf("x * y = %d\n", f(16, 2))
+}
+```
+
+**输出**
+
+```basic
+x + y = 115
+x * y = 32
+```
+
 ## 函数闭包
 
 **功能：**介绍函数闭包的使用

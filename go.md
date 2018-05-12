@@ -1180,3 +1180,63 @@ awaiting signal
 interrupt
 exiting
 ```
+## 函数闭包
+
+**功能：**介绍函数闭包的使用
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/closure.go)
+
+```go
+package main
+
+import "fmt"
+
+func add() func(int) int {
+	sum := 0
+	fmt.Println("sum: ", sum)
+	return func(x int) int {
+		sum += x
+		fmt.Println("x: ", x, ", sum += x: ", sum)
+		return sum
+	}
+}
+
+func main() {
+	fmt.Println("declare f()")
+	f := add()
+
+	fmt.Println("call f()")
+	for i := 0; i < 10; i++ {
+		fmt.Println("f(i): ", f(i))
+	}
+}
+```
+
+**输出**
+
+```basic
+declare f()
+sum:  0
+call f()
+x:  0 , sum += x:  0
+f(i):  0
+x:  1 , sum += x:  1
+f(i):  1
+x:  2 , sum += x:  3
+f(i):  3
+x:  3 , sum += x:  6
+f(i):  6
+x:  4 , sum += x:  10
+f(i):  10
+x:  5 , sum += x:  15
+f(i):  15
+x:  6 , sum += x:  21
+f(i):  21
+x:  7 , sum += x:  28
+f(i):  28
+x:  8 , sum += x:  36
+f(i):  36
+x:  9 , sum += x:  45
+f(i):  45
+```
+

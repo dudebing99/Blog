@@ -317,6 +317,57 @@ func main() {
 20180510_2245
 ```
 
+## array 数组
+
+**功能：**array 数组基础使用
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/array.go)
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+	var array [5]int
+	fmt.Println("init(default):", array)
+	fmt.Println("len:", len(array))
+
+	for i := 0; i < 4; i++ {
+		array[i] = i * 10
+	}
+	fmt.Println("array:", array)
+	fmt.Println("get array[4]:", array[4])
+
+	array2 := [5]int{1, 2, 3, 4, 5}
+	fmt.Println("init:", array2)
+
+	// array[x, y]
+	var arrayXY [2][3]int
+	for x := 0; x < 2; x++ {
+		for y := 0; y < 3; y++ {
+			arrayXY[x][y] = x + y
+		}
+	}
+
+	fmt.Println("array[x, y]:", arrayXY)
+	fmt.Printf("array[x, y]: %v", arrayXY)
+}
+```
+
+**输出**
+
+```basic
+init(default): [0 0 0 0 0]
+len: 5
+array: [0 10 20 30 0]
+get array[4]: 0
+init: [1 2 3 4 5]
+array[x, y]: [[0 1 2] [1 2 3]]
+array[x, y]: [[0 1 2] [1 2 3]]
+```
+
 ## slice 切片
 
 **功能：**slice 基础使用

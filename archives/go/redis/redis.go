@@ -9,13 +9,14 @@ import (
 
 func main() {
 	client := redis.NewClient(&redis.Options{
-		Addr:         "192.168.2.99:6379",
-		Password:     "", // no password set,
-		DB:           1,
-		PoolSize:     50,
-		ReadTimeout:  30 * time.Second,
-		WriteTimeout: 30 * time.Second,
-		PoolTimeout:  30 * time.Second,
+		Addr:               "192.168.2.99:6379",
+		Password:           "", // no password set,
+		DB:                 1,
+		PoolSize:           50,
+		ReadTimeout:        30 * time.Second,
+		WriteTimeout:       30 * time.Second,
+		PoolTimeout:        30 * time.Second,
+		IdleCheckFrequency: 2 * time.Minute,
 	})
 
 	pong, err := client.Ping().Result()

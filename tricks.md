@@ -408,6 +408,12 @@ rdate -t 30 -s time.nist.gov && hwclock -w
 
 ## MySQL 小技巧
 
+### MySQL 清理控制台
+
+```sql
+system clear
+```
+
 ### 快捷选择 MySQL 实例
 
 1. 创建脚本 xdb.sh

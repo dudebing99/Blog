@@ -368,6 +368,35 @@ array[x, y]: [[0 1 2] [1 2 3]]
 array[x, y]: [[0 1 2] [1 2 3]]
 ```
 
+## map
+
+**功能：** map 基础使用
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/map_without_init.go)
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println(err)
+		}
+	}()
+	// 声明变量，默认 map 是 nil，如果直接对其操作会报错
+	var kv map[int]string
+	kv[1] = "hello"
+}
+```
+
+**输出**
+
+```basic
+assignment to entry in nil map
+```
+
 ## slice 切片
 
 **功能：**slice 基础使用

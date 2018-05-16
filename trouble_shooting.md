@@ -317,3 +317,36 @@ ONBOOT=no 修改为 ONBOOT=yes
 ​	运行时添加如下参数 --max-requests 1000，该参数指定当工作线程（gunicorn workers）在处理完 1000 个请求时，主进程将其杀掉并释放这些工作线程占用（存在内存泄漏）的内存，然后重新分配新的工作线程。
 
 > 实际上，主进程杀掉并重新拉起新的子进程时，不会影响对客户端的请求的处理。例如，nginx 代理 Django 后端服务，客户端的请求不会受到影响。
+
+## Python MySQL 结果集返回字典格式
+
+**系统环境**
+
+ 	CentOS 7.x/Python 2.7.4
+
+**问题描述**
+
+​	Python 的 MySQLdb 模块访问 MySQL 的一个模块，默认查询结果是 tuple 类型，使用只能根据字段的位置作为下标去访问，使用不方便且容易出错
+
+**解决方式**
+
+​	初始化 MySQL 连接时，显示指定结果集为字典类型 cursorclass=MySQLdb.cursors.DictCursor，如下所示
+
+```python
+import MySQLdb
+import MySQLdb.cursors
+
+def get_db_conn(mysql_config):
+    db = MySQLdb.connect(host=mysql_config['host'],
+                         port=mysql_config['port'],
+                         user=mysql_config['user'],
+                         passwd=mysql_config['passwd'],
+                         db=mysql_config['db'],
+                         cursorclass=MySQLdb.cursors.DictCursor)
+    db.set_character_set('utf8mb4')
+    cursor = db.cursor()
+    cursor.execute('SET NAMES utf8mb4;')
+
+    return db, cursor
+```
+

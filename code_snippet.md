@@ -706,6 +706,27 @@ int main(int argc, char* argv[])
   return 0;
 }
 ```
+## [Python 2.x] 输出不换行
+
+```python
+# -*- coding:utf-8 -*-
+
+if __name__ == '__main__':
+    print("hello")
+    print("world")
+    
+    print("hello"),
+    print("world")
+```
+
+**输出**
+
+```basic
+hello
+world
+hello world
+```
+
 ## [Python] 获取 unixstamp
 
 ```python

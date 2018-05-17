@@ -386,6 +386,36 @@ Create Table: CREATE TABLE `multi_app_user_tbl` (
 1 row in set (0.00 sec)
 ```
 
+### MySQL 随机排序
+
+```sql
+select * from multi_app_user_tbl order by rand() limit 3;
+```
+
+**输出**
+
+```basic
+mysql> select * from multi_app_user_tbl order by rand() limit 3;
++------+--------------------------------------------+-------------+
+| id   | uniq_user_id                               | org_user_id |
++------+--------------------------------------------+-------------+
+| 1576 | advid:2b3f4008-9d2c-4410-8ff0-fb1a37021831 |      309614 |
+| 2545 | advid:629e3632-83fc-41f6-b7a7-507d07da323a |      220043 |
+| 2984 | advid:5a21e37d-8472-4b4b-aaad-c3828ab3a6fa |      190268 |
++------+--------------------------------------------+-------------+
+3 rows in set (0.01 sec)
+
+mysql> select * from multi_app_user_tbl order by rand() limit 3;
++------+--------------------------------------------+-------------+
+| id   | uniq_user_id                               | org_user_id |
++------+--------------------------------------------+-------------+
+| 1615 | advid:eca90566-6048-4ff5-a1e3-c979d467221f |      307227 |
+| 2646 | advid:a383d2fc-22e5-4ccc-b5d7-de80cc8f8eed |      283161 |
+| 1913 | advid:fb082377-24a0-4936-a189-50563515c5cd |      281130 |
++------+--------------------------------------------+-------------+
+3 rows in set (0.00 sec)
+```
+
 ### 快捷选择 MySQL 实例
 
 1. 创建脚本 xdb.sh

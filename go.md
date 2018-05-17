@@ -249,6 +249,12 @@ func main() {
 	str := "kevin's blog"
 	str = strings.Replace(str, "'", "\\'", -1)
 	fmt.Println(str)
+
+	str3 := "hello"
+	data := []byte(str3)
+	fmt.Println(data)
+	str3 = string(data[:])
+	fmt.Println(str3)
 }
 ```
 
@@ -263,6 +269,8 @@ TagID:  5
 TagID:  4
 idsStr: a#b#c#d
 kevin\'s blog
+[104 101 108 108 111]
+hello
 ```
 
 ## 时间

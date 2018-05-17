@@ -39,4 +39,10 @@ func main() {
 	str := "kevin's blog"
 	str = strings.Replace(str, "'", "\\'", -1)
 	fmt.Println(str)
+
+	str3 := "hello"
+	data := []byte(str3)
+	fmt.Println(data)
+	str3 = string(data[:])
+	fmt.Println(str3)
 }

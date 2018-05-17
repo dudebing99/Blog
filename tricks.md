@@ -363,6 +363,29 @@ rdate -t 30 -s time.nist.gov && hwclock -w
 system clear
 ```
 
+### MySQL 查看表结构
+
+```sql
+show create table multi_app_user_tbl;
+```
+
+**输出**
+
+```basic
+mysql> show create table multi_app_user_tbl\G
+*************************** 1. row ***************************
+       Table: multi_app_user_tbl
+Create Table: CREATE TABLE `multi_app_user_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增 ID',
+  `uniq_user_id` varchar(64) NOT NULL COMMENT '用户唯一 ID',
+  `org_user_id` int(11) NOT NULL COMMENT '用户 ID',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_org_user_id` (`org_user_id`),
+  KEY `idx_uniq_user_id_user_id` (`uniq_user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4662 DEFAULT CHARSET=utf8
+1 row in set (0.00 sec)
+```
+
 ### 快捷选择 MySQL 实例
 
 1. 创建脚本 xdb.sh

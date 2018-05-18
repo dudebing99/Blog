@@ -167,6 +167,37 @@ pkill mysqld_safe
 service mysql start
 ```
 
+## [MySQL] ORDER BY clause is not in GROUP BY clause
+
+**系统环境**
+
+​	CentOS 6.8 x64/5.7.18 MySQL Community Server
+
+**问题描述**
+
+```sql
+mysql> select org_user_id, uniq_user_id from (select * from multi_app_user_tbl) as tmp group by uniq_user_id;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'tmp.org_user_id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+```
+
+**解决方式**
+
+ 	**原因：**Select 语句选择的列与 Group by 包含的列不一致，MySQL 默认有此限制。因此，一方面，可以修改业务的 SQL，遵循此限制；另一方面，可以取消 MySQL 此限制，如下所示
+
+```sql
+mysql> select @@sql_mode\G
+*************************** 1. row ***************************
+@@sql_mode: ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+1 row in set (0.00 sec)
+mysql> set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+```
+
+**或修改 MySQL 配置文件** my.ini，添加或修改如下配置项
+
+```bash
+sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+```
+
 ## SecureFX 中文文件名乱码
 
 **系统环境**

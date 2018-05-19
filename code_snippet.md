@@ -731,6 +731,8 @@ hello world
 
 ```python
 import time
+import datetime
+import calendar
 
 original_seconds = time.time()
 print original_seconds
@@ -740,14 +742,19 @@ print seconds
 
 millis = int(round(time.time() * 1000))
 print millis
+
+now = datetime.datetime.utcnow()
+tt = long(calendar.timegm(now.utctimetuple()))
+print tt
 ```
 
 **输出**
 
 ```basic
-1525654611.52
-1525654611
-1525654611522
+1527122035.76
+1527122035
+1527122035756
+1527122035
 ```
 
 ## [Python] Redis 使用

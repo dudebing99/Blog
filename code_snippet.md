@@ -757,6 +757,36 @@ print tt
 1527122035
 ```
 
+## [Python] 日期时间格式化
+
+```python
+# -*- coding:utf-8 -*-
+
+import datetime
+import time
+
+if __name__ == '__main__':
+
+    date = datetime.datetime.now().strftime("%Y-%m-%d")
+    print(date)
+
+    now = datetime.datetime.strptime("2018-04-25 18:00:34.123456", "%Y-%m-%d %H:%M:%S.%f")
+    print(now)
+
+    now = datetime.datetime.utcnow()
+    vn_now = now + datetime.timedelta(hours=7)
+    vn_date = vn_now.strftime("%Y-%m-%d")
+    print(vn_date)
+```
+
+**输出**
+
+```basic
+2018-05-24
+2018-04-25 18:00:34.123456
+2018-05-24
+```
+
 ## [Python] Redis 使用
 
 > **环境：**Python 2.7.14 

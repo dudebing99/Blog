@@ -787,6 +787,50 @@ if __name__ == '__main__':
 2018-05-24
 ```
 
+## [Python] 列表的遍历
+
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+if __name__ == '__main__':
+    list = ['html', 'js', 'css', 'python']
+
+    for i in list:
+        print("index:%d, value:%s" % (list.index(i), i))
+
+    for i in range(len(list)):
+        print("index:%d, value:%s" % (i, list[i]))
+
+    for i, val in enumerate(list):
+        print("index:%d, value:%s" % (i, val))
+
+    # 只是改变索引的输出，默认从 0 开始，如下设置从 2 开始
+    for i, val in enumerate(list, 2):
+        print("index:%d, value:%s" % (i, val))
+```
+
+**输出**
+
+```basic
+index:0, value:html
+index:1, value:js
+index:2, value:css
+index:3, value:python
+index:0, value:html
+index:1, value:js
+index:2, value:css
+index:3, value:python
+index:0, value:html
+index:1, value:js
+index:2, value:css
+index:3, value:python
+index:2, value:html
+index:3, value:js
+index:4, value:css
+index:5, value:python
+```
+
 ## [Python] Redis 使用
 
 > **环境：**Python 2.7.14 

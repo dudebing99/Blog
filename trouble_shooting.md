@@ -381,3 +381,23 @@ def get_db_conn(mysql_config):
     return db, cursor
 ```
 
+## Python module not found error 可能原因
+
+**系统环境**
+
+ 	CentOS 7.x/Python 2.7.4
+
+**问题描述**
+
+​	导入 Python 模块，提示找不到模块
+
+**解决方式**
+
+ 1. 如果引用的模块包含多级目录，需要在每一级目录添加一个  `__init__.py` 文件（内容为空即可）
+
+ 2. 子目录中的文件引用父目录的模块，可将父目录的路径添加进来，举例如下
+
+    ```python
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+    ```
+

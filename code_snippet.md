@@ -1094,3 +1094,105 @@ if __name__ == '__main__':
     logger.info("end task")
 ```
 
+## [Python] YAML 配置文件
+
+> **环境：**Python 2.7.14/PyYAML 3.12
+>
+> **依赖库：**pip install pyyaml
+
+```python
+# coding: utf8
+
+import os
+import yaml
+import time
+from os import path
+
+
+class DynFileLoader(object):
+    def __init__(self, file_path, detect_interval=10):
+        if not path.exists(file_path):
+            raise IOError('{} not existed'.format(file_path))
+
+        self._detect_interval = detect_interval
+        self._file_path = file_path
+        self._file_last_mtime = None
+        self._file_content = None
+        self._file_last_load_time = None
+
+        self._reload()
+
+    def _reload(self):
+        with open(self._file_path) as f:
+            now = int(time.time())
+            self._file_content = f.read()
+            self._file_last_mtime = now
+            self._file_last_load_time = now
+
+    def _is_file_modified(self):
+        return path.getmtime(self._file_path) > self._file_last_mtime
+
+    def _should_reload(self):
+        now = int(time.time())
+        if now - self._file_last_load_time > self._detect_interval:
+            return self._is_file_modified()
+        else:
+            return False
+
+    def get_content(self):
+        if self._should_reload():
+            self._reload()
+
+        return self._file_content
+
+
+class DynYamlConfig(DynFileLoader):
+    def __init__(self, file_path, detect_interval=10):
+        self._yaml_map = {}
+        DynFileLoader.__init__(self, file_path, detect_interval)
+
+    def _reload(self):
+        with open(self._file_path) as f:
+            now = int(time.time())
+            self._yaml_map = yaml.safe_load(f)
+            self._file_last_mtime = now
+            self._file_last_load_time = now
+
+    def get_content(self):
+        if self._should_reload():
+            self._reload()
+        return self._yaml_map
+
+    def get_value(self, key, default=None):
+        config = self.get_content()
+
+        if not config:
+            return default
+
+        return config.get(key, default)
+
+if __name__ == __name__:
+    conf = DynYamlConfig('dummy.yml')
+
+    content = conf.get_content()
+    print(content)
+
+    item = conf.get_value("product")['item']
+    print(item)
+
+    numbers = conf.get_value("numbers")
+    print(numbers)
+
+    item = conf.get_value("food")['fruit']['item']
+    print(item)
+```
+
+**输出**
+
+```basic
+{'food': {'fruit': {'item': 'apple'}}, 'product': {'item': 'hello'}, 'numbers': [1, 2, 3, 4]}
+hello
+[1, 2, 3, 4]
+apple
+```
+

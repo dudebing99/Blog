@@ -981,7 +981,10 @@ def fetch_helper(start, limit):
     return ret
 
 def find_max_id_helper():
-    sql = "select max(org_user_id) as max_id from `vntopnews_user`.`multi_app_user_tbl` order by id asc"
+    sql = """
+    select max(org_user_id) as max_id
+    from `vntopnews_user`.`multi_app_user_tbl` order by id asc
+    """
     logger.debug("database: %s, sql: %s", vntopnews_user, sql)
     db, cursor = get_db_conn(vntopnews_user)
     cursor.execute(sql)
@@ -1023,14 +1026,16 @@ def batch_insert_helper(multi_app_user_dict):
                     if len(values) == batch:
                         total += batch
                         logger.info("batch insert, count: %d", len(values))
-                        cursor.executemany('INSERT INTO `vntopnews_user`.`multi_app_user_tbl` (org_user_id, uniq_user_id) VALUES (%s, %s)', values)
+                        cursor.executemany('INSERT INTO `vntopnews_user`.`multi_app_user_tbl` \
+                        (org_user_id, uniq_user_id) VALUES (%s, %s)', values)
                         db.commit()
                         values = []
 
         if len(values) > 0:
             total += len(values)
             logger.info("final batch insert, count: %d", len(values))
-            cursor.executemany('INSERT INTO `vntopnews_user`.`multi_app_user_tbl` (org_user_id, uniq_user_id) VALUES (%s, %s)', values)
+            cursor.executemany('INSERT INTO `vntopnews_user`.`multi_app_user_tbl` \
+            (org_user_id, uniq_user_id) VALUES (%s, %s)', values)
             db.commit()
             values = []
 
@@ -1052,7 +1057,8 @@ if __name__ == '__main__':
     limit = 500000
     multi_app_user_dict = {}
     while (1):
-        logger.debug("begin to fetch from user table, start:%d, limit:%d", start, limit)
+        logger.debug("begin to fetch from user table, start:%d, limit:%d",
+        start, limit)
         multi_app_users = fetch_helper(start, limit)
         if not multi_app_users:
             logger.info("fetch from user table, no record")
@@ -1064,26 +1070,30 @@ if __name__ == '__main__':
                 continue
 
             try:
-                # logger.debug("id:%d, user_flavor_unique_id:%s", row['id'], row['user_flavor_unique_id'])
                 index = row['user_flavor_unique_id'].index("_") + 1
 
                 org_user_id = row['id']
                 uniq_user_id = row['user_flavor_unique_id'][index:]
                 # 多个 org_user_id 对应 一个 uniq_user_id
                 if uniq_user_id in multi_app_user_dict:
-                    logger.debug("old uniq_user_id, add org_user_id:%d, uniq_user_id:%s", org_user_id, uniq_user_id)
+                    logger.debug("old uniq_user_id, add org_user_id:%d, uniq_user_id:%s",
+                    org_user_id, uniq_user_id)
                     user_id_set = multi_app_user_dict[uniq_user_id]
                     if len(user_id_set) == 1:
                         multi_app_user_dict[uniq_user_id].add(org_user_id)
-                        logger.debug("need insert twice, org_user_id:%d, uniq_user_id:%s, %s", org_user_id, uniq_user_id, user_id_set)
+                        logger.debug("need insert twice, org_user_id:%d, uniq_user_id:%s, %s",
+                        org_user_id, uniq_user_id, user_id_set)
                     elif len(user_id_set) == 2:
                         multi_app_user_dict[uniq_user_id].add(org_user_id)
-                        logger.debug("need insert once, org_user_id:%d, uniq_user_id:%s, %s", org_user_id, uniq_user_id, user_id_set)
+                        logger.debug("need insert once, org_user_id:%d, uniq_user_id:%s, %s",
+                        org_user_id, uniq_user_id, user_id_set)
                     else:
                         # 超过三条，过滤
-                        logger.debug("filter, org_user_id:%d, uniq_user_id:%s, %s", org_user_id, uniq_user_id, user_id_set)
+                        logger.debug("filter, org_user_id:%d, uniq_user_id:%s, %s",
+                        org_user_id, uniq_user_id, user_id_set)
                 else:
-                    logger.debug("new uniq_user_id, add org_user_id:%d, uniq_user_id:%s", org_user_id, uniq_user_id)
+                    logger.debug("new uniq_user_id, add org_user_id:%d, uniq_user_id:%s",
+                    org_user_id, uniq_user_id)
                     multi_app_user_dict[uniq_user_id] = {org_user_id}
             except Exception as ex:
                 logger.error("caught exception: %s, traceback: %s", ex, traceback.format_exc())

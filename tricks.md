@@ -19,6 +19,52 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 
 ### 查看进程级别是否运行异常
 
+- top 查看进程资源使用是否正常（特别注意，内存是否一致在增加）
+- lsof 查看进程打开的文件句柄数
+
+- strace 查看系统调用和信号
+
+  ```bash
+  [root@www ~]#  strace -s 99 -ffp 3363
+  Process 3363 attached with 2 threads
+  [pid  3365] restart_syscall(<... resuming interrupted call ...> <unfinished ...>
+  [pid  3363] select(18, [13 16 17], NULL, NULL, {29, 702368}) = 1 (in [16], left {23, 709762})
+  [pid  3363] fcntl(16, F_GETFL)          = 0x802 (flags O_RDWR|O_NONBLOCK)
+  [pid  3363] accept4(16, 0, NULL, SOCK_CLOEXEC) = -1 EAGAIN (Resource temporarily unavailable)
+  Process 3365 detached
+  ```
+
+- gdb attach 进程并获取堆栈信息
+
+  ```bash
+  [root@www ~]# gdb attach 2388
+  GNU gdb (GDB) Red Hat Enterprise Linux 7.6.1-80.el7
+  Copyright (C) 2013 Free Software Foundation, Inc.
+  License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+  This is free software: you are free to change and redistribute it.
+  There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+  and "show warranty" for details.
+  This GDB was configured as "x86_64-redhat-linux-gnu".
+  For bug reporting instructions, please see:
+  <http://www.gnu.org/software/gdb/bugs/>...
+  Attaching to process 2388
+  Reading symbols from /home/mysql/bin/mysqld...
+  done.
+  Reading symbols from /usr/lib64/libpthread.so.0...Reading symbols from /usr/lib/debug/usr/lib64/libpthread-2.17.so.debug...done.
+  done.
+  
+  (gdb) 
+  (gdb) bt
+  #0  0x00007f88e3f4669d in poll () at ../sysdeps/unix/syscall-template.S:81
+  #1  0x0000000000d2ae9d in Mysqld_socket_listener::listen_for_connection_event (this=0x5933700)
+      at /root/lnmp1.3-full/src/mysql-5.7.11/sql/conn_handler/socket_connection.cc:848
+  #2  0x000000000077e069 in connection_event_loop (this=0x59a6050) at /root/lnmp1.3-full/src/mysql-5.7.11/sql/conn_handler/connection_acceptor.h:66
+  #3  mysqld_main (argc=45, argv=0x3b56bd8) at /root/lnmp1.3-full/src/mysql-5.7.11/sql/mysqld.cc:4941
+  #4  0x00007f88e3e7bb15 in __libc_start_main (main=0x756100 <main(int, char**)>, argc=10, ubp_av=0x7ffe5ab6c418, init=<optimized out>, fini=<optimized out>, 
+      rtld_fini=<optimized out>, stack_end=0x7ffe5ab6c408) at libc-start.c:274
+  #5  0x00000000007734dd in _start ()
+  ```
+
 ## tcpdump 抓包之三次握手、四次挥手
 
 ### TCP 连接建立（三次握手）

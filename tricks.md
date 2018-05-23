@@ -316,12 +316,6 @@ start explorer
 1. 在桌面新建一个文件夹
 2. 重命名为 GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}
 
-## 网页自动刷新
-
-功能：实现每 10s 自动刷新
-
-头部加入 \<meta http-equiv="refresh" content="10">
-
 ## 同步机器时间、硬件时钟
 
 ```bash

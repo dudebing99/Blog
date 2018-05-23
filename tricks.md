@@ -6,6 +6,16 @@
 
 valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reachable=no --workaround-gcc296-bugs=yes ./a.out
 
+## 进程异常排查
+
+- 查看系统级别是否运行异常
+  1. 利用 top 查看全局资源使用
+  2. 利用 free 查看系统内存使用
+  3. 利用 iostat 查看磁盘 I/O 是否异常
+  4. 利用 df -i 查看系统 inode 使用是否异常；df -h 查看系统磁盘使用是否异常
+  5. 利用 ss/netstat 查看系统网络连接是否异常
+- 查看进程级别是否运行异常
+
 ## tcpdump 抓包之三次握手、四次挥手
 
 ### TCP 连接建立（三次握手）

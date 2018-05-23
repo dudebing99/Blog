@@ -77,6 +77,8 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
   #5  0x00000000007734dd in _start ()
   ```
 
+- java 程序，可以借助 jstack、jstat、jmap、jinfo 等查看进程的运行信息
+
 ## tcpdump 抓包之三次握手、四次挥手
 
 ### TCP 连接建立（三次握手）

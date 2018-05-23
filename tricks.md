@@ -20,7 +20,19 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 ### 查看进程级别是否运行异常
 
 - top 查看进程资源使用是否正常（特别注意，内存是否一致在增加）
+
 - lsof 查看进程打开的文件句柄数
+
+- 查看进程堆栈信息（2388 为进程号）
+
+  ```bash
+  [root@www ~]# cat /proc/2388/stack
+  [<ffffffff811f2bb5>] poll_schedule_timeout+0x55/0xb0
+  [<ffffffff811f413d>] do_sys_poll+0x4cd/0x580
+  [<ffffffff811f42f4>] SyS_poll+0x74/0x110
+  [<ffffffff81645909>] system_call_fastpath+0x16/0x1b
+  [<ffffffffffffffff>] 0xffffffffffffffff
+  ```
 
 - strace 查看系统调用和信号
 

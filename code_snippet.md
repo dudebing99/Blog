@@ -1206,3 +1206,52 @@ hello
 apple
 ```
 
+## [Python] Flask RESTful
+
+> **环境：**Python 2.7.14/Flask 0.11.1/Flask-RESTful 0.3.5/Flask-SQLAlchemy 2.2
+
+```python
+# -*- coding:utf-8 -*-
+from flask import Flask
+from flask_restful import Api
+from flask_restful import Resource
+
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+class IndexView(Resource):
+    def post(self):
+        return {'message': 'error! please use http get'}
+
+    def get(self):
+        return {'message': 'hello world'}
+
+if __name__ == '__main__':
+    app = Flask(__name__)
+    api = Api(app)
+    api.add_resource(IndexView, '/index')
+
+    app.run(host='0.0.0.0', port=12345, debug=True)
+```
+
+**输出**
+
+```basic
+[root@~]# python app.py
+ * Running on http://0.0.0.0:12345/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 293-571-458
+127.0.0.1 - - [25/May/2018 09:34:49] "GET /index HTTP/1.1" 200 -
+```
+
+```basic
+[root@~]# curl http://0.0.0.0:12345/index
+{
+    "message": "hello world"
+}
+```
+

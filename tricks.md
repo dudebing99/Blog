@@ -539,7 +539,7 @@ $db
 select guid, content_id, title, long_text, new_url, ttl, icon, picture, push_enum from vntopnews_push.push_content_tbl where date_format(create_time,'%Y-%m-%d')='2011-05-27' order by create_time asc
 ```
 
-## 时间相关函数
+### 时间相关函数
 
 ```sql
 mysql> select utc_timestamp(), utc_date(), utc_time(), now();
@@ -566,5 +566,14 @@ mysql> select sysdate(), sleep(3), sysdate();
 +---------------------+----------+---------------------+
 | 2018-05-26 16:24:56 |        0 | 2018-05-26 16:24:59 |
 +---------------------+----------+---------------------+
+```
+
+```sql
+mysql> select date_add(now(), interval -1 day) as t1, date_add(now(), interval 8 hour) as t2, now();
++---------------------+---------------------+---------------------+
+| t1                  | t2                  | now()               |
++---------------------+---------------------+---------------------+
+| 2018-05-25 16:39:34 | 2018-05-27 00:39:34 | 2018-05-26 16:39:34 |
++---------------------+---------------------+---------------------+
 ```
 

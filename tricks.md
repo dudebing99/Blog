@@ -541,6 +541,8 @@ select guid, content_id, title, long_text, new_url, ttl, icon, picture, push_enu
 
 ### 时间相关函数
 
+#### 查询 utc 时间戳、utc 日期、utc 时间、now()
+
 ```sql
 mysql> select utc_timestamp(), utc_date(), utc_time(), now();
 +---------------------+------------+------------+---------------------+
@@ -549,6 +551,8 @@ mysql> select utc_timestamp(), utc_date(), utc_time(), now();
 | 2018-05-26 08:27:00 | 2018-05-26 | 08:27:00   | 2018-05-26 16:27:00 |
 +---------------------+------------+------------+---------------------+
 ```
+
+#### now() 与 sysdate() 异同
 
 ```sql
 mysql> select now(), sleep(3), now();
@@ -567,6 +571,8 @@ mysql> select sysdate(), sleep(3), sysdate();
 | 2018-05-26 16:24:56 |        0 | 2018-05-26 16:24:59 |
 +---------------------+----------+---------------------+
 ```
+
+#### date_add 函数
 
 ```sql
 mysql> select date_add(now(), interval -1 day) as t1, date_add(now(), interval 8 hour) as t2, now();

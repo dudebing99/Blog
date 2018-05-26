@@ -1114,6 +1114,8 @@ if __name__ == '__main__':
 > - [kafka_producer.py](https://dudebing99.github.io/blog/archives/code_snippet/kafka_producer.py)
 >
 > **Tag：**kafka 生产者、消费者
+>
+> **参考：**http://kafka-python.readthedocs.io/en/master/usage.html
 
 ### 消费者
 

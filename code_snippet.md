@@ -1104,6 +1104,103 @@ if __name__ == '__main__':
     logger.info("end task")
 ```
 
+## [Python] kafka 使用
+
+> **环境：**Python 2.7.14/kafka-python 1.4.2
+>
+> **源码：**
+>
+> - [kafka_consumer.py](https://dudebing99.github.io/blog/archives/code_snippet/kafka_consumer.py)
+> - [kafka_producer.py](https://dudebing99.github.io/blog/archives/code_snippet/kafka_producer.py)
+>
+> **Tag：**kafka 生产者、消费者
+
+### 消费者
+
+```python
+from kafka import KafkaConsumer
+
+def consume():
+    # To consume latest messages and auto-commit offsets
+    consumer = KafkaConsumer('test',
+                             group_id='test-group',
+                             bootstrap_servers=['192.168.2.99:9092'],
+                             api_version=(0, 10))
+    for message in consumer:
+        # message value and key are raw bytes -- decode if necessary!
+        # e.g., for unicode: `message.value.decode('utf-8')`
+        print("%s:%d:%d: key=%s value=%s" % (message.topic, message.partition,
+                                              message.offset, message.key,
+                                              message.value))
+
+
+if __name__ == '__main__':
+    consume()
+```
+
+### 生产者
+
+```python
+from kafka import KafkaProducer
+from kafka.errors import KafkaError
+import json
+import sys
+
+def on_send_success(record_metadata):
+    print(record_metadata.topic, record_metadata.partition, record_metadata.offset)
+
+def on_send_error(excp):
+    print('I am an errback', str(exc_info=excp))
+    # handle exception
+
+producer = KafkaProducer(bootstrap_servers=['192.168.2.99:9092'],
+                         api_version=(0, 10),
+                         max_block_ms=10000,
+                         retries=2)
+
+def produce():
+    for i in range(3):
+        message = {
+            'id': i,
+            'msg': 'hello world',
+        }
+        # produce asynchronously with callbacks
+        # produce keyed messages to enable hashed partitioning
+        producer.send('test', key='bingo', value=json.dumps(message)).add_callback(
+            on_send_success).add_errback(on_send_error)
+        # un-keyed messages
+        producer.send('test', json.dumps(message)).add_callback(on_send_success).add_errback(
+            on_send_error)
+
+    # block until all async messages are sent
+    producer.flush()
+
+if __name__ == '__main__':
+    produce()
+```
+
+**输出**
+
+```basic
+$ python kafka_producer.py
+('test', 0, 132)
+('test', 0, 133)
+('test', 0, 134)
+('test', 0, 135)
+('test', 0, 136)
+('test', 0, 137)
+```
+
+```basic
+$ python kafka_consumer.py
+test:0:132: key=bingo value={"msg": "hello world", "id": 0}
+test:0:133: key=None value={"msg": "hello world", "id": 0}
+test:0:134: key=bingo value={"msg": "hello world", "id": 1}
+test:0:135: key=None value={"msg": "hello world", "id": 1}
+test:0:136: key=bingo value={"msg": "hello world", "id": 2}
+test:0:137: key=None value={"msg": "hello world", "id": 2}
+```
+
 ## [Python] YAML 配置文件
 
 > **环境：**Python 2.7.14/PyYAML 3.12
@@ -1181,7 +1278,7 @@ class DynYamlConfig(DynFileLoader):
 
         return config.get(key, default)
 
-if __name__ == __name__:
+if __name__ == '__main__':
     conf = DynYamlConfig('dummy.yml')
 
     content = conf.get_content()

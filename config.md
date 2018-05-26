@@ -954,6 +954,27 @@ make install
 
 3. 使用 siege -h 查看简要使用说明；使用 man siege 查看详细使用说明，包括示例。
 
+## CentOS 安装 pip
+
+```bash
+# 安装 Python 2.7.4
+
+# 安装 setuptools
+wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-1.4.2.tar.gz
+# 解压:
+tar -xvf setuptools-1.4.2.tar.gz
+cd setuptools-1.4.2
+# 使用 Python 2.7.4 安装 setuptools
+python setup.py install
+
+# 安装 pip
+curl  https://bootstrap.pypa.io/get-pip.py | python2.7 -
+
+# 确认安装
+[root@localhost~]# pip -V
+pip 10.0.1 from /usr/local/lib/python2.7/site-packages/pip (python 2.7)
+```
+
 ## CentOS 安装 protobuf 3.5.1
 
 ```bash

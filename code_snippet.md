@@ -1341,6 +1341,89 @@ hello
 apple
 ```
 
+## [Python] HTTP GET/POST 请求
+
+### urllib2
+
+```python
+# coding = utf-8
+import urllib2
+import json
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+
+def get(url):
+    resp = urllib2.urlopen(url=url, timeout=10)
+    return resp.read()
+
+
+def post(url, data):
+    resp = urllib2.urlopen(url=url, data=data, timeout=10)
+    return resp.read()
+
+
+if __name__ == '__main__':
+    data1 = get('http://45.77.40.154:9999/admin_stat/product')
+    print(data1)
+
+    payload = {
+        'product': 'ahihi'
+    }
+    data2 = post('http://45.77.40.154:9999/admin_stat/category',
+                 json.dumps(payload))
+    print(data2)
+```
+
+**输出**
+
+```basic
+{"message": "success", "data": [{"name": "\u5934\u6761\u4ea7\u54c1", "value": "topnews"}, {"name": "\u5c0f\u8bf4\u6f2b\u753b", "value": "ahihi"}]}
+
+{"message": "success", "data": [{"description": "total product data", "children": [], "name": "\u4ea7\u54c1\u603b\u4f53\u6570\u636e",
+"data_cat": "total_product_data,"}]}
+```
+
+### requests
+
+```python
+# coding = utf-8
+import requests
+import sys
+import json
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+if __name__ == '__main__':
+    r = requests.get('http://45.77.40.154:9999/admin_stat/product')
+    print(r.content)
+
+    payload = {
+        'product': 'ahihi'
+    }
+    r = requests.post('http://45.77.40.154:9999/admin_stat/category',
+                      json.dumps(payload))
+    print('URL: ', r.url)
+    print('HEADERS: ', r.headers)
+    print('Content-Type: ', r.headers.get('content-type'))
+    print('CODE: ', r.status_code)
+    print(r.content)
+```
+
+**输出**
+
+```basic
+{"message": "success", "data": [{"name": "\u5934\u6761\u4ea7\u54c1", "value": "topnews"}, {"name": "\u5c0f\u8bf4\u6f2b\u753b", "value": "ahihi"}]}
+
+('URL: ', u'http://45.77.40.154:9999/admin_stat/category')
+('HEADERS: ', {'Date': 'Sun, 27 May 2018 09:50:04 GMT', 'Content-Length': '171', 'Content-Type': 'application/json', 'Server': 'Werkzeug/0.12.2 Python/2.7.5'})
+('Content-Type: ', 'application/json')
+('CODE: ', 200)
+{"message": "success", "data": [{"description": "total product data", "children": [], "name": "\u4ea7\u54c1\u603b\u4f53\u6570\u636e",
+"data_cat": "total_product_data,"}]}
+```
+
 ## [Python] Flask RESTful
 
 > **环境：**Python 2.7.14/Flask 0.11.1/Flask-RESTful 0.3.5/Flask-SQLAlchemy 2.2

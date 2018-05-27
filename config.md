@@ -154,7 +154,14 @@ imap jj <ESC>
     "editor.insertSpaces": true,
     "editor.tabSize": 4,
     "files.trimTrailingWhitespace": true,
-    "files.autoSave": "afterDelay"
+    "files.autoSave": "afterDelay",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "window.zoomLevel": 2,
+    "explorer.confirmDelete": true,
+    "editor.detectIndentation": true,
+    "team.showWelcomeMessage": false,
+    "python.linting.flake8Enabled": true
 }
 ```
 

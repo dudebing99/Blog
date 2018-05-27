@@ -831,6 +831,42 @@ index:4, value:css
 index:5, value:python
 ```
 
+## [Python] 字典的遍历
+
+> **效率：**由高到低，性能要求高的地方需要注意
+
+```python
+from time import clock
+
+l = [(x, x) for x in xrange(1000000)]
+d = dict(l)
+
+t0 = clock()
+for i in d:
+    t = i + d[i]
+t1 = clock()
+
+for k, v in d.iteritems():
+    t = k + v
+t2 = clock()
+
+for k, v in zip(d.iterkeys(), d.itervalues()):
+    t = k + v
+t3 = clock()
+
+for k, v in d.items():
+    t = k + v
+t4 = clock()
+
+print t1-t0, t2-t1, t3-t2, t4-t3
+```
+
+**输出**
+
+```basic
+0.147005027863 0.151357206668 0.273842580021 0.696996068627
+```
+
 ## [Python] Redis 使用
 
 > **环境：**Python 2.7.14 

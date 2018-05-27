@@ -867,6 +867,41 @@ print t1-t0, t2-t1, t3-t2, t4-t3
 0.147005027863 0.151357206668 0.273842580021 0.696996068627
 ```
 
+## [Python] 构造、析构
+
+```python
+class X(object):
+    def __init__(self, a, b, range):
+        self.a = a
+        self.b = b
+        self.range = range
+        print('__init__ with {}, {}, {}'.format(self.a, self.b, self.range))
+
+    def __call__(self, a, b):
+        self.a = a
+        self.b = b
+        print('__call__ with {}, {}'.format(self.a, self.b))
+
+    def __del__(self):
+        del self.a
+        del self.b
+        del self.range
+        print('__del__')
+
+
+if __name__ == '__main__':
+    x = X(1, 2, 3)
+    x(3, 4)
+```
+
+**输出**
+
+```basic
+__init__ with 1, 2, 3
+__call__ with 3, 4
+__del__
+```
+
 ## [Python] Redis 使用
 
 > **环境：**Python 2.7.14 

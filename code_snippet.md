@@ -1473,6 +1473,78 @@ if __name__ == '__main__':
 }
 ```
 
+## [Python] WSGI 服务器以及中间件
+
+> **环境：**Python 2.7.4
+>
+> **源码：**[点此下载](https://dudebing99.github.io/blog/archives/code_snippet/wsgi_server.py)
+
+```python
+from wsgiref.simple_server import make_server
+
+URL_PATTERNS = (
+    ('hi/', 'say_hi'),
+    ('hello/', 'say_hello'),
+)
+
+
+# 自定义中间件
+class Dispatcher(object):
+    def _match(self, path):
+        path = path.split('/')[1]
+        for url, app in URL_PATTERNS:
+            if path in url:
+                return app
+
+    def __call__(self, environ, start_response):
+        path = environ.get('PATH_INFO', '/')
+        app = self._match(path)
+        if app:
+            app = globals()[app]
+            return app(environ, start_response)
+        else:
+            start_response("404 NOT FOUND", [('Content-type', 'text/plain')])
+            return ["Not Found!"]
+
+
+def say_hi(environ, start_response):
+    start_response("200 OK", [('Content-type', 'text/html')])
+    return ["Hi!"]
+
+
+def say_hello(environ, start_response):
+    start_response("200 OK", [('Content-type', 'text/html')])
+    return ["Hello!"]
+
+
+app = Dispatcher()
+
+httpd = make_server('', 8000, app)
+print "Serving on port 8000..."
+httpd.serve_forever()
+```
+
+**输出**
+
+```basic
+Serving on port 8000...
+('middleware, uri: ', '/hi')
+127.0.0.1 - - [28/May/2018 00:06:03] "GET /hi HTTP/1.1" 200 3
+('middleware, uri: ', '/hello')
+127.0.0.1 - - [28/May/2018 00:06:07] "GET /hello HTTP/1.1" 200 6
+('middleware, uri: ', '/haha')
+127.0.0.1 - - [28/May/2018 00:06:15] "GET /haha HTTP/1.1" 404 10
+```
+
+```basic
+$ curl http://127.0.0.1:8000/hi -s
+Hi!
+$ curl http://127.0.0.1:8000/hello -s
+Hello!
+$ curl http://127.0.0.1:8000/haha -s
+Not Found!
+```
+
 ## [Python] 微信报警
 
 > **环境：**Python 2.7.14

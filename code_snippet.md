@@ -794,19 +794,19 @@ if __name__ == '__main__':
 # -*- coding: utf-8 -*-
 
 if __name__ == '__main__':
-    list = ['html', 'js', 'css', 'python']
+    my_list = ['html', 'js', 'css', 'python']
 
-    for i in list:
-        print("index:%d, value:%s" % (list.index(i), i))
+    for i in my_list:
+        print("index:%d, value:%s" % (my_list.index(i), i))
 
-    for i in range(len(list)):
-        print("index:%d, value:%s" % (i, list[i]))
+    for i in range(len(my_list)):
+        print("index:%d, value:%s" % (i, my_list[i]))
 
-    for i, val in enumerate(list):
+    for i, val in enumerate(my_list):
         print("index:%d, value:%s" % (i, val))
 
     # 只是改变索引的输出，默认从 0 开始，如下设置从 2 开始
-    for i, val in enumerate(list, 2):
+    for i, val in enumerate(my_list, 2):
         print("index:%d, value:%s" % (i, val))
 ```
 

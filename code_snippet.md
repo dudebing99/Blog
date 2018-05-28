@@ -902,6 +902,64 @@ __call__ with 3, 4
 __del__
 ```
 
+## [Python] 全局变量
+
+> - 全局变量可在函数中直接使用
+> - 函数中存在同名变量，局部变量覆盖全局变量作用域
+> - 函数中显示声明 global var，实现对全局变量的修改；对于列表、字典等全局变量，不需要额外的 global 声明
+
+```python
+#! /usr/bin/python
+
+a = 1
+b = [2, 3]
+
+
+def func1():
+    a = 11
+    print "in func1 a:", a
+    b[0] = 22
+    print "in func1 b:", b
+
+
+def func2():
+    global a
+    a = 11
+    print "in func a:", a
+    b[1] = 33
+    print "in func b:", b
+
+
+if __name__ == '__main__':
+    print "init, a:", a
+    print "init, b:", b
+
+    func1()
+
+    print "after func1 a:", a
+    print "after func1 b:", b
+
+    func2()
+
+    print "after func2 a:", a
+    print "after func2 b:", b
+```
+
+**输出**
+
+```basic
+init, a: 1
+init, b: [2, 3]
+in func1 a: 11
+in func1 b: [22, 3]
+after func1 a: 1
+after func1 b: [22, 3]
+in func a: 11
+in func b: [22, 33]
+after func2 a: 11
+after func2 b: [22, 33]
+```
+
 ## [Python] Redis 使用
 
 > **环境：**Python 2.7.14 

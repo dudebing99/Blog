@@ -2,34 +2,72 @@
 import sys
 import time
 import datetime
-import random
-import json
-import traceback
-import hashlib
 import logging
 import MySQLdb
 import MySQLdb.cursors
-import getopt
-import traceback
-import requests
 
-logger = logging.getLogger("multi_app_with_single_user")
-logger.setLevel(logging.INFO)
+logger = logging.getLogger("latest_active_user")
+logger.setLevel(logging.DEBUG)
 
+# user_tbl
 vntopnews_user = {
-    "host": "101.99.0.102",
+    "host": "10.99.0.120",
     "port": 3306,
-    "user": "dev",
-    "passwd": "123456",
+    "user": "topnews",
+    "passwd": "topnews2016",
     "db": "vntopnews_user"
 }
 
+vntopnews_latest_active_user = {
+    "host": "10.99.0.120",
+    "port": 3306,
+    "user": "topnews",
+    "passwd": "topnews2016",
+    "db": "vntopnews_user"
+}
+
+# push_stat_{}
+vntopnews_push_stat = {
+    "host": "10.99.0.166",
+    "port": 4000,
+    "user": "root",
+    "passwd": "",
+    "db": "vntopnews_log"
+}
+
+# user_register_{}
+vntopnews_user_register = {
+    "host": "10.99.0.112",
+    "port": 3306,
+    "user": "topnews",
+    "passwd": "topnews2016",
+    "db": "vntopnews_ureg"
+}
+
+# user_action_log_{}
+vntopnews_user_action_log = {
+    "host": "10.99.0.26",
+    "port": 3306,
+    "user": "topnews",
+    "passwd": "topnews2016",
+    "db": "vntopnews_uact"
+}
+
+user_id_set = set()
+
+
+def format_date(diff_days):
+    date_time = datetime.datetime.utcnow() + datetime.timedelta(hours=7)
+    return (date_time + datetime.timedelta(days=diff_days)).strftime("%Y%m%d")
+
+
 def init_logger(log_module):
-    handler = logging.FileHandler(filename="multi_app_with_single_user.log", mode='w')
+    handler = logging.FileHandler(filename="latest_active_user.log", mode='w')
     # handler.setLevel(logging.DEBUG)
     formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
     handler.setFormatter(formatter)
     log_module.addHandler(handler)
+
 
 def get_db_conn(mysql_config):
     db = MySQLdb.connect(host=mysql_config['host'],
@@ -44,25 +82,20 @@ def get_db_conn(mysql_config):
 
     return db, cursor
 
+
 def truncate_table_helper():
-    sql = "truncate table `vntopnews_user`.`multi_app_user_tbl`"
-    logger.debug("database: %s, sql: %s", vntopnews_user, sql)
-    db, cursor = get_db_conn(vntopnews_user)
+    sql = "truncate table `vntopnews_user`.`latest_active_user_tbl`"
+    logger.debug("database: %s, sql: %s", vntopnews_latest_active_user, sql)
+    db, cursor = get_db_conn(vntopnews_latest_active_user)
     cursor.execute(sql)
     db.commit()
     cursor.close()
     db.close()
 
-def fetch_helper(start, limit):
-    sql = """
-    select id, user_flavor_unique_id
-    from `vntopnews_user`.`user_tbl`
-    where id < {}
-    order by id desc
-    limit {}
-    """.format(start, limit)
-    logger.debug("database: %s, sql: %s", vntopnews_user, sql)
-    db, cursor = get_db_conn(vntopnews_user)
+
+def fetch_helper(conn, sql):
+    logger.debug("database: %s, sql: %s", conn, sql)
+    db, cursor = get_db_conn(conn)
     cursor.execute(sql)
     ret = cursor.fetchall()
     cursor.close()
@@ -71,62 +104,33 @@ def fetch_helper(start, limit):
         logger.warn("sql not ret")
     return ret
 
-def find_max_id_helper():
-    sql = """
-    select max(org_user_id) as max_id
-    from `vntopnews_user`.`multi_app_user_tbl` order by id asc
-    """
-    logger.debug("database: %s, sql: %s", vntopnews_user, sql)
-    db, cursor = get_db_conn(vntopnews_user)
-    cursor.execute(sql)
-    ret = cursor.fetchall()
-    cursor.close()
-    db.close()
-    if not ret:
-        logger.warn("sql not ret")
-    return ret
 
-def insert_helper(org_user_id, uniq_user_id):
-    sql = """
-    INSERT INTO `vntopnews_user`.`multi_app_user_tbl`
-    (org_user_id, uniq_user_id)
-    VALUES ({}, '{}')
-    """.format(org_user_id, uniq_user_id)
-    logger.debug("database: %s, sql: %s", vntopnews_user, sql)
-    db, cursor = get_db_conn(vntopnews_user)
-    cursor.execute(sql)
-    db.commit()
-    cursor.close()
-    db.close()
-
-def batch_insert_helper(multi_app_user_dict):
-    if len(multi_app_user_dict) == 0:
+def batch_insert_helper(user_id_set):
+    if len(user_id_set) == 0:
         return
     total = 0
     try:
 
-        db, cursor = get_db_conn(vntopnews_user)
-        batch = 10000
+        db, cursor = get_db_conn(vntopnews_latest_active_user)
+        batch = 100000
         values = []
 
-        for i in multi_app_user_dict:
-            if len(multi_app_user_dict[i]) > 1:
-                for j in multi_app_user_dict[i]:
-                    values.append((j, i))
-                    # 批量插入
-                    if len(values) == batch:
-                        total += batch
-                        logger.info("batch insert, count: %d", len(values))
-                        cursor.executemany('INSERT INTO `vntopnews_user`.`multi_app_user_tbl` \
-                        (org_user_id, uniq_user_id) VALUES (%s, %s)', values)
-                        db.commit()
-                        values = []
+        for i in user_id_set:
+            values.append((i,))
+            # 批量插入
+            if len(values) == batch:
+                total += batch
+                logger.info("batch insert, count: %d", len(values))
+                cursor.executemany(
+                    'INSERT INTO `vntopnews_user`.`latest_active_user_tbl` (user_id) VALUES (%s)', values)
+                db.commit()
+                values = []
 
         if len(values) > 0:
             total += len(values)
             logger.info("final batch insert, count: %d", len(values))
-            cursor.executemany('INSERT INTO `vntopnews_user`.`multi_app_user_tbl` \
-            (org_user_id, uniq_user_id) VALUES (%s, %s)', values)
+            cursor.executemany(
+                'INSERT INTO `vntopnews_user`.`latest_active_user_tbl` (user_id) VALUES (%s)', values)
             db.commit()
             values = []
 
@@ -137,59 +141,90 @@ def batch_insert_helper(multi_app_user_dict):
 
     return total
 
+
+def from_push_stat():
+    sql = """
+    select distinct(user_id) from `vntopnews_log`.`push_stat_{}`
+    union select distinct(user_id) from `vntopnews_log`.`push_stat_{}`
+    union select distinct(user_id) from `vntopnews_log`.`push_stat_{}`
+    union select distinct(user_id) from `vntopnews_log`.`push_stat_{}`
+    union select distinct(user_id) from `vntopnews_log`.`push_stat_{}`
+    union select distinct(user_id) from `vntopnews_log`.`push_stat_{}`
+    union select distinct(user_id) from `vntopnews_log`.`push_stat_{}`
+    """.format(format_date(-1), format_date(-2), format_date(-3), format_date(-4),
+               format_date(-5), format_date(-6), format_date(-7))
+    users = fetch_helper(vntopnews_push_stat, sql)
+    if not users:
+        logger.info("call fetch_helper(), no record")
+    else:
+        logger.info("call fetch_helper(), got %d record(s)", len(users))
+        for row in users:
+            user_id_set.add(row['user_id'])
+
+
+def from_user():
+    sql = """
+    select id from `vntopnews_user`.`user_tbl`
+    where create_time > date_add(now(), interval - 7 day)
+    """
+    users = fetch_helper(vntopnews_user, sql)
+    if not users:
+        logger.info("call fetch_helper(), no record")
+    else:
+        logger.info("call fetch_helper(), got %d record(s)", len(users))
+        for row in users:
+            user_id_set.add(row['id'])
+
+
+def from_user_register():
+    sql = """
+    select distinct(user_id) from `vntopnews_ureg`.`user_register_{}`
+    union select distinct(user_id) from `vntopnews_ureg`.`user_register_{}`
+    union select distinct(user_id) from `vntopnews_ureg`.`user_register_{}`
+    """.format(format_date(-1), format_date(-2), format_date(-3))
+    users = fetch_helper(vntopnews_user_register, sql)
+    if not users:
+        logger.info("call fetch_helper(), no record")
+    else:
+        logger.info("call fetch_helper(), got %d record(s)", len(users))
+        for row in users:
+            user_id_set.add(row['user_id'])
+
+
+def from_user_action_log():
+    sql = """
+    select distinct(user_id) from `vntopnews_uact`.`user_action_log_{}`
+    union select distinct(user_id) from `vntopnews_uact`.`user_action_log_{}`
+    union select distinct(user_id) from `vntopnews_uact`.`user_action_log_{}`
+    """.format(format_date(-1), format_date(-2), format_date(-3))
+    users = fetch_helper(vntopnews_user_action_log, sql)
+    if not users:
+        logger.info("call fetch_helper(), no record")
+    else:
+        logger.info("call fetch_helper(), got %d record(s)", len(users))
+        for row in users:
+            user_id_set.add(row['user_id'])
+
+
 if __name__ == '__main__':
     init_logger(logger)
 
     logger.info("begin task")
 
+    # 清空表
     truncate_table_helper()
 
-    start = 99999999999
-    limit = 500000
-    multi_app_user_dict = {}
-    while (1):
-        logger.debug("begin to fetch from user table, start:%d, limit:%d",
-        start, limit)
-        multi_app_users = fetch_helper(start, limit)
-        if not multi_app_users:
-            logger.info("fetch from user table, no record")
-            break
+    # 清洗数据
+    from_push_stat()
+    logger.info("after from_push_stat(), size: %d", len(user_id_set))
+    from_user()
+    logger.info("after from_user(), size: %d", len(user_id_set))
+    from_user_register()
+    logger.info("after from_user_register(), size: %d", len(user_id_set))
+    from_user_action_log()
+    logger.info("after from_user_action_log(), size: %d", len(user_id_set))
 
-        for row in multi_app_users:
-            start = row['id']
-            if not row['user_flavor_unique_id']:
-                continue
-
-            try:
-                index = row['user_flavor_unique_id'].index("_") + 1
-
-                org_user_id = row['id']
-                uniq_user_id = row['user_flavor_unique_id'][index:]
-                # 多个 org_user_id 对应 一个 uniq_user_id
-                if uniq_user_id in multi_app_user_dict:
-                    logger.debug("old uniq_user_id, add org_user_id:%d, uniq_user_id:%s",
-                    org_user_id, uniq_user_id)
-                    user_id_set = multi_app_user_dict[uniq_user_id]
-                    if len(user_id_set) == 1:
-                        multi_app_user_dict[uniq_user_id].add(org_user_id)
-                        logger.debug("need insert twice, org_user_id:%d, uniq_user_id:%s, %s",
-                        org_user_id, uniq_user_id, user_id_set)
-                    elif len(user_id_set) == 2:
-                        multi_app_user_dict[uniq_user_id].add(org_user_id)
-                        logger.debug("need insert once, org_user_id:%d, uniq_user_id:%s, %s",
-                        org_user_id, uniq_user_id, user_id_set)
-                    else:
-                        # 超过三条，过滤
-                        logger.debug("filter, org_user_id:%d, uniq_user_id:%s, %s",
-                        org_user_id, uniq_user_id, user_id_set)
-                else:
-                    logger.debug("new uniq_user_id, add org_user_id:%d, uniq_user_id:%s",
-                    org_user_id, uniq_user_id)
-                    multi_app_user_dict[uniq_user_id] = {org_user_id}
-            except Exception as ex:
-                logger.error("caught exception: %s, traceback: %s", ex, traceback.format_exc())
-
-    total = batch_insert_helper(multi_app_user_dict)
-    logger.info("Total:%d record(s)", total)
+    # 批量插入数据
+    batch_insert_helper(user_id_set)
 
     logger.info("end task")

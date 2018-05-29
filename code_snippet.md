@@ -1523,13 +1523,39 @@ import json
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+RETRY_TIMES = 1
+REQUEST_TIMEOUT = 3
+
+http_session = requests.Session()
+
+
+def common_request(url, payload):
+    retry_times = 0
+    resp = None
+    while retry_times < RETRY_TIMES:
+        try:
+            resp = http_session.post(
+                url, data=json.dumps(payload), timeout=REQUEST_TIMEOUT)
+            break
+        except Exception as ex:
+            print("common_request post error: %s, url=%s" % (ex, url))
+            retry_times += 1
+
+    if (resp is not None) and (resp.status_code == 200):
+        r = resp.json()
+        result = r.get('data', {})
+        print("return resp result_len=%d" % (len(result)))
+        return result
+    else:
+        print("common_request post error! url=%s, payload=%s" % (url, payload))
+        return None
+
+
 if __name__ == '__main__':
     r = requests.get('http://45.77.40.154:9999/admin_stat/product')
     print(r.content)
 
-    payload = {
-        'product': 'ahihi'
-    }
+    payload = {'product': 'ahihi'}
     r = requests.post('http://45.77.40.154:9999/admin_stat/category',
                       json.dumps(payload))
     print('URL: ', r.url)
@@ -1537,19 +1563,26 @@ if __name__ == '__main__':
     print('Content-Type: ', r.headers.get('content-type'))
     print('CODE: ', r.status_code)
     print(r.content)
+
+    result = common_request('http://45.77.40.154:9999/admin_stat/category',
+                            payload)
+    print(result)
 ```
 
 **输出**
 
 ```basic
-{"message": "success", "data": [{"name": "\u5934\u6761\u4ea7\u54c1", "value": "topnews"}, {"name": "\u5c0f\u8bf4\u6f2b\u753b", "value": "ahihi"}]}
+{"message": "success", "data": [{"name": "\u5934\u6761\u53f7\u4f5c\u8005", "value": "top_author"}, {"name": "\u5934\u6761\u4ea7\u54c1", "value": "topnews"}, {"name": "\u5c0f\u8bf4\u6f2b\u753b", "value": "novel&comic"}]}
 
 ('URL: ', u'http://45.77.40.154:9999/admin_stat/category')
-('HEADERS: ', {'Date': 'Sun, 27 May 2018 09:50:04 GMT', 'Content-Length': '171', 'Content-Type': 'application/json', 'Server': 'Werkzeug/0.12.2 Python/2.7.5'})
+('HEADERS: ', {'Date': 'Tue, 29 May 2018 03:29:47 GMT', 'Content-Length': '171', 'Content-Type': 'application/json', 'Server': 'Werkzeug/0.12.2 Python/2.7.5'})
 ('Content-Type: ', 'application/json')
 ('CODE: ', 200)
 {"message": "success", "data": [{"description": "total product data", "children": [], "name": "\u4ea7\u54c1\u603b\u4f53\u6570\u636e",
 "data_cat": "total_product_data,"}]}
+
+return resp result_len=1
+[{u'data_cat': u'total_product_data,', u'description': u'total product data', u'name': u'\u4ea7\u54c1\u603b\u4f53\u6570\u636e', u'children': []}]
 ```
 
 ## [Python] Flask RESTful

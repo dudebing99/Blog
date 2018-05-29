@@ -583,3 +583,17 @@ mysql> select date_add(now(), interval -1 day) as t1, date_add(now(), interval 8
 +---------------------+---------------------+---------------------+
 ```
 
+## INSERT INTO SELECT 语句
+
+```sql
+INSERT INTO table2 SELECT * FROM table1;
+```
+
+```sql
+INSERT INTO table2 (column_name(s))
+SELECT column_name(s) FROM table1;
+```
+
+
+
+ 

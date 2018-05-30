@@ -594,6 +594,21 @@ INSERT INTO table2 (column_name(s))
 SELECT column_name(s) FROM table1;
 ```
 
+### 查看表创建时间
+
+```sql
+show table status
+```
+
+```sql
+mysql> select CREATE_TIME from INFORMATION_SCHEMA.TABLES where TABLE_NAME='latest_active_user_tbl';
++---------------------+
+| CREATE_TIME         |
++---------------------+
+| 2018-05-30 10:36:31 |
++---------------------+
+```
+
 
 
  

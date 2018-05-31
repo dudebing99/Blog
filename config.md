@@ -1239,6 +1239,41 @@ make -j4 && make install
 
 3. source /etc/profile
 
+## Nginx 用户认证配置
+
+1. 利用 htpasswd 生成密码文件
+
+```basic
+htpasswd -cb push4.passwd.20180531 push4 lucky2018
+```
+
+2. 配置 Nginx
+
+```bash
+server {
+        listen       80;
+        server_name  push4.vnay.vn;
+        auth_basic "Restricted";
+        auth_basic_user_file /usr/local/nginx/conf/push4.passwd.20180531;
+        root /usr/local/vntop/server/push_server/static;
+        index index.html;
+        location /pushserver
+        {
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header Host $http_host;
+           proxy_pass http://10.99.0.4:42290;
+        }
+}
+```
+
+3. reload nginx
+
+```bash
+/usr/local/nginx/sbin/nginx -t
+/usr/local/nginx/sbin/nginx -s reload
+```
+
 ## Lets Encrypt 证书制作、部署
 
 > **References:**

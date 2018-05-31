@@ -422,6 +422,27 @@ rdate -t 30 -s time.nist.gov && hwclock -w
    service sshd restart
    ```
 
+## 跳板机 Jumpserver 上传/下载文件
+
+> **需求：**linux 服务器大多是通过 ssh 客户端来进行远程的登陆和管理，使用跳板机 Jumpserver，传输文件是个基础需求，可以借助 rz/sz 实现
+>
+> **限制：**rz/sz 只支持对文件（不支持文件夹）操作
+
+### 上传文件 rz
+
+```bash
+rz -bye
+```
+
+### 下载文件 sz
+
+```basic
+[xbuser@push4 push_server]$ sz ce.sh
+rz
+Starting zmodem transfer.  Press Ctrl+C to cancel.
+  100%       1 KB    0 KB/s 00:00:25       0 Errors
+```
+
 ## MySQL 小技巧
 
 ### MySQL 清理控制台

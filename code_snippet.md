@@ -926,7 +926,9 @@ if __name__ == '__main__':
 2018-05-24
 ```
 
-## [Python] 列表的遍历
+## [Python] 列表
+
+### 列表的遍历
 
 ```python
 #!/usr/bin/env python
@@ -968,6 +970,28 @@ index:2, value:html
 index:3, value:js
 index:4, value:css
 index:5, value:python
+```
+
+### 列表的去重
+
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+if __name__ == '__main__':
+    my_list = ['html', 'js', 'css', 'python', 'cpp', 'css']
+    print my_list
+
+    my_set = set(my_list)
+    my_list = [x for x in my_set]
+    print my_list
+```
+
+**输出**
+
+```basic
+['html', 'js', 'css', 'python', 'cpp', 'css']
+['python', 'cpp', 'html', 'css', 'js']
 ```
 
 ## [Python] 字典的遍历

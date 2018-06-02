@@ -994,6 +994,98 @@ if __name__ == '__main__':
 ['python', 'cpp', 'html', 'css', 'js']
 ```
 
+## [Python] 集合
+
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import traceback
+
+if __name__ == '__main__':
+    set1 = set([1, 3, 5, 6, 7])
+    set2 = set([2, 3, 4, 5, 8])
+
+    print "set1:", set1
+    print "set2:", set2
+
+    if 4 in set1:
+        print "4 in set1"
+    else:
+        print "4 not in set1"
+
+    # 添加元素
+    set1.add(9)
+    print "set1:", set1
+    set1.update([9, 10, 11])
+    print "set1:", set1
+
+    # 删除元素
+    try:
+        set1.remove(99)
+    except Exception as ex:
+        print traceback.format_exc()
+    print "after remove 99, set1:", set1
+    set1.discard(99)
+    print "after discard 99, set1:", set1
+    set1.remove(10)
+    print "after remove 10, set1:", set1
+    set1.discard(9)
+    print "after discard 9, set1:", set1
+
+    # 测试是否 set1 中每一个元素都在 set2 中
+    if set1.issubset(set2):
+        print "set1 is subset of set2"
+    else:
+        print "set1 is not subset of set2"
+
+    # 测试是否 set2 中每一个元素都在 set1 中
+    if set1.issuperset(set2):
+        print "set1 is superset of set2"
+    else:
+        print "set1 is not superset of set2"
+
+    print "set1:", set1
+    print "set2:", set2
+    # x ∈ set1 || x ∈ set2
+    print set1.union(set2)
+    # (x ∈ set1 && x ∉ set2) || (x ∈ set2 && x ∉ set1)
+    print set1.symmetric_difference(set2)
+    # x ∈ set1 && x ∈ set2
+    print set1.intersection(set2)
+    # x ∈ set1 && x ∉ set2
+    print set1.difference(set2)
+    print set2.difference(set1)
+```
+
+**输出**
+
+```basic
+set1: set([1, 3, 5, 6, 7])
+set2: set([8, 2, 3, 4, 5])
+4 not in set1
+set1: set([1, 3, 5, 6, 7, 9])
+set1: set([1, 3, 5, 6, 7, 9, 10, 11])
+Traceback (most recent call last):
+  File "d:\blog\archives\debug\debug.py", line 26, in <module>
+    set1.remove(99)
+KeyError: 99
+
+after remove 99, set1: set([1, 3, 5, 6, 7, 9, 10, 11])
+after discard 99, set1: set([1, 3, 5, 6, 7, 9, 10, 11])
+after remove 10, set1: set([1, 3, 5, 6, 7, 9, 11])
+after discard 9, set1: set([1, 3, 5, 6, 7, 11])
+set1 is not subset of set2
+set1 is not superset of set2
+set1: set([1, 3, 5, 6, 7, 11])
+set2: set([8, 2, 3, 4, 5])
+set([1, 2, 3, 4, 5, 6, 7, 8, 11])
+set([1, 2, 4, 6, 7, 8, 11])
+set([3, 5])
+set([1, 11, 6, 7])
+set([8, 2, 4])
+```
+
 ## [Python] 字典的遍历
 
 > **效率：**由高到低，性能要求高的地方需要注意

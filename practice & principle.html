@@ -2,19 +2,13 @@
 <html>
 <head>
 <meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
-<title>practice &amp; principle.md</title><link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}#write, body { height: auto; }
-#write, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write ol, #write p, #write ul { position: relative; }
-#write, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
-#write, pre { white-space: pre-wrap; }
-.CodeMirror, .md-fences, table { text-align: left; }
-.md-reset, a:active, a:hover { outline: 0px; }
-.md-reset, .md-toc-item a { text-decoration: none; }
-.MathJax_SVG, .md-reset { float: none; direction: ltr; }
-:root { --bg-color:#ffffff; --text-color:#333333; }
+<title>practice &amp; principle</title><link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; }
 html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-body { margin: 0px; padding: 0px; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
-.in-text-selection, ::selection { background: rgb(181, 214, 252); text-shadow: none; }
-#write { margin: 0px auto; word-break: normal; word-wrap: break-word; padding-bottom: 70px; overflow-x: visible; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; padding-bottom: 70px; white-space: pre-wrap; overflow-x: visible; }
 .first-line-indent #write p .md-line { text-indent: 0px; }
 .first-line-indent #write li, .first-line-indent #write p, .first-line-indent #write p .md-line:first-child { text-indent: 2em; }
 .for-image #write { padding-left: 8px; padding-right: 8px; }
@@ -24,84 +18,94 @@ body.typora-export { padding-left: 30px; padding-right: 30px; }
   .CodeMirror-sizer { margin-left: 0px !important; }
   .CodeMirror-gutters { display: none !important; }
 }
-#write > blockquote:first-child, #write > div:first-child, #write > ol:first-child, #write > p:first-child, #write > pre:first-child, #write > table:first-child, #write > ul:first-child { margin-top: 30px; }
-#write li > table:first-child { margin-top: -20px; }
+#write > blockquote:first-child, #write > div:first-child, #write > figure:first-child, #write > ol:first-child, #write > p:first-child, #write > pre:first-child, #write > ul:first-child { margin-top: 30px; }
+#write li > figure:first-child { margin-top: -20px; }
+#write ol, #write ul { position: relative; }
 img { max-width: 100%; vertical-align: middle; }
 button, input, select, textarea { color: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; }
 input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
 *, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
 h1 { font-size: 2rem; }
 h2 { font-size: 1.8rem; }
 h3 { font-size: 1.6rem; }
 h4 { font-size: 1.4rem; }
 h5 { font-size: 1.2rem; }
 h6 { font-size: 1rem; }
+h1, h2, h3, h4, h5, h6 { margin-top: 1rem; margin-bottom: 1rem; }
 p { -webkit-margin-before: 1rem; -webkit-margin-after: 1rem; -webkit-margin-start: 0px; -webkit-margin-end: 0px; }
 .mathjax-block { margin-top: 0px; margin-bottom: 0px; -webkit-margin-before: 0px; -webkit-margin-after: 0px; }
 .hidden { display: none; }
 .md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
 a { cursor: pointer; }
-sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
 #write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
-#write > figure:first-child { margin-top: 16px; }
-figure { overflow-x: auto; margin: -8px 0px 0px -8px; max-width: calc(100% + 16px); padding: 8px; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
 tr { break-inside: avoid; break-after: auto; }
 thead { display: table-header-group; }
-table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; }
-.CodeMirror-line, .md-fences { break-inside: avoid; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
 table.md-table td { min-width: 80px; }
-.CodeMirror-gutters { border-right: 0px; background-color: inherit; margin-right: 4px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror { text-align: left; }
 .CodeMirror-placeholder { opacity: 0.3; }
 .CodeMirror pre { padding: 0px 4px; }
 .CodeMirror-lines { padding: 0px; }
 div.hr:focus { cursor: none; }
-.md-fences { font-size: 0.9rem; display: block; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+pre { white-space: pre-wrap; }
+pre.contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
 .md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
-.md-fences .CodeMirror.CodeMirror-wrap { top: -1.6em; margin-bottom: -1.6em; }
 .md-fences.mock-cm { white-space: pre-wrap; }
 .show-fences-line-number .md-fences { padding-left: 0px; }
 .show-fences-line-number .md-fences.mock-cm { padding-left: 40px; }
+.CodeMirror-line { break-inside: avoid; }
 .footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
 .footnotes + .footnotes { margin-top: 0px; }
-.md-reset { margin: 0px; padding: 0px; border: 0px; vertical-align: top; background: 0px 0px; text-shadow: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; }
-.md-toc-inner, a img, img a { cursor: pointer; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
 li div { padding-top: 0px; }
 blockquote { margin: 1rem 0px; }
 li .mathjax-block, li p { margin: 0.5rem 0px; }
 li { margin: 0px; position: relative; }
 blockquote > :last-child { margin-bottom: 0px; }
-blockquote > :first-child { margin-top: 0px; }
-.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: nowrap; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+.footnote-line { white-space: pre-wrap; }
 @media print {
   body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; }
   #write { margin-top: 0px; border-color: transparent !important; }
   .typora-export * { -webkit-print-color-adjust: exact; }
-  h1, h2, h3, h4, h5, h6 { break-after: avoid-page; orphans: 2; }
-  p { orphans: 4; }
   html.blink-to-pdf { font-size: 13px; }
   .typora-export #write { padding-left: 1cm; padding-right: 1cm; padding-bottom: 0px; break-after: avoid; }
   .typora-export #write::after { height: 0px; }
   @page { margin: 20mm 0px; }
 }
 .footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
 pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
 p > img:only-child { display: block; margin: auto; }
 .md-line > .md-image:only-child, p > .md-image:only-child { display: inline-block; width: 100%; text-align: center; }
-.mathjax-block:not(:empty)::after, .md-toc-content::after, .md-toc::after { display: none; }
 #write .MathJax_Display { margin: 0.8em 0px 0px; }
 .mathjax-block { white-space: pre; overflow: hidden; width: 100%; }
 p + .mathjax-block { margin-top: -1.143rem; }
+.mathjax-block:not(:empty)::after { display: none; }
 [contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
 .md-task-list-item { position: relative; list-style-type: none; }
 .task-list-item.md-task-list-item { padding-left: 0px; }
 .md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); }
 .math { font-size: 1rem; }
 .md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
-.MathJax_SVG, .mathjax-block .MathJax_SVG_Display { text-indent: 0px; max-width: none; max-height: none; min-height: 0px; }
 .md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
 .md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
 .md-toc-inner:hover { }
-.md-toc-inner { display: inline-block; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
 .md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
 .md-toc-h2 .md-toc-inner { margin-left: 2em; }
 .md-toc-h3 .md-toc-inner { margin-left: 4em; }
@@ -123,14 +127,15 @@ code, pre, tt { font-family: var(--monospace); }
 code { text-align: left; }
 a.md-print-anchor { border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
 .md-inline-math .MathJax_SVG .noError { display: none !important; }
-.mathjax-block .MathJax_SVG_Display { text-align: center; margin: 1em 0px; position: relative; min-width: 100%; width: auto; display: block !important; }
+.mathjax-block .MathJax_SVG_Display { text-align: center; margin: 1em 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; display: block !important; }
 .MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
 .MathJax_SVG .MJX-monospace { font-family: monospace; }
 .MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
-.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; min-width: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
 .MathJax_SVG * { transition: none; }
 .os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
-.md-diagram-panel > svg, [lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; }
 [lang="mermaid"] .node text { font-size: 1rem; }
 table tr th { border-bottom: 0px; }
 
@@ -163,7 +168,7 @@ h5 { font-size: 1em; }
 h6 { font-size: 1em; color: rgb(119, 119, 119); }
 p, blockquote, ul, ol, dl, table { margin: 0.8em 0px; }
 li > ol, li > ul { margin: 0px; }
-hr { height: 4px; padding: 0px; margin: 16px 0px; background-color: rgb(231, 231, 231); border-width: 0px 0px 1px; border-style: none none solid; border-top-color: initial; border-right-color: initial; border-left-color: initial; border-image: initial; overflow: hidden; box-sizing: content-box; border-bottom-color: rgb(221, 221, 221); }
+hr { height: 2px; padding: 0px; margin: 16px 0px; background-color: rgb(231, 231, 231); border: 0px none; overflow: hidden; box-sizing: content-box; }
 body > h2:first-child { margin-top: 0px; padding-top: 0px; }
 body > h1:first-child { margin-top: 0px; padding-top: 0px; }
 body > h1:first-child + h2 { margin-top: 0px; padding-top: 0px; }
@@ -174,17 +179,17 @@ li p.first { display: inline-block; }
 ul, ol { padding-left: 30px; }
 ul:first-child, ol:first-child { margin-top: 0px; }
 ul:last-child, ol:last-child { margin-bottom: 0px; }
-blockquote { border-left: 4px solid rgb(221, 221, 221); padding: 0px 15px; color: rgb(119, 119, 119); }
+blockquote { border-left: 4px solid rgb(223, 226, 229); padding: 0px 15px; color: rgb(119, 119, 119); }
 blockquote blockquote { padding-right: 0px; }
 table { padding: 0px; word-break: initial; }
-table tr { border-top: 1px solid rgb(204, 204, 204); margin: 0px; padding: 0px; }
-table tr:nth-child(2n) { background-color: rgb(248, 248, 248); }
-table tr th { font-weight: bold; border-width: 1px 1px 0px; border-top-style: solid; border-right-style: solid; border-left-style: solid; border-top-color: rgb(204, 204, 204); border-right-color: rgb(204, 204, 204); border-left-color: rgb(204, 204, 204); border-image: initial; border-bottom-style: initial; border-bottom-color: initial; text-align: left; margin: 0px; padding: 6px 13px; }
-table tr td { border: 1px solid rgb(204, 204, 204); text-align: left; margin: 0px; padding: 6px 13px; }
+table tr { border-top: 1px solid rgb(223, 226, 229); margin: 0px; padding: 0px; }
+table tr:nth-child(2n), thead { background-color: rgb(248, 248, 248); }
+table tr th { font-weight: bold; border-width: 1px 1px 0px; border-top-style: solid; border-right-style: solid; border-left-style: solid; border-top-color: rgb(223, 226, 229); border-right-color: rgb(223, 226, 229); border-left-color: rgb(223, 226, 229); border-image: initial; border-bottom-style: initial; border-bottom-color: initial; text-align: left; margin: 0px; padding: 6px 13px; }
+table tr td { border: 1px solid rgb(223, 226, 229); text-align: left; margin: 0px; padding: 6px 13px; }
 table tr th:first-child, table tr td:first-child { margin-top: 0px; }
 table tr th:last-child, table tr td:last-child { margin-bottom: 0px; }
 .CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); }
-.md-fences, code, tt { border: 1px solid rgb(221, 221, 221); background-color: rgb(248, 248, 248); border-radius: 3px; font-family: Consolas, "Liberation Mono", Courier, monospace; padding: 2px 4px 0px; font-size: 0.9em; }
+.md-fences, code, tt { border: 1px solid rgb(223, 226, 229); background-color: rgb(248, 248, 248); border-radius: 3px; font-family: Consolas, "Liberation Mono", Courier, monospace; padding: 2px 4px 0px; font-size: 0.9em; }
 .md-fences { margin-bottom: 15px; margin-top: 15px; padding: 8px 1em 6px; }
 .md-task-list-item > input { margin-left: -1.3em; }
 @media screen and (min-width: 914px) {
@@ -219,10 +224,10 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
 
 
 
- .typora-export p {white-space: normal;} 
+
 </style>
 </head>
 <body class='typora-export os-windows' >
-<div  id='write'  class = 'is-node'><h2><a name='header-n0' class='md-header-anchor '></a>API 设计准则</h2><blockquote><p>An API is to the programmer what a GUI is to the end-user. The &#39;P&#39; in API stands for &quot;Programmer&quot;, not &quot;Program&quot;, to highlight the fact that APIs are used by programmers, who are humans.</p><p>We believe APIs should be minimal and complete, have clear and simple semantics, be intuitive, be easy to memorize, and lead to readable code.</p><p><strong>References:</strong></p><p><a href='https://doc.qt.io/archives/qq/qq13-apis.html#sixcharacteristicsofgoodapis'>Six Characteristics of Good APIs</a></p><p><a href='https://people.mpi-inf.mpg.de/~jblanche/api-design.pdf'>API Design</a></p></blockquote><ul><li><strong>Be minimal:</strong> A minimal API is one that has as few public members per class and as few classes as possible. This makes it easier to understand, remember, debug, and change the API.</li><li><strong>Be complete:</strong> A complete API means the expected functionality should be there. This can conflict with keeping it minimal. Also, if a member function is in the wrong class, many potential users of the function won&#39;t find it.</li><li><strong>Have clear and simple semantics:</strong> As with other design work, you should apply the principle of least surprise. Make common tasks easy. Rare tasks should be possible but not the focus. Solve the specific problem; don&#39;t make the solution overly general when this is not needed. </li><li><strong>Be intuitive:</strong> As with anything else on a computer, an API should be intuitive. Different experience and background leads to different perceptions on what is intuitive and what isn&#39;t. An API is intuitive if a semi-experienced user gets away without reading the documentation, and if a programmer who doesn&#39;t know the API can understand code written using it.</li><li><strong>Be easy to memorize:</strong> To make the API easy to remember, choose a consistent and precise naming convention. Use recognizable patterns and concepts, and avoid abbreviations.</li><li><strong>Lead to readable code:</strong> Code is written once, but read (and debugged and changed) many times. Readable code may sometimes take longer to write, but saves time throughout the product&#39;s life cycle.</li></ul></div>
+<div  id='write'  class = 'is-node'><h2><a name='header-n0' class='md-header-anchor '></a>API 设计准则</h2><blockquote><p>An API is to the programmer what a GUI is to the end-user. The &#39;P&#39; in API stands for &quot;Programmer&quot;, not &quot;Program&quot;, to highlight the fact that APIs are used by programmers, who are humans.</p><p>We believe APIs should be minimal and complete, have clear and simple semantics, be intuitive, be easy to memorize, and lead to readable code.</p><p><strong>References:</strong></p><p><a href='https://doc.qt.io/archives/qq/qq13-apis.html#sixcharacteristicsofgoodapis'>Six Characteristics of Good APIs</a></p><p><a href='https://people.mpi-inf.mpg.de/~jblanche/api-design.pdf'>API Design</a></p></blockquote><ul><li><strong>Be minimal:</strong> A minimal API is one that has as few public members per class and as few classes as possible. This makes it easier to understand, remember, debug, and change the API.</li><li><strong>Be complete:</strong> A complete API means the expected functionality should be there. This can conflict with keeping it minimal. Also, if a member function is in the wrong class, many potential users of the function won&#39;t find it.</li><li><strong>Have clear and simple semantics:</strong> As with other design work, you should apply the principle of least surprise. Make common tasks easy. Rare tasks should be possible but not the focus. Solve the specific problem; don&#39;t make the solution overly general when this is not needed. </li><li><strong>Be intuitive:</strong> As with anything else on a computer, an API should be intuitive. Different experience and background leads to different perceptions on what is intuitive and what isn&#39;t. An API is intuitive if a semi-experienced user gets away without reading the documentation, and if a programmer who doesn&#39;t know the API can understand code written using it.</li><li><strong>Be easy to memorize:</strong> To make the API easy to remember, choose a consistent and precise naming convention. Use recognizable patterns and concepts, and avoid abbreviations.</li><li><strong>Lead to readable code:</strong> Code is written once, but read (and debugged and changed) many times. Readable code may sometimes take longer to write, but saves time throughout the product&#39;s life cycle.</li></ul><h2><a name='header-n32' class='md-header-anchor '></a>设计模式的六大原则</h2><p><strong>1、开闭原则（Open Close Principle）</strong></p><p><span>	</span>开闭原则的意思是：<strong>对扩展开放，对修改关闭</strong>。在程序需要进行拓展的时候，不能去修改原有的代码，实现一个热插拔的效果。简言之，是为了使程序的扩展性好，易于维护和升级。想要达到这样的效果，我们需要使用接口和抽象类，后面的具体设计中我们会提到这点。</p><p><strong>2、里氏代换原则（Liskov Substitution Principle）</strong></p><p><span>	</span>里氏代换原则是面向对象设计的基本原则之一。 里氏代换原则中说，任何基类可以出现的地方，子类一定可以出现。LSP 是继承复用的基石，只有当派生类可以替换掉基类，且软件单位的功能不受到影响时，基类才能真正被复用，而派生类也能够在基类的基础上增加新的行为。里氏代换原则是对开闭原则的补充。实现开闭原则的关键步骤就是抽象化，而基类与子类的继承关系就是抽象化的具体实现，所以里氏代换原则是对实现抽象化的具体步骤的规范。</p><p><strong>3、依赖倒转原则（Dependence Inversion Principle）</strong></p><p><span>	</span>这个原则是开闭原则的基础，具体内容：针对接口编程，依赖于抽象而不依赖于具体。</p><p><strong>4、接口隔离原则（Interface Segregation Principle）</strong></p><p><span>	</span>这个原则的意思是：使用多个隔离的接口，比使用单个接口要好。它还有另外一个意思是：降低类之间的耦合度。由此可见，其实设计模式就是从大型软件架构出发、便于升级和维护的软件设计思想，它强调降低依赖，降低耦合。</p><p><strong>5、迪米特法则，又称最少知道原则（Demeter Principle）</strong></p><p><span>	</span>最少知道原则是指：一个实体应当尽量少地与其他实体之间发生相互作用，使得系统功能模块相对独立。</p><p><strong>6、合成复用原则（Composite Reuse Principle）</strong></p><p><span>	</span>合成复用原则是指：尽量使用合成/聚合的方式，而不是使用继承。</p></div>
 </body>
 </html>

@@ -721,7 +721,7 @@ class Phone
   public:
     Phone() {}
     virtual ~Phone() {}
-    virtual void showDecorate() {}
+    virtual void ShowDecorate() {}
 };
 
 class iPhone : public Phone //具体手机类
@@ -733,7 +733,7 @@ class iPhone : public Phone //具体手机类
     iPhone(std::string _name)
         : name(_name) {}
     ~iPhone() {}
-    void showDecorate()
+    void ShowDecorate()
     {
         std::cout << "手机: " << name << std::endl;
     }
@@ -752,7 +752,7 @@ class NokiaPhone : public Phone
     ~NokiaPhone()
     {
     }
-    void showDecorate()
+    void ShowDecorate()
     {
         std::cout << "手机: " << name << std::endl;
     }
@@ -767,9 +767,9 @@ class DecoratorPhone : public Phone
         : m_phone(phone)
     {
     }
-    virtual void showDecorate()
+    virtual void ShowDecorate()
     {
-        m_phone->showDecorate();
+        m_phone->ShowDecorate();
     }
 };
 
@@ -781,9 +781,9 @@ class DecoratePhoneA : public DecoratorPhone
         : DecoratorPhone(ph)
     {
     }
-    void showDecorate()
+    void ShowDecorate()
     {
-        DecoratorPhone::showDecorate();
+        DecoratorPhone::ShowDecorate();
         AddDecorate();
     }
 
@@ -802,9 +802,9 @@ class DecoratePhoneB : public DecoratorPhone
         : DecoratorPhone(ph)
     {
     }
-    void showDecorate()
+    void ShowDecorate()
     {
-        DecoratorPhone::showDecorate();
+        DecoratorPhone::ShowDecorate();
         AddDecorate();
     }
 
@@ -821,9 +821,9 @@ int main()
     Phone *dpa = new DecoratePhoneA(ph); //增加挂件
     Phone *dpb = new DecoratePhoneB(ph); //增加贴膜
 
-    ph->showDecorate();
-    dpa->showDecorate();
-    dpb->showDecorate();
+    ph->ShowDecorate();
+    dpa->ShowDecorate();
+    dpb->ShowDecorate();
 
     delete ph;
     delete dpa;

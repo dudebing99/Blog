@@ -59,4 +59,4 @@ debug
 
 # IDE/Editor generated file
 .vscode/
-.bak
+*.bak

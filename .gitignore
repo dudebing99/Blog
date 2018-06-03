@@ -56,4 +56,7 @@ debug/
 release/
 bin/
 debug
+
+# IDE/Editor generated file
 .vscode/
+.bak

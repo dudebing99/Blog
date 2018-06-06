@@ -3,35 +3,33 @@
 
 class Phone
 {
-  public:
+public:
     Phone() {}
     virtual ~Phone() {}
-    virtual void ShowDecorate() {}
+    virtual void ShowDecorate() = 0;
 };
 
-class iPhone : public Phone //具体手机类
+class iPhone : public Phone
 {
-  private:
-    std::string name;
-
-  public:
-    iPhone(std::string _name)
-        : name(_name) {}
+public:
+    iPhone(std::string name)
+        : m_name(name) {}
     ~iPhone() {}
     void ShowDecorate()
     {
-        std::cout << "手机: " << name << std::endl;
+        std::cout << "Name: " << m_name << std::endl;
     }
+
+private:
+    std::string m_name;
+
 };
 
 class NokiaPhone : public Phone
 {
-  private:
-    std::string name;
-
-  public:
-    NokiaPhone(std::string _name)
-        : name(_name)
+public:
+    NokiaPhone(std::string name)
+        : m_name(name)
     {
     }
     ~NokiaPhone()
@@ -39,15 +37,16 @@ class NokiaPhone : public Phone
     }
     void ShowDecorate()
     {
-        std::cout << "手机: " << name << std::endl;
+        std::cout << "Name: " << m_name << std::endl;
     }
+
+private:
+    std::string m_name;
 };
 
 class DecoratorPhone : public Phone
 {
-  private:
-    Phone *m_phone; //要装饰的手机
-  public:
+public:
     DecoratorPhone(Phone *phone)
         : m_phone(phone)
     {
@@ -56,12 +55,14 @@ class DecoratorPhone : public Phone
     {
         m_phone->ShowDecorate();
     }
+
+private:
+    Phone *m_phone;
 };
 
-//具体的装饰 A
 class DecoratePhoneA : public DecoratorPhone
 {
-  public:
+public:
     DecoratePhoneA(Phone *ph)
         : DecoratorPhone(ph)
     {
@@ -72,17 +73,16 @@ class DecoratePhoneA : public DecoratorPhone
         AddDecorate();
     }
 
-  private:
+private:
     void AddDecorate()
     {
-        std::cout << "增加挂件" << std::endl;
+        std::cout << "Decorator: HiFi Audio System" << std::endl;
     }
 };
 
-//具体的装饰 B
 class DecoratePhoneB : public DecoratorPhone
 {
-  public:
+public:
     DecoratePhoneB(Phone *ph)
         : DecoratorPhone(ph)
     {
@@ -93,26 +93,32 @@ class DecoratePhoneB : public DecoratorPhone
         AddDecorate();
     }
 
-  private:
+private:
     void AddDecorate()
     {
-        std::cout << "屏幕贴膜" << std::endl;
+        std::cout << "Decorator: Duel Camera" << std::endl;
     }
 };
 
 int main()
 {
-    Phone *ph = new NokiaPhone("1050");
-    Phone *dpa = new DecoratePhoneA(ph); //增加挂件
-    Phone *dpb = new DecoratePhoneB(ph); //增加贴膜
+    Phone *nokia = new NokiaPhone("Nokia N8");
+    Phone *iphone = new iPhone("iPhone 4");
+    Phone *dpa = new DecoratePhoneA(nokia);
+    Phone *dpb = new DecoratePhoneB(iphone);
 
-    ph->ShowDecorate();
+    nokia->ShowDecorate();
     dpa->ShowDecorate();
     dpb->ShowDecorate();
 
-    delete ph;
+    delete nokia;
+    nokia = nullptr;
+    delete iphone;
+    iphone = nullptr;
     delete dpa;
+    dpa = nullptr;
     delete dpb;
+    dpb = nullptr;
 
     return 0;
 }

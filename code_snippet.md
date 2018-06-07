@@ -706,6 +706,58 @@ int main(int argc, char* argv[])
   return 0;
 }
 ```
+## [CPP] 单例模式
+
+### 饿汉式
+
+> **源码路径：**[eager_singleton.cpp](https://dudebing99.github.io/blog/archives/code_snippet/eager_singleton.cpp)
+
+```cpp
+#include <iostream>
+
+class Singleton {
+public:
+    static Singleton* Instance()
+    {
+        return &m_instance;
+    }
+
+private:
+    Singleton() {}
+    Singleton(const Singleton&) {}
+    Singleton& operator=(const Singleton&) {}
+
+    static Singleton m_instance;
+};
+
+Singleton Singleton::m_instance;
+
+int main()
+{
+    Singleton *singleton1 = Singleton::Instance();
+    Singleton *singleton2 = Singleton::Instance();
+
+    if (singleton1 == singleton2)
+    {
+        std::cout << "Got the same instance" << std::endl;
+    }
+    else
+    {
+        std::cout << "unexpected error" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+**输出**
+
+```basic
+[root@localhost design_pattern]# g++ eager_singleton.cpp -std=c++11
+[root@localhost design_pattern]# ./a.out 
+Got the same instance
+```
+
 ## [CPP] 适配器模式
 
 ### 类适配器

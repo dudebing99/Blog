@@ -706,6 +706,77 @@ int main(int argc, char* argv[])
   return 0;
 }
 ```
+## [CPP] 适配器模式
+
+### 类适配器
+
+> **源码路径：**[class_adapter.cpp](https://dudebing99.github.io/blog/archives/code_snippet/class_adapter.cpp)
+
+```cpp
+#include <iostream>
+
+class Target
+{
+public:
+    Target() {}
+    virtual ~Target() {}
+
+public:
+    virtual void Request() = 0;
+};
+
+class Adaptee
+{
+public:
+    Adaptee(){}
+    virtual ~Adaptee() {}
+
+public:
+    virtual void SpecificRequest() = 0;
+};
+
+class Adapter : public Target, public Adaptee
+{
+public:
+    Adapter() {}
+    ~Adapter() {}
+
+public:
+    void Request()
+    {
+        std::cout << "Transfer Specific Request to Reuest" << std::endl;
+        SpecificRequest();
+        std::cout << "Finally, Request" << std::endl;
+    }
+
+    void SpecificRequest()
+    {
+        std::cout << "Specific Request" << std::endl;
+    }
+};
+
+int main()
+{
+    Target *target = new Adapter();
+    target->Request();
+
+    delete target;
+    target = nullptr;
+
+    return 0;
+}
+```
+
+**输出**
+
+```basic
+[root@localhost design_pattern]# g++ class_adapter.cpp -std=c++11
+[root@localhost design_pattern]# ./a.out 
+Transfer Specific Request to Reuest
+Specific Request
+Finally, Request
+```
+
 ## [CPP] 桥接模式
 
 > **源码路径：**[bridge.cpp](https://dudebing99.github.io/blog/archives/code_snippet/bridge.cpp)

@@ -710,7 +710,7 @@ int main(int argc, char* argv[])
 
 ### 饿汉式
 
-> **源码路径：**[eager_singleton.cpp](https://dudebing99.github.io/blog/archives/code_snippet/eager_singleton.cpp)
+> **源码路径：**[hungry_singleton.cpp](https://dudebing99.github.io/blog/archives/code_snippet/hungry_singleton.cpp)
 
 ```cpp
 #include <iostream>
@@ -753,7 +753,73 @@ int main()
 **输出**
 
 ```basic
-[root@localhost design_pattern]# g++ eager_singleton.cpp -std=c++11
+[root@localhost design_pattern]# g++ hungry_singleton.cpp -std=c++11
+[root@localhost design_pattern]# ./a.out 
+Got the same instance
+```
+
+### 饱汉式
+
+> **源码路径：**[full_singleton.cpp](https://dudebing99.github.io/blog/archives/code_snippet/full_singleton.cpp)
+
+```cpp
+#include <iostream>
+
+class Singleton {
+public:
+    static Singleton* Instance()
+    {
+        if (m_instance == nullptr)
+        {
+            m_instance = new Singleton();
+        }
+
+        return m_instance;
+    }
+
+    static void Release()
+    {
+        if (m_instance != nullptr)
+        {
+            delete m_instance;
+            m_instance = nullptr;
+        }
+    }
+
+private:
+    Singleton() {}
+    Singleton(const Singleton&) {}
+    Singleton& operator=(const Singleton&) {}
+
+    static Singleton *m_instance;
+};
+
+Singleton *Singleton::m_instance = nullptr;
+
+int main()
+{
+    Singleton *singleton1 = Singleton::Instance();
+    Singleton *singleton2 = Singleton::Instance();
+
+    if (singleton1 == singleton2)
+    {
+        std::cout << "Got the same instance" << std::endl;
+    }
+    else
+    {
+        std::cout << "unexpected error" << std::endl;
+    }
+
+    singleton1->Release();
+
+    return 0;
+}
+```
+
+**输出**
+
+```basic
+[root@localhost design_pattern]# g++ full_singleton.cpp -std=c++11
 [root@localhost design_pattern]# ./a.out 
 Got the same instance
 ```

@@ -1058,7 +1058,7 @@ Finally, Request
 
 ### 对象适配器
 
-![](assets/object_adapter.jpg)
+![](pic/designpattern/object_adapter.jpg)
 
 > **源码路径：**[object_adapter.cpp](https://dudebing99.github.io/blog/archives/code_snippet/object_adapter.cpp)
 

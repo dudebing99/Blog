@@ -708,6 +708,8 @@ int main(int argc, char* argv[])
 ```
 ## [CPP] 单例模式
 
+![img](pic/designpattern/singleton.jpg) 
+
 ### 饿汉式
 
 > **源码路径：**[hungry_singleton.cpp](https://dudebing99.github.io/blog/archives/code_snippet/hungry_singleton.cpp)
@@ -985,6 +987,8 @@ hello world
 
 ### 类适配器
 
+![img](pic/designpattern/class_adapter.jpg) 
+
 > **源码路径：**[class_adapter.cpp](https://dudebing99.github.io/blog/archives/code_snippet/class_adapter.cpp)
 
 ```cpp
@@ -1053,6 +1057,8 @@ Finally, Request
 ```
 
 ### 对象适配器
+
+![](assets/object_adapter.jpg)
 
 > **源码路径：**[object_adapter.cpp](https://dudebing99.github.io/blog/archives/code_snippet/object_adapter.cpp)
 
@@ -1124,6 +1130,8 @@ Finally, Request
 ```
 
 ## [CPP] 桥接模式
+
+![img](pic/designpattern/bridge.jpg) 
 
 > **源码路径：**[bridge.cpp](https://dudebing99.github.io/blog/archives/code_snippet/bridge.cpp)
 
@@ -1227,6 +1235,8 @@ Transfer by USB 3.0, faster
 ```
 
 ## [CPP] 观察者模式
+
+![img](pic/designpattern/observer.jpg) 
 
 > **源码路径：**[observer.cpp](https://dudebing99.github.io/blog/archives/code_snippet/observer.cpp)
 
@@ -1345,6 +1355,8 @@ The target subject is changing status: 99
 ```
 
 ## [CPP] 装饰器模式
+
+![img](pic/designpattern/decorator.jpg) 
 
 > **源码路径：**[decorator.cpp](https://dudebing99.github.io/blog/archives/code_snippet/decorator.cpp)
 
@@ -1488,6 +1500,8 @@ Decorator: Duel Camera
 ```
 
 ## [CPP] 职责链模式
+
+![img](pic/designpattern/chain_of_responsibility.jpg) 
 
 > **源码路径：**[chain_of_responsibility.cpp](https://dudebing99.github.io/blog/archives/code_snippet/chain_of_responsibility.cpp)
 

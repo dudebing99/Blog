@@ -824,6 +824,85 @@ int main()
 Got the same instance
 ```
 
+### 双重检测（线程安全）
+
+> **源码路径：**[double_check_singleton.cpp](https://dudebing99.github.io/blog/archives/code_snippet/double_check_singleton.cpp)
+
+```cpp
+#include <iostream>
+#include <mutex>
+
+class Singleton {
+public:
+    static Singleton* Instance()
+    {
+        if (m_instance == nullptr)
+        {
+            m_mtx.lock();
+            if (m_instance == nullptr)
+            {
+                m_instance = new Singleton();
+            }
+            m_mtx.unlock();
+        }
+
+        return m_instance;
+    }
+
+    static void Release()
+    {
+        if (m_instance != nullptr)
+        {
+            m_mtx.lock();
+            if (m_instance != nullptr)
+            {
+                delete m_instance;
+                m_instance = nullptr;
+            }
+            m_mtx.unlock();
+        }
+    }
+
+private:
+    Singleton() {}
+    Singleton(const Singleton&) {}
+    Singleton& operator=(const Singleton&) {}
+
+    static Singleton *m_instance;
+    static std::mutex m_mtx;
+};
+
+Singleton *Singleton::m_instance = nullptr;
+std::mutex Singleton::m_mtx;
+
+int main()
+{
+    Singleton *singleton1 = Singleton::Instance();
+    Singleton *singleton2 = Singleton::Instance();
+
+    if (singleton1 == singleton2)
+    {
+        std::cout << "Got the same instance" << std::endl;
+    }
+    else
+    {
+        std::cout << "unexpected error" << std::endl;
+    }
+
+    singleton1->Release();
+
+    return 0;
+}
+```
+
+**输出**
+
+```bash
+[root@localhost design_pattern]# g++ double_check_singleton.cpp -std=c++11
+[root@localhost design_pattern]# ./a.out 
+Got the same instance
+```
+
 ## [CPP] 适配器模式
 
 ### 类适配器

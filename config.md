@@ -88,7 +88,9 @@ debug
 
 ## VIM 基础配置
 
-> VIM 配置文件位置：~/.vimrc
+> **VIM 配置文件位置：**~/.vimrc
+>
+> **点此下载：**[.vimrc](https://dudebing99.github.io/blog/archives/config/.vimrc)
 
 ```bash
 set incsearch

@@ -1665,4 +1665,34 @@ go get -u -v google.golang.org/grpc
 
 > VS Code 支持各种语法，同理，安装对应的插件即可，如，需要支持 C++，安装 C++ 插件即可
 
+## Ubuntu 替换源
+
+> **环境：**Ubuntu 14.04.5 LTS
+
+1. 备份
+
+```bash
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+```
+
+2. 替换阿里云的源
+
+```bash
+su -
+
+cat > /etc/apt/sources.list << EOF
+deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+EOF
+
+apt-get update
+```
 

@@ -1696,3 +1696,65 @@ EOF
 apt-get update
 ```
 
+## Ubuntu 安装 bitcoin
+
+> **环境：**Ubuntu 14.04.5 LTS
+
+1. 安装依赖项
+
+```bash
+sudo apt-get install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev software-properties-common -y
+sudo add-apt-repository ppa:bitcoin/bitcoin
+sudo apt-get update
+sudo apt-get install libdb4.8-dev libdb4.8++-dev libminiupnpc-dev libzmq3-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev -y
+```
+
+2. 克隆仓库
+
+```bash
+git clone https://github.com/bitcoin/bitcoin.git
+```
+
+3. 配置
+
+```bash
+./autogen.sh
+./configure
+```
+
+*配置检查通过，输出的信息大致如下所示。可以看到如下同时编译了钱包、gui*
+
+```bash
+Options used to compile and link:
+  with wallet   = yes
+  with gui / qt = yes
+    qt version  = 5
+    with qr     = yes
+  with zmq      = yes
+  with test     = yes
+  with bench    = yes
+  with upnp     = yes
+  use asm       = yes
+  sanitizers    = 
+  debug enabled = no
+  gprof enabled = no
+  werror        = no
+
+  target os     = linux
+  build os      = 
+
+  CC            = gcc
+  CFLAGS        = -g -O2
+  CPPFLAGS      =   -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2  -DHAVE_BUILD_INFO -D__STDC_FORMAT_MACROS
+  CXX           = g++ -std=c++11
+  CXXFLAGS      =   -Wstack-protector -fstack-protector-all  -Wall -Wextra -Wformat -Wvla -Wformat-security  -Wno-unused-parameter   -g -O2
+  LDFLAGS       = -pthread  -Wl,-z,relro -Wl,-z,now -pie  
+  ARFLAGS       = cr
+```
+
+4. 编译、安装
+
+```bash
+make
+make install
+```

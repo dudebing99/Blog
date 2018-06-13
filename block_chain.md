@@ -100,3 +100,45 @@ kevin@ubuntu:~$ bitcoin-cli -testnet getwalletinfo
 }
 ```
 
+- 查询交易信息
+
+```bash
+kevin@ubuntu:~$ bitcoin-cli -testnet listtransactions
+[
+  {
+    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
+    "category": "receive",
+    "amount": 1.10000000,
+    "label": "",
+    "vout": 0,
+    "confirmations": 41,
+    "blockhash": "0000000000003f000137e5a3c5c8664b559c598b4edf293dac821dcbd24ba905",
+    "blockindex": 39,
+    "blocktime": 1528857252,
+    "txid": "93ee4409e3adb0954c799cf7705d3c09a8d619c3f1ef3808472b6a5d9cc93ccd",
+    "walletconflicts": [
+    ],
+    "time": 1528854102,
+    "timereceived": 1528854102,
+    "bip125-replaceable": "no"
+  },
+  {
+    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
+    "category": "receive",
+    "amount": 0.55000000,
+    "label": "",
+    "vout": 0,
+    "confirmations": 40,
+    "blockhash": "000000000000002bf6b26f415d62c1c8a55b4463de8abb9ee1d467da86c77082",
+    "blockindex": 5,
+    "blocktime": 1528857923,
+    "txid": "7db5ac458ac204ceef8c23564f729ae1a3846e27815352d1d8e9275649ef5b9b",
+    "walletconflicts": [
+    ],
+    "time": 1528857557,
+    "timereceived": 1528857557,
+    "bip125-replaceable": "no"
+  }
+]
+```
+

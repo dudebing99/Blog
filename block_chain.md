@@ -1,0 +1,55 @@
+## bitcoin
+
+### 比特币测试网络
+
+1. 查看版本
+
+```bash
+kevin@ubuntu:~$ cat /etc/issue
+Ubuntu 14.04.5 LTS \n \l
+kevin@ubuntu:/usr/local/bin$ bitcoind -version
+Bitcoin Core Daemon version v0.16.99.0-7c32b41
+Copyright (C) 2009-2018 The Bitcoin Core developers
+
+Please contribute if you find Bitcoin Core useful. Visit
+<https://bitcoincore.org> for further information about the software.
+The source code is available from <https://github.com/bitcoin/bitcoin>.
+
+This is experimental software.
+Distributed under the MIT software license, see the accompanying file COPYING
+or <https://opensource.org/licenses/MIT>
+
+This product includes software developed by the OpenSSL Project for use in the
+OpenSSL Toolkit <https://www.openssl.org> and cryptographic software written by
+Eric Young and UPnP software written by Thomas Bernard.
+```
+
+2. 运行 bitcoind
+
+```bash
+kevin@ubuntu:~$ bitcoind -testnet
+```
+
+3. 运行 bitcoin-cli
+
+```bash
+kevin@ubuntu:~$ bitcoin-cli -testnet -getinfo
+{
+  "version": 169900,
+  "protocolversion": 70015,
+  "walletversion": 169900,
+  "balance": 1.65000000,
+  "blocks": 1325293,
+  "timeoffset": 3,
+  "connections": 5,
+  "proxy": "",
+  "difficulty": 47237276.6179756,
+  "testnet": true,
+  "keypoololdest": 1528804513,
+  "keypoolsize": 1000,
+  "paytxfee": 0.00000000,
+  "relayfee": 0.00001000,
+  "warnings": "This is a pre-release test build - use at your own risk - do not use for mining or merchant applications"
+}
+```
+

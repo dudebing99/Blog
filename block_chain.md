@@ -79,6 +79,8 @@ kevin@ubuntu:~$ bitcoin-cli -testnet listreceivedbyaddress
 - 获取钱包信息
 
 > 可通过 https://testnet.manu.backend.hamburg/faucet 获取免费的测试币
+>
+> ![](pic/blockchain/faucet.png)
 
 ```bash
 kevin@ubuntu:~$ bitcoin-cli -testnet getwalletinfo

@@ -1344,8 +1344,8 @@ expect eof
 > 1. 需要提前规划好 zookeeper/kafka 集群，并配置好 basic.info，详见 basic.info。
 >
 > 2. 可以支持 zookeeper/kafka 单机或集群部署
->   单机部署，配置信息参考 basic_example_standalone.info
->   集群部署，配置信息参考 basic_example_cluster.info
+>     单机部署，配置信息参考 basic_example_standalone.info
+>     集群部署，配置信息参考 basic_example_cluster.info
 >
 > **使用步骤：**
 >
@@ -1833,7 +1833,7 @@ echo /tmp/1 /tmp/2|xargs -n 1 cp dummy.txt
 
 ## cp 同时拷贝多个文件到同一个目录
 
-- 利用 {file1,file2,...,fileN} 拷贝多个文件
+- 拷贝多个文件
 
 ```bash
 [root@localhost ~]# ls /tmp/dummy/                      
@@ -1854,7 +1854,14 @@ file1  file2  file3  file5
 file1  file2  file3
 ```
 
+## xxd 十六进制转换
 
+```bash
+kevin@ubuntu:~$ echo "hello world"|xxd -ps
+68656c6c6f20776f726c640a
+kevin@ubuntu:~$ echo "hello world"|xxd -ps -u
+68656C6C6F20776F726C640A
+```
 
 
 

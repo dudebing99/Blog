@@ -32,6 +32,10 @@ kevin@ubuntu:~$ bitcoind -testnet
 
 3. 运行 bitcoin-cli
 
+> **API 接口：**https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list
+
+- 获取状态信息
+
 ```bash
 kevin@ubuntu:~$ bitcoin-cli -testnet -getinfo
 {
@@ -50,6 +54,47 @@ kevin@ubuntu:~$ bitcoin-cli -testnet -getinfo
   "paytxfee": 0.00000000,
   "relayfee": 0.00001000,
   "warnings": "This is a pre-release test build - use at your own risk - do not use for mining or merchant applications"
+}
+```
+
+- 获取地址信息：2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ
+
+```bash
+kevin@ubuntu:~$ bitcoin-cli -testnet listreceivedbyaddress
+[
+  {
+    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
+    "account": "",
+    "amount": 1.65000000,
+    "confirmations": 21,
+    "label": "",
+    "txids": [
+      "7db5ac458ac204ceef8c23564f729ae1a3846e27815352d1d8e9275649ef5b9b",
+      "93ee4409e3adb0954c799cf7705d3c09a8d619c3f1ef3808472b6a5d9cc93ccd"
+    ]
+  }
+]
+```
+
+- 获取钱包信息
+
+> 可通过 https://testnet.manu.backend.hamburg/faucet 获取免费的测试币
+
+```bash
+kevin@ubuntu:~$ bitcoin-cli -testnet getwalletinfo
+{
+  "walletname": "",
+  "walletversion": 169900,
+  "balance": 1.65000000,
+  "unconfirmed_balance": 0.00000000,
+  "immature_balance": 0.00000000,
+  "txcount": 2,
+  "keypoololdest": 1528804513,
+  "keypoolsize": 1000,
+  "keypoolsize_hd_internal": 1000,
+  "paytxfee": 0.00000000,
+  "hdseedid": "44f0e603435bf5f58481b24fd597e8bd9180c840",
+  "hdmasterkeyid": "44f0e603435bf5f58481b24fd597e8bd9180c840"
 }
 ```
 

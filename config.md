@@ -1761,3 +1761,213 @@ Options used to compile and link:
 make
 make install
 ```
+## Windows 安装 bitcoin
+
+> **环境：**Windows 7 Ultimate x64
+>
+> **参考文档：**
+>
+> - [中文](http://blog.sina.com.cn/s/blog_5922b3960101s5j9.html)
+> - [英文](https://bitcointalk.org/index.php?topic=149479.0)
+
+### 准备编译环境
+
+1. 安装 msys shell（Windows 平台模式 shell 的程序）
+
+   从 http://sourceforge.net/projects/mingw/files/Installer/mingw-get-setup.exe/download 下载安装包，安装如下四项：
+
+   - msys-base-bin
+   - msys-autoconf-bin
+   - msys-automake-bin
+   - msys-libtool-bin
+
+2. 安装 MinGW-builds 工具链
+
+   从 http://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/4.9.2/threads-posix/dwarf/i686-4.9.2-release-posix-dwarf-rt_v3-rev1.7z/download 下载并解压到 C:\
+
+3. 添加环境变量
+
+   将 2 中工具链的目录添加到环境变量 Path，即，追加 C:\mingw32\bin;
+
+4. 验证工具链安装配置正确
+
+   ```basic
+   $ gcc -v
+   Using built-in specs.
+   COLLECT_GCC=C:\mingw32\bin\gcc.exe
+   COLLECT_LTO_WRAPPER=C:/mingw32/bin/../libexec/gcc/i686-w64-mingw32/4.9.2/lto-wrapper.exe
+   Target: i686-w64-mingw32
+   Configured with: ../../../src/gcc-4.9.2/configure --host=i686-w64-mingw32 --build=i686-w64-mingw32 --target=i686-w64-mingw32 --prefix=/mingw32 --with-sysroot=/c/mingw492/i686-492-posix-dwarf-rt_v3-rev1/mingw32 --with-gxx-include-dir=/mingw32/i686-w64-mingw32/include/c++ --enable-shared --enable-static --disable-multilib --enable-languages=ada,c,c++,fortran,objc,obj-c++,lto --enable-libstdcxx-time=yes --enable-threads=posix --enable-libgomp --enable-libatomic --enable-lto --enable-graphite --enable-checking=release --enable-fully-dynamic-string --enable-version-specific-runtime-libs --disable-sjlj-exceptions --with-dwarf2 --disable-isl-version-check --disable-cloog-version-check --disable-libstdcxx-pch --disable-libstdcxx-debug --enable-bootstrap --disable-rpath --disable-win32-registry --disable-nls --disable-werror --disable-symvers --with-gnu-as --with-gnu-ld --with-arch=i686 --with-tune=generic --with-libiconv --with-system-zlib --with-gmp=/c/mingw492/prerequisites/i686-w64-mingw32-static --with-mpfr=/c/mingw492/prerequisites/i686-w64-mingw32-static --with-mpc=/c/mingw492/prerequisites/i686-w64-mingw32-static --with-isl=/c/mingw492/prerequisites/i686-w64-mingw32-static --with-cloog=/c/mingw492/prerequisites/i686-w64-mingw32-static --enable-cloog-backend=isl --with-pkgversion='i686-posix-dwarf-rev1, Built by MinGW-W64 project' --with-bugurl=http://sourceforge.net/projects/mingw-w64 CFLAGS='-O2 -pipe -I/c/mingw492/i686-492-posix-dwarf-rt_v3-rev1/mingw32/opt/include -I/c/mingw492/prerequisites/i686-zlib-static/include -I/c/mingw492/prerequisites/i686-w64-mingw32-static/include' CXXFLAGS='-O2 -pipe -I/c/mingw492/i686-492-posix-dwarf-rt_v3-rev1/mingw32/opt/include -I/c/mingw492/prerequisites/i686-zlib-static/include -I/c/mingw492/prerequisites/i686-w64-mingw32-static/include' CPPFLAGS= LDFLAGS='-pipe -L/c/mingw492/i686-492-posix-dwarf-rt_v3-rev1/mingw32/opt/lib -L/c/mingw492/prerequisites/i686-zlib-static/lib -L/c/mingw492/prerequisites/i686-w64-mingw32-static/lib -Wl,--large-address-aware'
+   Thread model: posix
+   gcc version 4.9.2 (i686-posix-dwarf-rev1, Built by MinGW-W64 project)
+   ```
+
+### 安装依赖库
+
+> 依赖库统一安装到目录 C:\deps
+
+1. 安装 openssl
+
+   - 从 http://www.openssl.org/source/openssl-1.0.1g.tar.gz 下载安装包拷贝到 C:\deps
+
+   - 启动 msys，即，C:\MinGW\msys\1.0\msys.bat)运行这个msys.bat，就会启动一个shell环境，提示符 $
+
+   - 执行如下命令
+
+     ```basic
+     cd /c/deps/
+     tar -xvfz openssl-1.0.1l.tar.gz
+     cd openssl-1.0.1l
+     ./configure no-zlib no-shared no-dso no-krb5 no-camellia no-capieng no-cast no-cms no-dtls1 no-gost no-gmp no-heartbeats no-idea no-jpake no-md2 no-mdc2 no-rc5 no-rdrand no-rfc3779 no-rsax no-sctp no-seed no-sha0 no-static_engine no-whirlpool no-rc2 no-rc4 no-ssl2 no-ssl3 mingw
+     make depend
+     make
+     ```
+
+2. 安装 Berkeley DB
+
+   - 从 http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz 下载安装包并拷贝到 C:\deps
+
+   - 执行如下命令
+
+     ```basic
+     cd /c/deps/
+     tar -xvfz db-4.8.30.NC.tar.gz
+     cd db-4.8.30.NC/build_unix
+     ../dist/configure --enable-mingw --enable-cxx --disable-shared --disable-replication
+     make
+     ```
+
+3. 安装 boost
+
+   - 从 http://sourceforge.net/projects/boost/files/boost/1.57.0/ 下载安装包并解压到 C:\deps
+
+   - 执行如下命令
+
+     ```basic
+     cd C/deps/boost_1_57_0
+     ./bootstrap.bat mingw
+     ./b2 --build-type=complete --with-chrono --with-filesystem --with-program_options --with-system --with-thread toolset=gcc variant=release link=static threading=multi runtime-link=static stage
+     ```
+
+4. 安装 Miniupnpc
+
+   - 从 http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.9.20150206.tar.gz 下载安装包并拷贝到 C:\deps
+
+   - 执行如下命令
+
+     ```basic
+     cd C/deps
+     tar -xzvf miniupnpc-1.9.20150206.tar.gz
+     cd miniupnpc-1.9.20150206
+     mingw32-make -f Makefile.mingw init upnpc-static
+     ```
+
+5. 安装 protobuf
+
+   - 从 https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.tar.gz 下载安装包并拷贝到 C:\deps
+
+   - 执行如下命令
+
+     ```basic
+     tar -xzvf protobuf-2.6.1.tar.gz
+     cd protobuf-2.6.1
+     ./configure --disable-shared
+     make
+     ```
+
+6. 安装 qrencode
+
+   - 从 http://download.sourceforge.net/libpng/libpng-1.6.16.tar.gz 下载安装包并拷贝到 C:\deps
+
+   - 执行如下命令
+
+     ```basic
+     tar -xzvf libpng-1.6.16.tar.gz
+     cd libpng-1.6.16
+     ./configure --disable-shared
+     make
+     cp .libs/libpng16.a .libs/libpng.a
+     ```
+
+   - 从 http://fukuchi.org/works/qrencode/qrencode-3.4.4.tar.gz 下载安装包并拷贝到 C:\deps
+
+   - 执行如下命令
+
+     ```basic
+     tar -xzvf qrencode-3.4.4.tar.gz
+     cd qrencode-3.4.4
+     LIBS="../libpng-1.6.16/.libs/libpng.a ../../mingw32/i686-w64-mingw32/lib/libz.a" \
+     png_CFLAGS="-I../libpng-1.6.16" \
+     png_LIBS="-L../libpng-1.6.16/.libs" \
+     ./configure --enable-static --disable-shared --without-tools
+     ```
+
+7. 安装 QT 5
+
+   - 从 http://mirrors.tuna.tsinghua.edu.cn/qt/archive/qt/5.3/5.3.2/submodules/qtbase-opensource-src-5.3.2.7z 下载安装包、解压并拷贝到 C:\Qt\5.3.2
+
+   - 从 http://mirrors.tuna.tsinghua.edu.cn/qt/archive/qt/5.3/5.3.2/submodules/qttools-opensource-src-5.3.2.7z 下载安装包、解压并拷贝到 C:\Qt\qttools-opensource-src-5.3.2
+
+   - Windows 命令行（CMD）执行如下命令
+
+     > **编译加速：**如下编译耗时较长，可通过 mingw32-make -j4 加快编译速度（根据机器实际情况调整参数）
+     >
+     > **错误处理：**出现 'fputs' is not a member of 'std' 编译错误时，在出错的文件所在目录 Makefile.Debug/Makefile.Release 文件，CXXFLAGS 添加编译选项 -std=c++11
+
+     ```basic
+     set INCLUDE=C:\deps\libpng-1.6.16;C:\deps\openssl-1.0.1l\include
+     set LIB=C:\deps\libpng-1.6.16\.libs;C:\deps\openssl-1.0.1l
+     
+     cd C:\Qt\5.3.2
+     configure.bat -release -opensource -confirm-license -static -make libs -no-sql-sqlite -no-opengl -system-zlib -qt-pcre -no-icu -no-gif -system-libpng -no-libjpeg -no-freetype -no-angle -no-vcproj -openssl -no-dbus -no-audio-backend -no-wmf-backend -no-qml-debug
+     mingw32-make -j4
+     
+     set PATH=%PATH%;C:\Qt\5.3.2\bin
+     cd C:\Qt\qttools-opensource-src-5.3.2
+     qmake qttools.pro
+     mingw32-make -j4
+     ```
+
+### 安装 bitcoin
+
+1. 下载源码包 https://github.com/bitcoin/bitcoin/archive/v0.9.4.zip
+
+2. 解压到 C:\
+
+3. 执行如下命令
+
+   ```basic
+   cd /c/bitcoin-0.9.4
+   
+   ./autogen.sh
+   
+   CPPFLAGS="-I/c/deps/db-4.8.30.NC/build_unix \
+   -I/c/deps/openssl-1.0.1l/include \
+   -I/c/deps \
+   -I/c/deps/protobuf-2.6.1/src \
+   -I/c/deps/libpng-1.6.16 \
+   -I/c/deps/qrencode-3.4.4" \
+   LDFLAGS="-L/c/deps/db-4.8.30.NC/build_unix \
+   -L/c/deps/openssl-1.0.1l \
+   -L/c/deps/miniupnpc \
+   -L/c/deps/protobuf-2.6.1/src/.libs \
+   -L/c/deps/libpng-1.6.16/.libs \
+   -L/c/deps/qrencode-3.4.4/.libs" \
+   BOOST_ROOT=/c/deps/boost_1_57_0 \
+   ./configure \
+   --disable-upnp-default \
+   --disable-tests \
+   --with-qt-incdir=/c/Qt/5.3.2/include \
+   --with-qt-libdir=/c/Qt/5.3.2/lib \
+   --with-qt-plugindir=/c/Qt/5.3.2/plugins \
+   --with-qt-bindir=/c/Qt/5.3.2/bin \
+   --with-protoc-bindir=/c/deps/protobuf-2.6.1/src
+   
+   make
+   
+   strip src/bitcoin-cli.exe
+   strip src/bitcoind.exe
+   strip src/qt/bitcoin-qt.exe
+   ```
+
+   

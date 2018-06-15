@@ -57,25 +57,6 @@ kevin@ubuntu:~$ bitcoin-cli -testnet -getinfo
 }
 ```
 
-- 获取地址信息：2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ
-
-```bash
-kevin@ubuntu:~$ bitcoin-cli -testnet listreceivedbyaddress
-[
-  {
-    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
-    "account": "",
-    "amount": 1.65000000,
-    "confirmations": 21,
-    "label": "",
-    "txids": [
-      "7db5ac458ac204ceef8c23564f729ae1a3846e27815352d1d8e9275649ef5b9b",
-      "93ee4409e3adb0954c799cf7705d3c09a8d619c3f1ef3808472b6a5d9cc93ccd"
-    ]
-  }
-]
-```
-
 - 获取钱包信息
 
 > 可通过 https://testnet.manu.backend.hamburg/faucet 获取免费的测试币

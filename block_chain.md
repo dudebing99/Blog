@@ -1,4 +1,4 @@
-## bitcoin
+## 比特币 bitcoin
 
 ### 比特币测试网络
 
@@ -165,6 +165,13 @@ $ ./bitcoin-cli.exe -testnet getpeerinfo
 ]
 ```
 
+- 获取最长区块链的区块数目
+
+```bash
+$ ./bitcoin-cli.exe -testnet getblockcount
+1325482
+```
+
 ### 比特币网络
 
 #### p2p 网络架构
@@ -175,3 +182,4 @@ $ ./bitcoin-cli.exe -testnet getpeerinfo
 - 矿工
 - 完整区块链
 - 网络路由节点
+

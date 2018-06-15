@@ -1,3 +1,7 @@
+[TOC]
+
+------
+
 ## API 设计准则
 
 > An API is to the programmer what a GUI is to the end-user. The 'P' in API stands for "Programmer", not "Program", to highlight the fact that APIs are used by programmers, who are humans.

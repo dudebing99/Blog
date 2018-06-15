@@ -123,3 +123,55 @@ kevin@ubuntu:~$ bitcoin-cli -testnet listtransactions
 ]
 ```
 
+- 获取对等节点连接信息
+
+```bash
+$ ./bitcoin-cli.exe -testnet getpeerinfo
+[
+    {
+        "addr" : "88.196.208.18:18333",
+        "addrlocal" : "[2001:0:9d38:953c:347f:a0a9:8ea6:9fa3]:18333",
+        "services" : "0000000d",
+        "lastsend" : 1529043904,
+        "lastrecv" : 1529043889,
+        "bytessent" : 72605,
+        "bytesrecv" : 105714,
+        "conntime" : 1529028404,
+        "pingtime" : 0.00000000,
+        "version" : 70015,
+        "subver" : "/Satoshi:0.15.1/",
+        "inbound" : false,
+        "startingheight" : 1325463,
+        "banscore" : 10,
+        "syncnode" : true
+    },
+    {
+        "addr" : "46.101.233.205:18333",
+        "addrlocal" : "[2001:0:9d38:953c:347f:a0a9:8ea6:9fa3]:18333",
+        "services" : "0000040d",
+        "lastsend" : 1529043904,
+        "lastrecv" : 1529043898,
+        "bytessent" : 71706,
+        "bytesrecv" : 463017,
+        "conntime" : 1529028422,
+        "pingtime" : 0.00000000,
+        "version" : 70015,
+        "subver" : "/Satoshi:0.16.0/",
+        "inbound" : false,
+        "startingheight" : 1325463,
+        "banscore" : 10,
+        "syncnode" : false
+    }
+]
+```
+
+### 比特币网络
+
+#### p2p 网络架构
+
+#### 节点类型及分工
+
+- 钱包
+- 矿工
+- 完整区块链
+- 网络路由节点

@@ -6,7 +6,8 @@
 >
 > **参考资料：**
 >
-> - [More_C++_Idioms](https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms)
+> - [More C++ Idioms](https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms)
+> - [More C++ Idioms 中文翻译](https://github.com/HorkyChen/MoreCPlusPlusIdioms)
 
 ## 赋值运算符方法优先处理自赋值
 

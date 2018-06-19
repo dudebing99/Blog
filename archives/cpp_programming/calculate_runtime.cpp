@@ -67,7 +67,7 @@ int main()
     Dummy dummy;
     std::cout << measure.Execution(std::bind(&Dummy::Add, &dummy)) << " ms " << std::endl;
 
-    std::cout << "2. call common function" << std::endl;
+    std::cout << "3. call common function" << std::endl;
     std::cout << measure.Execution(Add) << " ms" << std::endl;
 
     return 0;

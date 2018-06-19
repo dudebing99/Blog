@@ -9,6 +9,134 @@
 > - [More C++ Idioms](https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms)
 > - [More C++ Idioms 中文翻译](https://github.com/HorkyChen/MoreCPlusPlusIdioms)
 
+## 运行时间测量
+
+### C++ 实现方式
+
+> **源码路径：**[calculate_runtime.cpp](https://dudebing99.github.io/blog/archives/cpp_programming/calculate_runtime.cpp)
+
+```cpp
+#include <iostream>
+#include <chrono>
+#include <functional>
+
+using MilliSeconds = std::chrono::milliseconds;
+using MicroSeconds = std::chrono::nanoseconds;
+using NanoSeconds = std::chrono::nanoseconds;
+
+template<typename TimeT = MilliSeconds>
+struct Measure
+{
+    template<typename F, typename ...Args>
+    typename TimeT::rep Execution(F func, Args&&... args)
+    {
+        auto start = std::chrono::system_clock::now();
+
+        // Now call the function with all the parameters you need.
+        func(std::forward<Args>(args)...);
+
+        auto duration = std::chrono::duration_cast< TimeT>
+            (std::chrono::system_clock::now() - start);
+
+        return duration.count();
+    }
+};
+
+class Dummy
+{
+public:
+    Dummy() = default;
+    ~Dummy() = default;
+
+public:
+    void Add()
+    {
+        double sum = 0.0;
+        for (int i = 0; i < 8000000; ++ i)
+        {
+            sum += 1.01;
+        }
+    }
+};
+
+void Add()
+{
+    double sum = 0.0;
+    for (int i = 0; i < 8000000; ++i)
+    {
+        sum += 1.01;
+    }
+}
+
+int main()
+{
+    Measure<MilliSeconds> measure;
+
+    std::cout << "1. call directly" << std::endl;
+    std::cout << measure.Execution([&]() {
+        double sum = 0.0;
+        for (int i = 0; i < 8000000; ++i)
+        {
+            sum += 1.01;
+        }
+    }) << " ms" << std::endl;
+
+    std::cout << "2. call member function" << std::endl;
+    Dummy dummy;
+    std::cout << measure.Execution(std::bind(&Dummy::Add, &dummy)) << " ms " << std::endl;
+
+    std::cout << "3. call common function" << std::endl;
+    std::cout << measure.Execution(Add) << " ms" << std::endl;
+
+    return 0;
+}
+```
+
+**输出**
+
+```bash
+1. call directly
+32 ms
+2. call member function
+34 ms 
+3. call common function
+47 ms
+```
+
+### C 实现方式
+
+```c
+#include <ctime>
+#include <stdio.h>
+
+int main()
+{
+    clock_t begin = clock();
+
+    // your codes
+    double sum = 0.0;
+    for (int i = 0; i < 100000000; ++ i)
+    {
+        sum += 1.1;
+    }
+
+    clock_t end = clock();
+
+    double elapsed_sec = double(end - begin) / CLOCKS_PER_SEC;
+    double elapsed_ms = double(end - begin) / (CLOCKS_PER_SEC / 1000);
+
+    printf("elapsed %.3f second, %.0f ms\n", elapsed_sec, elapsed_ms);
+
+    return 0;
+}
+```
+
+**输出**
+
+```bash
+elapsed 0.360 second, 360 ms
+```
+
 ## 赋值运算符方法优先处理自赋值
 
 ​	在实现赋值运算时，需要先判断是否是自赋值。如果赋值运算符操作的两个对象实际是同一个对象，直接返回即可。

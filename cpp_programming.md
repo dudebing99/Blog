@@ -138,6 +138,85 @@ int main()
 elapsed 0.360 second, 360 ms
 ```
 
+## 字节对齐
+
+> **详细内容请参考：**[字节对齐与填充规则](https://en.wikipedia.org/wiki/Data_structure_alignment)
+>
+> **备注：**根据实际情况打开（存取速度优先）、关闭（节省内存空间）字节对齐。
+
+**目的：**为了加快 CPU 访问数据的速度，将数据在内存中按照一定规律做字节对齐。
+
+**简单描述对齐与填充机制：**
+
+- 每个成员变量的首地址，必须是它的类型的对齐值的整数倍，如果不满足，它与前一个成员变量之间要填充（padding）一些无意义的字节来满足
+- 整个结构体的大小，必须是该结构体中所有成员的类型中对齐值最大者的整数倍，如果不满足，在最后一个成员后面填充一些无意义的字节来满足
+
+**更改 C 编译器的缺省字节对齐方式** 
+
+​	在缺省情况下，C 编译器为每一个变量或是数据单元按其自然对齐条件分配空间。一般地，可以通过下面的方法来改变缺省的对齐条件：
+
+- 使用伪指令 #pragma pack (n)，C 编译器将按照 n 个字节对齐；使用伪指令 #pragma pack ()，取消自定义字节对齐方式
+-  __attribute((aligned (n)))，让所作用的结构成员对齐在 n 字节自然边界上。如果结构中有成员的长度大于 n，则按照最大成员的长度来对齐
+- \__attribute__ ((packed))，取消结构在编译过程中的优化对齐，按照实际占用字节数进行对齐
+
+**举例**
+
+- 缺省字节对齐方式
+
+```c
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+struct Data
+{
+    char c;
+    long val;
+    char data[0];
+};
+
+int main()
+{
+    printf("sizeof(Data): %d\n", sizeof(Data));
+
+    return 0;
+}
+```
+
+**输出**
+
+```bash
+sizeof(Data): 16
+```
+
+- \__attribute__ ((packed)) 取消优化对齐
+
+```c
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+struct Data
+{
+    char c;
+    long val;
+    char data[0];
+}__attribute__ ((packed));
+
+int main()
+{
+    printf("sizeof(Data): %d\n", sizeof(Data));
+
+    return 0;
+}
+```
+
+**输出**
+
+```bash
+sizeof(Data): 9
+```
+
 ## C 变长数组
 
 ​	在实际的编程中，我们经常需要使用变长数组，但是 C 语言并不支持变长的数组。此时，我们可以使用结构体的方法实现 C 语言变长数组。

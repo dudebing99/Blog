@@ -2035,6 +2035,51 @@ set([1, 11, 6, 7])
 set([8, 2, 4])
 ```
 
+## [Python] range 与 xrange
+
+```python
+
+# -*- coding: utf-8 -*-
+
+for i in range(2, 10, 3):
+    print i
+
+for i in range(3):
+    print i
+
+print range(2, 10, 2)
+
+
+for j in xrange(2, 10, 3):
+    print j
+
+for j in xrange(3):
+    print j
+
+print xrange(2, 10, 2)
+print list(xrange(2, 10, 2))
+```
+
+**输出**
+
+```basic
+2
+5
+8
+0
+1
+2
+[2, 4, 6, 8]
+2
+5
+8
+0
+1
+2
+xrange(2, 10,
+[2, 4, 6, 8]
+```
+
 ## [Python] 字典的遍历
 
 > **效率：**由高到低，性能要求高的地方需要注意

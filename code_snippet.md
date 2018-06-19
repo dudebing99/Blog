@@ -1849,7 +1849,6 @@ if __name__ == '__main__':
 ## [Python] 计算比特币发行总量
 
 ```python
-
 # -*- coding: utf-8 -*-
 
 # 初始的块奖励为 50 BTC
@@ -1873,6 +1872,129 @@ print "Total BTC to ever be created:", max_money(), "Satoshis"
 
 ```basic
 Total BTC to ever be created: 2099999997690000 Satoshis
+```
+
+## [Python] 简化的工作量证明算法
+
+> 可以任意调整难度值（按二进制 bit 数来设定，即哈希值开头多少个 bit 必须是 0）
+
+```python
+# -*- coding: utf-8 -*-
+# example of proof-of-work algorithm
+
+import hashlib
+import time
+
+max_nonce = 2 ** 32 # 4 billion
+
+def proof_of_work(header, difficulty_bits):
+
+    # calculate the difficulty target
+    target = 2 ** (256-difficulty_bits) 
+
+    for nonce in xrange(max_nonce):
+        hash_result = hashlib.sha256(str(header)+str(nonce)).hexdigest() 
+
+        # check if this is a valid result, below the target
+
+        if long(hash_result, 16) < target:
+            print "Success with nonce %d" % nonce 
+            print "Hash is %s" % hash_result 
+            return (hash_result,nonce)
+
+    print "Failed after %d (max_nonce) tries" % nonce 
+    return nonce
+
+if __name__ == '__main__': 
+
+    nonce = 0
+    hash_result = ''
+
+    # difficulty from 0 to 31 bits
+    for difficulty_bits in xrange(32): 
+
+        difficulty = 2 ** difficulty_bits
+        print "Difficulty: %ld (%d bits)" % (difficulty, difficulty_bits) 
+
+        print "Starting search..."
+
+        # checkpoint the current time
+        start_time = time.time()
+
+        # make a new block which includes the hash from the previous block 
+        # we fake a block of transactions - just a string
+        new_block = 'test block with transactions' + hash_result
+
+        # find a valid nonce for the new block
+        (hash_result, nonce) = proof_of_work(new_block, difficulty_bits) 
+
+        # checkpoint how long it took to find a result
+        end_time = time.time()
+
+        elapsed_time = end_time - start_time
+        print "Elapsed Time: %.4f seconds" % elapsed_time 
+
+        if elapsed_time > 0:
+
+            # estimate the hashes per second
+            hash_power = float(long(nonce)/elapsed_time)
+            print "Hashing Power: %ld hashes per second" % hash_power
+```
+
+**输出**
+
+> 输出较多，仅列出一小部分
+
+```basic
+Difficulty: 1 (0 bits)
+Starting search...
+Success with nonce 0
+Hash is ff8253ed10b5f719d52a709a66af8cd5e2054f702e675af4ca0cae70f0988634
+Elapsed Time: 0.0001 seconds
+Hashing Power: 0 hashes per second
+Difficulty: 2 (1 bits)
+Starting search...
+Success with nonce 0
+Hash is 22c608547e239faf5c353e7ebd204042760b93891d1d0be9ab488d36c73c077b
+Elapsed Time: 0.0000 seconds
+Hashing Power: 0 hashes per second
+Difficulty: 4 (2 bits)
+Starting search...
+Success with nonce 2
+Hash is 0635f41cdb98c6e73516f84fc88da19a13a3bac6298dbfc0df5170bac93ba4dd
+Elapsed Time: 0.0000 seconds
+Hashing Power: 55553 hashes per second
+Difficulty: 8 (3 bits)
+Starting search...
+Success with nonce 9
+Hash is 1c1c105e65b47142f028a8f93ddf3dabb9260491bc64474738133ce5256cb3c1
+Elapsed Time: 0.0001 seconds
+Hashing Power: 140329 hashes per second
+Difficulty: 16 (4 bits)
+Starting search...
+Success with nonce 25
+Hash is 0f7becfd3bcd1a82e06663c97176add89e7cae0268de46f94e7e11bc3863e148
+Elapsed Time: 0.0001 seconds
+Hashing Power: 227456 hashes per second
+Difficulty: 32 (5 bits)
+Starting search...
+Success with nonce 36
+Hash is 029ae6e5004302a120630adcbb808452346ab1cf0b94c5189ba8bac1d47e7903
+Elapsed Time: 0.0003 seconds
+Hashing Power: 108085 hashes per second
+Difficulty: 64 (6 bits)
+Starting search...
+Success with nonce 0
+Hash is 0083214fa878cea749bd07bd77e92b311be876dd72f3d4924d5ae4ead54febe5
+Elapsed Time: 0.0001 seconds
+Hashing Power: 0 hashes per second
+Difficulty: 128 (7 bits)
+Starting search...
+Success with nonce 26
+Hash is 00f7abab177613afc42270e3f5f79ffddd694093030663b32fe26ce2a377a993
+Elapsed Time: 0.0008 seconds
+Hashing Power: 32956 hashes per second
+Difficulty: 256 (8 bits)
 ```
 
 ## [Python] 列表

@@ -7,6 +7,7 @@
 > **参考资料：**
 >
 > - [精通比特币](http://zhibimo.com/read/wang-miao/mastering-bitcoin/index.html)
+> - [区块链技术指南](http://book.8btc.com/blockchain_guide)
 > - [深度解析挖矿的逻辑和技术实现](https://blog.csdn.net/taifei/article/details/72895903)
 > - [stratum 协议原理](http://www.8btc.com/stratum_protocol)
 

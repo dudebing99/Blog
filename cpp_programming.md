@@ -2,7 +2,7 @@
 
 ------
 
-> **说明：**C++ 编程时用到的一些小技巧。
+> **说明：**C/C++ 编程时用到的一些小技巧。
 >
 > **参考资料：**
 >
@@ -135,6 +135,61 @@ int main()
 
 ```bash
 elapsed 0.360 second, 360 ms
+```
+
+## C 变长数组
+
+​	在实际的编程中，我们经常需要使用变长数组，但是 C 语言并不支持变长的数组。此时，我们可以使用结构体的方法实现 C 语言变长数组。
+
+```c
+struct Data
+{
+    char c;
+    long val;
+    char data[0];
+};
+```
+
+​	在结构体中，data 是一个数组名；但该数组没有元素；该数组的真实地址紧随结构体 Data 之后，而这个地址就是结构体后面数据的地址。 
+
+```c
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+struct Data
+{
+    char c;
+    long val;
+    char data[0];
+};
+
+int main()
+{
+    char str[10] = "123456789";
+
+    Data *data  = (Data*)malloc(sizeof(Data) + sizeof(str));
+    data->c     = 'a';
+    data->val   = 99;
+    memcpy(data->data, str, strlen(str));
+
+    printf("sizeof(Data): %d\n", sizeof(Data));
+    printf("sizeof(*data): %d\n", sizeof(*data));
+
+    printf("c: %c, val: %d, data: %s\n", data->c, data->val, data->data);
+
+    free(data);
+
+    return 0;
+}
+```
+
+**输出**
+
+```bash
+sizeof(Data): 16
+sizeof(*data): 16
+c: a, val: 99, data: 123456789
 ```
 
 ## 赋值运算符方法优先处理自赋值

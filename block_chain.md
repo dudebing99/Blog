@@ -5,11 +5,12 @@
 > **参考资料：**
 >
 > - [比特币白皮书中英文对照版](http://www.ehcoo.com/A%20Peer-to-Peer%20Electronic%20Cash%20System.html)
->
 > - [精通比特币](http://zhibimo.com/read/wang-miao/mastering-bitcoin/index.html)
 > - [区块链技术指南](http://book.8btc.com/blockchain_guide)
+> - [区块链维基百科](https://en.wikipedia.org/wiki/Blockchain)
 > - [深度解析挖矿的逻辑和技术实现](https://blog.csdn.net/taifei/article/details/72895903)
 > - [stratum 协议原理](http://www.8btc.com/stratum_protocol)
+> - [图灵完备维基百科](https://en.wikipedia.org/wiki/Turing_completeness)
 
 ## 比特币 bitcoin
 
@@ -222,7 +223,9 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 | 4 字节  | 难度目标     | 该区块工作量证明算法的难度目标                 |
 | 4 字节  | Nonce        | 用于工作量证明算法的计数器                     |
 
-#### 区块标识符：区块头哈希值和区块高度
+#### 区块标识符
+
+​	区块标识符：包括区块头哈希值和区块高度。
 
 ​	区块主标识符是它的加密哈希值，一个通过SHA256算法对区块头进行二次哈希计算而得到的数字指纹。产生的32字节哈希值被称为区块哈希值，但是更准确的名称是：区块头哈希值，因为只有区块头被用于计算。例如:000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f 是第一个比特币区块的区块哈希值。区块哈希值可以唯一、明确地标识一个区块，并且任何节点通过简单地对区块头进行哈希计算都可以独立地获取该区块哈希值。
 
@@ -259,8 +262,6 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 ## 区块链技术
 
 ### 定义
-
-> [block chain](https://en.wikipedia.org/wiki/Blockchain)
 
 ​	区块链：**由使用密码学原理使之连接和保证安全的块**所组成的一个不断增长的数据记录列表。每一个区块包含一个前一个区块的密码学哈希值、一个时间戳，和交易数据。
 
@@ -313,3 +314,9 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 - 降低成本：跟传统技术相比，区块链技术可能带来更短的时间、更少的人力和维护成本
 
 - 增强安全：区块链技术将有利于安全可靠的审计管理和账目清算，减少犯罪可能性，和各种风险
+
+### 理论
+
+#### 图灵完全
+
+​	图灵完全性通常指具有无限存储能力的通用物理机器或编程语言。简单来说，一切可计算的问题都能计算（给定足够的时间和存储），这样的虚拟机或者编程语言就叫图灵完备的。

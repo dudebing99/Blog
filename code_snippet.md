@@ -708,7 +708,60 @@ int main(int argc, char* argv[])
   return 0;
 }
 ```
-## [CPP] 代理模式
+## [CPP] 排序算法/快速排序
+
+> **源码路径：**[quick_sort.cpp](https://dudebing99.github.io/blog/archives/code_snippet/quick_sort.cpp)
+
+```cpp
+#include <iostream>
+
+int partition(int unsorted[], int low, int high)
+{
+    int pivot = unsorted[low];
+    while (low < high)
+    {
+        while (low < high && unsorted[high] > pivot) high--;
+        unsorted[low] = unsorted[high];
+        while (low < high && unsorted[low] <= pivot) low++;
+        unsorted[high] = unsorted[low];
+    }
+    unsorted[low] = pivot;
+    return low;
+}
+
+void quick_sort(int unsorted[], int low, int high)
+{
+    int loc = 0;
+    if (low < high)
+    {
+        loc = partition(unsorted, low, high);
+        quick_sort(unsorted, low, loc - 1);
+        quick_sort(unsorted, loc + 1, high);
+    }
+}
+
+int main()
+{
+    int x[] = { 6, 21, 4, 13, 51, 9, 21 };
+    int len = sizeof(x) / sizeof(int);
+    quick_sort(x, 0, len - 1);
+
+    for each (int i in x)
+    {
+        std::cout << i << " ";
+    }
+    
+    return 0;
+}
+```
+
+**输出**
+
+```basic
+4 6 9 13 21 21 51 
+```
+
+## [CPP] 设计模式/代理模式
 
 ![](pic/designpattern/proxy.jpg)
 
@@ -786,7 +839,7 @@ Call ConcreteSubject::Request() to do the job
 Done in ConcreteSubject
 ```
 
-## [CPP] 单例模式
+## [CPP] 设计模式/单例模式
 
 ![img](pic/designpattern/singleton.jpg) 
 
@@ -1063,7 +1116,7 @@ Got the same instance
 hello world
 ```
 
-## [CPP] 适配器模式
+## [CPP] 设计模式/适配器模式
 
 ### 类适配器
 
@@ -1209,7 +1262,7 @@ Specific Request
 Finally, Request
 ```
 
-## [CPP] 桥接模式
+## [CPP] 设计模式/桥接模式
 
 ![img](pic/designpattern/bridge.jpg) 
 
@@ -1314,7 +1367,7 @@ Dell PC, try to transfer data by USB device
 Transfer by USB 3.0, faster
 ```
 
-## [CPP] 观察者模式
+## [CPP] 设计模式/观察者模式
 
 ![img](pic/designpattern/observer.jpg) 
 
@@ -1434,7 +1487,7 @@ Subject's status: 99
 The target subject is changing status: 99
 ```
 
-## [CPP] 装饰器模式
+## [CPP] 设计模式/装饰器模式
 
 ![img](pic/designpattern/decorator.jpg) 
 
@@ -1579,7 +1632,7 @@ Name: iPhone 4
 Decorator: Duel Camera
 ```
 
-## [CPP] 职责链模式
+## [CPP] 设计模式/职责链模式
 
 ![img](pic/designpattern/chain_of_responsibility.jpg) 
 
@@ -1678,7 +1731,7 @@ A: I can not do it, next
 B: I can do it, done
 ```
 
-## [CPP] 模板方法模式
+## [CPP] 设计模式/模板方法模式
 
 ![](pic/designpattern/template_function.jpg)
 

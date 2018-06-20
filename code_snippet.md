@@ -2331,6 +2331,48 @@ after func2 a: 11
 after func2 b: [22, 33]
 ```
 
+## [Python] lambda 表达式
+
+```python
+# -*- coding: utf-8 -*-
+
+# 常规使用
+f = lambda x : x + 1
+print f(99)
+
+# 映射
+print map(lambda x : x + 1, [1, 2, 3])
+print map(lambda x: x*x, [y for y in range(10)])
+
+# 过滤
+foo = [2, 18, 9, 22, 17, 24, 8, 12, 27]
+print filter(lambda x : x % 3 == 0, foo)
+
+# 归纳
+print reduce(lambda x, y : x + y, foo)
+
+# 闭包
+def add(n):
+    return lambda x : x + n
+
+print add(3)(5)
+# 等价于
+add_3 = add(3)
+print add_3(5)
+```
+
+**输出**
+
+```basic
+100
+[2, 3, 4]
+[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+[18, 9, 24, 12, 27]
+139
+8
+8
+```
+
 ## [Python] Redis 使用
 
 > **环境：**Python 2.7.14 

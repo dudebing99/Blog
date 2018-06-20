@@ -254,5 +254,13 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 
 ### 挖矿与共识
 
+## 区块链技术
+
+### 定义
+
+> [block chain](https://en.wikipedia.org/wiki/Blockchain)
+
+​	区块链：**由使用密码学原理使之连接和保证安全的块**所组成的一个不断增长的数据记录列表。每一个区块包含一个前一个区块的密码学哈希值、一个时间戳，和交易数据。
+
 
 

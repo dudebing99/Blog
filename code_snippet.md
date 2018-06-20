@@ -24,14 +24,21 @@ static bool ReadFile(const char *file, std::string &out)
 
 ## [CPP] 切分字符串
 
+> 根据指定的分割字符串切分目标字符串，支持忽略空字符串、去除前后空白字符
+
 ```cpp
 #include <string>
 #include <iostream>
 #include <vector>
 
-std::vector<std::string> Split(const std::string &str,
-    const std::string &delimiter, const bool allow_empty)
+std::vector<std::string> Split(
+    const std::string &str,
+    const std::string &delimiter,
+    const bool allow_empty,
+    const bool trim_whitespaces
+    )
 {
+	// 切分字符串
     std::vector<std::string> vec;
     if (delimiter.empty())
     {
@@ -52,16 +59,36 @@ std::vector<std::string> Split(const std::string &str,
     {
         vec.emplace_back(str.substr(current));
     }
-    return vec;
+
+    if (!trim_whitespaces)
+    {
+        return vec;
+    }
+    
+    // 去除前后空白字符
+    std::string raw;
+    std::size_t beg = 0;
+    std::size_t end = 0;
+    std::vector<std::string> vec2;
+    for (auto v : vec)
+    {
+        if ((beg = v.find_first_not_of(" \t\f\v\n\r")) != raw.npos
+            && (end = v.find_last_not_of(" \t\f\v\n\r"), beg) != raw.npos)
+        {
+            vec2.push_back(v.substr(beg, end - beg + 1));
+        }
+    }
+
+    return vec2;
 }
 
 int main()
 {
-    std::string target = "hello,world,,kevin,";
-    std::vector<std::string> result = Split(target, ",", false);
+    std::string target = "hello, world   , a b c  ,   ,,kevin's blog ,";
+    std::vector<std::string> result = Split(target, ",", false, true);
     for (auto v : result)
     {
-        std::cout << v << ' ';
+        std::cout << v << std::endl;
     }
 
     return 0;
@@ -71,7 +98,10 @@ int main()
 **输出**
 
 ```basic
-hello world kevin
+hello
+world
+a b c
+kevin's blog
 ```
 
 ## [CPP] 递增序列/随机序列

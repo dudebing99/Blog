@@ -22,6 +22,58 @@ static bool ReadFile(const char *file, std::string &out)
 }
 ```
 
+## [CPP] 切分字符串
+
+```cpp
+#include <string>
+#include <iostream>
+#include <vector>
+
+std::vector<std::string> Split(const std::string &str,
+    const std::string &delimiter, const bool allow_empty)
+{
+    std::vector<std::string> vec;
+    if (delimiter.empty())
+    {
+        return vec;
+    }
+
+    std::size_t current = 0;
+    std::size_t index = 0;
+    while ((index = str.find(delimiter, current)) != str.npos)
+    {
+        if (index - current != 0 || allow_empty)
+        {
+            vec.emplace_back(str.substr(current, index - current));
+        }
+        current = index + delimiter.length();
+    }
+    if (current < str.length() || allow_empty)
+    {
+        vec.emplace_back(str.substr(current));
+    }
+    return vec;
+}
+
+int main()
+{
+    std::string target = "hello,world,,kevin,";
+    std::vector<std::string> result = Split(target, ",", false);
+    for (auto v : result)
+    {
+        std::cout << v << ' ';
+    }
+
+    return 0;
+}
+```
+
+**输出**
+
+```basic
+hello world kevin
+```
+
 ## [CPP] 处理信号，服务优雅退出
 
 ```c++

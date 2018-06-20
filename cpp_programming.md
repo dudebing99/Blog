@@ -323,6 +323,20 @@ Contents of the list: -4 -3 -2 -1 0 1 2 3 4 5
 Contents of the list, shuffled: -3 3 5 1 4 0 -2 2 -4 -1
 ```
 
+- std::itoa 模拟实现
+
+```cpp
+template<class ForwardIterator, class T>
+void iota(ForwardIterator first, ForwardIterator last, T value)
+{
+    while (first != last)
+    {
+        *first++ = value;
+        ++value;
+    }
+}
+```
+
 ## 赋值运算符方法优先处理自赋值
 
 ​	在实现赋值运算时，需要先判断是否是自赋值。如果赋值运算符操作的两个对象实际是同一个对象，直接返回即可。

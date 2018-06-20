@@ -217,7 +217,7 @@ int main()
 sizeof(Data): 9
 ```
 
-## C 变长数组
+## 变长数组
 
 ​	在实际的编程中，我们经常需要使用变长数组，但是 C 语言并不支持变长的数组。此时，我们可以使用结构体的方法实现 C 语言变长数组。
 
@@ -272,6 +272,55 @@ int main()
 sizeof(Data): 16
 sizeof(*data): 16
 c: a, val: 99, data: 123456789
+```
+
+## 递增序列/随机序列
+
+- 利用 std::itoa 实现 list/vector 自增序列
+- 利用 std::shuffle 实现随机序列
+
+```cpp
+#include <algorithm>
+#include <iostream>
+#include <list>
+#include <numeric>
+#include <random>
+#include <vector>
+
+int main()
+{
+    std::vector<int> vec(10);
+    std::iota(vec.begin(), vec.end(), 1);
+    std::cout << "Contents of the vector: ";
+    for (auto n : vec) std::cout << n << ' ';
+    std::cout << '\n';
+
+    std::list<int> l(10);
+    std::iota(l.begin(), l.end(), -4);
+
+    std::vector<std::list<int>::iterator> v(l.size());
+    std::iota(v.begin(), v.end(), l.begin());
+
+    std::shuffle(v.begin(), v.end(), std::mt19937{ std::random_device{}() });
+
+    std::cout << "Contents of the list: ";
+    for (auto n : l) std::cout << n << ' ';
+    std::cout << '\n';
+
+    std::cout << "Contents of the list, shuffled: ";
+    for (auto i : v) std::cout << *i << ' ';
+    std::cout << '\n';
+
+    return 0;
+}
+```
+
+**输出**
+
+```basic
+Contents of the vector: 1 2 3 4 5 6 7 8 9 10
+Contents of the list: -4 -3 -2 -1 0 1 2 3 4 5
+Contents of the list, shuffled: -3 3 5 1 4 0 -2 2 -4 -1
 ```
 
 ## 赋值运算符方法优先处理自赋值

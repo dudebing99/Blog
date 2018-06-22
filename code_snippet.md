@@ -24,6 +24,8 @@ static bool ReadFile(const char *file, std::string &out)
 
 ## [CPP] 切分字符串
 
+### 利用 std::string 的成员方法实现
+
 > 根据指定的分割字符串切分目标字符串，支持忽略空字符串、去除前后空白字符
 
 ```cpp

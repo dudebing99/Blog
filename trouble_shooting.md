@@ -401,3 +401,22 @@ def get_db_conn(mysql_config):
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
     ```
 
+## [Ubuntu] [: 1: unexpected operator
+
+**系统环境**
+
+ 	Ubuntu 14.04
+
+**问题描述**
+
+​	执行 shell 脚本，报错 [: 1: unexpected operator
+
+**原因分析**
+
+​	Ubuntu shell 下默认的脚本解析器是 dash，会使一些 bash 脚本执行失败。
+
+**解决方式**	
+
+​	通过如下方式改回 bash:
+	sudo dpkg-reconfigure dash
+	选择 NO

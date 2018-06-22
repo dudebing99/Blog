@@ -106,6 +106,40 @@ a b c
 kevin's blog
 ```
 
+### 利用 std::stringstream 实现
+
+> **限制：**分隔符为一个或多个空格
+
+```cpp
+#include <sstream>
+#include <string>
+#include <iostream>
+
+int main()
+{
+    std::string input = "hello  glad to  see you  ";
+    std::stringstream ss(input);
+    std::string str;
+
+    while (ss >> str)
+    {
+        std::cout << str << std::endl;
+    }
+
+    return 0;
+}
+```
+
+**输出**
+
+```basic
+hello
+glad
+to
+see
+you
+```
+
 ## [CPP] 递增序列/随机序列
 
 - 利用 std::itoa 实现 list/vector 自增序列

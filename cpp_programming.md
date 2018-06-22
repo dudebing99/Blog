@@ -217,6 +217,37 @@ int main()
 sizeof(Data): 9
 ```
 
+## 大端小端
+
+![img](pic/cppprogramming/big_endian.jpg) 
+
+​	对于32位的整数，大端机器会在内存的低地址存储高位，在高地址存储低位。
+
+![img](pic/cppprogramming/little_endian.jpg)
+
+ 	小端机器恰好相反，内存的低地址存储低位，在高地址存储高位。
+
+​	大端表示法和人的直观比较相符，从低地址向高地址看过去，就是原先的数；小端表示法更便于计算机的操作，地址增加和个十百千万的增加是一致的。
+
+​	可以通过如下两种方法判断机器属于大端或小端
+
+```cpp
+    int32_t i = 0x11223344;
+
+    std::cout << ((*((char *)&i) == 0x11) ? "Big Endian" : "Little Endian") << std::endl;
+```
+
+```cpp
+union
+    {
+        int32_t i;
+        char c;
+    }u;
+
+    u.i = 0x11223344;
+    std::cout << ((u.c == 0x11) ? "Big Endian" : "Little Endian") << std::endl;
+```
+
 ## 变长数组
 
 ​	在实际的编程中，我们经常需要使用变长数组，但是 C 语言并不支持变长的数组。此时，我们可以使用结构体的方法实现 C 语言变长数组。

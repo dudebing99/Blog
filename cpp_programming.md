@@ -221,7 +221,7 @@ sizeof(Data): 9
 
 ![img](pic/cppprogramming/big_endian.jpg) 
 
-​	对于32位的整数，大端机器会在内存的低地址存储高位，在高地址存储低位。
+​	对于 32 位的整数，大端机器会在内存的低地址存储高位，在高地址存储低位。
 
 ![img](pic/cppprogramming/little_endian.jpg)
 

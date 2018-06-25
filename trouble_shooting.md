@@ -420,3 +420,23 @@ def get_db_conn(mysql_config):
 ​	通过如下方式改回 bash:
 	sudo dpkg-reconfigure dash
 	选择 NO
+
+## [Ubuntu] lua.c:80:31: fatal error: readline/readline.h: No such file or directory
+
+**系统环境**
+
+ 	Ubuntu 14.04
+
+**问题描述**
+
+​	源码编译 lua 5.3 时，报错 lua.c:80:31: fatal error: readline/readline.h: No such file or directory
+
+**原因分析**
+
+​	缺少 libreadline-dev 依赖包
+
+**解决方式**	
+
+​	执行  apt-get install libreadline-dev
+
+​	

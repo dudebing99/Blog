@@ -91,6 +91,8 @@ debug
 > **VIM 配置文件位置：**~/.vimrc
 >
 > **点此下载：**[.vimrc](https://dudebing99.github.io/blog/archives/config/.vimrc)
+>
+> [vimrc](https://dudebing99.github.io/blog/archives/config/vimrc)
 
 ```bash
 set incsearch

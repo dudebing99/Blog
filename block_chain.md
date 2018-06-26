@@ -455,6 +455,675 @@ OP_DUP OP_HASH160 <Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG
 
 ### 挖矿与共识
 
+## 维基链（智能合约）
+
+### 一键部署节点
+
+> **前置条件：**将脚本与可执行程序 coind 放在同一目录，执行脚本即可
+
+```bash
+#!/bin/bash
+
+function usage()
+{
+    echo "Usage: $0 <deploy|start|stop>"
+    echo "  deploy      deploy and start"
+    echo "  start       start all nodes"
+    echo "  stop        stop all nodes"
+}
+
+function stop()
+{
+    echo "kill all nodes if exists"
+    ps afx|grep node|grep -v grep|awk '{print $1}'|xargs kill -9
+}
+
+function start()
+{
+    for i in $(seq 1 11)
+    do
+        Node="node"$i
+        cd $Node
+        ./$Node -datadir=./ &
+        cd ..
+    done
+}
+
+function deploy() 
+{
+    stop
+
+    echo "step 1: deploy all nodes"
+    for i in $(seq 1 11)
+    do
+        Node="node"$i
+        echo "begin to deploy $Node"
+        rm -rf $Node
+        mkdir -p $Node
+
+        Executive="node"$i
+        cp coind $Executive/$Executive
+
+        if [ $i -lt 10 ]; then
+            Uiport="450"$i
+            Rpcport="690"$i
+            Port="790"$i
+            Connect="connect=127.0.0.1:790"$i
+        else
+            Uiport="45"$i
+            Rpcport="69"$i
+            Port="79"$i
+            Connect="connect=127.0.0.1:79"$i
+        fi
+
+cat >> WaykiChain.conf << EOF
+rpcuser=wikichain
+rpcpassword=123
+regtest=1
+blockminsize=1000
+zapwallettxes=0
+debug=INFO
+debug=miner
+debug=ERROR
+debug=net
+debug=vm
+#debug=shuffle
+#debug=profits
+printtoconsole=0
+logtimestamps=1
+logprintfofile=1
+logprintfileline=1
+checkblocks=1
+server=1
+listen=1
+uiport=$Uiport
+rpcport=$Rpcport
+port=$Port
+connect=127.0.0.1:7901
+connect=127.0.0.1:7902
+connect=127.0.0.1:7903
+connect=127.0.0.1:7904
+connect=127.0.0.1:7905
+connect=127.0.0.1:7906
+connect=127.0.0.1:7907
+connect=127.0.0.1:7908
+connect=127.0.0.1:7909
+connect=127.0.0.1:7910
+connect=127.0.0.1:7911
+isdbtraversal=1
+disablesafemode=1
+gen=1
+genproclimit=1000000
+logsize=100
+EOF
+
+        sed -i "/$Connect/d" WaykiChain.conf
+        mv WaykiChain.conf $Node
+
+    done
+
+    echo "step 2: start all nodes"
+    start
+
+    sleep 5
+
+    echo "step 3: import private key for every node"
+    cd node1 && ./node1 -datadir=./ importprivkey Y5F2GraTdQqMbYrV6MG78Kbg4QE8p4B2DyxMdLMH7HmDNtiNmcbM
+    cd ..
+    cd node2 && ./node2 -datadir=./ importprivkey Y7HWKeTHFnCxyTMtCEE6tVkqBzXoN1Yjxcx5Rs8j2dsSSvPxvF7p
+    cd ..
+    cd node3 && ./node3 -datadir=./ importprivkey Y871eB5Xiss2ugKWQRb4nmMhKTnmXAEyUqBimTCupogzoSTVCSU9
+    cd ..
+    cd node4 && ./node4 -datadir=./ importprivkey Y9cAUsEhfsihbePnCYYCETpN1PVovqTMX4kauKRsZ9ERdz1uumeK
+    cd ..
+    cd node5 && ./node5 -datadir=./ importprivkey Y4unEjiFk1YJQi1jaT3deY4t9Hm1eSk9usCam35LcN85cUA2QmZ5
+    cd ..
+    cd node6 && ./node6 -datadir=./ importprivkey Y5XKsR95ymf2pEyuhDPLtuvioHRo6ogDDNnaf4YU91ABvLb68QBU
+    cd ..
+    cd node7 && ./node7 -datadir=./ importprivkey Y7diE8BXuwTkjSzgdZMnKNhzYGrU8oSk31anJ1mwipSCcnPakzTA
+    cd ..
+    cd node8 && ./node8 -datadir=./ importprivkey YCjoCrtGEvMPZDLzBoY9GP3r7pqWa5mgzUxqAsVub6xnUVBwQHxE
+    cd ..
+    cd node9 && ./node9 -datadir=./ importprivkey Y6bKBN4ZKBNHJZpQpqE7y7TC1QpdT32YtAjw4Me9Bvgo47b5ivPY
+    cd ..
+    cd node10 && ./node10 -datadir=./ importprivkey Y8G5MwTFVsqj1FvkqFDEENzUBn4yu4Ds83HkeSYP9SkjLba7xQFX
+    cd ..
+    cd node11 && ./node11 -datadir=./ importprivkey YAq1NTUKiYPhV9wq3xBNCxYZfjGPMtZpEPA4sEoXPU1pppdjSAka
+    cd ..
+
+    echo "step 4: set node1 to mine"
+    cd node1
+    ./node1 -datadir=. importprivkey Y6J4aK6Wcs4A3Ex4HXdfjJ6ZsHpNZfjaS4B9w7xqEnmFEYMqQd13
+    ./node1 -datadir=. getbalance
+    cd ..
+
+    echo "================================="
+    echo "congratulations, all is done"
+    echo "================================="
+}
+
+if [ $# -ne 1 ]; then
+    usage
+    exit 0
+fi
+
+if [ $1"x" = deploy"x" ]; then
+    deploy 
+    exit 0
+elif [ $1"x" = start"x" ]; then
+    start
+    exit 0
+elif [ $1"x" = stop"x" ]; then
+    stop
+    exit 0
+else
+    echo "error: invalid argument"
+    echo ""
+    usage
+    exit 0
+fi
+```
+
+### 查询信息
+
+#### 获取节点信息
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getinfo
+{
+    "version" : 1000009,
+    "fullversion" : "v1.0.0.9-unk-release-linux (Jun 25 2018, 14:00:42)",
+    "protocolversion" : 10001,
+    "walletversion" : 0,
+    "balance" : 207900000.00000000,
+    "blocks" : 147,
+    "timeoffset" : 0,
+    "connections" : 20,
+    "proxy" : "",
+    "nettype" : "REGTEST_NET",
+    "chainwork" : "0000000000000000000000000000000000000000000000000000000000000093",
+    "tipblocktime" : 1529917110,
+    "paytxfee" : 0.00010000,
+    "relayfee" : 0.00001000,
+    "fuelrate" : 1,
+    "fuel" : 0,
+    "data directory" : "/root/wikichain/tmp/node1/./regtest",
+    "syncheight" : 147,
+    "tip block hash" : "17142e0ea57dfc941b2af5cf1c8b971a4444b95b13bc148b01b6fe8e5fc29eeb",
+    "errors" : ""
+}
+```
+
+#### 获取地址列表
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. listaddr
+[
+    {
+        "addr" : "wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4",
+        "balance" : 207900000.00000000,
+        "haveminerkey" : false,
+        "regid" : "0-1"
+    },
+    {
+        "addr" : "wNDue1jHcgRSioSDL4o1AzXz3D72gCMkP6",
+        "balance" : 0.00000000,
+        "haveminerkey" : false,
+        "regid" : "0-2"
+    },
+    {
+        "addr" : "whi2S53LfKcn999VWWYULJJ2kVUWFTcPBW",
+        "balance" : 0.00000000,
+        "haveminerkey" : false,
+        "regid" : " "
+    }
+]
+```
+
+#### 获取账户信息
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getaccountinfo wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4
+{
+    "Address" : "wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4",
+    "KeyID" : "079b9296a00a2b655787fa90e66ec3cde4bf1c8c",
+    "RegID" : "0-1",
+    "PublicKey" : "036c5397f3227a1e209952829d249b7ad0f615e43b763ac15e3a6f52627a10df21",
+    "MinerPKey" : "",
+    "Balance" : 20790000000000000,
+    "Votes" : 0,
+    "UpdateHeight" : 0,
+    "voteFundList" : [
+        {
+            "address" : "wNDue1jHcgRSioSDL4o1AzXz3D72gCMkP6",
+            "value" : 210000000000000
+        },
+        {
+            "address" : "wNuJM44FPC5NxearNLP98pg295VqP7hsqu",
+            "value" : 210000000000000
+        },
+        {
+            "address" : "wP64X59EoRmeq2M5GrJ23UVttE9uxnuoFa",
+            "value" : 210000000000000
+        },
+        {
+            "address" : "wQewSbKL5kAfpwnrivSiCcaiFffgNva4uB",
+            "value" : 210000000000000
+        },
+        {
+            "address" : "wQquTWgzNzLtjUV4Du57p9YAEGdKvgXs9t",
+            "value" : 210000000000000
+        },
+        {
+            "address" : "wRQwgYkPNe1oX9Ts3cfuQ4KerqiV2e8gqM",
+            "value" : 210000000000000
+        },
+        {
+            "address" : "wSjMDgKWHC2MzrUamhJtyyR2FTtw8oMUfx",
+            "value" : 210000000000000
+        },
+        {
+            "address" : "wSms4pZnNe7bxjouLxUXQLowc7JqtNps94",
+            "value" : 210000000000000
+        },
+        {
+            "address" : "wT75mYY9C8xgqVgXquBmEfRmAXPDpJHU62",
+            "value" : 210000000000000
+        },
+        {
+            "address" : "wUt89R4bjD3Ca6Vb7mk18oGsVtSTCxJu2q",
+            "value" : 210000000000000
+        },
+        {
+            "address" : "wVTUdfEaeAAVSuXKrmMyqQXH5j5Z9oGmTt",
+            "value" : 210000000000000
+        }
+    ],
+    "postion" : "inblock"
+}
+```
+
+### 生成测试地址、充值、激活地址
+
+#### 生成测试地址
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getnewaddress
+{
+    "addr" : "wKkoeBCynvuDmkS9XebY5vAUQC6aLVbznC",
+    "minerpubkey" : "no"
+}
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getnewaddress
+{
+    "addr" : "whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1",
+    "minerpubkey" : "no"
+}
+```
+
+#### 充值
+
+```
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. sendtoaddress wKkoeBCynvuDmkS9XebY5vAUQC6aLVbznC 100000000000
+{
+    "hash" : "334f447dfd284b2a084560f57d3c4ad044cde1fc41470c68ffeae55aefe270fb"
+}
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. sendtoaddress whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1 100000000000
+{
+    "hash" : "2ab57b070aa87aac85afaf21fd18e4e4211017f7104ab18980ccef287d750012"
+}
+```
+
+#### 查询余额
+
+> 充值后，需要出块之后才能到账，可以通过查询交易信息确认是否到账，可以查询到包含上述交易 hash：
+>
+> 334f447dfd284b2a084560f57d3c4ad044cde1fc41470c68ffeae55aefe270fb、2ab57b070aa87aac85afaf21fd18e4e4211017f7104ab18980ccef287d750012
+>
+> ```bash
+> root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. listtx
+> {
+>     "ConfirmTx" : [
+>         "2ab57b070aa87aac85afaf21fd18e4e4211017f7104ab18980ccef287d750012",
+>         "334f447dfd284b2a084560f57d3c4ad044cde1fc41470c68ffeae55aefe270fb",
+>         "8ebdb18e325ae00259e6072f5c5b403dd02c3b1847c16a3f59a2c3e46c4e5cb4",
+>         "f37c59ed4b4af2a85b072a823cd3c720a8fd39f8903138a1ff41d29579a9a78e",
+>         "bba67872503e0eeb65b83c8e932778e7aae7cd8b379645a5cb766a072a0ad561"
+>     ],
+>     "UnConfirmTx" : [
+>     ]
+> }
+> ```
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance wKkoeBCynvuDmkS9XebY5vAUQC6aLVbznC
+{
+    "balance" : 1000.00000000
+}
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1
+{
+    "balance" : 1000.00000000
+}
+```
+
+#### 激活地址
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. registaccounttx wKkoeBCynvuDmkS9XebY5vAUQC6aLVbznC 100000
+{
+    "hash" : "00d16a254cedfbb37a9073453b6e522250c7a0cdc70905e24cbdb0210eaf6bfa"
+}
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. registaccounttx whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1 100000
+{
+    "hash" : "82ab10800ec73221e6f03620808a5e4cdb46554e71989b98679700302ec830ce"
+}
+```
+
+#### 确认地址已激活
+
+> **账户余额计算：**100000000000 - 100000 = 99999900000
+>
+> **根据字段 RegID 判断是否已激活：**RegID 分别为 446-1、448-1，表示该地址已激活。
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getaccountinfo wKkoeBCynvuDmkS9XebY5vAUQC6aLVbznC
+{
+    "Address" : "wKkoeBCynvuDmkS9XebY5vAUQC6aLVbznC",
+    "KeyID" : "01650a07447041ce645146117803b58f02eedc6b",
+    "RegID" : "71-1",
+    "PublicKey" : "02c3f558fe4479a10139345b8f43e4a370edaffd7889ab33fa6e386a56d3608209",
+    "MinerPKey" : "",
+    "Balance" : 99999900000,
+    "Votes" : 0,
+    "UpdateHeight" : 0,
+    "voteFundList" : [
+    ],
+    "postion" : "inblock"
+}
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getaccountinfo whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1
+{
+    "Address" : "whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1",
+    "KeyID" : "f2cb5a8df46bdbe2c7e82c544be69caef703ae50",
+    "RegID" : "72-1",
+    "PublicKey" : "0351ae1238e081dc24068eeb2131fc1d8680d2089c5939ceabe78cfc92f7d9fdf2",
+    "MinerPKey" : "",
+    "Balance" : 99999900000,
+    "Votes" : 0,
+    "UpdateHeight" : 0,
+    "voteFundList" : [
+    ],
+    "postion" : "inblock"
+}
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance wKkoeBCynvuDmkS9XebY5vAUQC6aLVbznC
+{
+    "balance" : 999.99900000
+}
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1
+{
+    "balance" : 999.99900000
+}
+```
+
+### 注册应用脚本
+
+> **脚本注册 ID：**117-1
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. registerapptx wKkoeBCynvuDmkS9XebY5vAUQC6aLVbznC ./test.lua 110000000 0 "test"
+{
+    "hash" : "86be10a230fb77fb2fc9ad150f06e5a0b34c4bddd84dae13178b79a71dbebd24"
+}
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getscriptid 86be10a230fb77fb2fc9ad150f06e5a0b34c4bddd84dae13178b79a71dbebd24
+{
+    "regid:" : "117-1",
+    "script" : "750000000100"
+}
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance wKkoeBCynvuDmkS9XebY5vAUQC6aLVbznC
+{
+    "balance" : 998.89900000
+}
+```
+
+### 充值
+
+#### 计算合约内容
+
+> 合约内容 = 前缀 1 字节（0xff）+ 操作类型 1 字节（0x02）+ 充值地址 34 字节（whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1）+ 充值总金额 8 字节（10000000000）+ 自由金额 8 字节（500000000）+ 每月冻结金额 8 字节（500000000）
+
+将合约内容转换成16进制字符串
+
+​	前缀（0xff）=> ff
+
+​	操作类型（0x02）=> 02
+
+
+
+充值地址（whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1）=> 77686d44344d3851387162457836523567554c626362355a6b656462635244475931
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# echo -n "whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1"|xxd -p
+77686d44344d3851387162457836523567554c626362355a6b656462635244475931 
+```
+
+
+
+充值总金额（10000000000）=> 
+
+利用计算器转成 16 进制为 2540be400，补齐 8 字节后为 00000002540be400，按照内存中逆序后为00e40b5402000000
+
+ 
+
+自由金额（500000000）=>
+
+利用计算器转成 16 进制为 1dcd6500，补齐 8 字节后为 000000001dcd6500，按照内存中逆序后为0065cd1d00000000
+
+ 
+
+每月冻结金额（500000000）=>
+
+利用计算器转成 16 进制为 1dcd6500，补齐 8 字节后为 000000001dcd6500，按照内存中逆序后为0065cd1d00000000
+
+ 
+
+将这些字段组合在一起，形成合约内容：
+
+ff0277686d44344d3851387162457836523567554c626362355a6b65646263524447593100e40b54020000000065cd1d000000000065cd1d00000000
+
+#### 充值
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. createcontracttx wKkoeBCynvuDmkS9XebY5vAUQC6aLVbznC 117-1 10000000000 ff0277686d44344d3851387162457836523567554c626362355a6b65646263524447593100e40b54020000000065cd1d000000000065cd1d00000000 100000 0
+{
+    "hash" : "03539043b83e808a867db1d44a4543ced623454a52c5058bfb5d037df7fd5295"
+}
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance wKkoeBCynvuDmkS9XebY5vAUQC6aLVbznC
+{
+    "balance" : 898.89800000
+}
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1
+{
+    "balance" : 1004.99900000
+}
+```
+
+#### 查询应用账户信息
+
+- 时间点 1，查看应用账户信息
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getblockcount
+534
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getappaccinfo 117-1 whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1
+{
+    "mAccUserID" : "77686d44344d3851387162457836523567554c626362355a6b656462635244475931",
+    "FreeValues" : 2500000000,
+    "vFreezedFund" : [
+        {
+            "value" : 500000000,
+            "nHeight" : 538,
+            "vTag" : ""
+        },
+        {
+            "value" : 500000000,
+            "nHeight" : 543,
+            "vTag" : ""
+        },
+        {
+            "value" : 500000000,
+            "nHeight" : 548,
+            "vTag" : ""
+        },
+        {
+            "value" : 500000000,
+            "nHeight" : 553,
+            "vTag" : ""
+        },
+        {
+            "value" : 500000000,
+            "nHeight" : 558,
+            "vTag" : ""
+        },
+        {
+            "value" : 500000000,
+            "nHeight" : 563,
+            "vTag" : ""
+        },
+        {
+            "value" : 500000000,
+            "nHeight" : 568,
+            "vTag" : ""
+        },
+        {
+            "value" : 500000000,
+            "nHeight" : 573,
+            "vTag" : ""
+        },
+        {
+            "value" : 500000000,
+            "nHeight" : 578,
+            "vTag" : ""
+        },
+        {
+            "value" : 500000000,
+            "nHeight" : 583,
+            "vTag" : ""
+        },
+        {
+            "value" : 500000000,
+            "nHeight" : 588,
+            "vTag" : ""
+        },
+        {
+            "value" : 500000000,
+            "nHeight" : 593,
+            "vTag" : ""
+        },
+        {
+            "value" : 500000000,
+            "nHeight" : 598,
+            "vTag" : ""
+        },
+        {
+            "value" : 500000000,
+            "nHeight" : 603,
+            "vTag" : ""
+        }
+    ]
+}
+```
+
+- 时间点 2，查看应用账户信息
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getblockcount
+615
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getappaccinfo 117-1 whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1
+{
+    "mAccUserID" : "77686d44344d3851387162457836523567554c626362355a6b656462635244475931",
+    "FreeValues" : 9500000000,
+    "vFreezedFund" : [
+    ]
+}
+```
+
+### 提现
+
+#### 查看当前余额
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1
+{
+    "balance" : 1004.99900000
+}
+```
+
+#### 提现
+
+将自由金额（5个币），提现到地址 whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1
+
+ 
+
+合约内容 = 前缀 1 字节（0xff）+ 操作类型 1 字节（0x01）+ 账户类型 1 字节（0x02）+ 提现金额 8 字节（500000000）
+
+ 
+
+将合约内容转换成16进制字符串
+
+前缀（0xff）=> ff
+
+操作类型（0x02）=> 01
+
+账户类型（0x02）=> 02
+
+提现金额（500000000）=>
+
+利用计算器转成 16 进制为1dcd6500，补齐 8 字节后为 000000001dcd6500，按照内存中逆序后为0065cd1d00000000
+
+ 
+
+将这些字段组合在一起，形成合约内容：
+
+ff01020065cd1d00000000
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. createcontracttx whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1 117-1 0 ff01020065cd1d00000000 100000 0
+{
+    "hash" : "502ed951f0e88f8e25d71e0332c315e837b72c390194cd0d64f2be49c75578a2"
+}
+```
+
+#### 再次查看当前余额
+
+> 1004.99900000 + 95.00000000 - 0.00100000 = 1099.99800000
+>
+> **备注：**参数指定提取自由余额 5.00000000，实际上，一次性将所有自由余额 95.00000000 全部提取
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1
+{
+    "balance" : 1099.99800000
+}
+```
+
+### 图示余额变化
+
+![](pic/blockchain/free_values.png)
+
+### 脚本出错处理
+
+​	当应用账户余额为零时，提现操作将会失败，实现信息已 json 格式输出，具体如下所示：
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getappaccinfo 117-1 whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1
+{
+    "mAccUserID" : "77686d44344d3851387162457836523567554c626362355a6b656462635244475931",
+    "FreeValues" : 0,
+    "vFreezedFund" : [
+    ]
+}
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. createcontracttx whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1 117-1 0 ff01020065cd1d00000000 100000 0
+error: {"code":-4,"message":"Error:run-script-error:luaL_loadbuffer fail:[string \"line\"]:375: Account balance is 0.\n"}
+```
+
 ## 区块链技术
 
 ### 定义

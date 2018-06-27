@@ -163,7 +163,8 @@ imap jj <ESC>
     "explorer.confirmDelete": true,
     "editor.detectIndentation": true,
     "team.showWelcomeMessage": false,
-    "python.linting.flake8Enabled": true
+    "python.linting.flake8Enabled": true,
+    "files.autoGuessEncoding": true
 }
 ```
 

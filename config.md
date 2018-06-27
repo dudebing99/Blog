@@ -1983,3 +1983,8 @@ make linux test
 make install
 ```
 
+## Ubuntu 安装搜狗拼音输入法
+
+1. 在 https://pinyin.sogou.com/linux/ 下载安装包
+2. dpkg -i sogoupinyin_*.deb
+3. 配置输入法，系统设置 --> 语言支持 --> 把里面的 IBus 改为 fcitx --> 重启生效

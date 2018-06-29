@@ -1989,3 +1989,17 @@ make install
 1. 在 https://pinyin.sogou.com/linux/ 下载安装包
 2. dpkg -i sogoupinyin_*.deb
 3. 配置输入法，系统设置 --> 语言支持 --> 把里面的 IBus 改为 fcitx --> 重启生效
+
+## Ubuntu svn 提交编辑器
+
+​	修改 ~/.subversion/config 配置项，如下所示
+
+```bash
+### Set editor-cmd to the command used to invoke your text editor.
+###   This will override the environment variables that Subversion
+###   examines by default to find this information ($EDITOR, 
+###   et al).
+# editor-cmd = editor (vi, emacs, notepad, etc.)
+editor-cmd = vi
+```
+

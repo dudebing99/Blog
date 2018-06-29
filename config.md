@@ -2003,17 +2003,3 @@ make install
 editor-cmd = vi
 ```
 
-## Ubuntu ssh root 登陆 Permission denied
-
-1. 修改 /etc/ssh/sshd_config
-
-```bash
-#PermitRootLogin without-password                                                               PermitRootLogin yes
-```
-
-2. 重启服务生效
-
-```bash
-service ssh restart
-```
-

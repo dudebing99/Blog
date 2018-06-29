@@ -447,4 +447,28 @@ def get_db_conn(mysql_config):
 
 ​	执行  apt-get install libreadline-dev
 
+###### [Ubuntu] ssh root 登陆 Permission denied
+
+**系统环境**
+
+ 	Ubuntu 14.04
+
+**问题描述**
+
+​	安装 ssh 服务之后，root 账户无法 ssh 登陆，提示权限不足
+
+**解决方式**	
+
+1. 修改 /etc/ssh/sshd_config
+
+```bash
+#PermitRootLogin without-password                                                               PermitRootLogin yes
+```
+
+2. 重启服务生效
+
+```bash
+service ssh restart
+```
+
 ​	

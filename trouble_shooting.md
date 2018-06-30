@@ -471,4 +471,21 @@ def get_db_conn(mysql_config):
 service ssh restart
 ```
 
-​	
+## [Ubuntu] 重置 root 密码
+
+**系统环境**
+
+ 	Ubuntu 14.04
+
+**问题描述**
+
+​	忘记 root 登陆密码
+
+**解决方式**	
+
+1. 开机引导界面，选择“Ubuntu 高级选项”，回车
+2. 选择“Ubuntu <省略> recovery mode”，按 “e" 键进行编辑
+3. 在界面中找到 “recovery nomodeset”，并替换为 quiet splash rw init=/bin/bash，回车
+4. 系统进入命令行模式，输入 passwd 更改 root 密码（同理，可以更改其他账户密码）
+5. 重启系统
+

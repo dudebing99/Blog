@@ -447,7 +447,7 @@ def get_db_conn(mysql_config):
 
 ​	执行  apt-get install libreadline-dev
 
-###### [Ubuntu] ssh root 登陆 Permission denied
+## [Ubuntu] ssh root 登陆 Permission denied
 
 **系统环境**
 

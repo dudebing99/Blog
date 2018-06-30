@@ -2003,3 +2003,15 @@ make install
 editor-cmd = vi
 ```
 
+## Ubuntu 禁用 ipv6
+
+1. 在 /etc/sysctl.conf 追加如下内容
+
+```bash
+#disable IPv6
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+```
+
+2. 执行 sysctl -p 使之生效

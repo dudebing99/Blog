@@ -22,7 +22,7 @@ static bool ReadFile(const char *file, std::string &out)
 }
 ```
 
-## [CPP] 切分字符串
+## [C/CPP] 切分字符串
 
 ### 利用 std::string 的成员方法实现
 
@@ -139,6 +139,64 @@ to
 see
 you
 ```
+
+### 利用 strtok/strtok_r 实现
+
+> **源码路径：**[split.c](https://dudebing99.github.io/blog/archives/code_snippet/split.c)
+>
+> **是否线程安全：**strtok 在提取字符串时使用了静态缓冲区，非线程安全；strtok_r 线程安全
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+// char *strtok(char *str, const char *delim);
+// char *strtok_r(char *str, const char *delim, char **saveptr);
+
+void Split()
+{
+    char str[] = "1, hello, world";
+    char *ptr = strtok(str, ",");
+    
+    while (ptr != NULL)
+    {
+        printf("%s\n", ptr);
+        ptr = strtok(NULL, ",");
+    }
+}
+
+void Split2()
+{
+    char str[] = "2, hello, world";
+    char *buf = NULL;
+    char *ptr = strtok_r(str, ",", &buf);
+    
+    while (ptr != NULL)
+    {
+        printf("%s\n", ptr);
+        ptr = strtok_r(NULL, ",", &buf);
+    }
+}
+
+int main()
+{
+    Split();
+    Split2();
+
+    return 0;
+}
+```
+
+**输出**
+
+````bash
+1
+ hello
+ world
+2
+ hello
+ world
+````
 
 ## [CPP] 递增序列/随机序列
 

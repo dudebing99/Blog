@@ -57,5 +57,5 @@
 
   各个要素的相互制约关系如下所示
 
-![范围、进度、成本](pic/projectmanagement/scope_progress_cost.jpg)
+![范围、进度、成本](pic/projectmanagement/scope_progress_cost.png)
 

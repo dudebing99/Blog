@@ -138,6 +138,41 @@ int main()
 elapsed 0.360 second, 360 ms
 ```
 
+## 获取数组长度
+
+```cpp
+#include <iostream>
+#include <string>
+
+template<typename T>
+size_t GetArrayLength1(const T &array)
+{
+    return sizeof(array) / sizeof(array[0]);
+}
+
+template<typename T, size_t N>
+size_t GetArrayLength2(const T(&)[N])
+{
+    return N;
+}
+
+int main()
+{
+    int array[] = { 1, 3, 4, 5, 7 };
+    std::cout << "Length: " << GetArrayLength1(array) << std::endl;
+    std::cout << "Length: " << GetArrayLength2(array) << std::endl;
+
+    return 0;
+}
+```
+
+**输出**
+
+```bash
+Length: 5
+Length: 5
+```
+
 ## 字节对齐
 
 > **详细内容请参考：**[字节对齐与填充规则](https://en.wikipedia.org/wiki/Data_structure_alignment)

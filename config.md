@@ -2015,3 +2015,37 @@ net.ipv6.conf.lo.disable_ipv6 = 1
 ```
 
 2. 执行 sysctl -p 使之生效
+
+## Ubuntu 设置语言环境为中文
+
+1. 安装 zh_CN.UTF-8 语言
+
+```bash
+kevin@ubuntu:~$ sudo locale-gen zh_CN.UTF-8
+kevin@ubuntu:~$ locale
+LANG=en_US.UTF-8
+LANGUAGE=
+LC_CTYPE="en_US.UTF-8"
+LC_NUMERIC="en_US.UTF-8"
+LC_TIME="en_US.UTF-8"
+LC_COLLATE="en_US.UTF-8"
+LC_MONETARY="en_US.UTF-8"
+LC_MESSAGES="en_US.UTF-8"
+LC_PAPER="en_US.UTF-8"
+LC_NAME="en_US.UTF-8"
+LC_ADDRESS="en_US.UTF-8"
+LC_TELEPHONE="en_US.UTF-8"
+LC_MEASUREMENT="en_US.UTF-8"
+LC_IDENTIFICATION="en_US.UTF-8"
+LC_ALL=
+```
+
+2. 设置环境变量
+
+```bash
+kevin@ubuntu:~$ vim ~/.profile
+# 添加下面内容
+export LANG="zh_CN.UTF-8"
+export LC_ALL="zh_CN.UTF-8"
+```
+

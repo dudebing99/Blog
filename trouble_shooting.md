@@ -489,3 +489,27 @@ service ssh restart
 4. 系统进入命令行模式，输入 passwd 更改 root 密码（同理，可以更改其他账户密码）
 5. 重启系统
 
+## [Ubuntu] protobuf 冲突导致编译失败
+
+**系统环境**
+
+ 	Ubuntu 14.04
+
+**问题描述**
+
+​	Ubuntu 系统自带 protobuf，项目中使用高版本 protobuf（由源码编译），与系统自带的产生冲突，导致项目编译、链接失败
+
+**解决方式**	
+
+1. 彻底卸载系统自带 protobuf
+
+```bash
+apt-get purge --remove libprotobuf*
+apt-get purge --remove protobuf-compiler
+# 借助 whereis/find 查找 protobuf 相关库、可执行程序、头文件并删除（根据实际情况调整）
+rm -rf /usr/local/lib/libprotobuf* /usr/lib/libprotobuf*
+rm -rf /usr/local/include/google/protobuf /usr/include/google/protobuf
+rm -rf /usr/local/bin/protoc
+```
+
+2. 重新源码编译、安装高版本 protobuf

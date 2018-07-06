@@ -291,6 +291,31 @@ ONBOOT=no 修改为 ONBOOT=yes
 
    systemctl set-default graphical.target
 
+## Ubuntu 图形、命令行模式切换
+
+**系统环境**
+
+​	Ubuntu 14.04
+
+**问题描述**
+
+​	略。
+
+**解决方式**
+
+1. 修改 /etc/default/grub
+
+   ```bash
+   # 图形模式
+   GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+   # 命令行模式
+   GRUB_CMDLINE_LINUX_DEFAULT="quiet splash text"
+   ```
+
+2. 执行 update-grub
+
+3. reboot
+
 ## IceGrid 应用进程权限
 
 **系统环境**

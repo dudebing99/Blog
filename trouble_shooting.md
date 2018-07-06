@@ -507,9 +507,7 @@ service ssh restart
 apt-get purge --remove libprotobuf*
 apt-get purge --remove protobuf-compiler
 # 借助 whereis/find 查找 protobuf 相关库、可执行程序、头文件并删除（根据实际情况调整）
-rm -rf /usr/local/lib/libprotobuf* /usr/lib/libprotobuf*
-rm -rf /usr/local/include/google/protobuf /usr/include/google/protobuf
-rm -rf /usr/local/bin/protoc
+rm -rf /usr/local/lib/libprotobuf* /usr/lib/libprotobuf* /usr/local/include/google/protobuf /usr/include/google/protobuf /usr/bin/protoc /usr/bin/X11/protoc
 ```
 
 2. 重新源码编译、安装高版本 protobuf

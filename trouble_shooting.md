@@ -513,3 +513,25 @@ rm -rf /usr/local/bin/protoc
 ```
 
 2. 重新源码编译、安装高版本 protobuf
+
+## [Ubuntu] error: C++ preprocessor "/lib/cpp" fails sanity check
+
+**系统环境**
+
+ 	Ubuntu 14.04
+
+**问题描述**
+
+​	Ubuntu 源码编译 protobuf，执行 ./configure 配置时检查出错，原因是缺少必要的 C++ 库 
+
+**解决方式**	
+
+```bash
+apt-get install build-essential g++ -y
+```
+
+> 如果是 CentOS，运行如下命令即可
+>
+> ```bash
+> yum install glibc-headers gcc-c++ -y
+> ```

@@ -50,7 +50,10 @@ public:
 public:
     void DoAction()
     {
-        m_strategy->AlgrithmInterface();
+        if (m_strategy)
+        {
+            m_strategy->AlgrithmInterface();
+        }   
     }
 
 private:

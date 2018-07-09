@@ -1289,6 +1289,23 @@ $ curl http://localhost:12306 -s
 Hello World!
 ```
 
+**wrk 压力测试**
+
+> 服务器压测表现良好，平均每秒能够处理 5 W 个请求。
+
+```bash
+[root@localhost ~]# wrk -t2 -c2000 -d10 http://192.168.2.99:12306/ 
+Running 10s test @ http://192.168.2.99:12306/
+  2 threads and 2000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    73.61ms  227.39ms   2.00s    90.46%
+    Req/Sec    25.59k     3.05k   30.56k    74.00%
+  509425 requests in 10.07s, 62.67MB read
+  Socket errors: connect 0, read 0, write 0, timeout 2085
+Requests/sec:  50577.10
+Transfer/sec:      6.22MB
+```
+
 ### gin 基础 HTTP 服务器
 
 **点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/server2.go)

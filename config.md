@@ -992,7 +992,7 @@ pip 10.0.1 from /usr/local/lib/python2.7/site-packages/pip (python 2.7)
 wget https://github.com/google/protobuf/releases/download/v3.5.1/protobuf-cpp-3.5.1.tar.gz
 tar -xzvf protobuf-cpp-3.5.1.tar.gz
 cd protobuf-3.5.1/
-./configure
+./configure --prefix=/usr
 make -j4
 make install
 ```

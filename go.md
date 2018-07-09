@@ -1242,8 +1242,6 @@ key3 not existed ,  <nil>
 
 ## HTTP 服务器
 
-### 基础 HTTP 服务器
-
 **功能：**
 
 - 启动一个 HTTP 服务器，监听 12306 端口
@@ -1253,6 +1251,45 @@ key3 not existed ,  <nil>
   | 请求类型 | 请求 URL | 备注 |
   | -------- | -------- | ---- |
   | `GET`    | `/`      |      |
+
+### 基础 HTTP 服务器
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/server1.go)
+
+```go
+package main
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+)
+
+type Hello struct{}
+
+func (h Hello) ServeHTTP(
+	w http.ResponseWriter,
+	r *http.Request) {
+	fmt.Fprint(w, "Hello World!")
+}
+
+func main() {
+	h := Hello{}
+	err := http.ListenAndServe("localhost:12306", h)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+```
+
+**输出**
+
+```basic
+$ curl http://localhost:12306 -s
+Hello World!
+```
+
+### gin 基础 HTTP 服务器
 
 **点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/server2.go)
 

@@ -1254,7 +1254,7 @@ key3 not existed ,  <nil>
   | -------- | -------- | ---- |
   | `GET`    | `/`      |      |
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/server.go)
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/server2.go)
 
 ```go
 package main

@@ -1108,7 +1108,7 @@ root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance whmD4M8Q8qbEx6R
 ff01020065cd1d00000000
 
 ```bash
-root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. createcontracttx whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1 117-1 0 ff01020065cd1d00000000 100000 0
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. createcontracttx wifkmPntk8XVuq2aTrNAxazDbn37GDDiHk 43096-1 0 ff01020065cd1d00000000 100000 0
 {
     "hash" : "502ed951f0e88f8e25d71e0332c315e837b72c390194cd0d64f2be49c75578a2"
 }

@@ -177,6 +177,15 @@ fi
 3 18 * * 5 sh /home/kevin/daily/auto.sh
 ```
 
+## GDB 小技巧
+
+### 基本操作
+
+```bash
+# 打印所有线程堆栈
+thread apply all bt
+```
+
 ## VIM 小技巧
 
 ```bash

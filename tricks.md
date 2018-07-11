@@ -182,6 +182,32 @@ fi
 ### 基本操作
 
 ```bash
+# 列出源码的一部分
+list
+
+# 单步调试，不进入函数
+next
+# 单步调试，进入函数
+step
+
+# 运行加载了的程序
+run
+# 继续执行程序
+continue
+# 退出调试
+quit
+
+# 输出特定变量的值
+print
+# 设置断点
+break
+#查看所有断点信息
+info break
+# 删除断点
+delete
+# 监视一个变量的值，一旦发生变化，程序将会被暂停
+watch
+
 # 打印所有线程堆栈
 thread apply all bt
 ```

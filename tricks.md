@@ -212,6 +212,25 @@ watch
 thread apply all bt
 ```
 
+### 调试 coredump
+
+- 生成 coredump 文件
+
+  ```bash
+  # 方式一
+  gcore -o xxx.core pid
+  
+  # 方式二
+  gdb attach pid
+  gcore
+  ```
+
+- 调试 coredump 文件
+
+  ```bash
+  gdb xxx -c xxx.core
+  ```
+
 ## VIM 小技巧
 
 ```bash

@@ -83,13 +83,15 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 
 ### TCP 连接建立（三次握手）
 
+![1531471996204](pic/tcp/connect.png)
+
 客户端 A，服务器 B，初始序号 seq，确认号 ack
 
 初始状态：B 处于监听状态，A 处于打开状态
 
 - A -> B : seq = x （A 向 B 发送连接请求报文段，A 进入同步发送状态 SYN-SENT）
-- B -> A : ack = x + 1,seq = y （B 收到报文段，向 A 发送确认，B 进入同步收到状态 SYN-RCVD）
-- A -> B : ack = y+1 （A 收到 B 的确认后，再次确认，A 进入连接状态 ESTABLISHED）
+- B -> A : ack = x + 1, seq = y （B 收到报文段，向 A 发送确认，B 进入同步收到状态 SYN-RCVD）
+- A -> B : ack = y + 1 （A 收到 B 的确认后，再次确认，A 进入连接状态 ESTABLISHED）
 
 连接后的状态：B 收到 A 的确认后，进入连接状态 ESTABLISHED
 

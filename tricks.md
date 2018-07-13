@@ -83,17 +83,13 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 
 ### TCP 连接建立（三次握手）
 
-![1531471996204](pic/tcp/connect.png)
+在 TCP/IP 协议中，TCP 协议提供可靠的连接服务，采用三次握手建立一个连接。
 
-客户端 A，服务器 B，初始序号 seq，确认号 ack
+- 第一次握手：建立连接时，客户端发送 `SYN` 到服务器，并进入 `SYN_SEND` 状态，等待服务器确认
+- 第二次握手：服务器收到 `SYN`，必须确认客户的 `SYN`，同时自己也发送一个 `SYN`，即 `SYN + ACK`，此时服务器 进入 `SYN_RECV` 状态
+- 第三次握手：客户端收到服务器的 `SYN＋ACK`，向服务器发送确认包 `ACK`，此包发送完毕，客户端和服务器进入 `ESTABLISHED` 状态，完成三次握手。 完成三次握手，客户端与服务器开始传送数据。
 
-初始状态：B 处于监听状态，A 处于打开状态
-
-- A -> B : seq = x （A 向 B 发送连接请求报文段，A 进入同步发送状态 SYN-SENT）
-- B -> A : ack = x + 1, seq = y （B 收到报文段，向 A 发送确认，B 进入同步收到状态 SYN-RCVD）
-- A -> B : ack = y + 1 （A 收到 B 的确认后，再次确认，A 进入连接状态 ESTABLISHED）
-
-连接后的状态：B 收到 A 的确认后，进入连接状态 ESTABLISHED
+![](pic/tcp/connect.png)
 
 > **为什么要三次握手？**
 >
@@ -101,23 +97,11 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 
 ### TCP 连接释放（四次挥手）
 
-- A -> B : seq = u （A 发出连接释放报文段，进入终止等待1状态 FIN-WAIT-1）
+在 TCP/IP 协议中，TCP 协议提供可靠的连接服务，采用四次握手释放一个连接。
 
-- B -> A : ack = u + 1, seq = v （B 收到报文段，发出确认，TCP 处于半关闭，B 还可向 A 发数据，B 进入关闭等待状态 CLOSE_WAIT）
-
-- B -> A : seq = w （B 发出连接释放报文段，进入最后确认状态 LAST-ACK）
-
-  **注意：**如果 B 收到 A 的 FIN 报文之后，无数据待发，上述两个步骤合并，即，B 发送一个既包含对 A 的 FIN 报文的确认，又包含主动发起的 FIN 报文。
-
-  B -> A : ack = u + 1, seq = w（即，FIN 报文序号为 w）
-
-- A -> B : ack = w + 1 （A 发出确认，进入时间等待状态 TIME-WAIT）
-
-经过 2MSL（Maximum Segment Lifetime）后，A 才进入 CLOSED 状态
-
-> **为什么 A 进入 TIME-WAIT 后必须等待 2MSL？**
+> **为什么 Client 进入 TIME-WAIT 后必须等待 2 MSL？**
 >
-> - 保证 A 发送的最后一个 ACK 报文段能达到 B
+> - 保证 Client 发送的最后一个 ACK 报文段能达到 Server
 > - 防止失效的报文段出现在连接中
 
 ## GDB 小技巧

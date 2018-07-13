@@ -142,41 +142,6 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 
 ![](pic/tcpdump/tcp_connect_fin_with_S_flag.png)
 
-## SVN 周报自动提交
-
-```bash
-#!/bin/sh
-
-# 说明：自动拉取上周已提交周报，并复制一份以当天日期命名的周报，逃脱检查周报是否提交。
-
-cd /home/kevin/daily/Kevin
-
-echo "svn update"
-svn up
-
-old_file=工作周报-Kevin-`date +%Y%m%d --date="-7 day"`.doc
-new_file=工作周报-Kevin-`date +%Y%m%d`.doc
-
-# 周报未提交，才进行操作
-if [ -f $new_file ]; then
-    echo "file existed, exit"
-    exit 0
-else
-    echo "create file"
-    cp $old_file $new_file
-
-    echo "commit file"
-    svn add $new_file
-    svn commit $new_file -m "M Commit week report"
-    exit 0
-fi
-```
-
-```bash
-# 添加 crontab 任务
-3 18 * * 5 sh /home/kevin/daily/auto.sh
-```
-
 ## GDB 小技巧
 
 ### 基本操作
@@ -390,58 +355,6 @@ git blame <filename>
 # 3. 以镜像推送到 project2 上，可以保留 project1 的所有提交记录
 git push --mirror git@github.com:dudebing99/project2.git
 ```
-
-## Windows 清理系统垃圾
-
-使用说明：保存为 clear.bat，双击运行即可。
-
-```bash
-@echo off
-echo 正在清除系统垃圾文件，请稍等......
-del /f /s /q %systemdrive%\*.tmp
-del /f /s /q %systemdrive%\*._mp
-del /f /s /q %systemdrive%\*.log
-del /f /s /q %systemdrive%\*.gid
-del /f /s /q %systemdrive%\*.chk
-del /f /s /q %systemdrive%\*.old
-del /f /s /q %windir%\*.bak
-del /f /s /q %windir%\prefetch\*.*
-rd /s /q %windir%\temp & md %windir%\temp
-del /f /q %userprofile%\cookies\*.*
-del /f /q %userprofile%\recent\*.*
-del /f /s /q "%userprofile%\Local Settings\Temporary Internet Files\*.*"
-del /f /s /q "%userprofile%\Local Settings\Temp\*.*"
-del /f /s /q "%userprofile%\recent\*.*"
-echo 清除系统垃圾完成！
-echo. & pause
-```
-
-## Windows 图标显示异常修复
-
-使用说明：保存为 icon_recover.bat，双击运行即可。
-
-```bash
-taskkill /f /im explorer.exe
-
-echo 清理系统图标缓存数据库
-attrib -h -s -r "%userprofile%\AppData\Local\IconCache.db"
-del /f "%userprofile%\AppData\Local\IconCache.db"
-attrib /s /d -h -s -r "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\*"
-del /f "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_32.db"
-del /f "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_96.db"
-del /f "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_102.db"
-del /f "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_256.db"
-del /f "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_1024.db"
-del /f "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_idx.db"
-del /f "%userprofile%\AppData\Local\Microsoft\Windows\Explorer\thumbcache_sr.db"
-
-start explorer
-```
-
-## Windows 上帝模式
-
-1. 在桌面新建一个文件夹
-2. 重命名为 GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}
 
 ## 同步机器时间、硬件时钟
 

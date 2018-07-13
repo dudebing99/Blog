@@ -79,7 +79,7 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 
 - java 程序，可以借助 jstack、jstat、jmap、jinfo 等查看进程的运行信息
 
-## tcpdump 抓包之三次握手、四次挥手
+## TCP 协议
 
 ### TCP 连接建立（三次握手）
 
@@ -117,30 +117,6 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 >
 > - 保证 A 发送的最后一个 ACK 报文段能达到 B
 > - 防止失效的报文段出现在连接中
-
-### tcpdump 抓包实例一（ack 相对序号）
-
->  **tcpdump 参数 -S：**-S     Print absolute, rather than relative, TCP sequence numbers.
->
-> 默认情况下，打印的 ack 序号是相对序号。
-
-1. 服务器端（172.13.31.14）监听 12345 端口
-2. 客户端（172.13.31.15）连接服务器
-3. 客户端向服务器端发送 hello
-4. 服务器端向客户端发送 world
-5. 服务器端主动关闭连接
-
-![](pic/tcpdump/tcp_connect_fin.png)
-
-### tcpdump 抓包实例二（ack 绝对序号）
-
-1. 服务器端（172.13.31.14）监听 12345 端口
-2. 客户端（172.13.31.15）连接服务器
-3. 客户端向服务器端发送 nice to meet you from client
-4. 服务器端向客户端发送 nice to meet you, too from server
-5. 服务器端主动关闭连接
-
-![](pic/tcpdump/tcp_connect_fin_with_S_flag.png)
 
 ## GDB 小技巧
 

@@ -81,7 +81,7 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 
 ## TCP 协议
 
-### TCP 连接建立（三次握手）
+### TCP 连接建立
 
 在 TCP/IP 协议中，TCP 协议提供可靠的连接服务，采用三次握手建立一个连接。
 
@@ -95,9 +95,11 @@ valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reacha
 >
 > 防止失效的连接请求突然传到服务器端，让服务器端误认为要建立连接。
 
-### TCP 连接释放（四次挥手）
+### TCP 连接释放
 
-在 TCP/IP 协议中，TCP 协议提供可靠的连接服务，采用四次握手释放一个连接。
+在 TCP/IP 协议中，TCP 协议提供可靠的连接服务，采用四次挥手释放一个连接。
+
+![](pic/tcp/disconnect.png)
 
 > **为什么 Client 进入 TIME-WAIT 后必须等待 2 MSL？**
 >

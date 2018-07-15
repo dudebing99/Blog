@@ -2,9 +2,33 @@
 
 ------
 
-## vagringd 的 memcheck 工具检测内存泄露
+## 内存泄露排查
 
-valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reachable=no --workaround-gcc296-bugs=yes ./a.out
+### 较为明显的内存泄漏
+
+> 通过系统自带的命令持续地观察进程内存的占用情况，即可发现有明显内存泄漏的进程；更进一步，当进程运行一段时间导致系统内存耗尽，将会被操作系统杀掉。
+
+- 利用 free 查看系统内存
+
+- 利用 top 查看进程占用内存
+
+  ```bash
+  top -d 1 -p pid
+  ```
+
+- 利用 ps 查看进程占用内存
+
+  ```bash
+  watch -n1 'ps -aux|grep -v grep|grep pid'
+  ```
+
+### 不太明显的内存泄漏
+
+- 利用 valgrind 工具查看内存分配、释放、泄漏
+
+  ```bash
+  valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reachable=no --workaround-gcc296-bugs=yes ./a.out
+  ```
 
 ## 进程异常排查
 

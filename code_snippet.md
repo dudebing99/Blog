@@ -3872,3 +3872,31 @@ if __name__ == '__main__':
         sys.exit()
 ```
 
+## [Lua] 求最大值
+
+```lua
+function maximum(a)
+    local mi = 1        -- maximum index
+    local mv = a[mi]    -- maximum value
+
+    for i, val in ipairs(a) do
+        if val > mv then
+            mi = i
+            mv = val
+        end
+    end
+    
+    return mi, mv
+end
+
+print(maximum({12, 99, 28, 49, 92, 5}))
+```
+
+**输出**
+
+```ba
+2       99
+```
+
+
+

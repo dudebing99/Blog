@@ -3929,3 +3929,21 @@ h       e       l       l       o
 3       o
 ```
 
+## [Lua] 不定参数与格式化
+
+```lua
+function fwrite(fmt, ...)
+    return io.write(string.format(fmt, unpack(arg)))
+end
+
+fwrite("greetings: %s\n", "hello")
+fwrite("%s, %s%d\n", "hello", "dudebing", 99)
+```
+
+**输出**
+
+```bash
+greetings: hello
+hello, dudebing99
+```
+

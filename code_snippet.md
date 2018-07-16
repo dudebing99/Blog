@@ -3898,5 +3898,34 @@ print(maximum({12, 99, 28, 49, 92, 5}))
 2       99
 ```
 
+## [Lua] 解包 unpack
 
+```lua
+function unpack(t, i)
+    i = i or 1
+
+    if t[i] ~= nil then
+        return t[i], unpack(t, i + 1)
+    end
+end
+
+local t = {'h', 'e', 'l', 'l', 'o'}
+
+print(unpack(t))
+
+local t2 = {unpack(t, 3)}
+
+for i, v in ipairs(t2) do
+    print(i, v)
+end
+```
+
+**输出**
+
+```bash
+h       e       l       l       o
+1       l
+2       l
+3       o
+```
 

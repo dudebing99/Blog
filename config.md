@@ -964,7 +964,7 @@ make install
 
 3. 使用 siege -h 查看简要使用说明；使用 man siege 查看详细使用说明，包括示例。
 
-## CentOS 安装 wrk
+## CentOS/Ubuntu 安装 wrk
 
 > 一个简单的 http benchmark 工具，能做很多基本的 http 性能测试，wrk 能用很少的线程压出很大的并发量。
 

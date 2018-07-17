@@ -140,7 +140,7 @@
 
 ![](pic/wrk/wrk.png)
 
-### wrk的全局属性
+#### wrk的全局属性
 
 ```lua
 wrk = {
@@ -177,7 +177,7 @@ thread提供了 1 个属性，3 个方法
 - thread:set(name, value) 设置线程全局变量
 - thread:stop() 终止线程
 
- ### 运行阶段
+### 运行阶段
 
 > init 由测试线程调用，只会在进入运行阶段时，调用一次。支持从启动 wrk 的命令中，获取命令行参数； delay 在每次发送 request 之前调用，如果需要 delay，那么 delay 相应时间； request 用来生成请求；每一次请求都会调用该方法，所以注意不要在该方法中做耗时的操作； reponse 在每次收到一个响应时调用；为提升性能，如果没有定义该方法，那么 wrk 不会解析 headers 和 body。
 
@@ -217,7 +217,7 @@ summary = {
 
 ### 示例 1
 
-> 启动 4 个线程，创建 100 个连接，持续 10s，请求百度主页
+> 启动 4 个线程，创建 100 个连接，持续 10s，请求百度主页（**支持 HTTP/HTTPS**）
 
 ```bash
 root@ubuntu:~/wrk# wrk -t4 -c100 -d10s https://www.baidu.com
@@ -241,6 +241,8 @@ Transfer/sec:     35.89MB
 ```lua
 wrk.method = "POST"  
 wrk.body   = ""
+-- 可以根据实际接口请求路径修改
+wrk.path   = "/"
 wrk.headers["Content-Type"] = "text/plain" 
 
 -- 每次修改充值积分值，保证每次交易都能成功提交，否则，可能因为交易仍在内存池中，

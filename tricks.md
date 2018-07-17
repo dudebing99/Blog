@@ -155,7 +155,7 @@ wrk = {
 }
 ```
 
-### wrk 的全局方法
+#### wrk 的全局方法
 
 ```lua
 -- 生成整个 request 的 string，与全局属性 wrk table 配合使用
@@ -166,7 +166,7 @@ function wrk.lookup(host, service)
 function wrk.connect(addr)
 ```
 
-### 启动阶段
+#### 启动阶段
 
 > 在脚本文件中实现 setup 方法，wrk 就会在测试线程已经初始化但还没有启动的时候调用该方法。wrk 会为每一个测试线程调用一次 setup 方法，并传入代表测试线程的对象 thread 作为参数。setup 方法中可操作该thread 对象，获取信息、存储信息、甚至关闭该线程。 
 
@@ -177,7 +177,7 @@ thread提供了 1 个属性，3 个方法
 - thread:set(name, value) 设置线程全局变量
 - thread:stop() 终止线程
 
-### 运行阶段
+#### 运行阶段
 
 > init 由测试线程调用，只会在进入运行阶段时，调用一次。支持从启动 wrk 的命令中，获取命令行参数； delay 在每次发送 request 之前调用，如果需要 delay，那么 delay 相应时间； request 用来生成请求；每一次请求都会调用该方法，所以注意不要在该方法中做耗时的操作； reponse 在每次收到一个响应时调用；为提升性能，如果没有定义该方法，那么 wrk 不会解析 headers 和 body。
 
@@ -186,7 +186,7 @@ thread提供了 1 个属性，3 个方法
 - function request()  每次请求调用 1 次，返回 http 请求  
 - function response(status, headers, body)  每次请求调用 1 次，返回 http 响应
 
-### 结束阶段
+#### 结束阶段
 
 > 该方法在整个测试过程中只会调用一次，可从参数给定的对象中，获取压测结果，生成定制化的测试报告。 
 
@@ -215,7 +215,26 @@ summary = {
 }
 ```
 
-### 示例 1
+#### wrk 使用手册
+
+```basic
+使用方法: wrk <选项> <被测 HTTP 服务的 URL>                            
+  Options:                                            
+	-c, --connections <N>  跟服务器建立并保持的 TCP 连接数量  
+    -d, --duration    <T>  压测时间           
+    -t, --threads     <N>  使用多少个线程进行压测   
+                                                      
+	-s, --script      <S>  指定 Lua 脚本路径       
+	-H, --header      <H>  为每一个 HTTP 请求添加 HTTP 头      
+        --latency          在压测结束后，打印延迟统计信息   
+        --timeout     <T>  超时时间     
+	-v, --version          打印正在使用的 wrk 的详细版本信息
+                                                      
+  <N>代表数字参数，支持国际单位 (1k, 1M, 1G)
+  <T>代表时间参数，支持时间单位 (2s, 2m, 2h)
+```
+
+#### 示例 1
 
 > 启动 4 个线程，创建 100 个连接，持续 10s，请求百度主页（**支持 HTTP/HTTPS**）
 
@@ -232,7 +251,14 @@ Requests/sec:   2439.09
 Transfer/sec:     35.89MB
 ```
 
-### 示例 2
+**结果分析：**
+
+- avg/stddev/max 平均值/标准差/最大值
+- +/- stddev 正负一个标准差，落在正负一个标准差的次数所占比重，值越大数据越稳定
+- latency 时延，对应响应时间
+- request/sec 每秒钟请求数，值越大性能越高
+
+#### 示例 2
 
 > 启动 4 个线程，创建 100 个连接，持续 10s，每个请求发送不同的数据
 

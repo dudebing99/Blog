@@ -260,6 +260,27 @@ Transfer/sec:     35.89MB
 
 #### 示例 2
 
+> 每个线程要先进行认证，认证之后获取 token 以进行压测。在没有token的情况下，先访问 /authenticate 认证。认证成功后，读取 token 并替换 path 为 /resource。
+
+```lua
+token = nil
+path  = "/authenticate"
+
+request = function()
+   return wrk.format("GET", path)
+end
+
+response = function(status, headers, body)
+   if not token and status == 200 then
+      token = headers["X-Token"]
+      path  = "/resource"
+      wrk.headers["X-Token"] = token
+   end
+end
+```
+
+#### 示例 3
+
 > 启动 4 个线程，创建 100 个连接，持续 10s，每个请求发送不同的数据
 
 脚本内容如下所示

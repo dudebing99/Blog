@@ -130,6 +130,160 @@
 > - 保证 Client 发送的最后一个 ACK 报文段能达到 Server
 > - 防止失效的报文段出现在连接中
 
+## HTTP 压力测试
+
+### wrk
+
+> - wrk 是一款现代化的 http 压测工具，提供 lua 脚本的功能可以满足每个请求或部分请求的差异化
+> - wrk 中执行 http 请求的时候，调用 lua 分为3个阶段，setup，running，done，每个 wrk 线程中都有独立的脚本环境
+> - 可以参考 [wrk benchmark](https://github.com/wg/wrk) 项目包含的样例（目录 scripts）以及说明（SCRIPTING）
+
+![](assets/wrk.png)
+
+### wrk的全局属性
+
+```lua
+wrk = {
+  scheme  = "http",
+  host    = "localhost",
+  port    = nil,
+  method  = "GET",
+  path    = "/",
+  headers = {},
+  body    = nil,
+  thread  = <userdata>,
+}
+```
+
+### wrk 的全局方法
+
+```lua
+-- 生成整个 request 的 string，与全局属性 wrk table 配合使用
+function wrk.format(method, path, headers, body)
+-- 获取域名的 IP 和端口，返回 table
+function wrk.lookup(host, service)
+-- 判断 addr 是否能连接，例如：`127.0.0.1:80`，返回 true 或 false
+function wrk.connect(addr)
+```
+
+### 启动阶段
+
+> 在脚本文件中实现 setup 方法，wrk 就会在测试线程已经初始化但还没有启动的时候调用该方法。wrk 会为每一个测试线程调用一次 setup 方法，并传入代表测试线程的对象 thread 作为参数。setup 方法中可操作该thread 对象，获取信息、存储信息、甚至关闭该线程。 
+
+thread提供了 1 个属性，3 个方法 
+
+- thread.addr 设置请求需要打到的 ip
+- thread:get(name) 获取线程全局变量
+- thread:set(name, value) 设置线程全局变量
+- thread:stop() 终止线程
+
+ ### 运行阶段
+
+> init 由测试线程调用，只会在进入运行阶段时，调用一次。支持从启动 wrk 的命令中，获取命令行参数； delay 在每次发送 request 之前调用，如果需要 delay，那么 delay 相应时间； request 用来生成请求；每一次请求都会调用该方法，所以注意不要在该方法中做耗时的操作； reponse 在每次收到一个响应时调用；为提升性能，如果没有定义该方法，那么 wrk 不会解析 headers 和 body。
+
+- function init(args)  每个线程仅调用 1 次，args 用于获取命令行中传入的参数, 例如 --env=pre
+- function delay()  每次请求调用 1 次，发送下一个请求之前的延迟, 单位为 ms 
+- function request()  每次请求调用 1 次，返回 http 请求  
+- function response(status, headers, body)  每次请求调用 1 次，返回 http 响应
+
+### 结束阶段
+
+> 该方法在整个测试过程中只会调用一次，可从参数给定的对象中，获取压测结果，生成定制化的测试报告。 
+
+```lua
+function done(summary, latency, requests)
+
+
+latency.min              -- minimum value seen
+latency.max              -- maximum value seen
+latency.mean             -- average value seen
+latency.stdev            -- standard deviation
+latency:percentile(99.0) -- 99th percentile value
+latency(i)               -- raw value and count
+
+summary = {
+  duration = N,  -- run duration in microseconds
+  requests = N,  -- total completed requests
+  bytes    = N,  -- total bytes received
+  errors   = {
+    connect = N, -- total socket connection errors
+    read    = N, -- total socket read errors
+    write   = N, -- total socket write errors
+    status  = N, -- total HTTP status codes > 399
+    timeout = N  -- total request timeouts
+  }
+}
+```
+
+### 示例 1
+
+> 启动 4 个线程，创建 100 个连接，持续 10s，请求百度主页
+
+```bash
+root@ubuntu:~/wrk# wrk -t4 -c100 -d10s https://www.baidu.com
+Running 10s test @ https://www.baidu.com
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    77.65ms  122.51ms   1.88s    88.42%
+    Req/Sec   618.40    200.60     1.25k    77.58%
+  24500 requests in 10.04s, 360.47MB read
+  Socket errors: connect 0, read 130, write 0, timeout 0
+Requests/sec:   2439.09
+Transfer/sec:     35.89MB
+```
+
+### 示例 2
+
+> 启动 4 个线程，创建 100 个连接，持续 10s，每个请求发送不同的数据
+
+脚本内容如下所示
+
+```lua
+wrk.method = "POST"  
+wrk.body   = ""
+wrk.headers["Content-Type"] = "text/plain" 
+
+-- 每次修改充值积分值，保证每次交易都能成功提交，否则，可能因为交易仍在内存池中，
+-- 判定为同一笔交易导致提交失败。当然，也可在脚本中每次选用不同的目标账户进行充值。
+local value = 1
+local a = '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", \"method\": \"creditrechargetx\", \"params\": [\"wWPAztEx3m5hArykWaH3qQZ13NtxaZXJts\", \"82908-1\", 0, 10000, 0, \"wNYc86E6JVvQfmgzQDESR81J7UuLtt9WDx\", '
+local b = '] }'
+
+request = function()
+
+    local data = string.format("%s%d%s", a, value, b)
+    value = value + 1
+
+    return wrk.format(nil, nil, nil, data)
+end
+
+-- 请求之间设置 30~40 ms 的随机延迟
+--function delay()
+--   return math.random(30, 40)
+--end
+
+-- 可打印响应内容
+--response = function(status, headers, body)
+--    print(string.format("status: %d", status))
+--    print(body)
+--end
+```
+
+执行压测用例
+
+```bash
+root@ubuntu:~/wrk# wrk -t4 -c100 -d10s -s creditrecharge.lua http://192.168.1.213:6901
+Running 10s test @ http://192.168.1.213:6901
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   688.24ms  363.88ms   2.00s    84.39%
+    Req/Sec    52.32     50.44   242.00     83.33%
+  1435 requests in 10.09s, 667.72KB read
+  Socket errors: connect 0, read 0, write 0, timeout 15
+Requests/sec:    142.25
+Transfer/sec:     66.19KB
+```
+
 ## GDB 小技巧
 
 ### 基本操作

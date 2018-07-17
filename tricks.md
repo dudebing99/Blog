@@ -138,7 +138,7 @@
 > - wrk 中执行 http 请求的时候，调用 lua 分为3个阶段，setup，running，done，每个 wrk 线程中都有独立的脚本环境
 > - 可以参考 [wrk benchmark](https://github.com/wg/wrk) 项目包含的样例（目录 scripts）以及说明（SCRIPTING）
 
-![](assets/wrk.png)
+![](pic/wrk/wrk.png)
 
 ### wrk的全局属性
 

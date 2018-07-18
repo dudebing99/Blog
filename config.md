@@ -2096,7 +2096,7 @@ root@ibc-VirtualBox:~/chaincode/tmp#
 **修改后**
 
 ```bash
-root:~# 
+root:fabric#
 ```
 
 

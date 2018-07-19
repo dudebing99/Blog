@@ -2099,6 +2099,27 @@ root@ibc-VirtualBox:~/chaincode/tmp#
 root:fabric#
 ```
 
+## golang 1.9.7 安装
 
+1. 下载安装
 
- 
+```bash
+tar -xzvf go1.9.7.linux-amd64.tar.gz
+mv go /usr/local
+```
+
+2. 设置环境变量（/etc/profile 添加）
+
+```bash
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOROOT/bin
+# 设置 golang 工作空间，根据实际情况修改
+export GOPATH=/opt/go
+```
+
+3. 使环境变量生效
+
+```bash
+source /etc/profile
+```
+

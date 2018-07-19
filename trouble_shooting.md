@@ -558,3 +558,23 @@ apt-get install build-essential g++ -y
 > ```bash
 > yum install glibc-headers gcc-c++ -y
 > ```
+
+## package xxx: cannot download, $GOPATH not set. For more details see: go help gopath
+
+**系统环境**
+
+ 	Linux
+
+**问题描述**
+
+​	运行 go get 下载出错，错误信息如上，提示未设置 GOPATH 环境变量
+
+**解决方式**	
+
+```bash
+# 根据实际工程路径修改
+echo "export GOPATH=$HOME/go" >> /etc/profile
+# 使环境变量生效
+soure /etc/profile
+```
+

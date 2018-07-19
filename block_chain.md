@@ -12,6 +12,7 @@
 > - [stratum 协议原理](http://www.8btc.com/stratum_protocol)
 > - [图灵完备维基百科](https://en.wikipedia.org/wiki/Turing_completeness)
 > - [币科技](https://www.bikeji.com)
+> - [基于区块链的存证业务构想](https://zhuanlan.zhihu.com/p/33462619)
 
 ## 比特币 bitcoin
 

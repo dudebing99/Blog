@@ -2112,9 +2112,9 @@ mv go /usr/local
 
 ```bash
 export GOROOT=/usr/local/go
-export PATH=$PATH:$GOROOT/bin
 # 设置 golang 工作空间，根据实际情况修改
 export GOPATH=/opt/go
+export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 ```
 
 3. 使环境变量生效

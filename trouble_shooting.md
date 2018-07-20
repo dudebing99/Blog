@@ -559,7 +559,7 @@ apt-get install build-essential g++ -y
 > yum install glibc-headers gcc-c++ -y
 > ```
 
-## package xxx: cannot download, $GOPATH not set. For more details see: go help gopath
+## [Golang] package xxx: cannot download, $GOPATH not set. For more details see: go help gopath
 
 **系统环境**
 
@@ -576,5 +576,33 @@ apt-get install build-essential g++ -y
 echo "export GOPATH=$HOME/go" >> /etc/profile
 # 使环境变量生效
 soure /etc/profile
+```
+
+## [Ethereum] unexpected directory layout
+
+**系统环境**
+
+ 	Ubuntu 14.04
+
+**问题描述**
+
+​	源码编译以太坊，运行 go install ./cmd/geth 报错，详细错误如下
+
+```bash
+unexpected directory layout:
+        import path: github.com/elastic/gosigar
+        root: /root/go/src
+        dir: /root/go/src/github.com/ethereum/go-ethereum/vendor/github.com/elastic/gosigar
+        expand root: /root/go/src
+        expand dir: /root/go/src/github.com/ethereum/go-ethereum/vendor/github.com/elastic/gosigar
+        separator: /
+```
+
+**解决方式**	
+
+​	安装缺失的库
+
+```bash
+go get -u -v github.com/elastic/gosigar
 ```
 

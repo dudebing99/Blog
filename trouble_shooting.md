@@ -578,6 +578,33 @@ echo "export GOPATH=$HOME/go" >> /etc/profile
 soure /etc/profile
 ```
 
+## [Golang] go-get=1: dial tcp  i/o timeout)
+
+**系统环境**
+
+ 	Linux
+
+**问题描述**
+
+​	运行 go get 下载出错，提示 i/o 超时
+
+```basic
+Fetching <https://golang.org/x/net/html?go-get=1> https fetch failed: Get <https://golang.org/x/net/html?go-get=1>: dial tcp 216.239.37.1:443: i/o timeout package golang.org/x/net/html: unrecognized import path "golang.org/x/net/html" (https fetch: Get <https://golang.org/x/net/html?go-get=1>: dial tcp 216.239.37.1:443: i/o timeout) 
+```
+
+**原因分析**
+
+​	因为 the fucking gfw，导致无法直接通过 go get 下载，需要 git clone 对应仓库到本地并放到对应的目录，即，完成 go get 做的工作。缺少其他包，可采用同样的方式解决。
+
+**解决方式**	
+
+```bash
+# 需要设置 GOPATH 环境变量
+mkdir -p $GOPATH/src/golang.org/x
+cd $GOPATH/src/golang.org/x
+git clone https://github.com/golang/text.git
+```
+
 ## [Ethereum] unexpected directory layout
 
 **系统环境**

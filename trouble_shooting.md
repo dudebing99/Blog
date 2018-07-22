@@ -48,7 +48,7 @@ resize2fs -p /dev/mapper/VolGroup-lv_root
 
 **系统环境**
 
-​	CentOS/VMware® Workstation 12 Pro 
+​	CentOS/VMware® Workstation 12 Pro
 
 **问题描述**
 
@@ -63,7 +63,7 @@ blacklist i2c_piix4
 
 **系统环境**
 
-CentOS/VMware® Workstation 12 Pro 
+CentOS/VMware® Workstation 12 Pro
 
 **问题描述**
 
@@ -78,7 +78,7 @@ blacklist intel_rapl
 
 **系统环境**
 
-CentOS/VMware® Workstation 12 Pro 
+CentOS/VMware® Workstation 12 Pro
 
 **问题描述**
 
@@ -110,11 +110,11 @@ CentOS/VMware® Workstation 12 Pro
 
 **解决方式**
 
-​	执行如下 SQL  报错：INSERT into tb_map(key, value) VALUES('a',' 123'); 
+​	执行如下 SQL  报错：INSERT into tb_map(key, value) VALUES('a',' 123');
 
 > key 是 MySQL 关键字之一
 
-正确写法：INSERT into tb_map(\`key\`, value) VALUES('a',' 123'); 
+正确写法：INSERT into tb_map(\`key\`, value) VALUES('a',' 123');
 
 > 使用 转义符号：\`关键字\`
 
@@ -448,7 +448,7 @@ def get_db_conn(mysql_config):
 
 ​	Ubuntu shell 下默认的脚本解析器是 dash，会使一些 bash 脚本执行失败。
 
-**解决方式**	
+**解决方式**
 
 ​	通过如下方式改回 bash:
 	sudo dpkg-reconfigure dash
@@ -468,7 +468,7 @@ def get_db_conn(mysql_config):
 
 ​	缺少 libreadline-dev 依赖包
 
-**解决方式**	
+**解决方式**
 
 ​	执行  apt-get install libreadline-dev
 
@@ -482,7 +482,7 @@ def get_db_conn(mysql_config):
 
 ​	安装 ssh 服务之后，root 账户无法 ssh 登陆，提示权限不足
 
-**解决方式**	
+**解决方式**
 
 1. 修改 /etc/ssh/sshd_config
 
@@ -506,7 +506,7 @@ service ssh restart
 
 ​	忘记 root 登陆密码
 
-**解决方式**	
+**解决方式**
 
 1. 开机引导界面，选择“Ubuntu 高级选项”，回车
 2. 选择“Ubuntu <省略> recovery mode”，按 “e" 键进行编辑
@@ -524,7 +524,7 @@ service ssh restart
 
 ​	Ubuntu 系统自带 protobuf，项目中使用高版本 protobuf（由源码编译），与系统自带的产生冲突，导致项目编译、链接失败
 
-**解决方式**	
+**解决方式**
 
 1. 彻底卸载系统自带 protobuf
 
@@ -545,9 +545,9 @@ rm -rf /usr/local/lib/libprotobuf* /usr/lib/libprotobuf* /usr/lib/x86_64-linux-g
 
 **问题描述**
 
-​	Ubuntu 源码编译 protobuf，执行 ./configure 配置时检查出错，原因是缺少必要的 C++ 库 
+​	Ubuntu 源码编译 protobuf，执行 ./configure 配置时检查出错，原因是缺少必要的 C++ 库
 
-**解决方式**	
+**解决方式**
 
 ```bash
 apt-get install build-essential g++ -y
@@ -559,7 +559,7 @@ apt-get install build-essential g++ -y
 > yum install glibc-headers gcc-c++ -y
 > ```
 
-## package xxx: cannot download, $GOPATH not set. For more details see: go help gopath
+## [Golang] package xxx: cannot download, $GOPATH not set. For more details see: go help gopath
 
 **系统环境**
 
@@ -569,12 +569,67 @@ apt-get install build-essential g++ -y
 
 ​	运行 go get 下载出错，错误信息如上，提示未设置 GOPATH 环境变量
 
-**解决方式**	
+**解决方式**
 
 ```bash
 # 根据实际工程路径修改
 echo "export GOPATH=$HOME/go" >> /etc/profile
 # 使环境变量生效
 soure /etc/profile
+```
+
+## [Golang] go-get=1: dial tcp  i/o timeout)
+
+**系统环境**
+
+ 	Linux
+
+**问题描述**
+
+​	运行 go get 下载出错，提示 i/o 超时
+
+```basic
+Fetching <https://golang.org/x/net/html?go-get=1> https fetch failed: Get <https://golang.org/x/net/html?go-get=1>: dial tcp 216.239.37.1:443: i/o timeout package golang.org/x/net/html: unrecognized import path "golang.org/x/net/html" (https fetch: Get <https://golang.org/x/net/html?go-get=1>: dial tcp 216.239.37.1:443: i/o timeout)
+```
+
+**原因分析**
+
+​	因为 the fucking gfw，导致无法直接通过 go get 下载，需要 git clone 对应仓库到本地并放到对应的目录，即，完成 go get 做的工作。缺少其他包，可采用同样的方式解决。
+
+**解决方式**
+
+```bash
+# 需要设置 GOPATH 环境变量
+mkdir -p $GOPATH/src/golang.org/x
+cd $GOPATH/src/golang.org/x
+git clone https://github.com/golang/text.git
+```
+
+## [Ethereum] unexpected directory layout
+
+**系统环境**
+
+ 	Ubuntu 14.04
+
+**问题描述**
+
+​	源码编译以太坊，运行 go install ./cmd/geth 报错，详细错误如下
+
+```bash
+unexpected directory layout:
+        import path: github.com/elastic/gosigar
+        root: /root/go/src
+        dir: /root/go/src/github.com/ethereum/go-ethereum/vendor/github.com/elastic/gosigar
+        expand root: /root/go/src
+        expand dir: /root/go/src/github.com/ethereum/go-ethereum/vendor/github.com/elastic/gosigar
+        separator: /
+```
+
+**解决方式**
+
+​	安装缺失的库
+
+```bash
+go get -u -v github.com/elastic/gosigar
 ```
 

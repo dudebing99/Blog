@@ -784,7 +784,7 @@ export PATH=$PATH:$ICE_HOME/bin
 	ftp://ftp.gnu.org/gnu/gmp/gmp-4.3.2.tar.bz2
 	http://www.mpfr.org/mpfr-2.4.2/mpfr-2.4.2.tar.bz2
 	http://www.multiprecision.org/mpc/download/mpc-0.8.1.tar.gz
-	
+
 	备用下载地址：http://ftp.vim.org/languages/gcc/infrastructure/
 
 2. 编译、安装依赖包
@@ -937,7 +937,7 @@ redis_server /etc/redis/redis.conf
 ```
 
 ```bash
-[root@localhost ~]# redis-cli 
+[root@localhost ~]# redis-cli
 127.0.0.1:6379> ping
 PONG
 127.0.0.1:6379> set name kevin
@@ -1030,7 +1030,7 @@ zookeeper-3.4.6 安装配置
     2.3    将2.2中authorized_keys拷贝到每台机器~/.ssh
 
 3. 下载 zookeeper-3.4.6
-    wget http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz 
+    wget http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz
 
 4. 解压，添加环境变量 /etc/profile
     export ZOOKEEPER_HOME=/app/zookeeper-3.4.6
@@ -1039,14 +1039,14 @@ zookeeper-3.4.6 安装配置
 5. 配置/app/zookeeper-3.4.6/zoo.cfg
 # The number of milliseconds of each tick
 tickTime=2000
-# The number of ticks that the initial 
+# The number of ticks that the initial
 # synchronization phase can take
 initLimit=10
-# The number of ticks that can pass between 
+# The number of ticks that can pass between
 # sending a request and getting an acknowledgement
 syncLimit=5
 # the directory where the snapshot is stored.
-# do not use /tmp for storage, /tmp here is just 
+# do not use /tmp for storage, /tmp here is just
 # example sakes.
 dataDir=/app/zookeeper-3.4.6/snapshot
 dataLogDir=/app/zookeeper-3.4.6/log
@@ -1056,7 +1056,7 @@ clientPort=2181
 # increase this if you need to handle more clients
 #maxClientCnxns=60
 #
-# Be sure to read the maintenance section of the 
+# Be sure to read the maintenance section of the
 # administrator guide before turning on autopurge.
 #
 # http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance
@@ -1069,7 +1069,7 @@ clientPort=2181
 server.1=master:2888:3888
 server.2=node1:2888:3888
 server.3=node2:2888:3888
-   
+
 6. 配置 /app/zookeeper-3.4.6/snapshot/myid
 （备注：创建myid：在zoo.cfg配置文件中的 dataDir 的目录下面创建 myid，每个节点myid要求不一样）
 master：echo 1 > /app/zookeeper-3.4.6/snapshot/myid
@@ -1115,7 +1115,7 @@ broker.id=0
 
 ############################# Socket Server Settings #############################
 
-# The address the socket server listens on. It will get the value returned from 
+# The address the socket server listens on. It will get the value returned from
 # java.net.InetAddress.getCanonicalHostName() if not configured.
 #   FORMAT:
 #     listeners = security_protocol://host_name:port
@@ -1123,7 +1123,7 @@ broker.id=0
 #     listeners = PLAINTEXT://your.host.name:9092
 listeners=PLAINTEXT://master:9092
 
-# Hostname and port the broker will advertise to producers and consumers. If not set, 
+# Hostname and port the broker will advertise to producers and consumers. If not set,
 # it uses the value for "listeners" if configured.  Otherwise, it will use the value
 # returned from java.net.InetAddress.getCanonicalHostName().
 #advertised.listeners=PLAINTEXT://your.host.name:9092
@@ -1382,7 +1382,7 @@ server {
     server_name             api.danbay.cn;
     root         		    /usr/share/nginx/html;
     ssl             		on;
-    error_page 497          https://$host:443$uri; 
+    error_page 497          https://$host:443$uri;
     #error_page 497         https://$host:443$request_uri?$args;
 
     ssl_certificate         /etc/letsencrypt/live/dev3.danbay.cn/fullchain.pem;
@@ -1429,7 +1429,7 @@ server {
     ssl             		on;
 
     #error_page 497         https://$host:443$uri?$args;
-    error_page 497          https://$host:443$request_uri; 
+    error_page 497          https://$host:443$request_uri;
 
     ssl_certificate         /etc/letsencrypt/live/api.danbay.cn/fullchain.pem;
     ssl_certificate_key     /etc/letsencrypt/live/api.danbay.cn/privkey.pem;
@@ -1487,7 +1487,7 @@ yum install -y readline-devel sqlite-devel lz4 lz4-devel gdbm gdbm-devel bzip2 o
 
 ```bash
 # 下载、安装 Python 2.7.3
-wget http://python.org/ftp/python/2.7.3/Python-2.7.3.tar.bz2 
+wget http://python.org/ftp/python/2.7.3/Python-2.7.3.tar.bz2
 tar -jxvf Python-2.7.3.tar.bz2
 cd Python-2.7.3
 ./configure
@@ -1546,8 +1546,8 @@ ln -sf /usr/local/bin/curl /usr/bin/curl
 # 查看 CURL 版本以及所有支持的协议、特性
 [root@localhost curl-7.46.0]# curl --version
 curl 7.46.0 (x86_64-pc-linux-gnu) libcurl/7.46.0 OpenSSL/1.0.1e zlib/1.2.3 nghttp2/1.14.1
-Protocols: dict file ftp ftps gopher http https imap imaps pop3 pop3s rtsp smb smbs smtp smtps telnet tftp 
-Features: IPv6 Largefile NTLM NTLM_WB SSL libz HTTP2 UnixSockets 
+Protocols: dict file ftp ftps gopher http https imap imaps pop3 pop3s rtsp smb smbs smtp smtps telnet tftp
+Features: IPv6 Largefile NTLM NTLM_WB SSL libz HTTP2 UnixSockets
 
 # 如下提示则表明此版本 CURL 支持 http2
 [root@localhost curl-7.46.0]# curl --http2 -I https://nghttp2.org/
@@ -1644,12 +1644,12 @@ libprotoc 3.5.1
 
 ```bash
 $ go version
-go version go1.10.1 windows/amd64	
+go version go1.10.1 windows/amd64
 ```
 
 > **安装时勾选添加环境变量，不需要单独添加环境变量；否则，需要新添加环境变量，如下：**
 >
-> ​	计算机（右键）-> 属性 -> 高级系统设置 -> 高级 -> 环境变量 -> 系统变量 
+> ​	计算机（右键）-> 属性 -> 高级系统设置 -> 高级 -> 环境变量 -> 系统变量
 >
 > - 添加 变量名 GOROOT，值为安装目录，如  C:\app\Go\
 > - 变量名 Path，追加值  C:\app\Go\bin;
@@ -1724,7 +1724,7 @@ apt-get update
 sudo apt-get install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev software-properties-common -y
 sudo add-apt-repository ppa:bitcoin/bitcoin
 sudo apt-get update
-sudo apt-get install libdb4.8-dev libdb4.8++-dev 
+sudo apt-get install libdb4.8-dev libdb4.8++-dev
 sudo apt-get install libminiupnpc-dev libzmq3-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev -y
 ```
 
@@ -1754,20 +1754,20 @@ Options used to compile and link:
   with bench    = yes
   with upnp     = yes
   use asm       = yes
-  sanitizers    = 
+  sanitizers    =
   debug enabled = no
   gprof enabled = no
   werror        = no
 
   target os     = linux
-  build os      = 
+  build os      =
 
   CC            = gcc
   CFLAGS        = -g -O2
   CPPFLAGS      =   -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2  -DHAVE_BUILD_INFO -D__STDC_FORMAT_MACROS
   CXX           = g++ -std=c++11
   CXXFLAGS      =   -Wstack-protector -fstack-protector-all  -Wall -Wextra -Wformat -Wvla -Wformat-security  -Wno-unused-parameter   -g -O2
-  LDFLAGS       = -pthread  -Wl,-z,relro -Wl,-z,now -pie  
+  LDFLAGS       = -pthread  -Wl,-z,relro -Wl,-z,now -pie
   ARFLAGS       = cr
 ```
 
@@ -1933,11 +1933,11 @@ make install
      ```basic
      set INCLUDE=C:\deps\libpng-1.6.16;C:\deps\openssl-1.0.1l\include
      set LIB=C:\deps\libpng-1.6.16\.libs;C:\deps\openssl-1.0.1l
-     
+
      cd C:\Qt\5.3.2
      configure.bat -release -opensource -confirm-license -static -make libs -no-sql-sqlite -no-opengl -system-zlib -qt-pcre -no-icu -no-gif -system-libpng -no-libjpeg -no-freetype -no-angle -no-vcproj -openssl -no-dbus -no-audio-backend -no-wmf-backend -no-qml-debug
      mingw32-make -j4
-     
+
      set PATH=%PATH%;C:\Qt\5.3.2\bin
      cd C:\Qt\qttools-opensource-src-5.3.2
      qmake qttools.pro
@@ -1954,9 +1954,9 @@ make install
 
    ```basic
    cd /c/bitcoin-0.9.4
-   
+
    ./autogen.sh
-   
+
    CPPFLAGS="-I/c/deps/db-4.8.30.NC/build_unix \
    -I/c/deps/openssl-1.0.1l/include \
    -I/c/deps \
@@ -1978,9 +1978,9 @@ make install
    --with-qt-plugindir=/c/Qt/5.3.2/plugins \
    --with-qt-bindir=/c/Qt/5.3.2/bin \
    --with-protoc-bindir=/c/deps/protobuf-2.6.1/src
-   
+
    make
-   
+
    strip src/bitcoin-cli.exe
    strip src/bitcoind.exe
    strip src/qt/bitcoin-qt.exe
@@ -2012,7 +2012,7 @@ make install
 ```bash
 ### Set editor-cmd to the command used to invoke your text editor.
 ###   This will override the environment variables that Subversion
-###   examines by default to find this information ($EDITOR, 
+###   examines by default to find this information ($EDITOR,
 ###   et al).
 # editor-cmd = editor (vi, emacs, notepad, etc.)
 editor-cmd = vi
@@ -2090,7 +2090,7 @@ PS1 是 linux 里头的一个默认的环境变量，用来设置命令提示符
 **修改前**
 
 ```bash
-root@ibc-VirtualBox:~/chaincode/tmp# 
+root@ibc-VirtualBox:~/chaincode/tmp#
 ```
 
 **修改后**
@@ -2112,9 +2112,9 @@ mv go /usr/local
 
 ```bash
 export GOROOT=/usr/local/go
-export PATH=$PATH:$GOROOT/bin
 # 设置 golang 工作空间，根据实际情况修改
 export GOPATH=/opt/go
+export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 ```
 
 3. 使环境变量生效
@@ -2125,7 +2125,7 @@ source /etc/profile
 
 ## CentOS 安装 locust 0.8.1
 
-> locust 是基于 python 的性能测试工具，通过编写 python 代码来完成性能测试的。 
+> locust 是基于 python 的性能测试工具，通过编写 python 代码来完成性能测试的。
 
 ```bash
 sudo pip install locustio
@@ -2140,8 +2140,8 @@ Successfully installed Jinja2-2.10 Werkzeug-0.14.1 click-6.7 flask-1.0.2 gevent-
 确认 locust 安装成功
 
 ```bash
-[kevin@iZwz9cynwitmm46uagetmvZ ~]$ locust --version    
+[kevin@iZwz9cynwitmm46uagetmvZ ~]$ locust --version
 [2018-07-22 17:07:53,502] iZwz9cynwitmm46uagetmvZ/INFO/stdout: Locust 0.8.1
-[2018-07-22 17:07:53,502] iZwz9cynwitmm46uagetmvZ/INFO/stdout: 
+[2018-07-22 17:07:53,502] iZwz9cynwitmm46uagetmvZ/INFO/stdout:
 ```
 

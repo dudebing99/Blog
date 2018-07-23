@@ -1294,5 +1294,21 @@ error: {"code":-4,"message":"Error:run-script-error:luaL_loadbuffer fail:[string
 
 ​	RETURN 常为一个金额为 0 的比特币输出， 因为任何与该输出相对应的比特币都会永久消失。假如一笔 RETURN 被作为一笔交易的输入，脚本验证引擎将会阻止验证脚本的执行，将标记交易为无效。如果你碰巧将 RETURN 的输出作为另一笔交易的输入，则该交易是无效的。
 
+**举例**
 
+> 备注：可通过 [比特币交易](https://blockexplorer.com/tx/8bae12b5f4c088d940733dcd1455efc6a3a69cf9340e17a981286d3778615684) 查询
+
+![](pic/blockchain/op_return.png)
+
+​	可以看到第一个输出被标记为 Unspendable address，Type 为空。然后我们可以看到具体内容：
+
+```
+OP_RETURN 636861726c6579206c6f7665732068656964691
+```
+
+​	0x36861726c6579206c6f766573206865696469 经过 [UTF8-DECODER](https://www.browserling.com/tools/utf8-decode) 可以得到：
+
+```
+charley loves heidi
+```
 

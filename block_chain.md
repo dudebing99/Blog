@@ -1296,7 +1296,7 @@ error: {"code":-4,"message":"Error:run-script-error:luaL_loadbuffer fail:[string
 
 **举例**
 
-> [交易 0xb17a027a8f7ae0db4ddbaa58927d0f254e97fce63b7e57e8e50957d3dad2e66e](https://www.blockchain.com/btc/tx/b17a027a8f7ae0db4ddbaa58927d0f254e97fce63b7e57e8e50957d3dad2e66e?show_adv=true) 
+> [交易 0xb17a027a8f7ae0db4ddbaa58927d0f254e97fce63b7e57e8e50957d3dad2e66e](https://www.blockchain.com/btc/tx/b17a027a8f7ae0db4ddbaa58927d0f254e97fce63b7e57e8e50957d3dad2e66e) 
 >
 > [交易 0xe89e09ac184e1a175ce748775b3e63686cb1e5fe948365236aac3b3aef3fedd0](https://www.blockchain.com/btc/tx/e89e09ac184e1a175ce748775b3e63686cb1e5fe948365236aac3b3aef3fedd0)
 

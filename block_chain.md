@@ -1296,19 +1296,16 @@ error: {"code":-4,"message":"Error:run-script-error:luaL_loadbuffer fail:[string
 
 **举例**
 
-> 备注：可通过 [比特币交易](https://blockexplorer.com/tx/8bae12b5f4c088d940733dcd1455efc6a3a69cf9340e17a981286d3778615684) 查询
+> [交易 0xb17a027a8f7ae0db4ddbaa58927d0f254e97fce63b7e57e8e50957d3dad2e66e](https://www.blockchain.com/btc/tx/b17a027a8f7ae0db4ddbaa58927d0f254e97fce63b7e57e8e50957d3dad2e66e?show_adv=true) 
+>
+> [交易 0xe89e09ac184e1a175ce748775b3e63686cb1e5fe948365236aac3b3aef3fedd0](https://www.blockchain.com/btc/tx/e89e09ac184e1a175ce748775b3e63686cb1e5fe948365236aac3b3aef3fedd0)
 
-![](pic/blockchain/op_return.png)
+​	如下，两个交易输出脚本只包含数据（十六进制），解码分别对应
 
-​	可以看到第一个输出被标记为 Unspendable address，Type 为空。然后我们可以看到具体内容：
+ `Yuki will you marry me ? Tetsu.`
 
-```
-OP_RETURN 636861726c6579206c6f7665732068656964691
-```
+ `Yes I will. Yuki.`
 
-​	0x36861726c6579206c6f766573206865696469 经过 [UTF8-DECODER](https://www.browserling.com/tools/utf8-decode) 可以得到：
+![](pic/blockchain/op_return1.png)
 
-```
-charley loves heidi
-```
-
+![](pic/blockchain/op_return2.png)	

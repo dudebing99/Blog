@@ -605,6 +605,31 @@ cd $GOPATH/src/golang.org/x
 git clone https://github.com/golang/text.git
 ```
 
+## [Golang] GOPATH 环境变量被覆盖
+
+**系统环境**
+
+ 	Windows 7 Ultimate x64
+
+**问题描述**
+
+​	安装 golang 之后，在系统变量设置 GOPATH=D:\go，但是未生效
+
+```basic
+$ echo $GOPATH
+C:\Users\Administrator\go
+```
+
+**原因分析**
+
+​	安装 golang 之后，默认给用户变量添加 GOPATH=%USERPROFILE%\go，导致覆盖了系统变量 GOPATH，如下所示：
+
+![](pic/golang/gopath.png)
+
+**解决方式**
+
+​	删除用户变量 GOPATH 即可（当然，删除系统变量，然后修改用户变量 GOPATH 为目标目录也可）
+
 ## [Ethereum] unexpected directory layout
 
 **系统环境**

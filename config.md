@@ -1986,6 +1986,28 @@ make install
    strip src/qt/bitcoin-qt.exe
    ```
 
+## Windows 安装 ethereum
+
+> **环境：**Windows 7 Ultimate x64
+
+1. 从 [官方下载源 ](https://golang.org/dl/) 下载 golang 1.10.3，并配置环境变量
+
+```basic
+GOPATH=D:\go
+GOROOT=C:\Go\
+PATH 添加 %GOROOT%\bin;%GOPATH%\bin
+```
+
+2. 下载并安装 [tdm-gcc](https://sourceforge.net/projects/tdm-gcc/)
+3. 从 github 克隆 [以太坊仓库](https://github.com/ethereum/go-ethereum.git) 到 D:\go\src\github.com\ethereum\go-ethereum
+4. 编译 geth
+
+```bash
+cd /d/go/src/github.com/ethereum/go-ethereum
+go install ./cmd/geth
+```
+
+5. 在目录 D:\go\bin 生成 geth.exe
 
 ## Ubuntu 安装 lua
 
@@ -2099,7 +2121,7 @@ root@ibc-VirtualBox:~/chaincode/tmp#
 root:fabric#
 ```
 
-## golang 1.10.3 安装
+## Ubuntu 安装 golang 1.10.3
 
 > **注意：**golang 编译器存在较多 bug，在编译 golang 库时，可能因为编译器本身的 bug 导致编译失败，例如，以太坊源码编译。
 

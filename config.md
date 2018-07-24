@@ -1714,6 +1714,32 @@ EOF
 apt-get update
 ```
 
+## Ubuntu 安装 golang 1.10.3
+
+> **注意：**golang 编译器存在较多 bug，在编译 golang 库时，可能因为编译器本身的 bug 导致编译失败，例如，以太坊源码编译。
+
+1. 下载安装（[官方下载源](https://golang.org/dl/)）
+
+```bash
+tar -xzvf https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz
+mv go /usr/local
+```
+
+2. 设置环境变量（/etc/profile 添加）
+
+```bash
+export GOROOT=/usr/local/go
+# 设置 golang 工作空间，根据实际情况修改
+export GOPATH=/opt/go
+export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+```
+
+3. 使环境变量生效
+
+```bash
+source /etc/profile
+```
+
 ## Ubuntu 安装 bitcoin
 
 > **环境：**Ubuntu 14.04.5 LTS
@@ -1986,6 +2012,28 @@ make install
    strip src/qt/bitcoin-qt.exe
    ```
 
+## Ubuntu 安装 ethereum
+
+> **环境：**Ubuntu 14.04.5 LTS
+>
+> **GCC：**gcc (Ubuntu 4.8.4-2ubuntu1~14.04.4) 4.8.4
+>
+> **Golang：**go version go1.10.3 linux/amd64 （**注意：低版本 Golang 编译器存在 bug**）
+
+1. 下载
+
+```bash
+cd $GOPATH/src/github.com/ethereum
+git clone https://github.com/ethereum/go-ethereum.git
+```
+
+2. 编译
+
+```bash
+cd go-ethereum
+go install ./cmd/geth
+```
+
 ## Windows 安装 ethereum
 
 > **环境：**Windows 7 Ultimate x64
@@ -2119,32 +2167,6 @@ root@ibc-VirtualBox:~/chaincode/tmp#
 
 ```bash
 root:fabric#
-```
-
-## Ubuntu 安装 golang 1.10.3
-
-> **注意：**golang 编译器存在较多 bug，在编译 golang 库时，可能因为编译器本身的 bug 导致编译失败，例如，以太坊源码编译。
-
-1. 下载安装（[官方下载源](https://golang.org/dl/)）
-
-```bash
-tar -xzvf https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz
-mv go /usr/local
-```
-
-2. 设置环境变量（/etc/profile 添加）
-
-```bash
-export GOROOT=/usr/local/go
-# 设置 golang 工作空间，根据实际情况修改
-export GOPATH=/opt/go
-export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
-```
-
-3. 使环境变量生效
-
-```bash
-source /etc/profile
 ```
 
 ## CentOS 安装 locust 0.8.1

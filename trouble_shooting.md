@@ -658,3 +658,27 @@ unexpected directory layout:
 go get -u -v github.com/elastic/gosigar
 ```
 
+## [Ethereum] Block sealing failed err="waiting for transactions"
+
+> **参考资料：**https://github.com/ethereum/go-ethereum/issues/15646
+
+**系统环境**
+
+ 	Ubuntu 14.04
+
+**问题描述**
+
+​	以太坊以开发者模式运行，启动挖矿时报错，如下所示：
+
+```bash
+> miner.start()
+INFO [07-24|20:13:55.983] Transaction pool price threshold updated price=1
+INFO [07-24|20:13:55.983] Starting mining operation 
+null
+> INFO [07-24|20:13:55.983] Commit new mining work                   number=1 txs=0 uncles=0 elapsed=148.484µs
+WARN [07-24|20:13:55.984] Block sealing failed                     err="waiting for transactions"
+```
+
+**解决方式**
+
+​	开发者模式运行，当有交易时节点才启动挖矿，因此，创建一个交易即可触发节点的挖矿。

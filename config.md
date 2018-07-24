@@ -2099,12 +2099,14 @@ root@ibc-VirtualBox:~/chaincode/tmp#
 root:fabric#
 ```
 
-## golang 1.9.7 安装
+## golang 1.10.3 安装
+
+> **注意：**golang 编译器存在较多 bug，在编译 golang 库时，可能因为编译器本身的 bug 导致编译失败，例如，以太坊源码编译。
 
 1. 下载安装
 
 ```bash
-tar -xzvf go1.9.7.linux-amd64.tar.gz
+tar -xzvf https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz
 mv go /usr/local
 ```
 

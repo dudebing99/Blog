@@ -2012,28 +2012,6 @@ make install
    strip src/qt/bitcoin-qt.exe
    ```
 
-## Ubuntu 安装 ethereum
-
-> **环境：**Ubuntu 14.04.5 LTS
->
-> **GCC：**gcc (Ubuntu 4.8.4-2ubuntu1~14.04.4) 4.8.4
->
-> **Golang：**go version go1.10.3 linux/amd64 （**注意：低版本 Golang 编译器存在 bug**）
-
-1. 下载
-
-```bash
-cd $GOPATH/src/github.com/ethereum
-git clone https://github.com/ethereum/go-ethereum.git
-```
-
-2. 编译
-
-```bash
-cd go-ethereum
-go install ./cmd/geth
-```
-
 ## Windows 安装 ethereum
 
 > **环境：**Windows 7 Ultimate x64
@@ -2056,6 +2034,36 @@ go install ./cmd/geth
 ```
 
 5. 在目录 D:\go\bin 生成 geth.exe
+
+## Ubuntu 安装 ethereum
+
+> **环境：**Ubuntu 14.04.5 LTS
+>
+> **GCC：**gcc (Ubuntu 4.8.4-2ubuntu1~14.04.4) 4.8.4
+>
+> **Golang：**go version go1.10.3 linux/amd64 （**注意：低版本 Golang 编译器存在 bug**）
+
+1. 下载
+
+```bash
+cd $GOPATH/src/github.com/ethereum
+git clone https://github.com/ethereum/go-ethereum.git
+```
+
+2. 编译
+
+```bash
+cd go-ethereum
+make all
+```
+
+3. 查看编译文件
+
+```bash
+root:go-ethereum# cd build/bin
+root:bin# ls
+abigen  bootnode  clef  ethkey  evm  examples  faucet  geth  p2psim  puppeth  rlpdump  simulations  swarm  swarm-smoke  wnode
+```
 
 ## Ubuntu 安装 lua
 

@@ -344,7 +344,7 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 > personal.newAccount('123456')
 "0xa5f833dd93979f15d67392ce78ad78829e5a97e1"
 > eth.accounts
-["0x04f14c835b74f79b7def175c4e481929f9800501", "0xa5f833dd93979f15d67392ce78ad78829e5a97e1"]
+["0x04f14c835b74f79b7def175c4e481929f9800501", "0xe9db1b66197355d0f05534a53f6b7dcf0c873c76"]
 ```
 
 ​	创建成功后，会展示创建成功的地址，其中上面的表达式中，中间传入的 123456 为密码 。再次查看系统所有用户，可以看到共有两个用户。
@@ -355,11 +355,11 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 > user1 = eth.accounts[0]
 "0x04f14c835b74f79b7def175c4e481929f9800501"
 > user2 = eth.accounts[1]
-"0xa5f833dd93979f15d67392ce78ad78829e5a97e1"
+"0xe9db1b66197355d0f05534a53f6b7dcf0c873c76"
 > user1
 "0x04f14c835b74f79b7def175c4e481929f9800501"
 > user2
-"0xa5f833dd93979f15d67392ce78ad78829e5a97e1"
+"0xe9db1b66197355d0f05534a53f6b7dcf0c873c76"
 ```
 
 ​	操作成功后，用户别名 user1、user2 已经成功赋值

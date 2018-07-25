@@ -1012,6 +1012,27 @@ make -j4
 make install
 ```
 
+## Ubuntu 安装 vim 8.1
+
+```bash
+# 安装依赖库
+apt-get install libncurses5-dev libncursesw5-dev
+
+# 下载解压
+curl -O http://ftp.vim.org/vim/unix/vim-8.1.tar.bz2
+bzip2 -d vim-8.1.tar.bz2
+tar -xvf vim-8.1.tar
+
+# 编译、安装
+cd vim81
+./configure
+make -j4
+make install
+
+# 覆盖老版本
+cp /usr/local/bin/vim /usr/bin/vim
+```
+
 ## zookeeper/kafka 安装配置
 
 ```bash

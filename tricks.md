@@ -583,9 +583,11 @@ rdate -t 30 -s time.nist.gov && hwclock -w
 
 ## SSH 禁用超时
 
-**目标：**SSH 空闲之后，默认断掉，每次需要重连太过麻烦，可以修改 SSH 服务端设置禁用超时
+**目标：**SSH 空闲之后，默认断掉，每次需要重连太过麻烦，可以修改 SSH 服务端设置禁用超时；也可以客户端定时发送心跳包保活。
 
-1. 在 /etc/ssh/sshd_config 添加/修改 如下配置项
+- SSH 服务器
+
+1. 在 /etc/ssh/sshd_config 添加/修改如下配置项
 
    ```bash
    TCPKeepAlive yes
@@ -599,6 +601,22 @@ rdate -t 30 -s time.nist.gov && hwclock -w
    # Ubuntu，service ssh restart 即可
    service sshd restart
    ```
+
+- SSH 客户端
+
+  在 /etc/ssh/ssh_config 添加/修改如下配置项
+
+  ```bash
+  ServerAliveInterval 30
+  ```
+
+​	以上在客户端配置后，就会有反空闲设置，即每 30s 会自动和服务端做一次确认。
+
+​	如果在 Windows 下使用 SecureCRT，如下操作即可
+
+![](pic/securecrt/keepalive.png)
+
+​	如果在 Windows 下使用 Putty，putty -> Connection -> Seconds between keepalives ( 0 to turn off )，默认为 0，改为30。
 
 ## 跳板机 Jumpserver 上传/下载文件
 

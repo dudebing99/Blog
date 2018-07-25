@@ -577,6 +577,26 @@ rdate -t 30 -s time.nist.gov && hwclock -w
 3. 重启 server 端 ssh 服务
 
    ```bash
+   # Ubuntu，service ssh restart 即可
+   service sshd restart
+   ```
+
+## SSH 禁用超时
+
+**目标：**SSH 空闲之后，默认断掉，每次需要重连太过麻烦，可以修改 SSH 服务端设置禁用超时
+
+1. 在 /etc/ssh/sshd_config 添加/修改 如下配置项
+
+   ```bash
+   TCPKeepAlive yes
+   ClientAliveInterval 30
+   ClientAliveCountMax 999999
+   ```
+
+2. 重启 server 端 ssh 服务
+
+   ```bash
+   # Ubuntu，service ssh restart 即可
    service sshd restart
    ```
 

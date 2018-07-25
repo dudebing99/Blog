@@ -11,14 +11,13 @@
 > - [深度解析挖矿的逻辑和技术实现](https://blog.csdn.net/taifei/article/details/72895903)
 > - [stratum 协议原理](http://www.8btc.com/stratum_protocol)
 > - [图灵完备维基百科](https://en.wikipedia.org/wiki/Turing_completeness)
-> - [币科技](https://www.bikeji.com)
 > - [基于区块链的存证业务构想](https://zhuanlan.zhihu.com/p/33462619)
 
-## 比特币 bitcoin
+## 眼见为实
 
 ### 比特币测试网络
 
-1. 查看版本
+#### 查看版本
 
 ```bash
 kevin@ubuntu:~$ cat /etc/issue
@@ -40,13 +39,13 @@ OpenSSL Toolkit <https://www.openssl.org> and cryptographic software written by
 Eric Young and UPnP software written by Thomas Bernard.
 ```
 
-2. 运行 bitcoind
+#### 运行 bitcoind
 
 ```bash
 kevin@ubuntu:~$ bitcoind -testnet
 ```
 
-3. 运行 bitcoin-cli
+#### 运行 bitcoin-cli
 
 > **API 接口：**https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list
 
@@ -187,6 +186,265 @@ $ ./bitcoin-cli.exe -testnet getpeerinfo
 $ ./bitcoin-cli.exe -testnet getblockcount
 1325482
 ```
+
+### 以太坊初步探索
+
+#### 启动 geth
+
+```bash
+root:bin# ./geth --datadir "./data" --dev console 2
+INFO [07-25|09:49:34.448] Maximum peer count                       ETH=25 LES=0 total=25
+INFO [07-25|09:49:35.293] Using developer account                  address=0x04f14C835B74f79B7dEf175C4e481929f9800501
+INFO [07-25|09:49:35.293] Starting peer-to-peer node               instance=Geth/v1.8.13-unstable-040dd5bd/linux-amd64/go1.10.3
+INFO [07-25|09:49:35.293] Allocated cache and file handles         database=/root/go/src/github.com/ethereum/go-ethereum/build/bin/data/geth/chaindata cache=768 handles=512
+INFO [07-25|09:49:35.326] Persisted trie from memory database      nodes=11 size=1.71kB time=30.048µs gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [07-25|09:49:35.326] Initialised chain configuration          config="{ChainID: 1337 Homestead: 0 DAO: <nil> DAOSupport: false EIP150: 0 EIP155: 0 EIP158: 0 Byzantium: 0 Constantinople: <nil> Engine: clique}"
+INFO [07-25|09:49:35.326] Initialising Ethereum protocol           versions="[63 62]" network=1337
+INFO [07-25|09:49:35.327] Loaded most recent local header          number=0 hash=8f3035…7124e0 td=1
+INFO [07-25|09:49:35.327] Loaded most recent local full block      number=0 hash=8f3035…7124e0 td=1
+INFO [07-25|09:49:35.327] Loaded most recent local fast block      number=0 hash=8f3035…7124e0 td=1
+INFO [07-25|09:49:35.327] Loaded local transaction journal         transactions=0 dropped=0
+INFO [07-25|09:49:35.327] Regenerated local transaction journal    transactions=0 accounts=0
+INFO [07-25|09:49:35.327] Starting P2P networking 
+INFO [07-25|09:49:35.328] started whisper v.6.0 
+INFO [07-25|09:49:35.328] RLPx listener up                         self="enode://ad026d00f9ae6a7c2fae54aec6fe1692818a372aeae28418a1a0d5787809637e2b74c24038c15b734ef25a1b128915fbd75ae74aacedc428163b37346d872245@[::]:35685?discport=0"
+INFO [07-25|09:49:35.329] IPC endpoint opened                      url=/root/go/src/github.com/ethereum/go-ethereum/build/bin/data/geth.ipc
+INFO [07-25|09:49:35.329] Transaction pool price threshold updated price=18000000000
+INFO [07-25|09:49:35.329] Etherbase automatically configured       address=0x04f14C835B74f79B7dEf175C4e481929f9800501
+INFO [07-25|09:49:35.329] Starting mining operation 
+INFO [07-25|09:49:35.329] Commit new mining work                   number=1 txs=0 uncles=0 elapsed=58.163µs
+WARN [07-25|09:49:35.330] Block sealing failed                     err="waiting for transactions"
+Welcome to the Geth JavaScript console!
+
+instance: Geth/v1.8.13-unstable-040dd5bd/linux-amd64/go1.10.3
+coinbase: 0x04f14c835b74f79b7def175c4e481929f9800501
+at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
+ datadir: /root/go/src/github.com/ethereum/go-ethereum/build/bin/data
+ modules: admin:1.0 clique:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 shh:1.0 txpool:1.0 web3:1.0
+```
+
+#### 查看系统变量
+
+- eth 全局变量
+
+```bash
+> eth
+{
+  accounts: ["0x04f14c835b74f79b7def175c4e481929f9800501"],
+  blockNumber: 0,
+  coinbase: "0x04f14c835b74f79b7def175c4e481929f9800501",
+  compile: {
+    lll: function(),
+    serpent: function(),
+    solidity: function()
+  },
+  defaultAccount: undefined,
+  defaultBlock: "latest",
+  gasPrice: 1,
+  hashrate: 0,
+  mining: true,
+  pendingTransactions: [],
+  protocolVersion: "0x3f",
+  syncing: false,
+  call: function(),
+  contract: function(abi),
+  estimateGas: function(),
+  filter: function(options, callback, filterCreationErrorCallback),
+  getAccounts: function(callback),
+  getBalance: function(),
+  getBlock: function(),
+  getBlockNumber: function(callback),
+  getBlockTransactionCount: function(),
+  getBlockUncleCount: function(),
+  getCode: function(),
+  getCoinbase: function(callback),
+  getCompilers: function(),
+  getGasPrice: function(callback),
+  getHashrate: function(callback),
+  getMining: function(callback),
+  getPendingTransactions: function(callback),
+  getProtocolVersion: function(callback),
+  getRawTransaction: function(),
+  getRawTransactionFromBlock: function(),
+  getStorageAt: function(),
+  getSyncing: function(callback),
+  getTransaction: function(),
+  getTransactionCount: function(),
+  getTransactionFromBlock: function(),
+  getTransactionReceipt: function(),
+  getUncle: function(),
+  getWork: function(),
+  iban: function(iban),
+  icapNamereg: function(),
+  isSyncing: function(callback),
+  namereg: function(),
+  resend: function(),
+  sendIBANTransaction: function(),
+  sendRawTransaction: function(),
+  sendTransaction: function(),
+  sign: function(),
+  signTransaction: function(),
+  submitTransaction: function(),
+  submitWork: function()
+}
+```
+
+- personal 变量
+
+```bash
+> personal
+{
+  listAccounts: ["0x04f14c835b74f79b7def175c4e481929f9800501"],
+  listWallets: [{
+      accounts: [{...}],
+      status: "Unlocked",
+      url: "keystore:///root/go/src/github.com/ethereum/go-ethereum/build/bin/data/keystore/UTC--2018-07-24T13-02-23.501704460Z--04f14c835b74f79b7def175c4e481929f9800501"
+  }],
+  deriveAccount: function(),
+  ecRecover: function(),
+  getListAccounts: function(callback),
+  getListWallets: function(callback),
+  importRawKey: function(),
+  lockAccount: function(),
+  newAccount: function github.com/ethereum/go-ethereum/console.(*bridge).NewAccount-fm(),
+  openWallet: function github.com/ethereum/go-ethereum/console.(*bridge).OpenWallet-fm(),
+  sendTransaction: function(),
+  sign: function github.com/ethereum/go-ethereum/console.(*bridge).Sign-fm(),
+  signTransaction: function(),
+  unlockAccount: function github.com/ethereum/go-ethereum/console.(*bridge).UnlockAccount-fm()
+}
+```
+
+- miner 变量
+
+```bash
+> miner
+{
+  getHashrate: function(),
+  setEtherbase: function(),
+  setExtra: function(),
+  setGasPrice: function(),
+  start: function(),
+  stop: function()
+}
+```
+
+#### 账户操作
+
+- 查看系统所有用户
+
+```bash
+> eth.accounts
+["0x04f14c835b74f79b7def175c4e481929f9800501"]
+```
+
+- 创建新用户
+
+```bash
+> personal.newAccount('123456')
+"0xa5f833dd93979f15d67392ce78ad78829e5a97e1"
+> eth.accounts
+["0x04f14c835b74f79b7def175c4e481929f9800501", "0xa5f833dd93979f15d67392ce78ad78829e5a97e1"]
+```
+
+​	创建成功后，会展示创建成功的地址，其中上面的表达式中，中间传入的 123456 为密码 。再次查看系统所有用户，可以看到共有两个用户。
+
+- 给用户取别名
+
+```bash
+> user1 = eth.accounts[0]
+"0x04f14c835b74f79b7def175c4e481929f9800501"
+> user2 = eth.accounts[1]
+"0xa5f833dd93979f15d67392ce78ad78829e5a97e1"
+> user1
+"0x04f14c835b74f79b7def175c4e481929f9800501"
+> user2
+"0xa5f833dd93979f15d67392ce78ad78829e5a97e1"
+```
+
+​	操作成功后，用户别名 user1、user2 已经成功赋值
+
+- 对账户进行解锁
+
+```bash
+> personal.unlockAccount(user2, '123')
+Error: could not decrypt key with given passphrase
+> personal.unlockAccount(user2, '123456')
+true
+```
+
+​	为了安全起见，一般一个用户在创建的时候都处于锁定状态，输入密码进行解锁。
+
+​	如果不解锁，直接对用户操作，例如，对用户转账，则报错如下：
+
+```bash
+> eth.sendTransaction({from:user1, to:user2, value:666})
+Error: authentication needed: password or unlock
+    at web3.js:3143:20
+    at web3.js:6347:15
+    at web3.js:5081:36
+    at <anonymous>:1:1
+```
+
+- 检查账户余额
+
+```bash
+> eth.getBalance(user1)
+1.15792089237316195423570985008687907853269984665640564039457584007913129639927e+77
+> eth.getBalance(user2)
+0
+```
+
+- 转账
+
+```bash
+> eth.sendTransaction({from:user1, to:user2, value:100})
+INFO [07-25|16:58:43.662] Submitted transaction                    fullhash=0x4daf7f1fa1b7c8e8b0c5770fdeaf1d0945782027646399822dbf2a303b1adaaa recipient=0xE9DB1b66197355D0f05534A53F6B7DcF0c873c76
+"0x4daf7f1fa1b7c8e8b0c5770fdeaf1d0945782027646399822dbf2a303b1adaaa"
+> eth.getBalance(user2)
+0
+```
+
+​	转账之后，账户余额仍然没变。此时，需要启动挖矿使交易加入到区块链中。
+
+```bash
+> miner.start()
+INFO [07-25|16:58:52.395] Transaction pool price threshold updated price=1
+INFO [07-25|16:58:52.395] Starting mining operation 
+null
+> INFO [07-25|16:58:52.396] Commit new mining work                   number=5 txs=1 uncles=0 elapsed=648.142µs
+INFO [07-25|16:58:52.397] Successfully sealed new block            number=5 hash=61063d…d19fce
+INFO [07-25|16:58:52.398]  mined potential block                  number=5 hash=61063d…d19fce
+INFO [07-25|16:58:52.399] Commit new mining work                   number=6 txs=0 uncles=0 elapsed=995.57µs
+WARN [07-25|16:58:52.399] Block sealing failed                     err="waiting for transactions"
+
+> eth.getBalance(user2)
+100
+```
+
+- 查看交易信息
+
+```bash
+> eth.getTransaction("0x4daf7f1fa1b7c8e8b0c5770fdeaf1d0945782027646399822dbf2a303b1adaaa")
+{
+  blockHash: "0x61063d921d123682db18107038b813b198306ea7d14c0ff8a1b498e9c5d19fce",
+  blockNumber: 5,
+  from: "0x04f14c835b74f79b7def175c4e481929f9800501",
+  gas: 90000,
+  gasPrice: 1,
+  hash: "0x4daf7f1fa1b7c8e8b0c5770fdeaf1d0945782027646399822dbf2a303b1adaaa",
+  input: "0x",
+  nonce: 4,
+  r: "0xa812f2601212b123d8932c39b092a4fb46c3467ae51d17237a8034fba847fb73",
+  s: "0x21b01335a145ba67778b3ffc991f7c620dff19e693c748118b71537ac55ceb7a",
+  to: "0xe9db1b66197355d0f05534a53f6b7dcf0c873c76",
+  transactionIndex: 0,
+  v: "0xa96",
+  value: 100
+}
+```
+
+## 比特币 bitcoin
 
 ### 密钥和地址
 
@@ -458,176 +716,7 @@ OP_DUP OP_HASH160 <Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG
 
 ## 维基链（智能合约）
 
-### 一键部署节点
-
-> **前置条件：**将脚本与可执行程序 coind 放在同一目录，执行脚本即可
-
-```bash
-#!/bin/bash
-
-function usage()
-{
-    echo "Usage: $0 <deploy|start|stop>"
-    echo "  deploy      deploy and start"
-    echo "  start       start all nodes"
-    echo "  stop        stop all nodes"
-}
-
-function stop()
-{
-    echo "kill all nodes if exists"
-    ps afx|grep node|grep -v grep|awk '{print $1}'|xargs kill -9
-}
-
-function start()
-{
-    for i in $(seq 1 11)
-    do
-        Node="node"$i
-        cd $Node
-        ./$Node -datadir=./ &
-        cd ..
-    done
-}
-
-function deploy() 
-{
-    stop
-
-    echo "step 1: deploy all nodes"
-    for i in $(seq 1 11)
-    do
-        Node="node"$i
-        echo "begin to deploy $Node"
-        rm -rf $Node
-        mkdir -p $Node
-
-        Executive="node"$i
-        cp coind $Executive/$Executive
-
-        if [ $i -lt 10 ]; then
-            Uiport="450"$i
-            Rpcport="690"$i
-            Port="790"$i
-            Connect="connect=127.0.0.1:790"$i
-        else
-            Uiport="45"$i
-            Rpcport="69"$i
-            Port="79"$i
-            Connect="connect=127.0.0.1:79"$i
-        fi
-
-cat >> WaykiChain.conf << EOF
-rpcuser=wikichain
-rpcpassword=123
-regtest=1
-blockminsize=1000
-zapwallettxes=0
-debug=INFO
-debug=miner
-debug=ERROR
-debug=net
-debug=vm
-#debug=shuffle
-#debug=profits
-printtoconsole=0
-logtimestamps=1
-logprintfofile=1
-logprintfileline=1
-checkblocks=1
-server=1
-listen=1
-uiport=$Uiport
-rpcport=$Rpcport
-port=$Port
-connect=127.0.0.1:7901
-connect=127.0.0.1:7902
-connect=127.0.0.1:7903
-connect=127.0.0.1:7904
-connect=127.0.0.1:7905
-connect=127.0.0.1:7906
-connect=127.0.0.1:7907
-connect=127.0.0.1:7908
-connect=127.0.0.1:7909
-connect=127.0.0.1:7910
-connect=127.0.0.1:7911
-isdbtraversal=1
-disablesafemode=1
-gen=1
-genproclimit=1000000
-logsize=100
-EOF
-
-        sed -i "/$Connect/d" WaykiChain.conf
-        mv WaykiChain.conf $Node
-
-    done
-
-    echo "step 2: start all nodes"
-    start
-
-    sleep 5
-
-    echo "step 3: import private key for every node"
-    cd node1 && ./node1 -datadir=./ importprivkey Y5F2GraTdQqMbYrV6MG78Kbg4QE8p4B2DyxMdLMH7HmDNtiNmcbM
-    cd ..
-    cd node2 && ./node2 -datadir=./ importprivkey Y7HWKeTHFnCxyTMtCEE6tVkqBzXoN1Yjxcx5Rs8j2dsSSvPxvF7p
-    cd ..
-    cd node3 && ./node3 -datadir=./ importprivkey Y871eB5Xiss2ugKWQRb4nmMhKTnmXAEyUqBimTCupogzoSTVCSU9
-    cd ..
-    cd node4 && ./node4 -datadir=./ importprivkey Y9cAUsEhfsihbePnCYYCETpN1PVovqTMX4kauKRsZ9ERdz1uumeK
-    cd ..
-    cd node5 && ./node5 -datadir=./ importprivkey Y4unEjiFk1YJQi1jaT3deY4t9Hm1eSk9usCam35LcN85cUA2QmZ5
-    cd ..
-    cd node6 && ./node6 -datadir=./ importprivkey Y5XKsR95ymf2pEyuhDPLtuvioHRo6ogDDNnaf4YU91ABvLb68QBU
-    cd ..
-    cd node7 && ./node7 -datadir=./ importprivkey Y7diE8BXuwTkjSzgdZMnKNhzYGrU8oSk31anJ1mwipSCcnPakzTA
-    cd ..
-    cd node8 && ./node8 -datadir=./ importprivkey YCjoCrtGEvMPZDLzBoY9GP3r7pqWa5mgzUxqAsVub6xnUVBwQHxE
-    cd ..
-    cd node9 && ./node9 -datadir=./ importprivkey Y6bKBN4ZKBNHJZpQpqE7y7TC1QpdT32YtAjw4Me9Bvgo47b5ivPY
-    cd ..
-    cd node10 && ./node10 -datadir=./ importprivkey Y8G5MwTFVsqj1FvkqFDEENzUBn4yu4Ds83HkeSYP9SkjLba7xQFX
-    cd ..
-    cd node11 && ./node11 -datadir=./ importprivkey YAq1NTUKiYPhV9wq3xBNCxYZfjGPMtZpEPA4sEoXPU1pppdjSAka
-    cd ..
-
-    echo "step 4: set node1 to mine"
-    cd node1
-    ./node1 -datadir=. importprivkey Y6J4aK6Wcs4A3Ex4HXdfjJ6ZsHpNZfjaS4B9w7xqEnmFEYMqQd13
-    ./node1 -datadir=. getbalance
-    cd ..
-
-    echo "================================="
-    echo "congratulations, all is done"
-    echo "================================="
-}
-
-if [ $# -ne 1 ]; then
-    usage
-    exit 0
-fi
-
-if [ $1"x" = deploy"x" ]; then
-    deploy 
-    exit 0
-elif [ $1"x" = start"x" ]; then
-    start
-    exit 0
-elif [ $1"x" = stop"x" ]; then
-    stop
-    exit 0
-else
-    echo "error: invalid argument"
-    echo ""
-    usage
-    exit 0
-fi
-```
-
-### 查询信息
-
-#### 获取节点信息
+### 获取节点信息
 
 ```bash
 root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getinfo
@@ -1226,7 +1315,7 @@ error: {"code":-4,"message":"Error:run-script-error:luaL_loadbuffer fail:[string
 - 去中心化，或者说多中心化，无集中的控制，实现上尽量分布式
 - 可以通过密码学的机制来确保交易无法抵赖和破坏，并尽量保护用户信息和记录的隐私性
 
-​	更进一步的，还可以将智能合约跟区块链结合到一起，让其提供除了交易功能外更灵活的合约功能，执行更为复杂的操作（实际上，比特币区块链已经支持简单的脚本计算）。这样扩展之后的区块链，已经超越了单纯数据记录的功能了，实际上带有“普适计算”的意味了。
+		更进一步的，还可以将智能合约跟区块链结合到一起，让其提供除了交易功能外更灵活的合约功能，执行更为复杂的操作（实际上，比特币区块链已经支持简单的脚本计算）。这样扩展之后的区块链，已经超越了单纯数据记录的功能了，实际上带有“普适计算”的意味了。
 
 | 定位             | 功能     | 智能合约           | 一致性       | 权限 | 类型   | 性能   | 代表        |
 | ---------------- | -------- | ------------------ | ------------ | ---- | ------ | ------ | ----------- |

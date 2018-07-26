@@ -450,7 +450,7 @@ WARN [07-25|16:58:52.399] Block sealing failed                     err="waiting 
 }
 ```
 
-#### 创建合约
+#### 合约
 
 - 编写 Solidity 合约脚本
 

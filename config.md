@@ -2086,6 +2086,30 @@ root:bin# ls
 abigen  bootnode  clef  ethkey  evm  examples  faucet  geth  p2psim  puppeth  rlpdump  simulations  swarm  swarm-smoke  wnode
 ```
 
+4. 安装合约编译器 SolC
+
+> solc, the Solidity commandline compiler.
+>
+> This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you
+> are welcome to redistribute it under certain conditions. See 'solc --license'
+> for details.
+>
+> Usage: solc [options] [input_file...]
+> Compiles the given Solidity input files (or the standard input if none given or
+> "-" is used as a file name) and outputs the components specified in the options
+> at standard output or in files in the output directory, if specified.
+> Imports are automatically read from the filesystem, but it is also possible to
+> remap paths using the context:prefix=path syntax.
+> Example:
+>     solc --bin -o /tmp/solcoutput dapp-bin=/usr/local/lib/dapp-bin contract.sol
+
+```bash
+sudo add-apt-repository ppa:ethereum/ethereum
+sudo apt-get update
+sudo apt-get install solc
+which solc
+```
+
 ## Ubuntu 安装 lua
 
 > **运行环境：**Ubuntu 14.04

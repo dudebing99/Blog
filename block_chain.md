@@ -189,10 +189,16 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 
 ### 以太坊初步探索
 
+> **geth: **1.8.13-unstable
+>
+> **solc:** 0.4.24+commit.e67f0147.Linux.g++
+>
+> **golang:** 1.10.3
+
 #### 启动 geth
 
 ```bash
-root:bin# ./geth --datadir "./data" --dev console 2
+root:bin# ./geth --datadir "./data" --dev console
 INFO [07-25|09:49:34.448] Maximum peer count                       ETH=25 LES=0 total=25
 INFO [07-25|09:49:35.293] Using developer account                  address=0x04f14C835B74f79B7dEf175C4e481929f9800501
 INFO [07-25|09:49:35.293] Starting peer-to-peer node               instance=Geth/v1.8.13-unstable-040dd5bd/linux-amd64/go1.10.3
@@ -442,6 +448,324 @@ WARN [07-25|16:58:52.399] Block sealing failed                     err="waiting 
   v: "0xa96",
   value: 100
 }
+```
+
+#### 创建合约
+
+- 编写 Solidity 合约脚本
+
+```basic
+pragma solidity ^0.4.11;
+ 
+contract Sample {
+
+    uint public value;
+
+    constructor (uint v) public {
+        value = v;
+    }
+
+    function set(uint v) public {
+        value = v;
+    }
+
+    function get() public view returns (uint) {
+        return value;
+    }
+}
+```
+
+- 编译脚本，生成 ABI 接口和合约的二进制代码 
+
+> 备注：利用 [Remix](https://remix.ethereum.org) 在线编译合约
+
+```basic
+root:ethereum# solc --optimize --abi --bin sample.sol
+
+======= sample.sol:Sample =======
+Binary: 
+608060405234801561001057600080fd5b50604051602080610114833981016040525160005560e1806100336000396000f30060806040526004361060525763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416633fa4f2458114605757806360fe47b114607b5780636d4ce63c146092575b600080fd5b348015606257600080fd5b50606960a4565b60408051918252519081900360200190f35b348015608657600080fd5b50609060043560aa565b005b348015609d57600080fd5b50606960af565b60005481565b600055565b600054905600a165627a7a723058207098d9dc5ae86fe75d1016078954658c002f112da516ed90f64c901feb340d870029
+Contract JSON ABI 
+[{"constant":true,"inputs":[],"name":"value","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"v","type":"uint256"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"v","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
+```
+
+- 定义合约
+
+```basic
+> abi = [{"constant":true,"inputs":[],"name":"value","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"v","type":"uint256"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"v","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
+[{
+    constant: true,
+    inputs: [],
+    name: "value",
+    outputs: [{
+        name: "",
+        type: "uint256"
+    }],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+}, {
+    constant: false,
+    inputs: [{
+        name: "v",
+        type: "uint256"
+    }],
+    name: "set",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+}, {
+    constant: true,
+    inputs: [],
+    name: "get",
+    outputs: [{
+        name: "",
+        type: "uint256"
+    }],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+}, {
+    inputs: [{
+        name: "v",
+        type: "uint256"
+    }],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "constructor"
+}]
+
+> SampleHEX = "0x608060405234801561001057600080fd5b50604051602080610114833981016040525160005560e1806100336000396000f30060806040526004361060525763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416633fa4f2458114605757806360fe47b114607b5780636d4ce63c146092575b600080fd5b348015606257600080fd5b50606960a4565b60408051918252519081900360200190f35b348015608657600080fd5b50609060043560aa565b005b348015609d57600080fd5b50606960af565b60005481565b600055565b600054905600a165627a7a723058207098d9dc5ae86fe75d1016078954658c002f112da516ed90f64c901feb340d870029"
+"0x608060405234801561001057600080fd5b50604051602080610114833981016040525160005560e1806100336000396000f30060806040526004361060525763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416633fa4f2458114605757806360fe47b114607b5780636d4ce63c146092575b600080fd5b348015606257600080fd5b50606960a4565b60408051918252519081900360200190f35b348015608657600080fd5b50609060043560aa565b005b348015609d57600080fd5b50606960af565b60005481565b600055565b600054905600a165627a7a723058207098d9dc5ae86fe75d1016078954658c002f112da516ed90f64c901feb340d870029"
+
+> sample=eth.contract(abi)
+{
+  abi: [{
+      constant: true,
+      inputs: [],
+      name: "value",
+      outputs: [{...}],
+      payable: false,
+      stateMutability: "view",
+      type: "function"
+  }, {
+      constant: false,
+      inputs: [{...}],
+      name: "set",
+      outputs: [],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function"
+  }, {
+      constant: true,
+      inputs: [],
+      name: "get",
+      outputs: [{...}],
+      payable: false,
+      stateMutability: "view",
+      type: "function"
+  }, {
+      inputs: [{...}],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "constructor"
+  }],
+  eth: {
+    accounts: ["0x2f3efd9475fb969eecfdade75a1dae02dbd92e25"],
+    blockNumber: 0,
+    coinbase: "0x2f3efd9475fb969eecfdade75a1dae02dbd92e25",
+    compile: {
+      lll: function(),
+      serpent: function(),
+      solidity: function()
+    },
+    defaultAccount: undefined,
+    defaultBlock: "latest",
+    gasPrice: 1,
+    hashrate: 0,
+    mining: true,
+    pendingTransactions: [],
+    protocolVersion: "0x3f",
+    syncing: false,
+    call: function(),
+    contract: function(abi),
+    estimateGas: function(),
+    filter: function(options, callback, filterCreationErrorCallback),
+    getAccounts: function(callback),
+    getBalance: function(),
+    getBlock: function(),
+    getBlockNumber: function(callback),
+    getBlockTransactionCount: function(),
+    getBlockUncleCount: function(),
+    getCode: function(),
+    getCoinbase: function(callback),
+    getCompilers: function(),
+    getGasPrice: function(callback),
+    getHashrate: function(callback),
+    getMining: function(callback),
+    getPendingTransactions: function(callback),
+    getProtocolVersion: function(callback),
+    getRawTransaction: function(),
+    getRawTransactionFromBlock: function(),
+    getStorageAt: function(),
+    getSyncing: function(callback),
+    getTransaction: function(),
+    getTransactionCount: function(),
+    getTransactionFromBlock: function(),
+    getTransactionReceipt: function(),
+    getUncle: function(),
+    getWork: function(),
+    iban: function(iban),
+    icapNamereg: function(),
+    isSyncing: function(callback),
+    namereg: function(),
+    resend: function(),
+    sendIBANTransaction: function(),
+    sendRawTransaction: function(),
+    sendTransaction: function(),
+    sign: function(),
+    signTransaction: function(),
+    submitTransaction: function(),
+    submitWork: function()
+  },
+  at: function(address, callback),
+  getData: function(),
+  new: function()
+}
+```
+
+- 把合约代码部署上链
+
+> 合约部署上链时，给构造函数传参  99，即赋初值 99
+
+```basic
+> thesample = sample.new(99, {from:eth.accounts[0], data:SampleHEX, gas:3000000})
+{
+  abi: [{
+      constant: true,
+      inputs: [],
+      name: "value",
+      outputs: [{...}],
+      payable: false,
+      stateMutability: "view",
+      type: "function"
+  }, {
+      constant: false,
+      inputs: [{...}],
+      name: "set",
+      outputs: [],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function"
+  }, INFO [07-26|22:33:47.302] Commit new mining work                   number=2 txs=0 uncles=0 elapsed=1.098ms
+{
+      constant: true,
+      inputs: [],
+      name: "get",
+      outputs: [{...}],
+      payable: false,
+      stateMutability: "view",
+      type: "function"
+  }, WARN [07-26|22:33:47.303] Block sealing failed                     err="waiting for transactions"
+{
+      inputs: [{...}],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "constructor"
+  }],
+  address: undefined,
+  transactionHash: "0x2280fe5f44756e44f0c7e9740f254ab18261d3b7836d801b43678ddf442480a0"
+}
+```
+
+- 查看交易细节
+
+> 根据交易 hash 查看交易细节
+
+```basic
+> samplerecpt = eth.getTransactionReceipt("0x2280fe5f44756e44f0c7e9740f254ab18261d3b7836d801b43678ddf442480a0")
+{
+  blockHash: "0x3656ba77328cd78087d3f5a61287d95241fba76d7de606868f1561f147a17dc1",
+  blockNumber: 1,
+  contractAddress: "0x1ce836d1d1839f1ed07b01ae152a4c5f0ee2a041",
+  cumulativeGasUsed: 134093,
+  from: "0x2f3efd9475fb969eecfdade75a1dae02dbd92e25",
+  gasUsed: 134093,
+  logs: [],
+  logsBloom: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  status: "0x1",
+  to: null,
+  transactionHash: "0x2280fe5f44756e44f0c7e9740f254ab18261d3b7836d801b43678ddf442480a0",
+  transactionIndex: 0
+}
+```
+
+- 合约命名
+
+> 交易信息中，contractAddress 表示合约地址
+
+``` basic
+> samplecontract = sample.at("0x1ce836d1d1839f1ed07b01ae152a4c5f0ee2a041")
+{
+  abi: [{
+      constant: true,
+      inputs: [],
+      name: "value",
+      outputs: [{...}],
+      payable: false,
+      stateMutability: "view",
+      type: "function"
+  }, {
+      constant: false,
+      inputs: [{...}],
+      name: "set",
+      outputs: [],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function"
+  }, {
+      constant: true,
+      inputs: [],
+      name: "get",
+      outputs: [{...}],
+      payable: false,
+      stateMutability: "view",
+      type: "function"
+  }, {
+      inputs: [{...}],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "constructor"
+  }],
+  address: "0x1ce836d1d1839f1ed07b01ae152a4c5f0ee2a041",
+  transactionHash: null,
+  allEvents: function(),
+  get: function(),
+  set: function(),
+  value: function()
+}
+```
+
+- 查询合约
+
+```basic
+> samplecontract.get.call()
+99
+```
+
+- 执行合约 set 函数
+
+```basic
+> samplecontract.set.sendTransaction(1001, {from:eth.accounts[0], gas:3000000})
+"0x528209c6bcdbbb4a636eebd90cfc918eb8e463fed1f0cb3bbd8ef19df0654808"
+```
+
+- 再次查询合约
+
+```basic
+> samplecontract.get.call()
+1001
 ```
 
 ## 比特币 bitcoin

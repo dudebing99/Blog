@@ -12,32 +12,17 @@
 > - [stratum 协议原理](http://www.8btc.com/stratum_protocol)
 > - [图灵完备维基百科](https://en.wikipedia.org/wiki/Turing_completeness)
 > - [基于区块链的存证业务构想](https://zhuanlan.zhihu.com/p/33462619)
+> - [以太坊 Web3.js 开发基础](https://www.jianshu.com/p/f3f36447546e)
+> - [Web3.js API 中文文档](http://web3.tryblockchain.org/index.html)
+> - [web3 tutorial](https://github.com/cooleye/web3tutorial)
 
-## 眼见为实
+## DIY
 
 ### 比特币测试网络
 
-#### 查看版本
-
-```bash
-kevin@ubuntu:~$ cat /etc/issue
-Ubuntu 14.04.5 LTS \n \l
-kevin@ubuntu:/usr/local/bin$ bitcoind -version
-Bitcoin Core Daemon version v0.16.99.0-7c32b41
-Copyright (C) 2009-2018 The Bitcoin Core developers
-
-Please contribute if you find Bitcoin Core useful. Visit
-<https://bitcoincore.org> for further information about the software.
-The source code is available from <https://github.com/bitcoin/bitcoin>.
-
-This is experimental software.
-Distributed under the MIT software license, see the accompanying file COPYING
-or <https://opensource.org/licenses/MIT>
-
-This product includes software developed by the OpenSSL Project for use in the
-OpenSSL Toolkit <https://www.openssl.org> and cryptographic software written by
-Eric Young and UPnP software written by Thomas Bernard.
-```
+> **OS: **Ubuntu 14.04.5 LTS
+>
+> **Bitcoin Code Daemon:** v0.16.99.0-7c32b41
 
 #### 运行 bitcoind
 
@@ -189,6 +174,8 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 
 ### 以太坊初步探索
 
+> **OS:** Ubuntu 14.04.5 LTS
+>
 > **geth: **1.8.13-unstable
 >
 > **solc:** 0.4.24+commit.e67f0147.Linux.g++
@@ -766,6 +753,160 @@ Contract JSON ABI
 ```basic
 > samplecontract.get.call()
 1001
+```
+
+### 以太坊 Web3.js 开发基础
+
+> **OS:** Ubuntu 14.04.5 LTS
+>
+> **NPM:** 5.6.0
+>
+> **nodejs:** 8.11.3
+>
+> **web3:** 0.20.1（**注意：不同版本接口不兼容**）
+
+#### 简介
+
+​	web3.js 是一个通过 [RPC 调用](https://github.com/ethereum/wiki/wiki/JSON-RPC) 和本地以太坊节点进行通信的 js 库。web3.js 可以与任何暴露了 RPC 接口的以太坊节点连接。 web3 中提供了 eth 对象 -- web3.eth 来与以太坊区块链进行交互。
+
+#### 安装 testrpc
+
+> ethereumjs-testrpc 库后续被重命名为 ganache-cli
+
+```bash
+root:~#  npm install -g ethereumjs-testrpc
+npm WARN deprecated ethereumjs-testrpc@6.0.3: ethereumjs-testrpc has been renamed to ganache-cli, please use this package from now on.
+/usr/local/bin/testrpc -> /usr/local/lib/node_modules/ethereumjs-testrpc/build/cli.node.js
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.4 (node_modules/ethereumjs-testrpc/node_modules/fsevents):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.4: wanted {"os":"darwin","arch":"any"} (current: {"os":"linux","arch":"x64"})
++ ethereumjs-testrpc@6.0.3
+updated 1 package in 11.83s
+```
+
+#### 启动 testrpc
+
+> 会自动创建 10 个账户，每个账户默认有 100 个以太币 
+
+```bash
+root:~# testrpc 
+EthereumJS TestRPC v6.0.3 (ganache-core: 2.0.2)
+
+Available Accounts
+==================
+(0) 0x931a85a8b24e00e5aa56651a64dd55f3c849fe14
+(1) 0x7a74f95c7b520f498b31fedcbffaa9a1b12a7dea
+(2) 0xe4ef6200839fd673eb1dd42db3842bb4cbf1450b
+(3) 0x9444971ba35b6dcbca9909021cb6463902940dc6
+(4) 0x79d39a05ec5afda98ccd435ba0124de32a186619
+(5) 0xeaef1169fdb348b44efe860228666a35f2a33476
+(6) 0xb7e4e662bf202c16c4d2e6c9b8254f3dc771f9b2
+(7) 0xf887537611c4f20b788c0448e912e29cbc46e398
+(8) 0x33687b265c9910ae865334735959f9d02c874db2
+(9) 0x20587c3c3609c4cd954364c828b85077d68357cd
+
+Private Keys
+==================
+(0) d59b0b9f2cc918597b558612f77f04bb78caf385f98f9787b83fa7d449328bdd
+(1) a701c5a389856323e88bcc835f7e683ab606c221e9144c7d132605a52517ef79
+(2) 0d08de4f3212a674520501828530c5d8ed39af5c029f0bae7c24a0edebf84d35
+(3) a9b94d7dc5320cce54e8fedc4c527ddcdeb8140345f85fe65a68578535b67299
+(4) a042e22f82b374e5d1ae439da7a7b326a22301fb42477e3136affd71c84e67fb
+(5) d871bfcd1325ab085ffe692aa3d2ab9259c5078c2031f83631b32e3ee614864a
+(6) 750077fca5e502678fcfc60dae7392d0bb4545a7b669da5dd0792dd40bb01143
+(7) cd841189444d94bf833ba626415e519b06048bde7473da53c5a93995859edab2
+(8) c41aa3c25c07926f1b36a9b2c004007e7978d1668bb891c1085e1f0e2aa18703
+(9) eafa58b497de55316ec4502891447312577bd186ca8857bb90c321c6939c3cf7
+
+HD Wallet
+==================
+Mnemonic:      park invite try clap airport summer armed relax split humble unique black
+Base HD Path:  m/44'/60'/0'/0/{account_index}
+
+Listening on localhost:8545
+```
+
+#### 方式一：交互式操作
+
+- 初始化 web3
+
+> 执行 node 进入交互式环境，输入（复制 + 粘贴）如下代码
+
+```javascript
+let Web3 = require('web3');
+let web3;
+
+if (typeof web3 !== 'undefined') {
+    web3 = new Web3(web3.currentProvider);
+} else {
+    // set the provider you want from Web3.providers
+    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+}
+```
+
+- 查看账户
+
+```basic
+> web3.eth.accounts
+[ '0x931a85a8b24e00e5aa56651a64dd55f3c849fe14',
+  '0x7a74f95c7b520f498b31fedcbffaa9a1b12a7dea',
+  '0xe4ef6200839fd673eb1dd42db3842bb4cbf1450b',
+  '0x9444971ba35b6dcbca9909021cb6463902940dc6',
+  '0x79d39a05ec5afda98ccd435ba0124de32a186619',
+  '0xeaef1169fdb348b44efe860228666a35f2a33476',
+  '0xb7e4e662bf202c16c4d2e6c9b8254f3dc771f9b2',
+  '0xf887537611c4f20b788c0448e912e29cbc46e398',
+  '0x33687b265c9910ae865334735959f9d02c874db2',
+  '0x20587c3c3609c4cd954364c828b85077d68357cd' ]
+```
+
+- 查看账户余额
+
+```basic
+> web3.eth.getBalance('0x931a85a8b24e00e5aa56651a64dd55f3c849fe14')
+BigNumber { s: 1, e: 20, c: [ 1000000 ] }
+```
+
+#### 方式二：运行 js 脚本
+
+- 创建包含操作的 js 脚本
+
+```javascript
+let Web3 = require('web3');
+let web3;
+
+if (typeof web3 !== 'undefined') {
+    web3 = new Web3(web3.currentProvider);
+} else {
+    // set the provider you want from Web3.providers
+    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+}
+
+version = web3.version.api
+console.log(version);
+
+console.log(web3.eth.accounts);
+
+console.log(web3.eth.getBalance('0x3ead381b015ee447e753081f96b918350861417e'));
+```
+
+- 执行脚本
+
+```bash
+root:ethereum# node test.js 
+0.20.1
+[ '0x931a85a8b24e00e5aa56651a64dd55f3c849fe14',
+  '0x7a74f95c7b520f498b31fedcbffaa9a1b12a7dea',
+  '0xe4ef6200839fd673eb1dd42db3842bb4cbf1450b',
+  '0x9444971ba35b6dcbca9909021cb6463902940dc6',
+  '0x79d39a05ec5afda98ccd435ba0124de32a186619',
+  '0xeaef1169fdb348b44efe860228666a35f2a33476',
+  '0xb7e4e662bf202c16c4d2e6c9b8254f3dc771f9b2',
+  '0xf887537611c4f20b788c0448e912e29cbc46e398',
+  '0x33687b265c9910ae865334735959f9d02c874db2',
+  '0x20587c3c3609c4cd954364c828b85077d68357cd',
+  '0xb272afb0246c0b29768976384713d277ab09a92d',
+  '0x1a671ee00f4233dcd572c92f88a187a0f134aeca' ]
+BigNumber { s: 1, e: 0, c: [ 0 ] }
 ```
 
 ## 比特币 bitcoin

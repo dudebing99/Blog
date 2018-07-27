@@ -2130,11 +2130,13 @@ source ~/.bashrc
 echo "registry = https://registry.npm.taobao.org" >> ~/.npmrc
 ```
 
-6. 安装 web3、solc
+6. 安装 web3
+
+> **备注：**以太坊 [官方 wiki](https://github.com/ethereum/wiki/wiki/JavaScript-API) 的 API，基于 web3 的版本是 0.2x.x。如果直接用 `npm install web3` ，安装的版本为 1.0.0-beta.35，API 使用差异巨大，如果采用此方法安装，参考实际版本的 [web3.js](http://web3js.readthedocs.io/en/1.0/web3.html#version)。 
 
 ```bash
 # npm init
-npm install -g web3 solc
+npm install web3@0.20.1
 ```
 
 ## Ubuntu 安装 lua

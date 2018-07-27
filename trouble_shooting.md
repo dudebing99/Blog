@@ -682,3 +682,23 @@ WARN [07-24|20:13:55.984] Block sealing failed                     err="waiting 
 **解决方式**
 
 ​	开发者模式运行，当有交易时节点才启动挖矿，因此，创建一个交易即可触发节点的挖矿。
+
+## [NPM] sh: 1: node: not found npm WARN This failure might be due to the use of legacy binary 
+
+**系统环境**
+
+ 	Ubuntu 14.04
+
+**问题描述**
+
+​	npm 安装包的时候报错，如上所示。
+
+**原因分析**
+
+​	新版本的 nodejs，已经将原来 /usr/bin/node 改成 /usr/bin/nodejs，所以报如上错误。 
+
+**解决方式**
+
+```bash
+apt-get install nodejs-legacy
+```

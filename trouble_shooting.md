@@ -691,7 +691,7 @@ WARN [07-24|20:13:55.984] Block sealing failed                     err="waiting 
 
 **问题描述**
 
-​	npm 安装包的时候报错，如上所示。
+​	npm install 安装包的时候报错，如上所示。
 
 **原因分析**
 
@@ -702,3 +702,17 @@ WARN [07-24|20:13:55.984] Block sealing failed                     err="waiting 
 ```bash
 apt-get install nodejs-legacy
 ```
+
+## [NPM] npm WARN enoent ENOENT: no such file or directory
+
+**系统环境**
+
+ 	Ubuntu 14.04
+
+**问题描述**
+
+​	npm install 安装包的时候报错，npm WARN enoent ENOENT: no such file or directory, open '\<root>/node_modules/supertest/package.json'
+
+**解决方式**
+
+​	运行 npm init 进行初始化即可

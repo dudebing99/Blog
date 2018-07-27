@@ -2110,6 +2110,33 @@ sudo apt-get install solc
 which solc
 ```
 
+5. 安装 nodejs
+
+```bash
+weget https://nodejs.org/dist/v8.11.3/node-v8.11.3-linux-x64.tar.xz
+xz -d node-v8.11.3-linux-x64.tar.xz
+# 清理已安装的 node/nodejs/npm
+cd node-v8.11.3-linux-x64/
+cp -r bin/* /usr/local/bin
+cp -r include/* /usr/loca/include
+cp -r lib/* /usr/local/lib
+echo "/usr/local/bin >> ~/.bashrc"
+source ~/.bashrc
+```
+
+5. 替换 npm 淘宝源
+
+```bash
+echo "registry = https://registry.npm.taobao.org" >> ~/.npmrc
+```
+
+6. 安装 web3、solc
+
+```bash
+# npm init
+npm install -g web3 solc
+```
+
 ## Ubuntu 安装 lua
 
 > **运行环境：**Ubuntu 14.04

@@ -716,3 +716,27 @@ apt-get install nodejs-legacy
 **解决方式**
 
 ​	运行 npm init 进行初始化即可
+
+## [web3.js] Error: Error: Method eth_compileSolidity not supported.
+
+**系统环境**
+
+ 	Ubuntu 14.04/Solc 0.20.1/node 8.11.3/npm 5.6.0
+
+**问题描述**
+
+​	调用 web3.js 编译合约接口时，报错，对应代码如下所示：
+
+```javascript
+let calc = web3.eth.compile.solidity(source);
+```
+
+**原因分析**
+
+> the developers decided that making a node compile a contract like this to be out of scope. So this functionality has been [deprecated](https://github.com/ethereum/EIPs/issues/209). There were many reasons behind this, but the main ones are that RPC calls are beyond the responsibilities of the eth API, and node compilation like this is not sufficient. You can use an on-line compiler like Remix, or a compiler like solc to get the bytecode and go from there. 
+
+​	新版本 web3.js 废弃了该接口
+
+**解决方式**
+
+​	利用 Solc 提前编译好合约，js 代码中不依赖该接口即可

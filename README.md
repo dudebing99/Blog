@@ -22,6 +22,8 @@
 
 [Block Chain](https://dudebing99.github.io/blog/block_chain.html)
 
+[Common Sense](https://dudebing99.github.io/blog/common_sense.html)
+
 ------
 
 Contact me at: *echo Yy5yMjAwOUAxNjMuY29t|base64 -d*

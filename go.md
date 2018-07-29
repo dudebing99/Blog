@@ -587,6 +587,51 @@ index:  6 , value:  6
 index:  7 , value:  7
 index:  8 , value:  8
 ```
+## 传递指针和对象的区别
+
+**功能：**传递指针改变原对象，传对象类似于传值，不改变原对象。
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/pointer_or_object.go)
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+type T struct {
+	identity string
+}
+
+func (t T) f1() {
+	t.identity = "lucy"
+}
+
+func (t *T) f2() {
+	t.identity = "lily"
+}
+
+func main() {
+	t := T{"hello"}
+
+	fmt.Println(t.identity)
+	t.f1()
+	fmt.Println(t.identity)
+
+	t.f2()
+	fmt.Println(t.identity)
+}
+```
+
+**输出**
+
+```basic
+hello
+hello
+lily
+```
+
 ## 自定义结构体 slice 排序
 
 **功能：**自定义结构体 slice 对象，对其进行升序、降序排序

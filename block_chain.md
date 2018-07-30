@@ -771,7 +771,8 @@ Contract JSON ABI
 
 #### 安装 testrpc
 
-> ethereumjs-testrpc 库后续被重命名为 ganache-cli
+> - ethereumjs-testrpc 库后续被重命名为 ganache-cli
+> - testrpc 不同于 geth，geth 是真正的以太坊环境，testrpc 是在本地使用内存模拟的一个以太坊环境，对于开发调试来说，更为方便快捷，当合约在 testrpc 中测试通过后，再部署到 geth 中去。 
 
 ```bash
 root:~#  npm install -g ethereumjs-testrpc

@@ -3947,3 +3947,71 @@ greetings: hello
 hello, dudebing99
 ```
 
+## [solidity] 以太坊合约示例：设置、获取值
+
+Solidity 合约脚本如下
+
+```basic
+pragma solidity ^0.4.11;
+ 
+contract Sample {
+
+    uint public value;
+
+    constructor (uint v) public {
+        value = v;
+    }
+
+    function set(uint v) public {
+        value = v;
+    }
+
+    function get() public view returns (uint) {
+        return value;
+    }
+}
+```
+
+使用 SolC 编译上述脚本
+
+```basic
+root:ethereum# solc --optimize --abi --bin sample.sol
+
+======= sample.sol:Sample =======
+Binary: 
+608060405234801561001057600080fd5b50604051602080610114833981016040525160005560e1806100336000396000f30060806040526004361060525763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416633fa4f2458114605757806360fe47b114607b5780636d4ce63c146092575b600080fd5b348015606257600080fd5b50606960a4565b60408051918252519081900360200190f35b348015608657600080fd5b50609060043560aa565b005b348015609d57600080fd5b50606960af565b60005481565b600055565b600054905600a165627a7a723058207098d9dc5ae86fe75d1016078954658c002f112da516ed90f64c901feb340d870029
+Contract JSON ABI 
+[{"constant":true,"inputs":[],"name":"value","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"v","type":"uint256"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"v","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
+```
+
+调用合约的 js 脚本
+
+```javascript
+let Web3 = require('web3');
+let web3;
+
+if (typeof web3 !== 'undefined') {
+    web3 = new Web3(web3.currentProvider);
+} else {
+    // set the provider you want from Web3.providers
+    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+}
+
+// 定义合约的 abi、字节码
+abi = [{"constant":true,"inputs":[],"name":"value","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"v","type":"uint256"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"v","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
+hex = "0x608060405234801561001057600080fd5b50604051602080610114833981016040525160005560e1806100336000396000f30060806040526004361060525763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416633fa4f2458114605757806360fe47b114607b5780636d4ce63c146092575b600080fd5b348015606257600080fd5b50606960a4565b60408051918252519081900360200190f35b348015608657600080fd5b50609060043560aa565b005b348015609d57600080fd5b50606960af565b60005481565b600055565b600054905600a165627a7a723058207098d9dc5ae86fe75d1016078954658c002f112da516ed90f64c901feb340d870029"
+
+// 定义合约
+sample = web3.eth.contract(abi)
+// 创建合约
+thesample = sample.new(99, {from:web3.eth.accounts[0], data:hex, gas:3000000})
+// 查询交易细节
+samplerecpt = web3.eth.getTransactionReceipt("0x2280fe5f44756e44f0c7e9740f254ab18261d3b7836d801b43678ddf442480a0")
+// 定义合约别名（根据上链的合约地址）
+samplecontract = sample.at("0x1ce836d1d1839f1ed07b01ae152a4c5f0ee2a041")
+// 执行合约的函数
+samplecontract.get.call()
+samplecontract.set.sendTransaction(1001, {from:web3.eth.accounts[0], gas:3000000})
+samplecontract.get.call()
+```
+

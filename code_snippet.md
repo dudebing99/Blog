@@ -4084,7 +4084,7 @@ root:ethereum# node helloworld.js
 hello world
 ```
 
-## [solidity] 以太坊合约示例：设置、获取值
+## [solidity] 以太坊合约示例：存储
 
 Solidity 合约脚本如下，[点此下载](https://dudebing99.github.io/blog/archives/solidity/sample.sol)
 

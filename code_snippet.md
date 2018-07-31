@@ -3949,7 +3949,7 @@ hello, dudebing99
 
 ## [Solidity] 以太坊合约示例：hello world
 
-Solidity 合约脚本如下
+Solidity 合约脚本如下，[点此下载](https://dudebing99.github.io/blog/archives/solidity/hello_world.sol)
 
 ```basic
 pragma solidity ^0.4.11;
@@ -3999,7 +3999,7 @@ Contract JSON ABI
 [{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_newgreeting","type":"string"}],"name":"setGreeting","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"greet","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_greeting","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
 ```
 
-调用合约的 js 脚本【同步】
+调用合约的 js 脚本【同步】，[点此下载](https://dudebing99.github.io/blog/archives/solidity/hello_world.js)
 
 ```js
 let Web3 = require('web3');
@@ -4038,7 +4038,7 @@ console.log(contract_.greet.call());
 process.exit(0);
 ```
 
-调用合约的 js 脚本【异步】
+调用合约的 js 脚本【异步】，[点此下载](https://dudebing99.github.io/blog/archives/solidity/hello_world2.js)
 
 ```javascript
 let Web3 = require('web3');
@@ -4086,7 +4086,7 @@ hello world
 
 ## [solidity] 以太坊合约示例：设置、获取值
 
-Solidity 合约脚本如下
+Solidity 合约脚本如下，[点此下载](https://dudebing99.github.io/blog/archives/solidity/sample.sol)
 
 ```basic
 pragma solidity ^0.4.11;
@@ -4121,7 +4121,7 @@ Contract JSON ABI
 [{"constant":true,"inputs":[],"name":"value","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"v","type":"uint256"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"v","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
 ```
 
-调用合约的 js 脚本
+调用合约的 js 脚本，[点此下载](https://dudebing99.github.io/blog/archives/solidity/sample.js)
 
 ```javascript
 let Web3 = require('web3');

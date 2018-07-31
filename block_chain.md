@@ -15,6 +15,8 @@
 > - [以太坊 Web3.js 开发基础](https://www.jianshu.com/p/f3f36447546e)
 > - [Web3.js API 中文文档](http://web3.tryblockchain.org/index.html)
 > - [web3 tutorial](https://github.com/cooleye/web3tutorial)
+> - [Solidity 中文开发文档](http://solidity-cn.readthedocs.io/zh/develop/index.html)
+> - [Solidity 英文开发文档](http://solidity.readthedocs.io/en/v0.4.24/)
 
 ## DIY
 

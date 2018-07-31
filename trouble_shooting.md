@@ -740,3 +740,68 @@ let calc = web3.eth.compile.solidity(source);
 **解决方式**
 
 ​	利用 Solc 提前编译好合约，js 代码中不依赖该接口即可
+
+## [以太坊合约开发] 监听合约事件失败
+
+**系统环境**
+
+ 	Ubuntu 14.04/Solc 0.20.1/node 8.11.3/npm 5.6.0
+
+**问题描述**
+
+​	监听合约事件，但是无法捕获事件，代码如下所示
+
+```javascript
+contract_.Sent().watch(function(error, result) {
+    if (!error) {
+        console.log("\nCoin transfer: " + result.args.amount +
+            " coins were sent from " + result.args.from +
+            " to " + result.args.to + ".");
+        console.log("Sender: " + contract_.balances.call(result.args.from) +
+            ", Receiver: " + contract_.balances.call(result.args.to) + "\n");
+    }
+})
+
+console.log("mint's hash: ", contract_.mint(web3.eth.accounts[0], 666, {from: web3.eth.accounts[0],
+gas:3000000}));
+console.log("minter's balance: ", contract_.balances.call(web3.eth.accounts[0]));
+console.log("mint's hash ", contract_.send(web3.eth.accounts[3], 99, {from: web3.eth.accounts[0],
+gas:3000000}));
+console.log("minter's balance: ", contract_.balances.call(web3.eth.accounts[0]));
+console.log("receiver's balance: ", contract_.balances.call(web3.eth.accounts[3]));
+
+process.exit(0);
+```
+
+**原因分析**
+
+​	由于事件监听属于回调，执行合约交易之后，立即调用 process.exit(0) 退出程序，导致监听合约事件失败。
+
+**解决方式**
+
+​	去掉 process.exit(0) 即可，如下所示
+
+```javascript
+contract_.Sent().watch(function(error, result) {
+    if (!error) {
+        console.log("\nCoin transfer: " + result.args.amount +
+            " coins were sent from " + result.args.from +
+            " to " + result.args.to + ".");
+        console.log("Sender: " + contract_.balances.call(result.args.from) +
+            ", Receiver: " + contract_.balances.call(result.args.to) + "\n");
+    }
+})
+
+console.log("mint's hash: ", contract_.mint(web3.eth.accounts[0], 666, {from: web3.eth.accounts[0],
+gas:3000000}));
+console.log("minter's balance: ", contract_.balances.call(web3.eth.accounts[0]));
+console.log("mint's hash ", contract_.send(web3.eth.accounts[3], 99, {from: web3.eth.accounts[0],
+gas:3000000}));
+console.log("minter's balance: ", contract_.balances.call(web3.eth.accounts[0]));
+console.log("receiver's balance: ", contract_.balances.call(web3.eth.accounts[3]));
+
+setTimeout(function() {
+    process.exit(0);
+}, 5000);
+```
+

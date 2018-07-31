@@ -93,6 +93,8 @@ debug
 > **点此下载：**[vimrc](https://dudebing99.github.io/blog/archives/config/vimrc)（下载后重命名为 .vimrc）
 
 ```bash
+set nocompatible
+set backspace=indent,eol,start
 set incsearch
 set number
 set hlsearch
@@ -114,7 +116,7 @@ set laststatus=2
 set cursorline
 
 set guifont=Courier_New:h14:cANSI
-set history=161202
+set history=9999
 set selection=exclusive
 set selectmode=mouse,key
 set fillchars=vert:\ ,stl:\ ,stlnc:\

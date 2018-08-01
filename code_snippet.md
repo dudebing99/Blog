@@ -4171,7 +4171,7 @@ BigNumber { s: 1, e: 3, c: [ 1001 ] }
 > - 铸币者可以调用 mint() 实现铸币
 > - 不同用户可以调用 send() 实现自货币之间的转账（转出账户余额足够即可）
 > - 可以调用 kill() 实现合约销毁，并将余额返回给铸币者
-> - 调用 watch() 监听事件，用来辅助调试、做业务网或日志
+> - 调用 watch() 监听事件，用来辅助调试、完成上层业务或记录日志
 
 Solidity 合约脚本如下，[点此下载](https://dudebing99.github.io/blog/archives/solidity/subcurrency.sol)
 

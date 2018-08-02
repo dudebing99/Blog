@@ -434,6 +434,20 @@ def get_db_conn(mysql_config):
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
     ```
 
+## str(c.version) for c in all_candidates SyntaxError: invalid syntax
+
+**系统环境**
+
+ 	CentOS 6.x/Python 2.6.6
+
+**问题描述**
+
+​	执行 pip install --upgrade pip 报错，如上所示
+
+**解决方式**
+
+​	python 版本过低，安装 python 2.7.x 或以上版本
+
 ## [Ubuntu] [: 1: unexpected operator
 
 **系统环境**

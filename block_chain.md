@@ -5,7 +5,8 @@
 > **参考资料：**
 >
 > - [比特币白皮书中英文对照版](http://www.ehcoo.com/A%20Peer-to-Peer%20Electronic%20Cash%20System.html)
-> - [精通比特币](http://zhibimo.com/read/wang-miao/mastering-bitcoin/index.html)
+> - [精通比特币](http://book.8btc.com/books/1/master_bitcoin/_book/)
+> - [精通比特币第二版](http://book.8btc.com/books/6/masterbitcoin2cn/_book/)
 > - [区块链技术指南](http://book.8btc.com/blockchain_guide)
 > - [区块链维基百科](https://en.wikipedia.org/wiki/Blockchain)
 > - [深度解析挖矿的逻辑和技术实现](https://blog.csdn.net/taifei/article/details/72895903)
@@ -18,6 +19,7 @@
 > - [Solidity 中文开发文档](http://solidity-cn.readthedocs.io/zh/develop/index.html)
 > - [Solidity 英文开发文档](http://solidity.readthedocs.io/en/v0.4.24/)
 > - [Contract tutorial](https://github.com/ethereum/go-ethereum/wiki/Contract-Tutorial)
+> - [Learning-Bitcoin-from-the-Command-Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line)
 
 ## DIY
 

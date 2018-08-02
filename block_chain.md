@@ -7,19 +7,18 @@
 > - [比特币白皮书中英文对照版](http://www.ehcoo.com/A%20Peer-to-Peer%20Electronic%20Cash%20System.html)
 > - [精通比特币](http://book.8btc.com/books/1/master_bitcoin/_book/)
 > - [精通比特币第二版](http://book.8btc.com/books/6/masterbitcoin2cn/_book/)
+> - [Learning-Bitcoin-from-the-Command-Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line)
 > - [区块链技术指南](http://book.8btc.com/blockchain_guide)
 > - [区块链维基百科](https://en.wikipedia.org/wiki/Blockchain)
-> - [深度解析挖矿的逻辑和技术实现](https://blog.csdn.net/taifei/article/details/72895903)
-> - [stratum 协议原理](http://www.8btc.com/stratum_protocol)
 > - [图灵完备维基百科](https://en.wikipedia.org/wiki/Turing_completeness)
 > - [基于区块链的存证业务构想](https://zhuanlan.zhihu.com/p/33462619)
+> - [以太坊白皮书](https://ethfans.org/wikis/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6)
 > - [以太坊 Web3.js 开发基础](https://www.jianshu.com/p/f3f36447546e)
 > - [Web3.js API 中文文档](http://web3.tryblockchain.org/index.html)
 > - [Web3 tutorial](https://github.com/cooleye/web3tutorial)
 > - [Solidity 中文开发文档](http://solidity-cn.readthedocs.io/zh/develop/index.html)
 > - [Solidity 英文开发文档](http://solidity.readthedocs.io/en/v0.4.24/)
 > - [Contract tutorial](https://github.com/ethereum/go-ethereum/wiki/Contract-Tutorial)
-> - [Learning-Bitcoin-from-the-Command-Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line)
 
 ## DIY
 

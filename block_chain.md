@@ -8,6 +8,8 @@
 > - [精通比特币](http://book.8btc.com/books/1/master_bitcoin/_book/)
 > - [精通比特币第二版](http://book.8btc.com/books/6/masterbitcoin2cn/_book/)
 > - [Learning-Bitcoin-from-the-Command-Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line)
+> - [调试 BTC 脚本](https://github.com/kallewoof/btcdeb)
+> - [python-OP_RETURN](https://github.com/coinspark/python-OP_RETURN)
 > - [区块链技术指南](http://book.8btc.com/blockchain_guide)
 > - [区块链维基百科](https://en.wikipedia.org/wiki/Blockchain)
 > - [图灵完备维基百科](https://en.wikipedia.org/wiki/Turing_completeness)
@@ -1931,7 +1933,7 @@ error: {"code":-4,"message":"Error:run-script-error:luaL_loadbuffer fail:[string
   RETURN <data>
 ```
 
-​	“data”部分被限制为 80 字节，且多以哈希方式呈现，如 32 字节的 SHA256 算法输出。许多应用都在其前面加上前缀以辅助认定。例如，电子公正服务的证明材料采用8个字节的前缀“DOCPROOF”，在十六进制算法中，相应的 ASCII 码为 44 4f 43 50 52 4f 4f 46。
+​	“data”部分被限制为 80 字节，且多以哈希方式呈现，如 32 字节的 SHA256 算法输出。许多应用都在其前面加上前缀以辅助认定。例如，电子公正服务的证明材料采用 8个字节的前缀“DOCPROOF”，在十六进制算法中，相应的 ASCII 码为 44 4f 43 50 52 4f 4f 46。
 
 请记住 RETURN 不涉及可用于支付的解锁脚本的特点， RETURN 不能使用其输出中所锁定的资金，因此它也就没有必要记录在蕴含潜在成本的 UTXO 集中，所以 RETURN 实际是没有成本的。
 

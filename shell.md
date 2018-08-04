@@ -1871,5 +1871,24 @@ kevin@ubuntu:~$ echo "hello world"|xxd -ps -u
 68656C6C6F20776F726C640A
 ```
 
+## chattr 和 lsattr 保护文件
+
+> 通常，可以通过 `chattr +i` 实现对文件的保护
+
+```bash
+root@iZbp18qlevqaoff8jmlpx7Z:~# lsattr stack.log 
+-------------e-- stack.log
+# 通过 chattr +i 给文件添加 "i" 属性，文件将不能被删除、改名、设定连结也无法写入或新增数据
+root@iZbp18qlevqaoff8jmlpx7Z:~# chattr +i stack.log 
+root@iZbp18qlevqaoff8jmlpx7Z:~# lsattr stack.log    
+----i--------e-- stack.log
+# 写入数据出错
+root@iZbp18qlevqaoff8jmlpx7Z:~# echo "a" >> stack.log
+-bash: stack.log: Permission denied
+# 去掉 "i" 属性
+root@iZbp18qlevqaoff8jmlpx7Z:~# chattr -i stack.log
+root@iZbp18qlevqaoff8jmlpx7Z:~# echo "a" >> stack.log
+```
+
 
 

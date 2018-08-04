@@ -10,7 +10,7 @@
 
 - 利用 free 查看系统内存
 
-- 利用 top 查看进程占用内存
+- 利用 top/htop 查看进程占用内存
 
   ```bash
   top -d 1 -p pid
@@ -34,7 +34,7 @@
 
 ### 查看系统级别是否运行异常
 
-- 利用 top 查看全局资源使用
+- 利用 top/htop 查看全局资源使用
 - 利用 free 查看系统内存使用
 - 利用 iostat 查看磁盘 I/O 是否异常
 - 利用 df -i 查看系统 inode 使用是否异常；df -h 查看系统磁盘使用是否异常
@@ -43,7 +43,7 @@
 
 ### 查看进程级别是否运行异常
 
-- top 查看进程资源使用是否正常（特别注意，内存是否一致在增加）
+- top/htop 查看进程资源使用是否正常（特别注意，内存是否一致在增加）
 
 - lsof 查看进程打开的文件句柄数
 
@@ -610,9 +610,9 @@ rdate -t 30 -s time.nist.gov && hwclock -w
   ServerAliveInterval 30
   ```
 
-​	以上在客户端配置后，就会有反空闲设置，即每 30s 会自动和服务端做一次确认。
-
-​	如果在 Windows 下使用 SecureCRT，如下操作即可
+		以上在客户端配置后，就会有反空闲设置，即每 30s 会自动和服务端做一次确认。
+	
+		如果在 Windows 下使用 SecureCRT，如下操作即可
 
 ![](pic/securecrt/keepalive.png)
 

@@ -612,6 +612,24 @@ apt-get install build-essential g++ -y
 > yum install glibc-headers gcc-c++ -y
 > ```
 
+## [Ubuntu] Package libdb4.8++-dev is not available, but is referred to by another package.
+
+**系统环境**
+
+ 	Ubuntu 14.04
+
+**问题描述**
+
+​	Ubuntu 无法安装 libdb4.8++-dev
+
+**解决方式**
+
+```bash
+add-apt-repository ppa:bitcoin/bitcoin
+apt-get update
+apt-get install -y libdb4.8-dev libdb4.8++-dev
+```
+
 ## [Golang] package xxx: cannot download, $GOPATH not set. For more details see: go help gopath
 
 **系统环境**

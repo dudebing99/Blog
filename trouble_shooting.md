@@ -448,6 +448,43 @@ def get_db_conn(mysql_config):
 
 ​	python 版本过低，安装 python 2.7.x 或以上版本
 
+## [Ubuntu] libssl-dev : Depends: libssl1.0.0 (= 1.0.1f-1ubuntu2) but 1.0.1f-1ubuntu2.19 is to be installed
+
+**系统环境**
+
+ 	Ubuntu 14.04
+
+**问题描述**
+
+​	执行 `apt-get install libssl-dev` 安装 libssl-dev 出错，具体信息如下所示
+
+```bash
+The following packages have unmet dependencies:
+ software-properties-common : Depends: python3-software-properties (= 0.92.37.8) but it is not going to be installed
+E: Unable to correct problems, you have held broken packages.
+```
+
+**解决方式**
+
+```basic
+root@datachain-test002:~# aptitude install libssl-dev
+The following NEW packages will be installed:
+  libssl-dev{b} libssl-doc{a} zlib1g-dev{ab} 
+0 packages upgraded, 3 newly installed, 0 to remove and 1 not upgraded.
+Need to get 2,209 kB of archives. After unpacking 8,290 kB will be used.
+The following packages have unmet dependencies:
+ zlib1g-dev : Depends: zlib1g (= 1:1.2.8.dfsg-1ubuntu1.1) but 1:1.2.8.dfsg-2ubuntu4.1 is installed.
+ libssl-dev : Depends: libssl1.0.0 (= 1.0.1f-1ubuntu2.26) but 1.0.2g-1ubuntu4.11 is installed.
+The following actions will resolve these dependencies:
+
+     Keep the following packages at their current version:
+1)     libssl-dev [Not Installed]                         
+2)     zlib1g-dev [Not Installed]                         
+
+Accept this solution? [Y/n/q/?] n
+Accept this solution? [Y/n/q/?] Y
+```
+
 ## [Ubuntu] [: 1: unexpected operator
 
 **系统环境**

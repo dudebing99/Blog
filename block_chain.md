@@ -21,6 +21,7 @@
 > - [Solidity 中文开发文档](http://solidity-cn.readthedocs.io/zh/develop/index.html)
 > - [Solidity 英文开发文档](http://solidity.readthedocs.io/en/v0.4.24/)
 > - [Contract tutorial](https://github.com/ethereum/go-ethereum/wiki/Contract-Tutorial)
+> - [ETH Gas Station](https://ethgasstation.info/)
 > - [以太坊 - 疫苗之王](https://etherscan.io/tx/0xb1ed364e4333aae1da4a901d5231244ba6a35f9421d4607f7cb90d60bf45578a)
 
 ## DIY
@@ -1920,7 +1921,7 @@ error: {"code":-4,"message":"Error:run-script-error:luaL_loadbuffer fail:[string
 
 ​	因此，区块链可以成为整个社会信用体系得以构建的底层基础设施。
 
-#### 数据记录
+#### 比特币数据记录
 
 ​	比特币的去中心特点和时间戳账本机制，即区块链技术，其潜在运用将大大超越支付领域。许多开发者试图充分发挥交易脚本语言的安全性和可恢复性优势，将其运用于电子公证服务、证券认证和智能合约等领域。很多早期的开发者利用比特币这种能将交易数据放到区块链上的技术进行了很多尝试，例如，为文件记录电子指纹，则任何人都可以通过该机制在特定的日期建立关于文档存在性的证明。
 
@@ -1955,3 +1956,10 @@ error: {"code":-4,"message":"Error:run-script-error:luaL_loadbuffer fail:[string
 ![](pic/blockchain/op_return1.png)
 
 ![](pic/blockchain/op_return2.png)
+
+#### 以太坊数据记录
+
+​	以太坊在交易中数据字段中添加待记录的数据，[如下所示](https://etherscan.io/tx/0xb1ed364e4333aae1da4a901d5231244ba6a35f9421d4607f7cb90d60bf45578a)
+
+![](pic/blockchain/eth_record.png)
+

@@ -1744,7 +1744,8 @@ apt-get update
 1. 下载安装（[官方下载源](https://golang.org/dl/)）
 
 ```bash
-tar -xzvf https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz
+wget https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz
+tar -xzvf go1.10.3.linux-amd64.tar.gz
 mv go /usr/local
 ```
 

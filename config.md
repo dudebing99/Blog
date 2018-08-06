@@ -2118,6 +2118,7 @@ which solc
 ```bash
 wget https://nodejs.org/dist/v8.11.3/node-v8.11.3-linux-x64.tar.xz
 xz -d node-v8.11.3-linux-x64.tar.xz
+tar -xvf node-v8.11.3-linux-x64.tar.xz
 # 清理已安装的 node/nodejs/npm
 cd node-v8.11.3-linux-x64/
 cp -r bin/* /usr/local/bin

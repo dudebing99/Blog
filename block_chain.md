@@ -192,6 +192,10 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 
 #### 启动 geth
 
+> **开发者网络：**./geth --datadir "./data" --dev console
+>
+> **以太坊 Testnet：**./geth --datadir="./testnet" --testnet console
+
 ```bash
 root:bin# ./geth --datadir "./data" --dev console
 INFO [07-25|09:49:34.448] Maximum peer count                       ETH=25 LES=0 total=25
@@ -775,7 +779,7 @@ Contract JSON ABI
 
 #### 简介
 
-​	web3.js 是一个通过 [RPC 调用](https://github.com/ethereum/wiki/wiki/JSON-RPC) 和本地以太坊节点进行通信的 js 库。web3.js 可以与任何暴露了 RPC 接口的以太坊节点连接。 web3 中提供了 eth 对象 -- web3.eth 来与以太坊区块链进行交互。
+​	web3.js 是一个通过 [RPC 调用](https://github.com/ethereum/wiki/wiki/JSON-RPC) 和本地以太坊节点进行通信的 js 库。web3.js 可以与任何暴露了 RPC 接口的以太坊节点连接。 web3 中提供了 eth 对象 `web3.eth` 来与以太坊区块链进行交互。
 
 #### 安装 testrpc
 

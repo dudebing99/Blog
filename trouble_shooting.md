@@ -644,7 +644,7 @@ C:\Users\Administrator\go
 
 ​	删除用户变量 GOPATH 即可（当然，删除系统变量，然后修改用户变量 GOPATH 为目标目录也可）
 
-## [Ethereum] unexpected directory layout
+## [geth] unexpected directory layout
 
 **系统环境**
 
@@ -672,13 +672,13 @@ unexpected directory layout:
 go get -u -v github.com/elastic/gosigar
 ```
 
-## [Ethereum] Block sealing failed err="waiting for transactions"
+## [geth] Block sealing failed err="waiting for transactions"
 
 > **参考资料：**https://github.com/ethereum/go-ethereum/issues/15646
 
 **系统环境**
 
- 	Ubuntu 14.04
+ 	Ubuntu 14.04/geth 1.8.13
 
 **问题描述**
 
@@ -696,6 +696,32 @@ WARN [07-24|20:13:55.984] Block sealing failed                     err="waiting 
 **解决方式**
 
 ​	开发者模式运行，当有交易时节点才启动挖矿，因此，创建一个交易即可触发节点的挖矿。
+
+## [geth] Please enable network time synchronisation in system settings
+
+**系统环境**
+
+ 	Ubuntu 14.04/geth 1.8.13
+
+**问题描述**
+
+​	以太坊 Testnet 运行 `./geth --datadir="./testnet" --testnet console`，错误信息如上所示
+
+**原因分析**
+
+​	节点所在机器时间未同步
+
+**解决方式**
+
+> 参考资料：https://github.com/ethereum/go-ethereum/issues/14717
+
+​	同步节点所在机器时间，参考方式如下
+
+```bash
+sudo apt-get update
+sudo apt-get install ntp
+sudo service ntp start
+```
 
 ## [NPM] sh: 1: node: not found npm WARN This failure might be due to the use of legacy binary 
 
@@ -755,7 +781,7 @@ let calc = web3.eth.compile.solidity(source);
 
 ​	利用 Solc 提前编译好合约，js 代码中不依赖该接口即可
 
-## [以太坊合约开发] 监听合约事件失败
+## [web3.js] 监听合约事件失败
 
 **系统环境**
 

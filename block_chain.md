@@ -21,6 +21,7 @@
 > - [Solidity 中文开发文档](http://solidity-cn.readthedocs.io/zh/develop/index.html)
 > - [Solidity 英文开发文档](http://solidity.readthedocs.io/en/v0.4.24/)
 > - [Contract tutorial](https://github.com/ethereum/go-ethereum/wiki/Contract-Tutorial)
+> - [以太坊 - 疫苗之王](https://etherscan.io/tx/0xb1ed364e4333aae1da4a901d5231244ba6a35f9421d4607f7cb90d60bf45578a)
 
 ## DIY
 

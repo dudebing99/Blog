@@ -450,6 +450,8 @@ def get_db_conn(mysql_config):
 
 ## [Ubuntu] libssl-dev : Depends: libssl1.0.0 (= 1.0.1f-1ubuntu2) but 1.0.1f-1ubuntu2.19 is to be installed
 
+> **类似问题：**software-properties-common : Depends: python3-software-properties (= 0.92.37.8) but it is not going to be installed
+
 **系统环境**
 
  	Ubuntu 14.04

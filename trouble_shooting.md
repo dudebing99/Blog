@@ -780,6 +780,30 @@ sudo apt-get install ntp
 sudo service ntp start
 ```
 
+## [geth] Cannot start mining without etherbase err="etherbase must be explicitly specified"
+
+**系统环境**
+
+ 	Ubuntu 14.04/geth 1.8.13
+
+**问题描述**
+
+​	以太坊 Testnet 运行，开启挖矿时报错
+
+**原因分析**
+
+​	原因是当前环境没有账户，需要建立一个账户 
+
+**解决方式**
+
+​	创建账户，并解锁账户，之后启动挖矿即可
+
+```basic
+personal.newAccount('123')
+personal.unlockAccount(eth.accounts[0])
+miner.start()
+```
+
 ## [NPM] sh: 1: node: not found npm WARN This failure might be due to the use of legacy binary 
 
 **系统环境**

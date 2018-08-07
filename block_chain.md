@@ -23,6 +23,7 @@
 > - [Contract tutorial](https://github.com/ethereum/go-ethereum/wiki/Contract-Tutorial)
 > - [ETH Gas Station](https://ethgasstation.info/)
 > - [以太坊 - 疫苗之王](https://etherscan.io/tx/0xb1ed364e4333aae1da4a901d5231244ba6a35f9421d4607f7cb90d60bf45578a)
+> - [Data Insertion in Bitcoin's Blockchain](https://digitalcommons.augustana.edu/cgi/viewcontent.cgi?article=1000&context=cscfaculty)
 
 ## DIY
 

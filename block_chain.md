@@ -15,6 +15,7 @@
 > - [图灵完备维基百科](https://en.wikipedia.org/wiki/Turing_completeness)
 > - [基于区块链的存证业务构想](https://zhuanlan.zhihu.com/p/33462619)
 > - [以太坊白皮书](https://ethfans.org/wikis/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6)
+> - [以太坊搭建私链](https://souptacular.gitbooks.io/ethereum-tutorials-and-tips-by-hudson/content/private-chain.html)
 > - [以太坊 Web3.js 开发基础](https://www.jianshu.com/p/f3f36447546e)
 > - [Web3.js API 中文文档](http://web3.tryblockchain.org/index.html)
 > - [Web3 tutorial](https://github.com/cooleye/web3tutorial)

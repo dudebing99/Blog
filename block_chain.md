@@ -197,7 +197,9 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 
 > **开发者网络：**./geth --datadir "./data" --dev console
 >
-> **以太坊 Testnet：**./geth --datadir="./testnet" --testnet  --mine --minerthreads=2 console
+> **以太坊正式网络：**./geth --fast --cache=512 console
+>
+> **以太坊 Testnet：**./geth --fast --datadir="./testnet" --testnet  --mine --minerthreads=2 --cache=1024 console
 
 ```bash
 root:bin# ./geth --datadir "./data" --dev console

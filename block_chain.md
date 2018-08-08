@@ -15,6 +15,7 @@
 > - [图灵完备维基百科](https://en.wikipedia.org/wiki/Turing_completeness)
 > - [基于区块链的存证业务构想](https://zhuanlan.zhihu.com/p/33462619)
 > - [以太坊白皮书](https://ethfans.org/wikis/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6)
+> - [Ethereum Improvement Proposals (EIPs)](https://eips.ethereum.org/) 
 > - [以太坊搭建私链](https://souptacular.gitbooks.io/ethereum-tutorials-and-tips-by-hudson/content/private-chain.html)
 > - [以太坊 Web3.js 开发基础](https://www.jianshu.com/p/f3f36447546e)
 > - [Web3.js API 中文文档](http://web3.tryblockchain.org/index.html)
@@ -196,7 +197,7 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 
 > **开发者网络：**./geth --datadir "./data" --dev console
 >
-> **以太坊 Testnet：**./geth --datadir="./testnet" --testnet console
+> **以太坊 Testnet：**./geth --datadir="./testnet" --testnet  --mine --minerthreads=2 console
 
 ```bash
 root:bin# ./geth --datadir "./data" --dev console
@@ -1766,7 +1767,7 @@ error: {"code":-4,"message":"Error:run-script-error:luaL_loadbuffer fail:[string
 >   该类账户被它们的合约代码控制且有代码与之关联。
 > - 外部账户与合约账户的区别和关系是这样的：一个外部账户可以通过创建和用自己的私钥来对交易进行签名，来发送消息给另一个外部账户或合约账户。
 > - 在两个外部账户之间传送消息是价值转移的过程。但从外部账户到合约账户的消息会激活合约账户的代码，允许它执行各种动作（比如转移代币，写入内部存储，挖出一个新代币，执行一些运算，创建一个新的合约等等）。
-> - 只有当外部账户发出指令时，合同账户才会执行相应的操作。
+> - 只有当外部账户发出指令时，合约账户才会执行相应的操作。
 
 ​	合约部署就是将编译好的合约字节码通过外部账号发送交易的形式部署到以太坊区块链上（由实际矿工出块之后，才真正部署成功）。
 
@@ -1780,7 +1781,7 @@ error: {"code":-4,"message":"Error:run-script-error:luaL_loadbuffer fail:[string
 	任何特定的合约所需的运行合约的 Gas 数量是固定的，由合约的复杂度决定。
 	而 Gas 价格由运行合约的人在提交运行合约请求的时候规定，以确定他愿意为这次交易愿意付出的费用：Gas 价格（用以太币计价） * Gas数量。
 
-​	Gas 的目的是限制执行交易所需的工作量，同时为执行支付费用。当 EVM 执行交易时，Gas将按照特定规则被逐渐消耗，无论执行到什么位置，一旦Gas被耗尽，将会触发异常。当前调用帧所做的所有状态修改都将被回滚， 如果执行结束还有Gas剩余，这些Gas将被返还给发送账户。
+​	Gas 的目的是限制执行交易所需的工作量，同时为执行支付费用。当 EVM 执行交易时，Gas 将按照特定规则被逐渐消耗，无论执行到什么位置，一旦 Gas 被耗尽，将会触发 `out of gas` 异常。当前调用帧所做的所有状态修改都将被回滚， 如果执行结束还有 Gas 剩余，这些 Gas 将被返还给发送账户。
 
 > 如果没有这个限制，就会有人写出无法停止（如：死循环）的合约来阻塞网络。
 

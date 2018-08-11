@@ -1592,7 +1592,14 @@ contract Attack {
 
 > **计算思路：**`97.9 + 2 - 1 + 45 * 0.5 = 121.4`，其中，97.9 为部署 `Attack` 合约之后的余额， 2 为转到 `Attack` 合约中的以太坊数量（合约销毁即退回原账户），1 为存入 `IDMoney` 合约的以太坊数量， 45 * 0.5 为递归提现的以太坊数量。
 >
-> 另外，对于锁定在 `IDMoney` 中的 0.5 以太坊，可以通过在 `IDMoney` 预留销毁合约接口，即可实现销毁合约退回到原账户。
+> 另外，对于锁定在 `IDMoney` 中的 0.5 以太坊，可以通过在 `IDMoney` 预留销毁合约接口，即可实现销毁合约退回到原账户，大致如下：
+>
+> ```javascript
+> // selfdestruct, send all balance to owner
+> function stopAttack() ownerOnly {
+>     selfdestruct(owner);
+> }
+> ```
 
 ![](pic/blockchain/balanceof_idmoney3.png)
 

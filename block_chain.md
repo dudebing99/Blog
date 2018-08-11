@@ -1518,6 +1518,15 @@ contract Attack {
 }
 ```
 
+#### 攻击原理
+
+![](pic/blockchain/reentrancy_attack.png) 
+
+1. 攻击者部署 `Attack` 合约
+2. `Attack` 合约调用 `IDMoney` 合约的 `deposit()` 存入接口
+3. `Attack` 合约调用 `IDMoney` 合约的 `withdarw()` 取现接口，取现接口使用 `call.value()()` 触发 `fallback()`
+4. 在 `fallback()` 接口中递归调用 `withdraw()`，从而不断从 `IDMoney` 合约提现以太坊
+
 #### 攻击过程
 
 在 `https://ethereum.github.io/browser-solidity` 或 `https://remix.ethereum.org` 编译合约
@@ -1604,6 +1613,8 @@ contract Attack {
 > ```
 
 ![](pic/blockchain/balanceof_idmoney3.png)
+
+####  扩展
 
 ## 比特币 bitcoin
 

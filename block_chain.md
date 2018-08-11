@@ -1436,9 +1436,8 @@ contract IDMoney{
 >
 > <address>.gas().call.value()()
 >
-> \* 当发送失败时会返回 false 布尔值
->
-> \* 传递所有可用 Gas 进行调用（可通过 gas(gas_value) 进行限制），不能有效防止重入（reentrancy）
+> - 当发送失败时会返回 false 布尔值
+> - 传递所有可用 Gas 进行调用（可通过 gas(gas_value) 进行限制），不能有效防止重入（reentrancy）
 
 当外部账户或其他合约向一个合约地址发送 ether 时，会执行该合约的 fallback函数（当调用合约时没有匹配到函数，也会调用没有名字的 fallback 函数）。且 call.value() 会将所有可用 gas 给予外部调用（fallback 函数），若在 fallback 函数中再调用 withdraw 函数，则会导致递归问题。攻击者可以部署一个恶意递归的合约将公共钱包这个合约账户里的 ether 全部提出来。
 

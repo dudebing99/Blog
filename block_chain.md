@@ -1616,6 +1616,33 @@ contract Attack {
 
 ####  扩展
 
+上述攻击合约中提现接口包含 `balances[msg.sender] -= amount;`，因为存在递归调用，存在数值溢出的问题。
+
+如果在攻击合约中加入如下事件日志 `withdrawLog2()` 逻辑
+
+```javascript
+event withdrawLog(address, uint256);
+event withdrawLog2(address, uint256, uint256);
+
+function IDMoney() { owner = msg.sender; }
+function deposit() payable { balances[msg.sender] += msg.value; }
+function withdraw(address to, uint256 amount) {
+    require(balances[msg.sender] > amount);
+    require(this.balance > amount);
+
+    withdrawLog(to, amount);
+
+    to.call.value(amount)();
+    balances[msg.sender] -= amount;
+
+    withdrawLog2(msg.sender, amount, balances[msg.sender]);
+}
+```
+
+在执行完攻击之后，可以在日志记录中查看到如下信息，从第 3 次开始，数值已经溢出，如下所示：
+
+![](pic/blockchain/attack_log.png)
+
 ## 比特币 bitcoin
 
 ### 密钥和地址

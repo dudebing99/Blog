@@ -1475,7 +1475,7 @@ contract Attack {
     address owner;
     address victim;
 
-    event withdrawLog(uint256, uint256);
+    event depositLog(uint256, uint256);
 
     modifier ownerOnly { require(owner == msg.sender); _; }
 
@@ -1487,7 +1487,7 @@ contract Attack {
     // deposit Ether to IDMoney deployed
     function step1(uint256 amount) ownerOnly payable {
         
-        withdrawLog(this.balance, amount);
+        depositLog(this.balance, amount);
         
         if (this.balance > amount) {
             victim.call.value(amount)(bytes4(keccak256("deposit()")));
@@ -1590,7 +1590,9 @@ contract Attack {
 
 此时，外部账户 `0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db`  的余额如下所示
 
-> **估算思路：**`100` + `0.5 * 45` - `1`，分别为外部账户初始余额，发动攻击提取的以太坊，外部账户存入 `IDMoney` 的以太坊（实际上，后续可以通过 `IDMoney` 合约的提现接口提取出来）
+> **计算思路：**`97.9 + 2 - 1 + 45 * 0.5 = 121.4`，其中，97.9 为部署 `Attack` 合约之后的余额， 2 为转到 `Attack` 合约中的以太坊数量（合约销毁即退回原账户），1 为存入 `IDMoney` 合约的以太坊数量， 45 * 0.5 为递归提现的以太坊数量。
+>
+> 另外，对于锁定在 `IDMoney` 中的 0.5 以太坊，可以通过在 `IDMoney` 预留销毁合约接口，即可实现销毁合约退回到原账户。
 
 ![](pic/blockchain/balanceof_idmoney3.png)
 

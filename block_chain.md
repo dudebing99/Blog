@@ -929,6 +929,8 @@ BigNumber { s: 1, e: 0, c: [ 0 ] }
 
 ### 以太坊 ERC20 Token
 
+![](pic/blockchain/erc20.png) 
+
 #### 编写合约
 
 ##### 接口函数

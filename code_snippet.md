@@ -4521,3 +4521,29 @@ contract BNB is SafeMath{
     }
 }
 ```
+
+## [Solidity] 以太坊合约示例：以太坊支付
+
+由于 Solidity 是基于 EVM，语言层面直接支持以太坊支付。函数添加 `paylable` 标识，即可接受 ether，并把 ether 存入当前合约，如下合约中的 `deposit` 函数。
+
+```javascript
+pragma solidity ^0.4.0;
+
+contract supportPay{
+
+  // 向当前合约存入以太坊
+  function deposit() payable{
+  }
+
+  // 查询当前合约的余额
+  function getBalance() constant returns(uint){
+      return this.balance;
+  }
+}
+```
+
+**输出**
+
+> 部署合约之后，分别调用 `depoist()` 和 `getBalance()`
+
+![](pic/codesnippt/pay_ether.png)

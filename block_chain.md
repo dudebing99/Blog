@@ -1420,7 +1420,7 @@ contract IDMoney{
 
 #### 存在的问题
 
-> Solidity 中 <address>.transfer()，<address>.send() 和 <address>.gas().call.vale()() 都可以用于向某一地址发送 ether，他们的区别在于：
+> Solidity 中 <address>.transfer()，<address>.send() 和 <address>.call.vale()() 都可以用于向某一地址发送 ether，他们的区别在于：
 >
 >  <address>.transfer()
 >
@@ -1434,7 +1434,7 @@ contract IDMoney{
 >
 >  * 只会传递 2300 Gas 供调用，防止重入（reentrancy）
 >
-> <address>.gas().call.value()()
+> <address>.call.value()()
 >
 > - 当发送失败时会返回 false 布尔值
 > - 传递所有可用 Gas 进行调用（可通过 gas(gas_value) 进行限制），不能有效防止重入（reentrancy）

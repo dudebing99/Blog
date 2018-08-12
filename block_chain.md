@@ -1519,6 +1519,8 @@ contract Attack {
 
 #### 攻击原理
 
+> 著名导致以太坊硬分叉（ETH/ETC）的 `The DAO` 事件就跟重入漏洞有关，该事件导致 60 多万以太坊被盗。
+
 ![](pic/blockchain/reentrancy_attack.png) 
 
 1. 攻击者部署 `Attack` 合约

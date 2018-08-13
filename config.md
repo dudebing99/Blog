@@ -2277,3 +2277,57 @@ Successfully installed Jinja2-2.10 Werkzeug-0.14.1 click-6.7 flask-1.0.2 gevent-
 [2018-07-22 17:07:53,502] iZwz9cynwitmm46uagetmvZ/INFO/stdout:
 ```
 
+## Windows 安装 Remix
+
+1. 安装 npm
+
+2. 安装依赖
+
+   ```bash
+   # 下载 windows 系统的编译器
+   npm install -g --production windows-build-tools
+   # 编译C++原生模块
+   npm install -g node-gyp
+   ```
+
+3. 安装 remixd
+
+   ```bash
+   npm install -g remixd
+   ```
+
+4. 运行 remixd
+
+   > remixd 提供 remix-ide 与合约文件的连接，即，帮助 remix-ide 找到合约文件
+
+   ```bash
+   $ remixd -s /e/iblocktech/mf/contractcode/
+   ```
+
+5. 安装 remix-ide
+
+   > 如果安装出错，请尝试升级 npm：`npm install npm@latest -g`
+
+   ```bash
+   npm install -g remix-ide
+   ```
+
+6. 在 合约文件目录运行 remix-ide
+
+   redix-ide 服务监听本地 8080 端口，同时调用 remixd 服务监听本地的 65520 端口，如下所示
+
+   ```bash
+   $ remix-ide
+   setup notifications for E:\iblocktech\mf\contractcode
+   Shared folder : E:\iblocktech\mf\contractcode
+   Starting Remix IDE at http://localhost:8080 and sharing E:\iblocktech\mf\contrac                                                                                            tcode
+   Mon Aug 13 2018 14:57:01 GMT+0800 (中国标准时间) Remixd is listening on 127.0.0.                                                                                            1:65520
+   origin http://localhost:8080
+   Mon Aug 13 2018 14:57:23 GMT+0800 (中国标准时间) Connection accepted.
+   setup notifications for E:\iblocktech\mf\contractcode
+   ```
+
+7. 打开浏览器，访问 http://localhost:8080，通过 remixd 服务配置 remix-ide 与本地合约文件，如下所示
+
+![](pic/config/remix_connect_localhost.png)
+

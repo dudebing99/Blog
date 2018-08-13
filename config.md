@@ -2292,21 +2292,7 @@ Successfully installed Jinja2-2.10 Werkzeug-0.14.1 click-6.7 flask-1.0.2 gevent-
    npm install -g --production windows-build-tools
    ```
 
-3. 安装 remixd
-
-   ```bash
-   npm install -g remixd
-   ```
-
-4. 运行 remixd
-
-   > remixd 提供 remix-ide 与合约文件的连接，即，帮助 remix-ide 找到合约文件
-
-   ```bash
-   $ remixd -s /e/iblocktech/mf/contractcode/
-   ```
-
-5. 安装 remix-ide
+3. 安装 remix-ide（自动下载安装 remixd）
 
    > 如果安装出错，请尝试升级 npm：`npm install npm@latest -g`
 
@@ -2314,7 +2300,7 @@ Successfully installed Jinja2-2.10 Werkzeug-0.14.1 click-6.7 flask-1.0.2 gevent-
    npm install -g remix-ide
    ```
 
-6. 在 合约文件目录运行 remix-ide
+4. 在 合约文件目录运行 remix-ide
 
    redix-ide 服务监听本地 8080 端口，同时调用 remixd 服务监听本地的 65520 端口，如下所示
 
@@ -2329,7 +2315,7 @@ Successfully installed Jinja2-2.10 Werkzeug-0.14.1 click-6.7 flask-1.0.2 gevent-
    setup notifications for E:\iblocktech\mf\contractcode
    ```
 
-7. 打开浏览器，访问 http://localhost:8080，通过 remixd 服务配置 remix-ide 与本地合约文件，如下所示
+5. 打开浏览器，访问 http://localhost:8080，通过 remixd 服务配置 remix-ide 与本地合约文件，如下所示
 
 ![](pic/config/remix_connect_localhost.png)
 

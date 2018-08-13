@@ -2281,13 +2281,15 @@ Successfully installed Jinja2-2.10 Werkzeug-0.14.1 click-6.7 flask-1.0.2 gevent-
 
 1. 安装 npm
 
+   > 参考安装 npm，可使用淘宝 cnpm 加速
+
 2. 安装依赖
 
    ```bash
-   # 下载 windows 系统的编译器
-   npm install -g --production windows-build-tools
    # 编译C++原生模块
    npm install -g node-gyp
+   # 下载 windows 系统的编译器
+   npm install -g --production windows-build-tools
    ```
 
 3. 安装 remixd

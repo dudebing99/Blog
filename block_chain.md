@@ -195,11 +195,11 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 
 #### 启动 geth
 
-**开发者网络：**./geth --datadir "./data" --dev --rpc console
+**开发者网络：**`./geth --datadir "./data" --dev --rpc --rpccorsdomain "*" console`
 
-**以太坊正式网络：**./geth --syncmode "fast" --cache=512 --datadir "./data" --rpc console
+**以太坊正式网络：**`./geth --syncmode "fast" --cache=512 --datadir "./data" --rpc --rpccorsdomain "*" console`
 
-**以太坊测试网络：**./geth --syncmode "fast" --datadir="./testnet" --testnet  --mine --minerthreads=2 --cache=1024 --rpc console
+**以太坊测试网络：**`./geth --syncmode "fast" --datadir="./testnet" --testnet  --mine --minerthreads=2 --cache=1024 --rpc --rpccorsdomain "*" console`
 
 **以太坊私有网络：**
 
@@ -239,8 +239,8 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 | extraData  | 附加信息，随便填，可以填你的个性信息                         |
 | gasLimit   | 该值设置对 gas 的消耗总量限制，用来限制区块能包含的交易信息总和，因为我们是私有链，所以填最大。 |
 
-1. 初始化	./geth --datadir "./data"  init genesis.json console
-	. 启动	./geth --datadir "./data"  console
+1. 初始化 `./geth --datadir "./data"  init genesis.json console`
+2. 启动 `./geth --datadir "./data"  --rpccorsdomain "*" --rpc console`
 
 > **备注：**可以使用开发者模式进行入门学习
 
@@ -847,13 +847,13 @@ Contract JSON ABI
 1001
 ```
 
-### 以太坊 Web3.js 开发基础
+### 以太坊 web3.js 开发基础
 
 > **OS:** Ubuntu 14.04.5 LTS
 >
 > **NPM:** 5.6.0
 >
-> **nodejs:** 8.11.3
+> **node:** 8.11.3
 >
 > **web3:** 0.20.1（**注意：不同版本接口不兼容**）
 
@@ -878,7 +878,7 @@ updated 1 package in 11.83s
 
 #### 启动 testrpc
 
-> 会自动创建 10 个账户，每个账户默认有 100 个以太币
+> **备注：**自动创建 10 个账户，每个账户默认有 100 个以太币
 
 ```bash
 root:~# testrpc

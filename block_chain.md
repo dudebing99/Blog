@@ -195,11 +195,11 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 
 #### 启动 geth
 
-**开发者网络：**./geth --datadir "./data" --dev console
+**开发者网络：**./geth --datadir "./data" --dev --rpc console
 
-**以太坊正式网络：**./geth --syncmode "fast" --cache=512 --datadir "./data" console
+**以太坊正式网络：**./geth --syncmode "fast" --cache=512 --datadir "./data" --rpc console
 
-**以太坊测试网络：**./geth --syncmode "fast" --datadir="./testnet" --testnet  --mine --minerthreads=2 --cache=1024 console
+**以太坊测试网络：**./geth --syncmode "fast" --datadir="./testnet" --testnet  --mine --minerthreads=2 --cache=1024 --rpc console
 
 **以太坊私有网络：**
 
@@ -240,7 +240,7 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 | gasLimit   | 该值设置对 gas 的消耗总量限制，用来限制区块能包含的交易信息总和，因为我们是私有链，所以填最大。 |
 
 1. 初始化	./geth --datadir "./data"  init genesis.json console
-2. 启动	./geth --datadir "./data"  console
+	. 启动	./geth --datadir "./data"  console
 
 > **备注：**可以使用开发者模式进行入门学习
 

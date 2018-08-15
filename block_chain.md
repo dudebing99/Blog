@@ -240,7 +240,7 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 | gasLimit   | 该值设置对 gas 的消耗总量限制，用来限制区块能包含的交易信息总和，因为我们是私有链，所以填最大。 |
 
 1. 初始化	./geth --datadir "./data"  init genesis.json console
-2. 启动	./geth --datadir "./data"  console
+	. 启动	./geth --datadir "./data"  console
 
 > **备注：**可以使用开发者模式进行入门学习
 
@@ -1689,6 +1689,10 @@ contract Attack {
 > ```
 
 ![](pic/blockchain/balanceof_idmoney3.png)
+
+#### 攻击过程演示
+
+![Alt Text](gif/blockchain/reentry.gif)
 
 ####  扩展
 

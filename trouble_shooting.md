@@ -926,3 +926,30 @@ setTimeout(function() {
 }, 5000);
 ```
 
+## [remix-ide] 通过 Web3 Provider 连接本地节点失败
+
+**系统环境**
+
+ 	Windows 7 Ultimate x64/geth 1.8.13
+
+**问题描述**
+
+​	通过浏览器（http://localhost:8080）打开 remix-ide 主页，运行环境选择本地节点时（running 菜单，运行环境选择 Web3 Provider 连接本地节点），连接本地节点失败
+
+**原因分析**
+
+​	本地运行 geth 节点，参数中未添加 `--rpccorsdomain`，导致浏览器无法访问本地节点，如 geth 帮助信息所示
+
+```bash
+$ ./geth.exe help|grep rpc
+  --rpc                  Enable the HTTP-RPC server
+  --rpcaddr value        HTTP-RPC server listening interface (default: "localhost")
+  --rpcport value        HTTP-RPC server listening port (default: 8545)
+  --rpcapi value         API's offered over the HTTP-RPC interface
+  --rpccorsdomain value  Comma separated list of domains from which to accept cross origin requests (browser enforced)
+  --rpcvhosts value      Comma separated list of virtual hostnames from which to accept requests (server enforced). Accepts '*' wildcard. (default: "localhost")
+```
+
+**解决方式**
+
+​	运行 geth 节点加入 `--rpccorsdomain`，例如，` ./geth --datadir "./dev" --dev --rpc --rpccorsdomain "*" console`

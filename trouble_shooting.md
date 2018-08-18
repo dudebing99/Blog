@@ -953,3 +953,43 @@ $ ./geth.exe help|grep rpc
 **解决方式**
 
 ​	运行 geth 节点加入 `--rpccorsdomain`，例如，` ./geth --datadir "./dev" --dev --rpc --rpccorsdomain "*" console`
+
+## [julia] ERROR: UndefVarError: Pkg not defined
+
+> **参考资料：**https://github.com/JuliaLang/julia/issues/28574
+
+**系统环境**
+
+ 	Windows 7 Ultimate x64/julia 1.0.0
+
+**问题描述**
+
+​	julia 安装包失败，如下所示
+
+```bash
+julia> Pkg.add("IJulia")
+ERROR: UndefVarError: Pkg not defined
+Stacktrace:
+ [1] top-level scope at none:0
+```
+
+**原因分析**
+
+​	julia 1.0.0 版本安装包方式已经不兼容旧版本
+
+**解决方式**
+
+​	julia 控制台输入 `]` 进入包管理模式（输入 `backspace` 退出包管理模式），如下所示
+
+```bash
+(v1.0) pkg> add IJulia
+ Resolving package versions...
+  Updating `C:\Users\Administrator\.julia\environments\v1.0\Project.toml`
+ [no changes]
+  Updating `C:\Users\Administrator\.julia\environments\v1.0\Manifest.toml`
+ [no changes]
+```
+
+
+
+​	

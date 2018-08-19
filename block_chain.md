@@ -1512,9 +1512,11 @@ contract IDMoney{
 > <address>.call.value()()
 >
 > - 当发送失败时会返回 false 布尔值
-> - 传递所有可用 Gas 进行调用（可通过 gas(gas_value) 进行限制），不能有效防止重入（reentrancy）
+> - 传递所有可用 gas 进行调用（可通过 gas(gas_value) 进行限制），不能有效防止重入（reentrancy）
 
 当外部账户或其他合约向一个合约地址发送 ether 时，会执行该合约的 fallback函数（当调用合约时没有匹配到函数，也会调用没有名字的 fallback 函数）。且 call.value() 会将所有可用 gas 给予外部调用（fallback 函数），若在 fallback 函数中再调用 withdraw 函数，则会导致递归问题。攻击者可以部署一个恶意递归的合约将公共钱包这个合约账户里的 ether 全部提出来。
+
+> **备注：**一个没有定义 fallback 函数的合约，直接接收以太币（没有函数调用，即，使用 `send` 或 `transfer` 发送以太币）会抛出一个异常， 并返还以太币（在 Solidity v0.4.0 之前行为会有所不同）。所以如果你想让你的合约接收以太币，必须实现 fallback 函数。 
 
 **前提条件：**
 
@@ -1722,6 +1724,10 @@ function withdraw(address to, uint256 amount) {
 在执行完攻击之后，可以在日志记录中查看到如下信息，从第 3 次开始，数值已经溢出，如下所示：
 
 ![](pic/blockchain/attack_log.png)
+
+### 以太坊智能合约攻击：访问控制
+
+#### 函数可见性
 
 ## 比特币 bitcoin
 

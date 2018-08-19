@@ -1749,6 +1749,34 @@ function withdraw(address to, uint256 amount) {
 
 #### 函数底层调用方式
 
+在 Solidity 中，`call` 函数簇可以实现跨合约的函数调用功能，其中包括 `call`、`delegatecall` 和 `callcode` 三种方式。
+
+在 Solidity 中 `call` 函数簇的调用模型：
+
+> 其中，`callcode` 不建议使用，后续将会被去掉
+
+```javascript
+<address>.call(...) returns (bool)
+<address>.callcode(...) returns (bool)
+<address>.delegatecall(...) returns (bool)
+```
+
+这些函数提供了灵活的方式与合约进行交互，并且可以接受任何长度、任何类型的参数，其传入的参数会被填充至 32 字节最后拼接为一个字符串序列，由 EVM 解析执行。
+
+在函数调用的过程中， Solidity 中的内置变量 `msg` 会随着调用的发起而改变，`msg` 保存了调用方的信息包括：调用发起的地址，交易金额，被调用函数字符序列等。
+
+**三种调用方式的异同点**
+
+- `call` 最常用的调用方式，调用后内置变量 `msg` 的值**会修改**为调用者，执行环境为**被调用者**的运行环境(合约的 storage)。
+- `delegatecall` 调用后内置变量 `msg` 的值**不会修改**为调用者，但执行环境为**调用者**的运行环境。
+- `callcode` 调用后内置变量 `msg` 的值**会修改**为调用者，但执行环境为**调用者**的运行环境。
+
+`call` 与 `delegatecall` 的上下文环境对比如下所示
+
+> 合约 A 以 `call` 方式调用外部合约 B 的 `func()` 函数，在外部合约 B 上下文执行完 `func()` 后继续返回 A 合约上下文继续执行；而当 A 以 `delegatecall` 方式调用时，相当于将外部合约 B 的 `func()` 代码复制过来（其函数中涉及的变量或函数都需要存在）在 A 上下文空间中执行。
+
+![img](pic/blockchain/call_delegatecall.png)
+
 ## 比特币 bitcoin
 
 ### 密钥和地址

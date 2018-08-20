@@ -432,7 +432,7 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 ["0x04f14c835b74f79b7def175c4e481929f9800501", "0xe9db1b66197355d0f05534a53f6b7dcf0c873c76"]
 ```
 
-​	创建成功后，会展示创建成功的地址，其中上面的表达式中，中间传入的 123456 为密码 。再次查看系统所有用户，可以看到共有两个用户。
+	创建成功后，会展示创建成功的地址，其中上面的表达式中，中间传入的 123456 为密码 。再次查看系统所有用户，可以看到共有两个用户。
 
 - 给用户取别名
 
@@ -447,7 +447,7 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 "0xe9db1b66197355d0f05534a53f6b7dcf0c873c76"
 ```
 
-​	操作成功后，用户别名 user1、user2 已经成功赋值
+	操作成功后，用户别名 user1、user2 已经成功赋值
 
 - 对账户进行解锁
 
@@ -458,9 +458,9 @@ Error: could not decrypt key with given passphrase
 true
 ```
 
-​	为了安全起见，一般一个用户在创建的时候都处于锁定状态，输入密码进行解锁。
-
-​	如果不解锁，直接对用户操作，例如，对用户转账，则报错如下：
+	为了安全起见，一般一个用户在创建的时候都处于锁定状态，输入密码进行解锁。
+	
+	如果不解锁，直接对用户操作，例如，对用户转账，则报错如下：
 
 ```bash
 > eth.sendTransaction({from:user1, to:user2, value:666})
@@ -490,7 +490,7 @@ INFO [07-25|16:58:43.662] Submitted transaction                    fullhash=0x4d
 0
 ```
 
-​	转账之后，账户余额仍然没变。此时，需要启动挖矿使交易加入到区块链中。
+	转账之后，账户余额仍然没变。此时，需要启动挖矿使交易加入到区块链中。
 
 ```bash
 > miner.start()
@@ -859,7 +859,7 @@ Contract JSON ABI
 
 #### 简介
 
-​	web3.js 是一个通过 [RPC 调用](https://github.com/ethereum/wiki/wiki/JSON-RPC) 和本地以太坊节点进行通信的 js 库。web3.js 可以与任何暴露了 RPC 接口的以太坊节点连接。 web3 中提供了 eth 对象 `web3.eth` 来与以太坊区块链进行交互。
+	web3.js 是一个通过 [RPC 调用](https://github.com/ethereum/wiki/wiki/JSON-RPC) 和本地以太坊节点进行通信的 js 库。web3.js 可以与任何暴露了 RPC 接口的以太坊节点连接。 web3 中提供了 eth 对象 `web3.eth` 来与以太坊区块链进行交互。
 
 #### 安装 testrpc
 
@@ -1729,6 +1729,26 @@ function withdraw(address to, uint256 amount) {
 
 #### 函数可见性
 
+由于 Solidity 有两种函数调用（内部调用不会产生实际的 EVM 调用或称为“消息调用”，而外部调用则会产生一个 EVM 调用）， 函数和状态变量有四种可见性类型。 函数可以指定为 `external`，`public` ，`internal` 或者 `private`，默认情况下函数类型为 `public`。 对于状态变量，不能设置为 `external` ，默认是 `internal` 。
+
+- `external` 
+
+  外部函数作为合约接口的一部分，意味着我们可以从其他合约和交易中调用。 一个外部函数 `f` 不能从内部调用（即 `f` 不起作用，但 `this.f()` 可以）。 当收到大量数据的时候，外部函数有时候会更有效率
+
+- `public` 
+
+  public 函数是合约接口的一部分，可以在内部或通过消息调用。对于公共状态变量， 会自动生成一个 getter 函数
+
+- `internal` 
+
+  这些函数和状态变量只能是内部访问（即从当前合约内部或从它派生的合约访问），不使用 `this` 调用
+
+- `private` 
+
+  private 函数和状态变量仅在当前定义它们的合约中使用，并且不能被派生合约使用
+
+#### 函数底层调用方式
+
 ## 比特币 bitcoin
 
 ### 密钥和地址
@@ -2289,9 +2309,9 @@ root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance wKkoeBCynvuDmkS
 
 将合约内容转换成16进制字符串
 
-​	前缀（0xff）=> ff
-
-​	操作类型（0x02）=> 02
+	前缀（0xff）=> ff
+	
+	操作类型（0x02）=> 02
 
 
 

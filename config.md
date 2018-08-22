@@ -1672,7 +1672,7 @@ go version go1.10.1 windows/amd64
 
 > **安装时勾选添加环境变量，不需要单独添加环境变量；否则，需要新添加环境变量，如下：**
 >
-> ​	计算机（右键）-> 属性 -> 高级系统设置 -> 高级 -> 环境变量 -> 系统变量
+> 	计算机（右键）-> 属性 -> 高级系统设置 -> 高级 -> 环境变量 -> 系统变量
 >
 > - 添加 变量名 GOROOT，值为安装目录，如  C:\app\Go\
 > - 变量名 Path，追加值  C:\app\Go\bin;
@@ -2163,7 +2163,7 @@ make install
 
 ## Ubuntu svn 提交编辑器
 
-​	修改 ~/.subversion/config 配置项，如下所示
+	修改 ~/.subversion/config 配置项，如下所示
 
 ```bash
 ### Set editor-cmd to the command used to invoke your text editor.
@@ -2277,7 +2277,7 @@ Successfully installed Jinja2-2.10 Werkzeug-0.14.1 click-6.7 flask-1.0.2 gevent-
 [2018-07-22 17:07:53,502] iZwz9cynwitmm46uagetmvZ/INFO/stdout:
 ```
 
-## Windows 安装 Remix
+## Windows 安装 remix-ide
 
 1. 安装 npm
 
@@ -2318,4 +2318,12 @@ Successfully installed Jinja2-2.10 Werkzeug-0.14.1 click-6.7 flask-1.0.2 gevent-
 5. 打开浏览器，访问 http://localhost:8080，通过 remixd 服务配置 remix-ide 与本地合约文件，如下所示
 
 ![](pic/config/remix_connect_localhost.png)
+
+## Windows 安装 julia 1.0.0
+
+1. 官网下载 julia 安装包
+
+2. 添加环境变量
+
+   将 julia 安装路径添加到环境变量 `Path` 即可
 

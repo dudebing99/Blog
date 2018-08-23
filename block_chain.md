@@ -1461,6 +1461,618 @@ curl http://localhost:12306 -d '{"initialSupply":1000,"tokenName":"Hello World T
 {"erro": 0, "address": "0x4aa8abdc9361040689154f28e9fbf6229862d6ca", "hash": "0xd32d279af7b4d4b9f47167caeca0b0c2e8db0698a367aadc6868050251a20e1c"}
 ```
 
+### 以太坊智能合约：函数多签
+
+借助于 `MSFun` 提供的函数多签基础库，封装成权限控制合约 `Auth`，在应用合约 `Demo` 使用权限控制合约 `Auth`
+
+##### 函数多签基础库
+
+```javascript
+pragma solidity ^0.4.24;
+
+/** @title -MSFun- v0.2.4
+ *
+ *         ┌──────────────────────────────────────────────────────────────────────┐
+ *         │ MSFun, is an importable library that gives your contract the ability │
+ *         │ add multiSig requirement to functions.                               │
+ *         └──────────────────────────────────────────────────────────────────────┘
+ *                                ┌────────────────────┐
+ *                                │ Setup Instructions │
+ *                                └────────────────────┘
+ * (Step 1) import the library into your contract
+ *
+ *    import "./MSFun.sol";
+ *
+ * (Step 2) set up the signature data for msFun
+ *
+ *     MSFun.Data private msData;
+ *                                ┌────────────────────┐
+ *                                │ Usage Instructions │
+ *                                └────────────────────┘
+ * at the beginning of a function
+ *
+ *     function functionName()
+ *     {
+ *         if (MSFun.multiSig(msData, required signatures, "functionName") == true)
+ *         {
+ *             MSFun.deleteProposal(msData, "functionName");
+ *
+ *             // put function body here
+ *         }
+ *     }
+ *                           ┌────────────────────────────────┐
+ *                           │ Optional Wrappers For TeamJust │
+ *                           └────────────────────────────────┘
+ * multiSig wrapper function (cuts down on inputs, improves readability)
+ * this wrapper is HIGHLY recommended
+ *
+ *     function multiSig(bytes32 _whatFunction) private returns (bool) {return(MSFun.multiSig(msData, TeamJust.requiredSignatures(), _whatFunction));}
+ *     function multiSigDev(bytes32 _whatFunction) private returns (bool) {return(MSFun.multiSig(msData, TeamJust.requiredDevSignatures(), _whatFunction));}
+ *
+ * wrapper for delete proposal (makes code cleaner)
+ *
+ *     function deleteProposal(bytes32 _whatFunction) private {MSFun.deleteProposal(msData, _whatFunction);}
+ *                             ┌────────────────────────────┐
+ *                             │ Utility & Vanity Functions │
+ *                             └────────────────────────────┘
+ * delete any proposal is highly recommended.  without it, if an admin calls a multiSig
+ * function, with argument inputs that the other admins do not agree upon, the function
+ * can never be executed until the undesirable arguments are approved.
+ *
+ *     function deleteAnyProposal(bytes32 _whatFunction) onlyDevs() public {MSFun.deleteProposal(msData, _whatFunction);}
+ *
+ * for viewing who has signed a proposal & proposal data
+ *
+ *     function checkData(bytes32 _whatFunction) onlyAdmins() public view returns(bytes32, uint256) {return(MSFun.checkMsgData(msData, _whatFunction), MSFun.checkCount(msData, _whatFunction));}
+ *
+ * lets you check address of up to 3 signers (address)
+ *
+ *     function checkSignersByAddress(bytes32 _whatFunction, uint256 _signerA, uint256 _signerB, uint256 _signerC) onlyAdmins() public view returns(address, address, address) {return(MSFun.checkSigner(msData, _whatFunction, _signerA), MSFun.checkSigner(msData, _whatFunction, _signerB), MSFun.checkSigner(msData, _whatFunction, _signerC));}
+ *
+ * same as above but will return names in string format.
+ *
+ *     function checkSignersByName(bytes32 _whatFunction, uint256 _signerA, uint256 _signerB, uint256 _signerC) onlyAdmins() public view returns(bytes32, bytes32, bytes32) {return(TeamJust.adminName(MSFun.checkSigner(msData, _whatFunction, _signerA)), TeamJust.adminName(MSFun.checkSigner(msData, _whatFunction, _signerB)), TeamJust.adminName(MSFun.checkSigner(msData, _whatFunction, _signerC)));}
+ *                             ┌──────────────────────────┐
+ *                             │ Functions In Depth Guide │
+ *                             └──────────────────────────┘
+ * In the following examples, the Data is the proposal set for this library.  And
+ * the bytes32 is the name of the function.
+ *
+ * MSFun.multiSig(Data, uint256, bytes32) - Manages creating/updating multiSig
+ *      proposal for the function being called.  The uint256 is the required
+ *      number of signatures needed before the multiSig will return true.
+ *      Upon first call, multiSig will create a proposal and store the arguments
+ *      passed with the function call as msgData.  Any admins trying to sign the
+ *      function call will need to send the same argument values. Once required
+ *      number of signatures is reached this will return a bool of true.
+ *
+ * MSFun.deleteProposal(Data, bytes32) - once multiSig unlocks the function body,
+ *      you will want to delete the proposal data.  This does that.
+ *
+ * MSFun.checkMsgData(Data, bytes32) - checks the message data for any given proposal
+ *
+ * MSFun.checkCount(Data, bytes32) - checks the number of admins that have signed
+ *      the proposal
+ *
+ * MSFun.checkSigners(data, bytes32, uint256) - checks the address of a given signer.
+ *      the uint256, is the log number of the signer (ie 1st signer, 2nd signer)
+ */
+
+library MSFun {
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // DATA SETS
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // contact data setup
+    struct Data
+    {
+        mapping (bytes32 => ProposalData) proposal_;
+    }
+    struct ProposalData
+    {
+        // a hash of msg.data
+        bytes32 msgData;
+        // number of signers
+        uint256 count;
+        // tracking of wither admins have signed
+        mapping (address => bool) admin;
+        // list of admins who have signed
+        mapping (uint256 => address) log;
+    }
+
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // MULTI SIG FUNCTIONS
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    function multiSig(Data storage self, uint256 _requiredSignatures, bytes32 _whatFunction)
+        internal
+        returns(bool)
+    {
+        // our proposal key will be a hash of our function name + our contracts address
+        // by adding our contracts address to this, we prevent anyone trying to circumvent
+        // the proposal's security via external calls.
+        bytes32 _whatProposal = whatProposal(_whatFunction);
+
+        // this is just done to make the code more readable.  grabs the signature count
+        uint256 _currentCount = self.proposal_[_whatProposal].count;
+
+        // store the address of the person sending the function call.  we use msg.sender
+        // here as a layer of security.  in case someone imports our contract and tries to
+        // circumvent function arguments.  still though, our contract that imports this
+        // library and calls multisig, needs to use onlyAdmin modifiers or anyone who
+        // calls the function will be a signer.
+        address _whichAdmin = msg.sender;
+
+        // prepare our msg data.  by storing this we are able to verify that all admins
+        // are approving the same argument input to be executed for the function.  we hash
+        // it and store in bytes32 so its size is known and comparable
+        bytes32 _msgData = keccak256(msg.data);
+
+        // check to see if this is a new execution of this proposal or not
+        if (_currentCount == 0)
+        {
+            // if it is, lets record the original signers data
+            self.proposal_[_whatProposal].msgData = _msgData;
+
+            // record original senders signature
+            self.proposal_[_whatProposal].admin[_whichAdmin] = true;
+
+            // update log (used to delete records later, and easy way to view signers)
+            // also useful if the calling function wants to give something to a
+            // specific signer.
+            self.proposal_[_whatProposal].log[_currentCount] = _whichAdmin;
+
+            // track number of signatures
+            self.proposal_[_whatProposal].count += 1;
+
+            // if we now have enough signatures to execute the function, lets
+            // return a bool of true.  we put this here in case the required signatures
+            // is set to 1.
+            if (self.proposal_[_whatProposal].count == _requiredSignatures) {
+                return(true);
+            }
+        // if its not the first execution, lets make sure the msgData matches
+        } else if (self.proposal_[_whatProposal].msgData == _msgData) {
+            // msgData is a match
+            // make sure admin hasnt already signed
+            if (self.proposal_[_whatProposal].admin[_whichAdmin] == false)
+            {
+                // record their signature
+                self.proposal_[_whatProposal].admin[_whichAdmin] = true;
+
+                // update log (used to delete records later, and easy way to view signers)
+                self.proposal_[_whatProposal].log[_currentCount] = _whichAdmin;
+
+                // track number of signatures
+                self.proposal_[_whatProposal].count += 1;
+            }
+
+            // if we now have enough signatures to execute the function, lets
+            // return a bool of true.
+            // we put this here for a few reasons.  (1) in normal operation, if
+            // that last recorded signature got us to our required signatures.  we
+            // need to return bool of true.  (2) if we have a situation where the
+            // required number of signatures was adjusted to at or lower than our current
+            // signature count, by putting this here, an admin who has already signed,
+            // can call the function again to make it return a true bool.  but only if
+            // they submit the correct msg data
+            if (self.proposal_[_whatProposal].count == _requiredSignatures) {
+                return(true);
+            }
+        }
+    }
+
+
+    // deletes proposal signature data after successfully executing a multiSig function
+    function deleteProposal(Data storage self, bytes32 _whatFunction)
+        internal
+    {
+        //done for readability sake
+        bytes32 _whatProposal = whatProposal(_whatFunction);
+        address _whichAdmin;
+
+        //delete the admins votes & log.   i know for loops are terrible.  but we have to do this
+        //for our data stored in mappings.  simply deleting the proposal itself wouldn't accomplish this.
+        for (uint256 i=0; i < self.proposal_[_whatProposal].count; i++) {
+            _whichAdmin = self.proposal_[_whatProposal].log[i];
+            delete self.proposal_[_whatProposal].admin[_whichAdmin];
+            delete self.proposal_[_whatProposal].log[i];
+        }
+        //delete the rest of the data in the record
+        delete self.proposal_[_whatProposal];
+    }
+
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // HELPER FUNCTIONS
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    function whatProposal(bytes32 _whatFunction)
+        private
+        view
+        returns(bytes32)
+    {
+        return(keccak256(abi.encodePacked(_whatFunction,this)));
+    }
+
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // VANITY FUNCTIONS
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // returns a hashed version of msg.data sent by original signer for any given function
+    function checkMsgData (Data storage self, bytes32 _whatFunction)
+        internal
+        view
+        returns (bytes32 msg_data)
+    {
+        bytes32 _whatProposal = whatProposal(_whatFunction);
+        return (self.proposal_[_whatProposal].msgData);
+    }
+
+    // returns number of signers for any given function
+    function checkCount (Data storage self, bytes32 _whatFunction)
+        internal
+        view
+        returns (uint256 signature_count)
+    {
+        bytes32 _whatProposal = whatProposal(_whatFunction);
+        return (self.proposal_[_whatProposal].count);
+    }
+
+    // returns address of an admin who signed for any given function
+    function checkSigner (Data storage self, bytes32 _whatFunction, uint256 _signer)
+        internal
+        view
+        returns (address signer)
+    {
+        require(_signer > 0, "MSFun checkSigner failed - 0 not allowed");
+        bytes32 _whatProposal = whatProposal(_whatFunction);
+        return (self.proposal_[_whatProposal].log[_signer - 1]);
+    }
+}
+```
+
+##### 权限控制合约
+
+```javascript
+pragma solidity ^0.4.24;
+
+import "./MSFun.sol";
+
+contract Auth {
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // SET UP MSFun (note, check signers by name is modified from MSFun sdk)
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    MSFun.Data private msData;
+    function deleteAnyProposal(bytes32 _whatFunction) onlyDevs() public {MSFun.deleteProposal(msData, _whatFunction);}
+    function checkData(bytes32 _whatFunction) onlyAdmins() public view returns(bytes32 message_data, uint256 signature_count) {return(MSFun.checkMsgData(msData, _whatFunction), MSFun.checkCount(msData, _whatFunction));}
+    function checkSignersByName(bytes32 _whatFunction, uint256 _signerA, uint256 _signerB, uint256 _signerC) onlyAdmins() public view returns(string, string, string) {return(this.adminName(MSFun.checkSigner(msData, _whatFunction, _signerA)), this.adminName(MSFun.checkSigner(msData, _whatFunction, _signerB)), this.adminName(MSFun.checkSigner(msData, _whatFunction, _signerC)));}
+
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // DATA SETUP
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    struct Admin {
+        bool isAdmin;
+        bool isDev;
+        string name;
+    }
+    mapping (address => Admin) admins_;
+
+    uint256 adminCount_;
+    uint256 devCount_;
+    uint256 requiredSignatures_;
+    uint256 requiredDevSignatures_;
+
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // CONSTRUCTOR
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    constructor()
+        public
+    {
+        address laowang = 0xca35b7d915458ef540ade6068dfe2f44e8fa733c;
+        address zeus    = 0x14723a09acff6d2a60dcdf7aa4aff308fddc160c;
+
+        admins_[laowang]  = Admin(true, true, "laowang");  // admin only
+        admins_[zeus]     = Admin(true, true, "zeus");      // admin & dev
+
+        adminCount_ = 2;
+        devCount_ = 2;
+
+        requiredSignatures_ = 2;
+        requiredDevSignatures_ = 2;
+    }
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // FALLBACK
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    function ()
+        public
+    {
+    }
+
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // MODIFIERS
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    modifier onlyDevs()
+    {
+        require(admins_[msg.sender].isDev == true, "onlyDevs failed - msg.sender is not a dev");
+        _;
+    }
+
+    modifier onlyAdmins()
+    {
+        require(admins_[msg.sender].isAdmin == true, "onlyAdmins failed - msg.sender is not an admin");
+        _;
+    }
+
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // DEV ONLY FUNCTIONS
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    /**
+    * @dev DEV - use this to add admins.  this is a dev only function.
+    * @param _who - address of the admin you wish to add
+    * @param _name - admins name
+    * @param _isDev - is this admin also a dev?
+    */
+    function addAdmin(address _who, string _name, bool _isDev)
+        public
+        onlyDevs()
+    {
+        if (MSFun.multiSig(msData, requiredDevSignatures_, "addAdmin") == true)
+        {
+            MSFun.deleteProposal(msData, "addAdmin");
+
+            // must check this so we dont mess up admin count by adding someone
+            // who is already an admin
+            if (admins_[_who].isAdmin == false)
+            {
+
+                // set admins flag to true in admin mapping
+                admins_[_who].isAdmin = true;
+
+                // adjust admin count and required signatures
+                adminCount_ += 1;
+                requiredSignatures_ += 1;
+            }
+
+            // are we setting them as a dev?
+            // by putting this outside the above if statement, we can upgrade existing
+            // admins to devs.
+            if (_isDev == true)
+            {
+                // bestow the honored dev status
+                admins_[_who].isDev = _isDev;
+
+                // increase dev count and required dev signatures
+                devCount_ += 1;
+                requiredDevSignatures_ += 1;
+            }
+        }
+
+        // by putting this outside the above multisig, we can allow easy name changes
+        // without having to bother with multisig.  this will still create a proposal though
+        // so use the deleteAnyProposal to delete it if you want to
+        admins_[_who].name = _name;
+    }
+
+    /**
+    * @dev DEV - use this to remove admins. this is a dev only function.
+    * -requirements: never less than 1 admin
+    *                never less than 1 dev
+    *                never less admins than required signatures
+    *                never less devs than required dev signatures
+    * @param _who - address of the admin you wish to remove
+    */
+    function removeAdmin(address _who)
+        public
+        onlyDevs()
+    {
+        // we can put our requires outside the multisig, this will prevent
+        // creating a proposal that would never pass checks anyway.
+        require(adminCount_ > 1, "removeAdmin failed - cannot have less than 2 admins");
+        require(adminCount_ >= requiredSignatures_, "removeAdmin failed - cannot have less admins than number of required signatures");
+        if (admins_[_who].isDev == true)
+        {
+            require(devCount_ > 1, "removeAdmin failed - cannot have less than 2 devs");
+            require(devCount_ >= requiredDevSignatures_, "removeAdmin failed - cannot have less devs than number of required dev signatures");
+        }
+
+        // checks passed
+        if (MSFun.multiSig(msData, requiredDevSignatures_, "removeAdmin") == true)
+        {
+            MSFun.deleteProposal(msData, "removeAdmin");
+
+            // must check this so we dont mess up admin count by removing someone
+            // who wasnt an admin to start with
+            if (admins_[_who].isAdmin == true) {
+
+                //set admins flag to false in admin mapping
+                admins_[_who].isAdmin = false;
+
+                //adjust admin count and required signatures
+                adminCount_ -= 1;
+                if (requiredSignatures_ > 1)
+                {
+                    requiredSignatures_ -= 1;
+                }
+            }
+
+            // were they also a dev?
+            if (admins_[_who].isDev == true) {
+
+                //set dev flag to false
+                admins_[_who].isDev = false;
+
+                //adjust dev count and required dev signatures
+                devCount_ -= 1;
+                if (requiredDevSignatures_ > 1)
+                {
+                    requiredDevSignatures_ -= 1;
+                }
+            }
+        }
+    }
+
+    /**
+    * @dev DEV - change the number of required signatures.  must be between
+    * 1 and the number of admins.  this is a dev only function
+    * @param _howMany - desired number of required signatures
+    */
+    function changeRequiredSignatures(uint256 _howMany)
+        public
+        onlyDevs()
+    {
+        // make sure its between 1 and number of admins
+        require(_howMany > 0 && _howMany <= adminCount_, "changeRequiredSignatures failed - must be between 1 and number of admins");
+
+        if (MSFun.multiSig(msData, requiredDevSignatures_, "changeRequiredSignatures") == true)
+        {
+            MSFun.deleteProposal(msData, "changeRequiredSignatures");
+
+            // store new setting.
+            requiredSignatures_ = _howMany;
+        }
+    }
+
+    /**
+    * @dev DEV - change the number of required dev signatures.  must be between
+    * 1 and the number of devs.  this is a dev only function
+    * @param _howMany - desired number of required dev signatures
+    */
+    function changeRequiredDevSignatures(uint256 _howMany)
+        public
+        onlyDevs()
+    {
+        // make sure its between 1 and number of admins
+        require(_howMany > 0 && _howMany <= devCount_, "changeRequiredDevSignatures failed - must be between 1 and number of devs");
+
+        if (MSFun.multiSig(msData, requiredDevSignatures_, "changeRequiredDevSignatures") == true)
+        {
+            MSFun.deleteProposal(msData, "changeRequiredDevSignatures");
+
+            // store new setting.
+            requiredDevSignatures_ = _howMany;
+        }
+    }
+
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // EXTERNAL FUNCTIONS
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    function requiredSignatures() external view returns(uint256) {return(requiredSignatures_);}
+    function requiredDevSignatures() external view returns(uint256) {return(requiredDevSignatures_);}
+    function adminCount() external view returns(uint256) {return(adminCount_);}
+    function devCount() external view returns(uint256) {return(devCount_);}
+    function adminName(address _who) external view returns(string) {return(admins_[_who].name);}
+    function isAdmin(address _who) external view returns(bool) {return(admins_[_who].isAdmin);}
+    function isDev(address _who) external view returns(bool) {return(admins_[_who].isDev);}
+}
+```
+
+##### 应用合约
+
+应用合约中，函数 `modify` 调用添加了多签限制：需要两名具备开发者权限的账户签名，才能执行函数 `modify` 的核心功能：修改 `value` 的值
+
+```javascript
+pragma solidity ^0.4.24;
+
+import "./Auth.sol";
+
+contract Demo {
+
+    uint256     public  value = 100;
+    Auth        public  auth_;
+    MSFun.Data  private msData;
+    function multiSigDev(bytes32 _whatFunction) private returns (bool) {
+        return(MSFun.multiSig(msData, auth_.requiredDevSignatures(), _whatFunction));
+    }
+    function deleteProposal(bytes32 _whatFunction) private {
+        MSFun.deleteProposal(msData, _whatFunction);
+    }
+    function deleteAnyProposal(bytes32 _whatFunction) public onlyDevs() {
+        MSFun.deleteProposal(msData, _whatFunction);
+    }
+    function checkData(bytes32 _whatFunction) public view onlyDevs()
+        returns(bytes32, uint256) {
+        return(MSFun.checkMsgData(msData, _whatFunction), MSFun.checkCount(msData, _whatFunction));
+    }
+    function checkSignersByAddress(bytes32 _whatFunction, uint256 _signerA, uint256 _signerB, uint256 _signerC) public view onlyDevs() 
+        returns(address, address, address) {
+        return(
+            MSFun.checkSigner(msData, _whatFunction, _signerA), 
+            MSFun.checkSigner(msData, _whatFunction, _signerB), 
+            MSFun.checkSigner(msData, _whatFunction, _signerC));
+    }
+    function checkSignersByName(bytes32 _whatFunction, uint256 _signerA, uint256 _signerB, uint256 _signerC)public view onlyDevs() 
+        returns(string, string, string) {
+        return (auth_.adminName(MSFun.checkSigner(msData, _whatFunction, _signerA)),
+            auth_.adminName(MSFun.checkSigner(msData, _whatFunction, _signerB)), 
+            auth_.adminName(MSFun.checkSigner(msData, _whatFunction, _signerC)));
+    }
+
+    modifier onlyDevs() 
+    {
+        require(auth_.isDev(msg.sender) == true, "msg sender is not a dev");
+        _;
+    }
+
+    constructor(address _auth) public {
+        require(address(_auth) != 0, "auth is invalid");
+        auth_ = Auth(_auth);
+    }
+
+    function modify(uint256 _value) public 
+        onlyDevs() {
+        if (multiSigDev("modify") == true)
+        {
+            deleteProposal("modify");
+            value = _value;
+        }
+    }
+
+}
+```
+
+应用合约中，添加函数多签限制的函数格式如下所示（参考上述合约中函数 `modify`）
+
+```javascript
+function functionName()
+	onlyDevs() {
+    if (MSFun.multiSig(msData, required signatures, "functionName") == true)
+    {
+        MSFun.deleteProposal(msData, "functionName");
+
+        // put function body here
+    }
+}
+```
+
+##### 运行过程
+
+使用账户 `0xdd870fa1b7c4700f2bd7f44238821c26f7392148` 部署合约 `Auth`，然后部署合约 `Demo`
+
+![](pic/blockchain/deploy_auth.png)
+
+![](pic/blockchain/deploy_demo.png)
+
+查看 `value` 的初始值 100
+
+![](pic/blockchain/show_value.png)
+
+若以账户`0xdd870fa1b7c4700f2bd7f44238821c26f7392148` 调用函数 `modify` 尝试修改 `value`，报错，提示账户费开发者
+
+![](pic/blockchain/call_modify_fail.png)
+
+切换到具备开发者权限的账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 调用函数 `modify`
+
+![](pic/blockchain/call_modify.png)
+
+虽然尝试修改 `value` 为 99，但是值仍然为 100
+
+![](pic/blockchain/show_value2.png)
+
+切换到具备开发者权限的账户 `0x14723a09acff6d2a60dcdf7aa4aff308fddc160` 调用函数 `modify`
+
+![](pic/blockchain/call_modify2.png)
+
+此时，`value` 被修改成了 99
+
+![](pic/blockchain/show_value3.png)
+
 ### 以太坊智能合约攻击：重入
 
 #### 公共钱包合约

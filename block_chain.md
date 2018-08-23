@@ -1880,6 +1880,68 @@ contract B {
 
 ![](pic/blockchain/owner_value.png)
 
+### 以太坊智能合约攻击：算数问题
+
+通常来说，在编程语言里算数问题导致的漏洞最多的就是整数溢出了，整数溢出又分为上溢和下溢。
+
+#### 整数上溢
+
+整数溢出的原理其实很简单，这里以 8 位无符整型为例，8 位整型可表示的范围为 `[0, 255]`，`255` 在内存中存储按位存储的形式如下：
+
+![img](pic/blockchain/overflow.png)
+
+8 位无符整数 255 在内存中占据了 8bit 位置，若再加上 1 整体会因为进位而导致整体翻转为 0，最后导致原有的 8bit 表示的整数变为 0.
+
+如果是 8 位有符整型，其可表示的范围为 `[-128, 127]`，`127` 在内存中存储按位存储的形式如下所示：
+
+![img](pic/blockchain/overflow2.png)
+
+在这里因为高位作为了符号位，当 `127` 加上 1 时，由于进位符号位变为 `1`（负数），因为符号位已翻转为 `1`，通过还原此负数值，最终得到的 8 位有符整数为 `-128`。
+
+上面两个都是整数上溢的图例，同样整数下溢 `(uint8)0-1=(uint8)255`, `(int8)(-128)-1=(int8)127`。
+
+#### 存在问题的合约
+
+```javascript
+pragma solidity ^0.4.24;
+
+contract Token {
+    mapping (address => uint256) balances;
+        
+    function balanceOf(address _user) public view returns (uint256) { return balances[_user]; }
+    function deposit() public payable { balances[msg.sender] += msg.value; }
+    function withdraw(uint256 _amount) public {
+        require(balances[msg.sender] - _amount > 0);  // 存在整数溢出
+        msg.sender.transfer(_amount);
+        balances[msg.sender] -= _amount;
+    }
+}
+```
+
+#### 存在的问题
+
+合约中函数 `withdraw` 的判断条件为 `balances[msg.sender] - _amount > 0`，当某个账户余额小于 `_amount` 时，由于下溢导致条件始终为真，导致将不属于该账户的余额提取
+
+#### 攻击过程
+
+使用账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 部署合约，并存入 66 以太坊
+
+![](pic/blockchain/deposit2.png)
+
+切换到账户 `0xdd870fa1b7c4700f2bd7f44238821c26f7392148`，查询合约中该账户余额为 0
+
+![](pic/blockchain/balanceof.png)
+
+然后执行合约函数 `withdraw`，尝试提取不属于自己的资产，如下所示
+
+![](pic/blockchain/withdraw.png)
+
+![](pic/blockchain/withdraw2.png)
+
+此时，账户 `0xdd870fa1b7c4700f2bd7f44238821c26f7392148` 余额变成了 122 以太坊（初始 100 以太坊 + 提取 22 以太坊）
+
+![](pic/blockchain/balance.png)
+
 ## 比特币 bitcoin
 
 ### 密钥和地址

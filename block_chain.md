@@ -1002,7 +1002,7 @@ root:ethereum# node test.js
 BigNumber { s: 1, e: 0, c: [ 0 ] }
 ```
 
-### 以太坊 ERC20 Token
+### 以太坊智能合约： ERC20 Token
 
 ![](pic/blockchain/erc20.png) 
 

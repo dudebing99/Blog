@@ -2827,6 +2827,80 @@ Gas 的目的是限制执行交易所需的工作量，同时为执行支付费�
 
 另一个创建测试网络的方法是使用 testrpc，testrpc 是在本地使用内存模拟的一个以太坊环境，对于开发调试来说，更方便快捷。而且 testrpc 可以在启动时帮我们创建 10 个存有资金的测试账户。进行合约开发时，可以在 testrpc 中测试通过后，再部署到 geth 节点中去。
 
+## Solidity
+
+### 单位和全局变量
+
+#### 以太币单位
+
+Ether 单位之间的换算就是在数字后边加上 `wei`、 `finney`、 `szabo` 或 `ether` 来实现的，如果后面没有单位，缺省为 Wei。例如 `2 ether == 2000 finney` 的逻辑判断值为 `true`
+
+#### 时间单位
+
+秒是缺省时间单位，在时间单位之间，数字后面带有 `seconds`、 `minutes`、 `hours`、 `days`、 `weeks` 和 `years` 的可以进行换算，基本换算关系如下：
+
+- `1 == 1 seconds`
+- `1 minutes == 60 seconds`
+
+- `1 hours == 60 minutes``
+- ``1 days == 24 hours`
+
+- `1 weeks == 7 days`
+
+- `1 years == 365 days`
+
+事实上，并非每年都是 365 天，由于闰秒的存在，甚至不是每天都是 24 小时。加上闰秒的不可预测性，只能借助外部系统来实现一个精确的日历库，例如 `oracle`
+
+#### 区块和交易属性
+
+- `block.blockhash(uint blockNumber) returns (bytes32)`：指定区块的区块哈希——仅可用于最新的 256 个区块且不包括当前区块；而 blocks 从 0.4.22 版本开始已经不推荐使用，由 `blockhash(uint blockNumber)` 代替
+- `block.coinbase` (`address`): 挖出当前区块的矿工地址
+- `block.difficulty` (`uint`): 当前区块难度
+- `block.gaslimit` (`uint`): 当前区块 gas 限额
+- `block.number` (`uint`): 当前区块号
+- `block.timestamp` (`uint`): 自 unix epoch 起始当前区块以秒计的时间戳
+- `gasleft() returns (uint256)`：剩余的 gas
+- `msg.data` (`bytes`): 完整的 calldata
+- `msg.gas` (`uint`): 剩余 gas - 自 0.4.21 版本开始已经不推荐使用，由 `gesleft()` 代替
+- `msg.sender` (`address`): 消息发送者（当前调用）
+- `msg.sig` (`bytes4`): calldata 的前 4 字节（也就是函数标识符）
+- `msg.value` (`uint`): 随消息发送的 wei 的数量
+- `now` (`uint`): 目前区块时间戳（`block.timestamp`）
+- `tx.gasprice` (`uint`): 交易的 gas 价格
+- `tx.origin` (`address`): 交易发起者（完全的调用链）
+
+> 对于每一个**外部函数**调用，包括 `msg.sender` 和 `msg.value` 在内所有 `msg` 成员的值都会变化。这里包括对库函数的调用。
+
+> 不要依赖 `block.timestamp`、 `now` 和 `blockhash` 产生随机数，除非你知道自己在做什么。
+>
+> 时间戳和区块哈希在一定程度上都可能受到挖矿矿工影响。例如，挖矿社区中的恶意矿工可以用某个给定的哈希来运行赌场合约的 payout 函数，而如果他们没收到钱，还可以用一个不同的哈希重新尝试。
+>
+> 当前区块的时间戳必须严格大于最后一个区块的时间戳，但这里唯一能确保的只是它会是在权威链上的两个连续区块的时间戳之间的数值。
+
+> 基于可扩展因素，区块哈希不是对所有区块都有效。你仅仅可以访问最近 256 个区块的哈希，其余的哈希均为零。
+
+#### 错误处理
+
+- `assert(bool condition)`:
+
+  如果条件不满足，则使当前交易没有效果 — 用于检查内部错误。
+
+- `require(bool condition)`:
+
+  如果条件不满足则撤销状态更改 - 用于检查由输入或者外部组件引起的错误。
+
+- `require(bool condition, string message)`:
+
+  如果条件不满足则撤销状态更改 - 用于检查由输入或者外部组件引起的错误，可以同时提供一个错误消息。
+
+- `revert()`:
+
+  终止运行并撤销状态更改。
+
+- `revert(string reason)`:
+
+  终止运行并撤销状态更改，可以同时提供一个解释性的字符串。
+
 ## Hyperledger Fabric
 
 Hyperledger Fabric 是 Hyperledger 中的一个区块链项目。与其他区块链技术类似，Hyperledger Fabric 包含一个账本，使用智能合约并且是一个通过所有参与者管理交易的系统。

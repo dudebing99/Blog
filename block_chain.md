@@ -27,6 +27,7 @@
 > - [以太坊 - 疫苗之王](https://etherscan.io/tx/0xb1ed364e4333aae1da4a901d5231244ba6a35f9421d4607f7cb90d60bf45578a)
 > - [Data Insertion in Bitcoin's Blockchain](https://digitalcommons.augustana.edu/cgi/viewcontent.cgi?article=1000&context=cscfaculty)
 > - [以太坊智能合约 - 函数多签](https://hackmd.io/s/HkkT9H5NX)
+> - [Solidity Security](https://blog.sigmaprime.io/solidity-security.html)
 
 ## DIY
 

@@ -1067,6 +1067,3 @@ function getHistoryRoundInfo(uint256 _rid)
 }
 ```
 
-
-
-	

@@ -197,9 +197,9 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 
 #### 启动 geth
 
-**开发者网络：**`./geth --datadir "./data" --dev --rpc --rpccorsdomain "*" console`
+**开发者网络：**`./geth --datadir="./devdata" --dev --rpc --rpccorsdomain "*" console`
 
-**以太坊正式网络：**`./geth --syncmode "fast" --cache=512 --datadir "./data" --rpc --rpccorsdomain "*" console`
+**以太坊正式网络：**`./geth --syncmode "fast" --cache=512 --datadir="./data" --rpc --rpccorsdomain "*" console`
 
 **以太坊测试网络：**`./geth --syncmode "fast" --datadir="./testnet" --testnet  --mine --minerthreads=2 --cache=1024 --rpc --rpccorsdomain "*" console`
 
@@ -241,40 +241,41 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 | extraData  | 附加信息，随便填，可以填你的个性信息                         |
 | gasLimit   | 该值设置对 gas 的消耗总量限制，用来限制区块能包含的交易信息总和，因为我们是私有链，所以填最大。 |
 
-1. 初始化 `./geth --datadir "./data" init genesis.json console`
-2. 启动 `./geth --datadir "./data" --rpccorsdomain "*" --rpc console`
+1. 初始化 `./geth --datadir="./pridata" init genesis.json console`
+2. 启动 `./geth --datadir="./pridata" --rpccorsdomain "*" --rpc console`
 
 > **备注：**可以使用开发者模式进行入门学习
 
 ```bash
-root:bin# ./geth --datadir "./data" --dev console
-INFO [07-25|09:49:34.448] Maximum peer count                       ETH=25 LES=0 total=25
-INFO [07-25|09:49:35.293] Using developer account                  address=0x04f14C835B74f79B7dEf175C4e481929f9800501
-INFO [07-25|09:49:35.293] Starting peer-to-peer node               instance=Geth/v1.8.13-unstable-040dd5bd/linux-amd64/go1.10.3
-INFO [07-25|09:49:35.293] Allocated cache and file handles         database=/root/go/src/github.com/ethereum/go-ethereum/build/bin/data/geth/chaindata cache=768 handles=512
-INFO [07-25|09:49:35.326] Persisted trie from memory database      nodes=11 size=1.71kB time=30.048µs gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
-INFO [07-25|09:49:35.326] Initialised chain configuration          config="{ChainID: 1337 Homestead: 0 DAO: <nil> DAOSupport: false EIP150: 0 EIP155: 0 EIP158: 0 Byzantium: 0 Constantinople: <nil> Engine: clique}"
-INFO [07-25|09:49:35.326] Initialising Ethereum protocol           versions="[63 62]" network=1337
-INFO [07-25|09:49:35.327] Loaded most recent local header          number=0 hash=8f3035…7124e0 td=1
-INFO [07-25|09:49:35.327] Loaded most recent local full block      number=0 hash=8f3035…7124e0 td=1
-INFO [07-25|09:49:35.327] Loaded most recent local fast block      number=0 hash=8f3035…7124e0 td=1
-INFO [07-25|09:49:35.327] Loaded local transaction journal         transactions=0 dropped=0
-INFO [07-25|09:49:35.327] Regenerated local transaction journal    transactions=0 accounts=0
-INFO [07-25|09:49:35.327] Starting P2P networking
-INFO [07-25|09:49:35.328] started whisper v.6.0
-INFO [07-25|09:49:35.328] RLPx listener up                         self="enode://ad026d00f9ae6a7c2fae54aec6fe1692818a372aeae28418a1a0d5787809637e2b74c24038c15b734ef25a1b128915fbd75ae74aacedc428163b37346d872245@[::]:35685?discport=0"
-INFO [07-25|09:49:35.329] IPC endpoint opened                      url=/root/go/src/github.com/ethereum/go-ethereum/build/bin/data/geth.ipc
-INFO [07-25|09:49:35.329] Transaction pool price threshold updated price=18000000000
-INFO [07-25|09:49:35.329] Etherbase automatically configured       address=0x04f14C835B74f79B7dEf175C4e481929f9800501
-INFO [07-25|09:49:35.329] Starting mining operation
-INFO [07-25|09:49:35.329] Commit new mining work                   number=1 txs=0 uncles=0 elapsed=58.163µs
-WARN [07-25|09:49:35.330] Block sealing failed                     err="waiting for transactions"
+$ ./geth --datadir "./devdata" --dev console
+INFO [08-27|22:56:17.394] Maximum peer count                       ETH=25 LES=0 total=25
+INFO [08-27|22:56:19.329] Using developer account                  address=0xd3A5A203f58fBe2Eb850C856407Bf7bdFc589965
+INFO [08-27|22:56:19.331] Starting peer-to-peer node               instance=Geth/v1.8.13-unstable/windows-amd64/go1.10.1
+INFO [08-27|22:56:19.331] Allocated cache and file handles         database=D:\\app\\geth\\devdata\\geth\\chaindata cache=768 handles=1024
+INFO [08-27|22:56:19.363] Writing custom genesis block
+INFO [08-27|22:56:19.364] Persisted trie from memory database      nodes=11 size=1.71kB time=1ms gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [08-27|22:56:19.364] Initialised chain configuration          config="{ChainID: 1337 Homestead: 0 DAO: <nil> DAOSupport: false EIP150: 0 EIP155: 0 EIP158: 0 Byzantium: 0 Constantinople: <nil> Engine: clique}"
+INFO [08-27|22:56:19.364] Initialising Ethereum protocol           versions="[63 62]" network=1337
+INFO [08-27|22:56:19.364] Loaded most recent local header          number=0 hash=8216e1…04a7e0 td=1
+INFO [08-27|22:56:19.364] Loaded most recent local full block      number=0 hash=8216e1…04a7e0 td=1
+INFO [08-27|22:56:19.364] Loaded most recent local fast block      number=0 hash=8216e1…04a7e0 td=1
+INFO [08-27|22:56:19.372] Regenerated local transaction journal    transactions=0 accounts=0
+INFO [08-27|22:56:19.373] Starting P2P networking
+INFO [08-27|22:56:19.377] started whisper v.6.0
+INFO [08-27|22:56:19.378] IPC endpoint opened                      url=\\\\.\\pipe\\geth.ipc
+INFO [08-27|22:56:19.378] Transaction pool price threshold updated price=18000000000
+INFO [08-27|22:56:19.378] Etherbase automatically configured       address=0xd3A5A203f58fBe2Eb850C856407Bf7bdFc589965
+INFO [08-27|22:56:19.378] RLPx listener up                         self="enode://46c65720fd7c7a1c933bf27377356f11322613d58953115dceb2e956e121d511a0264b0dbccaaf46e5c7e90bd49e962ceb226b1329e6bbdc06384abec6fb0f1b@[::]:51502?discport=0"
+INFO [08-27|22:56:19.379] Starting mining operation
+INFO [08-27|22:56:19.381] Commit new mining work                   number=1 txs=0 uncles=0 elapsed=2.000ms
+WARN [08-27|22:56:19.381] Block sealing failed                     err="waiting for transactions"
+INFO [08-27|22:56:19.403] Mapped network port                      proto=tcp extport=51502 intport=51502 interface=NAT-PMP(192.168.0.1)
 Welcome to the Geth JavaScript console!
 
-instance: Geth/v1.8.13-unstable-040dd5bd/linux-amd64/go1.10.3
-coinbase: 0x04f14c835b74f79b7def175c4e481929f9800501
+instance: Geth/v1.8.13-unstable/windows-amd64/go1.10.1
+coinbase: 0xd3a5a203f58fbe2eb850c856407bf7bdfc589965
 at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
- datadir: /root/go/src/github.com/ethereum/go-ethereum/build/bin/data
+ datadir: D:\app\geth\devdata
  modules: admin:1.0 clique:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 shh:1.0 txpool:1.0 web3:1.0
 ```
 

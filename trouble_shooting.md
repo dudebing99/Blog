@@ -541,7 +541,8 @@ Ubuntu 14.04
 1. 修改 /etc/ssh/sshd_config
 
 ```bash
-#PermitRootLogin without-password                                                           PermitRootLogin yes
+#PermitRootLogin without-password
+PermitRootLogin yes
 ```
 
 2. 重启服务生效

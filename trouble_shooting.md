@@ -1065,3 +1065,25 @@ function getHistoryRoundInfo(uint256 _rid)
 }
 ```
 
+## [remix-ide] Error: exceeds block gas limit
+
+**系统环境**
+
+Windows 7 Ultimate x64/geth 1.8.13
+
+**问题描述**
+
+`remix-ide` 连接以太坊私有网络调试时，执行交易报错，如上所示
+
+**原因分析**
+
+以太坊节点的 `gaslimit` 小于交易所需消耗的 `gas`，导致交易失败，可以通过 `eth.getBlock("latest")` 进行确认，深层次的原因如下，
+
+- 创世区块指定的 `gaslimit` 太小，导致需要消耗大量 `gas` 的交易失败
+- 以太坊私有网络运行过程，如，挖出大量空块，节点不断调低 `gaslimit`，导致交易失败
+
+**解决方式**
+
+- 创世区块指定的 `gaslimit` 设置足够大
+- 运行以太坊私有网络节点，添加参数 `--targetgaslimit '9000000000000'`（该设置保证随着挖矿的进行，节点不断调高 `gaslimit` 直到接近 `9000000000000`）
+

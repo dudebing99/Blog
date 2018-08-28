@@ -989,6 +989,30 @@ julia 控制台输入 `]` 进入包管理模式（输入 `backspace` 退出包�
  [no changes]
 ```
 
+## [julia] ERROR: LoadError: LoadError: LoadError: UndefVarError: @printf not defined
+
+**系统环境**
+
+Windows 7 Ultimate x64/julia 1.0.0
+
+**问题描述**
+
+代码中使用 @printf，如下所示
+
+```julia
+@printf "volume = %0.3f\n" vol
+```
+
+运行时报错 `ERROR: LoadError: LoadError: UndefVarError: @printf not defined`
+
+**原因分析**
+
+Julia 1.0.0 之后，很多特性从基础库中移除，需要显示引用
+
+**解决方式**
+
+使用 `@printf` 需要显示引用 `using Printf`
+
 ## [solidity] Internal compiler error: Stack too deep, try removing local variables.
 
 > **参考资料：**https://ethereum.stackexchange.com/questions/6061/error-while-compiling-stack-too-deep

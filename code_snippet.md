@@ -4547,3 +4547,16 @@ contract supportPay{
 > 部署合约之后，分别调用 `depoist()` 和 `getBalance()`
 
 ![](pic/codesnippt/pay_ether.png)
+
+## [Julia] Hello World
+
+```julia
+println("hello world")
+```
+
+**输出**
+
+```bash
+hello world
+```
+

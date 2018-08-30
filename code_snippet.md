@@ -4564,6 +4564,7 @@ hello world
 
 > - 函数形参可以显示指定类型，也可缺省
 > - 函数可以有多个返回值
+> - [点此下载](https://dudebing99.github.io/blog/archives/code_snippet/math.jl)
 
 1. 计算圆柱体的体积
 
@@ -4612,5 +4613,65 @@ $ julia test.jl
 volume = 113.097
 result 1: 3.0
 result 2: -2.0
+```
+
+## [Julia] 字符、字符串基础用法
+
+> 包含字符串的大小写、截取、拼接等基础用法，[点此下载](https://dudebing99.github.io/blog/archives/code_snippet/string.jl)
+
+```julia
+# Julia 1.0.0
+# 字符、字符串的使用
+
+ch = 'k'
+println(ch)
+# 转换为数值
+println(Int(ch))
+
+str = "THIS a test str"
+# 换行、不换行输出
+println(str)
+print(str)
+print(str, "\n")
+# 大小写转换
+println("uppercase: ", uppercase(str))
+println("lowercase: ", lowercase(str))
+# 子串
+show(str[1:4]); println()
+println(str[6:7])
+println(str[end-3:end])
+
+# julia 支持字符串插值用法
+a = "sb"
+b = "jiakong"
+println("$a $b")
+# 插值用法可以扩展到数学计算
+println("2 + 22 = $(2 + 22)")
+
+# 字符串拼接
+c = string(a, " ", b)
+println(c)
+# 可以用 *（非 +）实现字符串拼接
+d = a * " + " * b
+print(d)
+```
+
+**输出**
+
+```bash
+$ julia test.jl
+k
+107
+THIS a test str
+THIS a test strTHIS a test str
+uppercase: THIS A TEST STR
+lowercase: this a test str
+"THIS"
+a
+ str
+sb jiakong
+2 + 22 = 24
+sb jiakong
+sb + jiakong
 ```
 

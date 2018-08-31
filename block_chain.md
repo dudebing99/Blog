@@ -185,7 +185,7 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 1325482
 ```
 
-### 维基链（智能合约）
+### 维基链【智能合约】
 
 #### 获取节点信息
 

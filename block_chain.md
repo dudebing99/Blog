@@ -1207,7 +1207,7 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 
 - eth 全局变量
 
-```bash
+```javascript
 > eth
 {
   accounts: ["0x04f14c835b74f79b7def175c4e481929f9800501"],
@@ -1271,7 +1271,7 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 
 - personal 变量
 
-```bash
+```javascript
 > personal
 {
   listAccounts: ["0x04f14c835b74f79b7def175c4e481929f9800501"],
@@ -1297,7 +1297,7 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 
 - miner 变量
 
-```bash
+```javascript
 > miner
 {
   getHashrate: function(),
@@ -1311,7 +1311,7 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 
 #### 查看节点信息
 
-```bash
+```javascript
 > admin.nodeInfo
 {
   enode: "enode://682e6fc409065786bbb267b14eb29e06fa909b00a32150958bfda45ec589b5fa0c40296cc4e5cefd090d4e4dcfb19a36259154738a95d90ee9e2f0f7f4135fec@0.0.0.0:30303",
@@ -1345,25 +1345,25 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 
 - 查看系统所有用户
 
-```bash
+```javascript
 > eth.accounts
 ["0x04f14c835b74f79b7def175c4e481929f9800501"]
 ```
 
 - 创建新用户
 
-```bash
+```javascript
 > personal.newAccount('123456')
 "0xa5f833dd93979f15d67392ce78ad78829e5a97e1"
 > eth.accounts
 ["0x04f14c835b74f79b7def175c4e481929f9800501", "0xe9db1b66197355d0f05534a53f6b7dcf0c873c76"]
 ```
 
-	创建成功后，会展示创建成功的地址，其中上面的表达式中，中间传入的 123456 为密码 。再次查看系统所有用户，可以看到共有两个用户。
+创建成功后，会展示创建成功的地址，其中上面的表达式中，中间传入的 123456 为密码 。再次查看系统所有用户，可以看到共有两个用户。
 
 - 给用户取别名
 
-```bash
+```javascript
 > user1 = eth.accounts[0]
 "0x04f14c835b74f79b7def175c4e481929f9800501"
 > user2 = eth.accounts[1]
@@ -1374,22 +1374,22 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 "0xe9db1b66197355d0f05534a53f6b7dcf0c873c76"
 ```
 
-	操作成功后，用户别名 user1、user2 已经成功赋值
+操作成功后，用户别名 `user1`、`user2` 已经成功赋值
 
 - 对账户进行解锁
 
-```bash
+```javascript
 > personal.unlockAccount(user2, '123')
 Error: could not decrypt key with given passphrase
 > personal.unlockAccount(user2, '123456')
 true
 ```
 
-	为了安全起见，一般一个用户在创建的时候都处于锁定状态，输入密码进行解锁。
-	
-	如果不解锁，直接对用户操作，例如，对用户转账，则报错如下：
+为了安全起见，一般一个用户在创建的时候都处于锁定状态，输入密码进行解锁。
 
-```bash
+如果不解锁，直接对用户操作，例如，对用户转账，则报错如下：
+
+```javascript
 > eth.sendTransaction({from:user1, to:user2, value:666})
 Error: authentication needed: password or unlock
     at web3.js:3143:20
@@ -1400,7 +1400,7 @@ Error: authentication needed: password or unlock
 
 - 检查账户余额
 
-```bash
+```javascript
 > eth.getBalance(user1)
 1.15792089237316195423570985008687907853269984665640564039457584007913129639927e+77
 > eth.getBalance(user2)
@@ -1409,7 +1409,7 @@ Error: authentication needed: password or unlock
 
 - 转账
 
-```bash
+```javascript
 > eth.sendTransaction({from:user1, to:user2, value:100})
 INFO [07-25|16:58:43.662] Submitted transaction                    fullhash=0x4daf7f1fa1b7c8e8b0c5770fdeaf1d0945782027646399822dbf2a303b1adaaa recipient=0xE9DB1b66197355D0f05534A53F6B7DcF0c873c76
 "0x4daf7f1fa1b7c8e8b0c5770fdeaf1d0945782027646399822dbf2a303b1adaaa"
@@ -1417,9 +1417,9 @@ INFO [07-25|16:58:43.662] Submitted transaction                    fullhash=0x4d
 0
 ```
 
-	转账之后，账户余额仍然没变。此时，需要启动挖矿使交易加入到区块链中。
+转账之后，账户余额仍然没变。此时，需要启动挖矿使交易加入到区块链中。
 
-```bash
+```javascript
 > miner.start()
 INFO [07-25|16:58:52.395] Transaction pool price threshold updated price=1
 INFO [07-25|16:58:52.395] Starting mining operation
@@ -1436,7 +1436,7 @@ WARN [07-25|16:58:52.399] Block sealing failed                     err="waiting 
 
 - 查看交易信息
 
-```bash
+```javascript
 > eth.getTransaction("0x4daf7f1fa1b7c8e8b0c5770fdeaf1d0945782027646399822dbf2a303b1adaaa")
 {
   blockHash: "0x61063d921d123682db18107038b813b198306ea7d14c0ff8a1b498e9c5d19fce",
@@ -1460,7 +1460,7 @@ WARN [07-25|16:58:52.399] Block sealing failed                     err="waiting 
 
 - 编写 Solidity 合约脚本
 
-```basic
+```javascript
 pragma solidity ^0.4.11;
 
 contract Sample {
@@ -1485,7 +1485,7 @@ contract Sample {
 
 > 备注：利用 [Remix](https://remix.ethereum.org) 在线编译合约
 
-```basic
+```bash
 root:ethereum# solc --optimize --abi --bin sample.sol
 
 ======= sample.sol:Sample =======
@@ -1497,7 +1497,7 @@ Contract JSON ABI
 
 - 定义合约
 
-```basic
+```javascript
 > abi = [{"constant":true,"inputs":[],"name":"value","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"v","type":"uint256"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"v","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
 [{
     constant: true,
@@ -1645,7 +1645,7 @@ Contract JSON ABI
 
 > 合约部署上链时，给构造函数传参  99，即赋初值 99
 
-```basic
+```javascript
 > thesample = sample.new(99, {from:eth.accounts[0], data:hex, gas:3000000})
 {
   abi: [{
@@ -1689,7 +1689,7 @@ Contract JSON ABI
 
 > 根据交易 hash 查看交易细节
 
-```basic
+```javascript
 > samplerecpt = eth.getTransactionReceipt("0x2280fe5f44756e44f0c7e9740f254ab18261d3b7836d801b43678ddf442480a0")
 {
   blockHash: "0x3656ba77328cd78087d3f5a61287d95241fba76d7de606868f1561f147a17dc1",
@@ -1711,7 +1711,7 @@ Contract JSON ABI
 
 > 交易信息中，contractAddress 表示合约地址
 
-``` basic
+``` javascript
 > samplecontract = sample.at("0x1ce836d1d1839f1ed07b01ae152a4c5f0ee2a041")
 {
   abi: [{
@@ -1755,21 +1755,21 @@ Contract JSON ABI
 
 - 执行合约 get 函数
 
-```basic
+```javascript
 > samplecontract.get.call()
 99
 ```
 
 - 执行合约 set 函数
 
-```basic
+```javascript
 > samplecontract.set.sendTransaction(1001, {from:eth.accounts[0], gas:3000000})
 "0x528209c6bcdbbb4a636eebd90cfc918eb8e463fed1f0cb3bbd8ef19df0654808"
 ```
 
 - 执行合约 get 函数
 
-```basic
+```javascript
 > samplecontract.get.call()
 1001
 ```
@@ -1786,12 +1786,12 @@ Contract JSON ABI
 
 #### 简介
 
-	web3.js 是一个通过 [RPC 调用](https://github.com/ethereum/wiki/wiki/JSON-RPC) 和本地以太坊节点进行通信的 js 库。web3.js 可以与任何暴露了 RPC 接口的以太坊节点连接。 web3 中提供了 eth 对象 `web3.eth` 来与以太坊区块链进行交互。
+`web3.js` 是一个通过 [RPC 调用](https://github.com/ethereum/wiki/wiki/JSON-RPC) 和本地以太坊节点进行通信的 js 库。`web3.js` 可以与任何暴露了 RPC 接口的以太坊节点连接。 `web3` 中提供了 `eth` 对象 `web3.eth` 来与以太坊区块链进行交互。
 
 #### 安装 testrpc
 
-> - ethereumjs-testrpc 库后续被重命名为 Ganache CLI
-> - testrpc 不同于 geth，geth 是真正的以太坊环境，testrpc 是在本地使用内存模拟的一个以太坊环境，对于开发调试来说，更为方便快捷，当合约在 testrpc 中测试通过后，再部署到 geth 中去。
+> - `ethereumjs-testrpc` 库后续被重命名为 `Ganache CLI`
+> - `testrpc` 不同于 `geth`，`geth` 是真正的以太坊环境，`testrpc` 是在本地使用内存模拟的一个以太坊环境，对于开发调试来说，更为方便快捷，当合约在 `testrpc` 中测试通过后，再部署到 `geth` 中去。
 
 ```bash
 root:~#  npm install -g ethereumjs-testrpc
@@ -1865,7 +1865,7 @@ if (typeof web3 !== 'undefined') {
 
 - 查看账户
 
-```basic
+```javascript
 > web3.eth.accounts
 [ '0x931a85a8b24e00e5aa56651a64dd55f3c849fe14',
   '0x7a74f95c7b520f498b31fedcbffaa9a1b12a7dea',
@@ -1881,7 +1881,7 @@ if (typeof web3 !== 'undefined') {
 
 - 查看账户余额
 
-```basic
+```javascript
 > web3.eth.getBalance('0x931a85a8b24e00e5aa56651a64dd55f3c849fe14')
 BigNumber { s: 1, e: 20, c: [ 1000000 ] }
 ```

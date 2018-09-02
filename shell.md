@@ -88,7 +88,7 @@ index
 
 
 
-## 匹配、过滤指定行
+## 匹配、过滤、替换
 
 ### awk
 
@@ -180,25 +180,30 @@ goood
 god
 good
 gooood
+
 # '+'，匹配一个或多个重复字符
 [root@localhost ~]# cat file|grep -E 'goo+d'
 goood
 good
 gooood
+
 # '.'，匹配 0 个或 1 个字符
 [root@localhost ~]# cat file|grep -E 'goo?d'
 god
 good
+
 # '|'，匹配多个条件
 [root@localhost ~]# cat file|grep -E 'good|goood'
 goood
 good
+
 # '()'，将部分内容合成一个单元组，如下分别匹配 0 个或 1 个 oo，匹配一个或多个 oo
 [root@localhost ~]# cat file|grep -E 'g(oo)?d'
 good
 [root@localhost ~]# cat file|grep -E 'g(oo)+d'
 good
 gooood
+
 # 输出匹配行的上下行，如，匹配行的上 2 行，下 3 行
 [root@localhost ~]cat file|grep -B 2 -A 3 "target"
 it's
@@ -207,6 +212,27 @@ target
 import
 to try
 hello
+```
+
+### sed
+
+> [[:space:]] 表示空格或者 tab 的集合
+
+```bash
+# 替换文件中所有 \r
+sed -i 's/\r//g' FILE
+
+# 删除所有空行
+sed -i '/^$/d' FILE
+
+# 删除行首空格
+sed -i 's/^[ \t]*//g' FILE
+
+# 删除行末空格
+sed -i 's/[ \t]*$//g' FILE
+
+# 删除所有的空格
+sed -i 's/[[:space:]]//g' FILE
 ```
 
 ## for 循环的常用写法
@@ -370,11 +396,6 @@ CheckIPAddr 192.168.1.1
 if [ $? -ne 0 ]; then
     echo "invalid"
 fi
-```
-
-## 替换文件中所有 \r
-```bash
-sed -i 's/\r//g' FILE
 ```
 
 ## 检查进程是否重启

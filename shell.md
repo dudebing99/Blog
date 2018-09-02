@@ -220,19 +220,19 @@ hello
 
 ```bash
 # 替换文件中所有 \r
-sed -i 's/\r//g' FILE
+sed -i 's/\r//g' file
 
 # 删除所有空行
-sed -i '/^$/d' FILE
+sed -i '/^$/d' file
 
 # 删除行首空格
-sed -i 's/^[ \t]*//g' FILE
+sed -i 's/^[ \t]*//g' file
 
 # 删除行末空格
-sed -i 's/[ \t]*$//g' FILE
+sed -i 's/[ \t]*$//g' file
 
 # 删除所有的空格
-sed -i 's/[[:space:]]//g' FILE
+sed -i 's/[[:space:]]//g' file
 ```
 
 ## for 循环的常用写法
@@ -652,7 +652,7 @@ HELLO WORLD
 hello world
 
 # 将制表符转换为空格
-cat text|tr '\t' ' '
+cat file|tr '\t' ' '
 
 # 将不在指定字符集合中的所有字符删除
 > echo "aa.,a 1 b#$bb 2 c*/cc 3 ddd 4"|tr -d -c '0-9 \n'

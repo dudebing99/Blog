@@ -217,7 +217,7 @@ summary = {
 
 #### wrk 使用手册
 
-```basic
+```bash
 使用方法: wrk <选项> <被测 HTTP 服务的 URL>                            
   Options:                                            
 	-c, --connections <N>  跟服务器建立并保持的 TCP 连接数量  
@@ -611,12 +611,12 @@ rdate -t 30 -s time.nist.gov && hwclock -w
   ```
 
 		以上在客户端配置后，就会有反空闲设置，即每 30s 会自动和服务端做一次确认。
-	
+		
 		如果在 Windows 下使用 SecureCRT，如下操作即可
 
 ![](pic/securecrt/keepalive.png)
 
-​	如果在 Windows 下使用 Putty，putty -> Connection -> Seconds between keepalives ( 0 to turn off )，默认为 0，改为30。
+	如果在 Windows 下使用 Putty，putty -> Connection -> Seconds between keepalives ( 0 to turn off )，默认为 0，改为30。
 
 ## 跳板机 Jumpserver 上传/下载文件
 
@@ -632,7 +632,7 @@ rz -bye
 
 ### 下载文件 sz
 
-```basic
+```bash
 [xbuser@push4 push_server]$ sz ce.sh
 rz
 Starting zmodem transfer.  Press Ctrl+C to cancel.

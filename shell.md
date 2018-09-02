@@ -48,8 +48,6 @@ sshd    2159 root    4u  IPv6  14865      0t0  TCP *:ssh (LISTEN)
 sshd    2381 root    3r  IPv4  15983      0t0  TCP localhost:ssh->192.168.2.1:61861 (ESTABLISHED)
 ```
 
-
-
 ## 字符串截取
 
 > **Tips:** man bash 获取更全面的语法（[在线手册](http://www.gnu.org/software/bash/manual/bash.html)）

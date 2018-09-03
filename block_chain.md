@@ -325,7 +325,7 @@ root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getnewaddress
 
 ##### 充值
 
-```
+```bash
 root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. sendtoaddress wKkoeBCynvuDmkS9XebY5vAUQC6aLVbznC 100000000000
 {
     "hash" : "334f447dfd284b2a084560f57d3c4ad044cde1fc41470c68ffeae55aefe270fb"
@@ -3688,7 +3688,7 @@ UTXO 在 UTXO 集（UTXOset）中被每一个全节点比特币客户端追踪�
 
 例如，我们可以再次回顾一下 Alice 向 Bob 咖啡馆支付的案例。Alice 下达了向 Bob 咖啡馆的比特币地址支付0.015 比特币的支付指令，该笔交易的输出内容为以下形式的锁定脚本：
 
-```
+```basic
 OP_DUP OP_HASH160 <Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG
 ```
 
@@ -3696,13 +3696,13 @@ OP_DUP OP_HASH160 <Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG
 
 上述锁定脚本相应的解锁脚本是：
 
-```
+```basic
 <Cafe Signature> <Cafe Public Key>
 ```
 
 将两个脚本结合起来可以形成如下组合验证脚本：
 
-```
+```basic
 <Cafe Signature> <Cafe Public Key> OP_DUP OP_HASH160
 <Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG
 ```
@@ -3887,8 +3887,8 @@ Ether 单位之间的换算就是在数字后边加上 `wei`、 `finney`、 `sza
 - `1 == 1 seconds`
 - `1 minutes == 60 seconds`
 
-- `1 hours == 60 minutes``
-- ``1 days == 24 hours`
+- `1 hours == 60 minutes`
+- `1 days == 24 hours`
 
 - `1 weeks == 7 days`
 
@@ -4082,8 +4082,8 @@ Hyperledger Fabric 提供了建立 **channel** 的功能，这允许参与者为
 
 在 0.9 版的比特币核心客户端上，通过采用 RETURN 操作符最终实现了妥协。RETURN 允许开发者在交易输出上增加 80 字节的非交易数据。然后，与伪交易型的 UTXO 不同，Return 创造了一种明确的可复查的非交易型输出，此类数据无需存储于 UTXO 集。RETURN 输出被记录在区块链上，它们会消耗磁盘空间，也会导致区块链规模的增加，但 它们不存储在 UTXO 集中，因此也不会使得 UTXO 内存膨胀，更不会以消耗代价高昂的内存为代价使全节点都不堪重负。 RETURN 脚本的样式：
 
-```
-  RETURN <data>
+```basic
+RETURN <data>
 ```
 
 “data”部分被限制为 80 字节，且多以哈希方式呈现，如 32 字节的 SHA256 算法输出。许多应用都在其前面加上前缀以辅助认定。例如，电子公正服务的证明材料采用 8 个字节的前缀“DOCPROOF”，在十六进制算法中，相应的 ASCII 码为 44 4f 43 50 52 4f 4f 46。

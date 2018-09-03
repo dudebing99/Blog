@@ -235,6 +235,23 @@ sed -i 's/[ \t]*$//g' file
 sed -i 's/[[:space:]]//g' file
 ```
 
+## 过滤空白行
+
+```bash
+# 使用 grep
+grep -v "^$" file
+
+# 使用 tr
+cat file|tr -s '\n'
+
+# 使用 sed
+cat file|sed '/^$/d'
+
+# 使用 awk
+cat file|awk '{if($0 != "") print $0}'
+cat file|awk '{if(length != 0) print $0}'
+```
+
 ## for 循环的常用写法
 
 ### 数值类型
@@ -266,6 +283,7 @@ awk 'BEGIN {for(i=1; i<=10; i++) print i}'
 ```
 
 ### 字符串类型
+
 ```bash
 for i in `ls`
 do

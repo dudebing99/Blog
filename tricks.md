@@ -360,7 +360,7 @@ break
 #查看所有断点信息
 info break
 # 删除断点
-delete
+delete <num>
 # 监视一个变量的值，一旦发生变化，程序将会被暂停
 watch
 

@@ -2,7 +2,7 @@
 
 ------
 
-## 解决 root 分区空间不足的问题
+## [CentOS] 解决 root 分区空间不足的问题
 
 **系统环境**
 
@@ -44,7 +44,7 @@ lvextend -L +300G /dev/mapper/VolGroup-lv_root
 resize2fs -p /dev/mapper/VolGroup-lv_root
 ```
 
-## Host SMbus controller not enabled
+## [VMWare] Host SMbus controller not enabled
 
 **系统环境**
 
@@ -62,7 +62,7 @@ CentOS/VMware® Workstation 12 Pro
 blacklist i2c_piix4
 ```
 
-## intel_rapl: no valid rapl domains found in package 0
+## [VMWare] intel_rapl: no valid rapl domains found in package 0
 
 **系统环境**
 
@@ -77,7 +77,7 @@ CentOS/VMware® Workstation 12 Pro
 在 /etc/modprobe.d/blacklist.conf 文件里添加如下内容：
 blacklist intel_rapl
 
-## sd 0:0:0:0: [sda] Assuming drive cache: write through
+## [VMWare] sd 0:0:0:0: [sda] Assuming drive cache: write through
 
 **系统环境**
 
@@ -95,7 +95,7 @@ CentOS/VMware® Workstation 12 Pro
 2. 执行 grub2-mkconfig -o /boot/grub2/grub.cfg
 3. reboot
 
-## MySQL 插入关键字导致 SQL 执行失败
+## [MySQL] 插入关键字导致 SQL 执行失败
 
 **系统环境**
 
@@ -117,7 +117,7 @@ MySQL 5.6.x
 
 > 使用 转义符号：\`关键字\`
 
-## MySQL 字段包含单引号、双引号导致 SQL 语法错误
+## [MySQL] 字段包含单引号、双引号导致 SQL 语法错误
 
 **系统环境**
 
@@ -139,7 +139,7 @@ insert into blog_info_tbl (title, url) values ('kevin\'s blog', 'https://dudebin
 insert into blog_info_tbl (title, url) values ('\"kevin\" blog', 'https://dudebing99.github.io/blog/');
 ```
 
-## MySQL 重置密码
+## [MySQL] 重置密码
 
 **系统环境**
 
@@ -179,9 +179,14 @@ mysql> select org_user_id, uniq_user_id from (select * from multi_app_user_tbl) 
 ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'tmp.org_user_id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
 ```
 
+**原因分析**
+
+Select 语句选择的列与 Group by 包含的列不一致，MySQL 默认有此限制。
+
 **解决方式**
 
- 	**原因：**Select 语句选择的列与 Group by 包含的列不一致，MySQL 默认有此限制。因此，一方面，可以修改业务的 SQL，遵循此限制；另一方面，可以取消 MySQL 此限制，如下所示
+1. 可以修改业务的 SQL，遵循此限制
+2. 可以取消 MySQL 此限制，如下所示
 
 ```sql
 mysql> select @@sql_mode\G
@@ -197,7 +202,7 @@ mysql> set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERR
 sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
 ```
 
-## SecureFX 中文文件名乱码
+## [SecureFX] 中文文件名乱码
 
 **系统环境**
 
@@ -221,7 +226,7 @@ D:"Use Multiple SFTP Channels"=00000000
 D:"Suppress Stat On CWD"=00000000
 ```
 
-## SecureCRT 冻结终端/解除冻结/全屏/清屏
+## [SecureCRT] 冻结终端/解除冻结/全屏/清屏
 
 **系统环境**
 
@@ -238,7 +243,7 @@ SecureCRT Version 7.0.3 (build 480)
 - Alt + Enter：全屏/退出全屏
 - Ctrl + L：清屏 clear
 
-## SourceInSight 支持 .cc 文件
+## [SourceInSight] 支持 .cc 文件
 
 **系统环境**
 
@@ -270,7 +275,7 @@ ONBOOT=no 修改为 ONBOOT=yes
 
 > 备注：重启网卡或系统生效。
 
-## CentOS 图形、多用户（命令行）模式切换
+## [CentOS] 图形、多用户（命令行）模式切换
 
 **系统环境**
 
@@ -294,7 +299,7 @@ systemctl set-default multi-user.target
 systemctl set-default graphical.target
 ```
 
-## Ubuntu 图形、命令行模式切换
+## [Ubuntu] 图形、命令行模式切换
 
 **系统环境**
 
@@ -319,7 +324,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash text"
 2. 执行 update-grub
 3. reboot
 
-## IceGrid 应用进程权限
+## [IceGrid] 应用进程权限
 
 **系统环境**
 
@@ -339,7 +344,7 @@ IceGrid Node 节点应用进程默认以 everyone 用户启动，进程需要在
 
 **方法 2：**IceGrid 机制允许修改用户进程启动默认启动的用户，详见 ICE 官方文档。
 
-## Failed to continue: "Cannot find Delve debugger. Ensure it is in your \`GOPATH/bin\` or \`PATH\`."
+## [VSCode] Failed to continue: "Cannot find Delve debugger. Ensure it is in your \`GOPATH/bin\` or \`PATH\`."
 
 **系统环境**
 
@@ -369,7 +374,7 @@ CentOS 7.x/Python 2.7.x/django 1.11.7
 
 运行时加入追加如下参数 --nothreading --noreload
 
-## Django memory leak with gunicorn
+## [Django] memory leak with gunicorn
 
 **系统环境**
 
@@ -385,7 +390,7 @@ Django 项目运行时内存泄漏，正常情况下，应当找出内存泄漏�
 
 > 实际上，主进程杀掉并重新拉起新的子进程时，不会影响对客户端的请求的处理。例如，nginx 代理 Django 后端服务，客户端的请求不会受到影响。
 
-## Python MySQL 结果集返回字典格式
+## [Python] MySQL 结果集返回字典格式
 
 **系统环境**
 
@@ -417,7 +422,7 @@ def get_db_conn(mysql_config):
     return db, cursor
 ```
 
-## Python module not found error 可能原因
+## [Python] module not found error 可能原因
 
 **系统环境**
 
@@ -436,7 +441,7 @@ CentOS 7.x/Python 2.7.4
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 ```
 
-## str(c.version) for c in all_candidates SyntaxError: invalid syntax
+## [Pip] str(c.version) for c in all_candidates SyntaxError: invalid syntax
 
 **系统环境**
 

@@ -29,6 +29,17 @@
 - [以太坊智能合约 - 函数多签](https://hackmd.io/s/HkkT9H5NX)
 - [Solidity Security](https://blog.sigmaprime.io/solidity-security.html)
 
+## 缩略词
+
+| 缩略词 | 定义/解释                                             |      |
+| ------ | ----------------------------------------------------- | ---- |
+| PoW    | 工作量证明（Proof of Work）                           |      |
+| PoS    | 权益证明（Proof of Stake）                            |      |
+| DPoS   | 股份授权证明（Delegate Proof of Stake）               |      |
+| PBFT   | 实用拜占庭容错（Practical Byzantine Fault Tolerance） |      |
+| P2P    | 点对点（Peer to Peer）                                |      |
+| DApp   | 分布式应用（Decentralized Application）               |      |
+
 ## DIY
 
 ### 比特币测试网络

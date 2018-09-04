@@ -95,6 +95,27 @@ CentOS/VMware® Workstation 12 Pro
 2. 执行 grub2-mkconfig -o /boot/grub2/grub.cfg
 3. reboot
 
+## [VMWare] 虚拟机磁盘空间不足
+
+**系统环境**
+
+Ubuntu 14.04.5 LTS/VMware® Workstation 12 Pro
+
+**问题描述**
+
+虚拟机 Ubuntu 磁盘空间不足，导致无法使用，需要扩容
+
+**解决方式**
+
+1. 删除虚拟机的所有快照
+2. 虚拟机设置 -> 硬件 -> 磁盘 -> 扩展，设置一个足够的空间，例如 200G
+3. 通过 `apt-get install gparted -y` 安装 `gparted`
+4. 图形界面模式下，运行 `gparted`，扩展分区即可
+
+> 扩展前，`/dev/sda1` 实际 40G，使用将近 40G。首先，将 `/dev/sda1` 之外的分区（虚拟机安装 Ubuntu 系统时默认处理，所以关键分区是 sda1，此分区不能删除）全部删除；然后，扩展`/dev/sda1` 分区，并重新建立交换分区。
+
+![](E:\blog\pic\troubleshooting\gparted.png)
+
 ## [MySQL] 插入关键字导致 SQL 执行失败
 
 **系统环境**
@@ -475,7 +496,7 @@ E: Unable to correct problems, you have held broken packages.
 
 **解决方式**
 
-```basic
+```bash
 root@datachain-test002:~# aptitude install libssl-dev
 The following NEW packages will be installed:
   libssl-dev{b} libssl-doc{a} zlib1g-dev{ab} 

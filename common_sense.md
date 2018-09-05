@@ -39,3 +39,17 @@ contract Producer {
 
 总结：使用时，加上枚举所在合约作为域前缀即可，例如 `Supplier.State.active`
 
+### Bitcoin
+
+#### minrelaytxfee、mintxfee
+
+> 参考资料：https://bitcointalk.org/index.php?topic=2045575.0
+
+- minrelaytxfee is used to define what the minimum fee should be on a transaction for your node to relay it
+
+- mintxfee is the minimum fee that the client will *create* a transaction with
+
+> So, if minrelaytxfee is set to 0.00001 your node will happily relay any transactions with that fee or higher (ie. yours and other peoples txes)... however, if you then set mintxfee to 0.00005, then any transaction you create will have that value as the minimum possible fee, but you'll still relay other peoples txes with fees of only 0.00001. 
+>
+
+

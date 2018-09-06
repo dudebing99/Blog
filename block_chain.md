@@ -1167,7 +1167,7 @@ error: {"code":-4,"message":"Error:run-script-error:luaL_loadbuffer fail:[string
 | 参数名称   | 参数描述                                                     |
 | ---------- | ------------------------------------------------------------ |
 | mixhash    | 与 nonce 配合用于挖矿                                        |
-| nonce      | nonce就是一个64 位随机数，用于挖矿                           |
+| nonce      | nonce 就是一个64 位随机数，用于挖矿                          |
 | difficulty | 设置当前区块的难度，如果难度过大，cpu 挖矿就很难，这里设置较小难度 |
 | alloc      | 用来预置账号以及账号的以太币数量，因为私有链挖矿比较容易，所以我们不需要预置有币的账号，需要的时候自己创建即可以。 |
 | coinbase   | 矿工的账号，随便填                                           |
@@ -3730,6 +3730,24 @@ OP_DUP OP_HASH160 <Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG
 - 网络路由节点
 
 ### 区块链
+
+#### 区块数据存储
+
+> There are basically four pieces of data that are maintained:
+>
+> - `blocks/blk*.dat`: the actual Bitcoin blocks, in network format, dumped in raw on disk. They are only needed for rescanning missing transactions in a wallet, reorganizing to a different part of the chain, and serving the block data to other nodes that are synchronizing.
+> - `blocks/index/*`: this is a LevelDB database that contains metadata about all known blocks, and where to find them on disk. Without this, finding a block would be very slow.
+> - `chainstate/*`: this is a LevelDB database with a compact representation of all currently unspent transaction outputs and some metadata about the transactions they are from. The data here is necessary for validating new incoming blocks and transactions. It can theoretically be rebuilt from the block data (see the `-reindex` command line option), but this takes a rather long time. Without it, you could still theoretically do validation indeed, but it would mean a full scan through the blocks (140 GB as of July 2017) for every output being spent.
+> - `blocks/rev*.dat`: these contain "undo" data. You can see blocks as 'patches' to the chain state (they consume some unspent outputs, and produce new ones), and see the undo data as reverse patches. They are necessary for rolling back the chainstate, which is necessary in case of reorganizations.
+>
+> So yes, everything but the block data itself is indeed redundant, as it can be rebuilt from it. But validation and other operations would become intolerably slow without them.
+
+- `blocks/blk*.dat` 的文件中存储了实际的块数据，这些数据以网络格式存储。它们仅用于重新扫描钱包中丢失的交易，将这些交易重新组织到链的不同部分，并将数据块提供给其他正在同步数据的节点。
+- `blocks/index/*` 是一个 LevelDB 数据库，存储着目前已知块的元数据，这些元数据记录所有已知的块以及它们存储在磁盘上的位置。没有这些文件，查找一个块将是非常慢的。
+- `chainstate/*` 是一个 LevelDB 数据库，以紧凑的形式存储所有当前未花费的交易以及它们的元数据。这里的数据对于验证新传入的块和交易是必要的。在理论上，这些数据可以从块数据中重建，但是这需要很长时间。没有这些数据也可以对数据进行验证，但是需要现有块数据进行扫面，这无疑是非常慢的。
+- `blocks/rev*.dat` 中包含了“撤销”数据，可以将区块视为链的“补丁”（它们消耗一些未花费的输出并生成新的输出），那么这些撤销数据将是反向补丁。如果需要回滚链，这些数据将是必须的。
+
+> 比特币程序从网络中接受数据后，会将数据以 `.dat` 的形式转储到磁盘上。一个块文件大约为 128 MB。每个块文件会有一个对应的撤销文件，比如文件 `blocks/blk1234.dat` 和`blocks/recv1234.dat `对应。
 
 #### 区块结构
 

@@ -2399,7 +2399,7 @@ curl http://localhost:12306 -d '{"initialSupply":1000,"tokenName":"Hello World T
 {"erro": 0, "address": "0x4aa8abdc9361040689154f28e9fbf6229862d6ca", "hash": "0xd32d279af7b4d4b9f47167caeca0b0c2e8db0698a367aadc6868050251a20e1c"}
 ```
 
-### 以太坊智能合约：函数多签
+### 以太坊智能合约安全：函数多签
 
 借助于 `MSFun` 提供的函数多签基础库，封装成权限控制合约 `Auth`，在应用合约 `Demo` 使用权限控制合约 `Auth`
 
@@ -3015,7 +3015,7 @@ function functionName()
 
 ![](pic/blockchain/show_value3.png)
 
-### 以太坊智能合约攻击：重入
+### 以太坊智能合约安全：重入
 
 #### 公共钱包合约
 
@@ -3303,7 +3303,7 @@ function withdraw(address to, uint256 amount) {
 
 ![](pic/blockchain/attack_log.png)
 
-### 以太坊智能合约攻击：访问控制
+### 以太坊智能合约安全：访问控制
 
 #### 函数可见性
 
@@ -3434,7 +3434,7 @@ contract B {
 
 ![](pic/blockchain/owner_value.png)
 
-### 以太坊智能合约攻击：算数问题
+### 以太坊智能合约安全：算数问题
 
 通常来说，在编程语言里算数问题导致的漏洞最多的就是整数溢出了，整数溢出又分为上溢和下溢。
 

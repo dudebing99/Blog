@@ -3496,6 +3496,54 @@ contract Token {
 
 ![](pic/blockchain/balance.png)
 
+### 以太坊智能合约安全：构造函数失控
+
+#### 构造函数失控
+
+构造函数（Constructors）是特殊函数，在初始化合约时经常执行关键的权限任务。在 Solidity v0.4.22 以前，构造函数被定义为与所在合约同名的函数。因此，存在如下安全隐患：
+
+- 合约开发过程中修改合约名称，但构造函数没有对应修改，导致“你以为的构造函数”变成了普通的可调用函数
+
+- 构造函数名称存在拼写错误，导致与合约名称不匹配，导致“你以为的构造函数”变成了普通的可调用函数
+
+进一步地，如果构造函数存在权限相关的任务，将导致权限的泄露。
+
+#### 示例合约
+
+> 如下合约中，合约名称与“你以为的”构造函数名称不一致，加之，函数的默认可见性为 `public`，从而导致权限的泄露。
+
+```javascript
+pragma solidity ^0.4.24;
+
+contract OwnerWallet {
+    address public owner;
+
+    // the constructor you expect to be, but not in fact
+    function ownerWallet(address _owner) public {
+        owner = _owner;
+    }
+
+    function () payable public {} 
+
+    function withdraw() public {
+        require(msg.sender == owner); 
+        msg.sender.transfer(address(this).balance);
+    }
+}
+```
+
+该合约储存以太坊，并只允许所有者通过调用 `withdraw()` 函数来取出所有 Ether。但由于构造函数的名称与合约名称不完全一致，这个合约会出问题。具体来说， `ownerWallet` 与 `OwnerWallet` 不相同。
+
+因此，任何用户都可以调用 `ownerWallet()` 函数，将自己设置为所有者，然后通过调用 `withdraw()` 将合约中的所有以太坊都取出来。
+
+#### 预防措施
+
+在 Solidity 0.4.22 版本的编译器中已经基本得到了解决。该版本引入了一个关键词 `constructor` 来指定构造函数，而不是要求函数的名称与合约名称匹配。建议使用这个关键词来指定构造函数，以防止上面显示的命名问题。 
+
+#### 真实世界的例子：Rubixi
+
+[Rubixi](https://etherscan.io/address/0xe82719202e5965Cf5D9B6673B7503a3b92DE20be#code) 合约中的构造函数一开始叫做 `DynamicPyramid` ，但合约名称在部署之前已改为 `Rubixi` 。构造函数的名字没有改变，因此任何用户都可以成为 `creator` 。
+
 ## 比特币
 
 ### 密钥和地址

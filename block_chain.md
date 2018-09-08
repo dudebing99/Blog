@@ -1467,6 +1467,32 @@ WARN [07-25|16:58:52.399] Block sealing failed                     err="waiting 
 }
 ```
 
+- 查看排队的交易
+
+> 网络原因，或者设置的 `gasPrice` 较低，提交的交易可能存在排队
+
+```javascript
+> eth.pendingTransactions
+[{
+    blockHash: null,
+    blockNumber: null,
+    from: "0x96d81d81149a3a8501eb99fb8aca1cff5cc19d7c",
+    gas: 90000,
+    gasPrice: 4000000000,
+    hash: "0xed4e7b61c2708f35f686269cfc5dd6e2f461126622416d418d84c89209cde042",
+    input: "0x",
+    nonce: 15,
+    r: "0x8641968a94754bf4e90be44633d8da00442539dffc0bed97440c861480d0b3fa",
+    s: "0x45048590631c45ae8b129cbc4023750a0e84ff0f0b9a6d87739ffcce93b317b",
+    to: "0x9ecaaf6f3bc5cfaf596ff8317e2ccd688ca40bd7",
+    transactionIndex: 0,
+    v: "0x2a",
+    value: 458000680855715200000
+}]
+> eth.getTransactionCount(eth.accounts[0],"pending")
+15
+```
+
 #### 合约
 
 - 编写 Solidity 合约脚本

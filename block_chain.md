@@ -3576,7 +3576,7 @@ contract OwnerWallet {
 
 ####  transfer 转账失败
 
-> `Richest` 合约中，任何人支付高于前一个人所支付的以太坊，即，称为最富有的人
+> `Richest` 合约中，任何人支付高于前一个人所支付的以太坊，即，成为最富有的人
 
 ```javascript
 pragma solidity ^0.4.24;

@@ -1262,6 +1262,15 @@ root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. getdelegatelist 11
 }
 ```
 
+#### 创建投票交易
+
+```bash
+root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. createdelegatetx "wgd6Fs7d9ktJVUMv6qdwMup8tqe5ek7dj1" "[{\"delegate\": \"wgd6Fs7d9ktJVUMv6qdwMup8tqe5ek7dj1\", \"votes\": 10000}]" 100
+{
+    "hash" : "ac8b97c6a68d1048f271ac6091dc867336394c78f73aa8178ea8674385beaf7f"
+}
+```
+
 ### 以太坊初步探索
 
 > **OS:** Ubuntu 14.04.5 LTS

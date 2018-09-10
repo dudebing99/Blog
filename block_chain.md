@@ -1107,15 +1107,159 @@ root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance whmD4M8Q8qbEx6R
 当应用账户余额为零时，提现操作将会失败，实现信息已 json 格式输出，具体如下所示：
 
 ```bash
-root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getappaccinfo 117-1 whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1
+root@ubuntu:~/chaincode/tmp/node1# ./node1 -datadir=. getappaccinfo 117-1 whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1
 {
     "mAccUserID" : "77686d44344d3851387162457836523567554c626362355a6b656462635244475931",
     "FreeValues" : 0,
     "vFreezedFund" : [
     ]
 }
-root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. createcontracttx whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1 117-1 0 ff01020065cd1d00000000 100000 0
+root@ubuntu:~/chaincode/tmp/node1# ./node1 -datadir=. createcontracttx whmD4M8Q8qbEx6R5gULbcb5ZkedbcRDGY1 117-1 0 ff01020065cd1d00000000 100000 0
 error: {"code":-4,"message":"Error:run-script-error:luaL_loadbuffer fail:[string \"line\"]:375: Account balance is 0.\n"}
+```
+
+###  智能坊 DPOS
+
+#### 查询投票节点信息
+
+```bash
+root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. getdelegatelist 11
+{
+    "delegates" : [
+        {
+            "Address" : "wNDue1jHcgRSioSDL4o1AzXz3D72gCMkP6",
+            "KeyID" : "1c758724cc60db35dd387bcf619a478ec3c065f2",
+            "RegID" : "0-2",
+            "PublicKey" : "0376de6a21f63c35a053c849a339598016a0261d6bdc5567adeda0af78b750c4cc",
+            "MinerPKey" : "",
+            "Balance" : 0,
+            "Votes" : 21000000000000000,
+            "UpdateHeight" : 0,
+            "voteFundList" : [
+            ]
+        },
+        {
+            "Address" : "wNuJM44FPC5NxearNLP98pg295VqP7hsqu",
+            "KeyID" : "23e8b4ac5e3dea621474cad9d9dc4323018856c9",
+            "RegID" : "0-3",
+            "PublicKey" : "025a37cb6ec9f63bb17e562865e006f0bafa9afbd8a846bd87fc8ff9e35db1252e",
+            "MinerPKey" : "",
+            "Balance" : 0,
+            "Votes" : 21000000000000000,
+            "UpdateHeight" : 0,
+            "voteFundList" : [
+            ]
+        },
+        {
+            "Address" : "wP64X59EoRmeq2M5GrJ23UVttE9uxnuoFa",
+            "KeyID" : "25f1bd29a3d025fb7e2aa596d86c41e245ddb2c0",
+            "RegID" : "0-4",
+            "PublicKey" : "03f52925f191c77bb1d16b19387bcfcb83380f1622d643a11038cf4867c4578696",
+            "MinerPKey" : "",
+            "Balance" : 0,
+            "Votes" : 21000000000000000,
+            "UpdateHeight" : 0,
+            "voteFundList" : [
+            ]
+        },
+        {
+            "Address" : "wQewSbKL5kAfpwnrivSiCcaiFffgNva4uB",
+            "KeyID" : "3721af044c38b62b14b18a78339638097d57d830",
+            "RegID" : "0-5",
+            "PublicKey" : "0378f1d7ce11bace8bbf28e124cd15f1bc82d7e8a25f62713f812201e1cf8060d8",
+            "MinerPKey" : "",
+            "Balance" : 0,
+            "Votes" : 21000000000000000,
+            "UpdateHeight" : 0,
+            "voteFundList" : [
+            ]
+        },
+        {
+            "Address" : "wQquTWgzNzLtjUV4Du57p9YAEGdKvgXs9t",
+            "KeyID" : "39349a5c128882c0fc6034768b95ad8791b213e7",
+            "RegID" : "0-6",
+            "PublicKey" : "03fb1fe453bf830843fd90f0d2ae1b67011c168a0a5f2160e41f1d86a64c86c25c",
+            "MinerPKey" : "",
+            "Balance" : 0,
+            "Votes" : 21000000000000000,
+            "UpdateHeight" : 0,
+            "voteFundList" : [
+            ]
+        },
+        {
+            "Address" : "wRQwgYkPNe1oX9Ts3cfuQ4KerqiV2e8gqM",
+            "KeyID" : "3f742fd45c7aea013ff97a07574576ed9048819c",
+            "RegID" : "0-7",
+            "PublicKey" : "0282464694b94780b88c5e88ff64a7e24800590d4061b90f334067d15643604057",
+            "MinerPKey" : "",
+            "Balance" : 0,
+            "Votes" : 21000000000000000,
+            "UpdateHeight" : 0,
+            "voteFundList" : [
+            ]
+        },
+        {
+            "Address" : "wSjMDgKWHC2MzrUamhJtyyR2FTtw8oMUfx",
+            "KeyID" : "4de772892db26d235febe1f6c004e138fb08206c",
+            "RegID" : "0-8",
+            "PublicKey" : "02361884b20bdb2f751c56783a5fdc01ec64e25d77b7bf5a30409aef4b5b3b44ce",
+            "MinerPKey" : "",
+            "Balance" : 0,
+            "Votes" : 21000000000000000,
+            "UpdateHeight" : 0,
+            "voteFundList" : [
+            ]
+        },
+        {
+            "Address" : "wSms4pZnNe7bxjouLxUXQLowc7JqtNps94",
+            "KeyID" : "4e6131d0301855593319ad2d00062fc1c95235f9",
+            "RegID" : "0-9",
+            "PublicKey" : "029699e9b4d679d04d8961bf64ffc0b5ec6f9d46e88bbdcbc6d0a02ce1e4991c0c",
+            "MinerPKey" : "",
+            "Balance" : 0,
+            "Votes" : 21000000000000000,
+            "UpdateHeight" : 0,
+            "voteFundList" : [
+            ]
+        },
+        {
+            "Address" : "wT75mYY9C8xgqVgXquBmEfRmAXPDpJHU62",
+            "KeyID" : "5203b378d7f1b2b9b451bc47742f4a9d96624583",
+            "RegID" : "0-10",
+            "PublicKey" : "024af74c1cc6b1d729b038427ce9011627f6b816e77699421a85265c4ae0b74b5b",
+            "MinerPKey" : "",
+            "Balance" : 0,
+            "Votes" : 21000000000000000,
+            "UpdateHeight" : 0,
+            "voteFundList" : [
+            ]
+        },
+        {
+            "Address" : "wUt89R4bjD3Ca6Vb7mk18oGsVtSTCxJu2q",
+            "KeyID" : "658087881805a66c7faeb7b942d1930d9bdc72f1",
+            "RegID" : "0-11",
+            "PublicKey" : "03e44dcf2df8ec33a17c63a894f3697ed863b2d1fcc7b5fd37cc4fc2edf8e7ed71",
+            "MinerPKey" : "",
+            "Balance" : 0,
+            "Votes" : 21000000000000000,
+            "UpdateHeight" : 0,
+            "voteFundList" : [
+            ]
+        },
+        {
+            "Address" : "wVTUdfEaeAAVSuXKrmMyqQXH5j5Z9oGmTt",
+            "KeyID" : "6bcf5b9a38cb8ca656b5c194f2f3c155be93b3ab",
+            "RegID" : "0-12",
+            "PublicKey" : "03ff9fb0c58b6097bc944592faee68fbdb2d1c5cd901f6eae9198bd8b31a1e6f5e",
+            "MinerPKey" : "",
+            "Balance" : 0,
+            "Votes" : 21000000000000000,
+            "UpdateHeight" : 0,
+            "voteFundList" : [
+            ]
+        }
+    ]
+}
 ```
 
 ### 以太坊初步探索

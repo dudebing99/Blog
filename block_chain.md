@@ -3885,6 +3885,48 @@ contract Test {
 
 此时，账户余额变为 105 以太坊。
 
+#### 预防技术
+
+- 尽量使用 `transfer()` 转账，而不是 `send()`，因为，如果外部交易回滚，`transfer()`会触发回滚
+- 如果使用 `send()` 转账，请务必检查返回值
+
+- 如果有可能，使用 `withdrawel` 模式，在这个解决方案中，每个用户都得调用相互隔离的取现函数。将外部发送功能与代码库的其余部分进行逻辑隔离，并将可能失败的交易负担交给正在调用取现函数的最终用户
+
+```javascript
+pragma solidity ^0.4.11;
+
+contract WithdrawalContract {
+    address public richest;
+    uint public mostSent;
+
+    mapping (address => uint) pendingWithdrawals;
+
+    function WithdrawalContract() public payable {
+        richest = msg.sender;
+        mostSent = msg.value;
+    }
+
+    function becomeRichest() public payable returns (bool) {
+        if (msg.value > mostSent) {
+            pendingWithdrawals[richest] += msg.value;
+            richest = msg.sender;
+            mostSent = msg.value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function withdraw() public {
+        uint amount = pendingWithdrawals[msg.sender];
+        // 记住，在发送资金之前将待发金额清零
+        // 来防止重入（re-entrancy）攻击
+        pendingWithdrawals[msg.sender] = 0;
+        msg.sender.transfer(amount);
+    }
+}
+```
+
 ## 比特币
 
 ### 密钥和地址
@@ -4604,4 +4646,4 @@ if mode == downloader.FastSync && blockchain.CurrentBlock().NumberU64() > 0 {
 
 - 同步模式共有三种：全量、快速、轻量，默认采用快速同步模式
 - 同步模式可能发生自动切换
-- 同步区块数据量的多少与使用同步模式 FullSync 的时机、同步节点启停次数有一定关系
+- 同步区块数据量的多少与使用同步模式 FullSync 的时机、**同步节点启停次数有一定关系**

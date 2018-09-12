@@ -35,20 +35,25 @@
 ### 查看系统级别是否运行异常
 
 - 利用 top/htop 查看全局资源使用
+
 - 利用 free 查看系统内存使用
+
 - 利用 iostat 查看磁盘 I/O 是否异常
+
 - 利用 df -i 查看系统 inode 使用是否异常；df -h 查看系统磁盘使用是否异常
+
 - 利用 ss/netstat 查看系统网络连接是否异常
+
 - 利用 netstat -s 查看网络的统计数据
 
-```bash
-root@:~# netstat -s|grep -E "rejects|overflowed|timeout"
-    470847 times the listen queue of a socket overflowed
-    3 timeouts after SACK recovery
-    2 timeouts in loss state
-    10678 other TCP timeouts
-    582 connections aborted due to timeout
-```
+  ```bash
+  root@:~# netstat -s|grep -E "rejects|overflowed|timeout"
+      470847 times the listen queue of a socket overflowed
+      3 timeouts after SACK recovery
+      2 timeouts in loss state
+      10678 other TCP timeouts
+      582 connections aborted due to timeout
+  ```
 
 - 利用 ifstat 查看系统网络流量是否异常
 

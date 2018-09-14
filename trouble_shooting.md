@@ -345,6 +345,53 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash text"
 2. 执行 update-grub
 3. reboot
 
+## [Ubuntu] the listen queue of a socket overflowed
+
+**系统环境**
+
+Ubuntu 14.04
+
+**问题描述**
+
+客户端连接服务端失败，利用 ss/netstat 查看网络的统计数据，发现异常 `the listen queue of a socket overflowed`
+
+```bash
+root@iZwz9iz7dge6lus7u0uvuzZ:~# netstat -s|grep -E "overflowed"
+    470847 times the listen queue of a socket overflowed
+```
+
+**原因分析**
+
+在使用 `wrk` 作为客户端对服务端进行压力测试时偶尔出现连接无响应，进而查看到网络统计信息中有如上错误。
+
+查看系统支持的最大全连接数 128
+
+```bash
+root@:~# cat  /proc/sys/net/core/somaxconn 
+128
+```
+
+而使用 `wrk` 并发的连接数设置超过了该限制，例如，设置 `wrk` 并发连接 200。此时，服务端的全连接一定会溢出，查看系统溢出之后如何处理
+
+```bash
+root@:~# cat /proc/sys/net/ipv4/tcp_abort_on_overflow
+0
+```
+
+`tcp_abort_on_overflow` 为 0 表示三次握手第三步的时候，如果全连接队列满了，那么服务端扔掉客户端发过来的`ack`
+
+> `tcp_abort_on_overflow` 设置成 1，表示三次握手第三步的时候，如果全连接队列满了，服务端发送一个`reset` 包给客户端，表示废掉连接
+
+**解决方式**
+
+1. 在配置文件 `/etc/sysconf.conf` 添加（或修改）该设置
+
+```bash
+net.core.somaxconn=32768
+```
+
+2. 运行 `sysctl -p` 使配置生效
+
 ## [IceGrid] 应用进程权限
 
 **系统环境**

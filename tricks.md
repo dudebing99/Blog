@@ -44,15 +44,36 @@
 
 - 利用 ss/netstat 查看系统网络连接是否异常
 
-- 利用 netstat -s 查看网络的统计数据
-
   ```bash
+  # 查看网络统计信息
   root@:~# netstat -s|grep -E "rejects|overflowed|timeout"
       470847 times the listen queue of a socket overflowed
       3 timeouts after SACK recovery
       2 timeouts in loss state
       10678 other TCP timeouts
       582 connections aborted due to timeout
+  
+  # 查看网络连接信息
+  root@:~# netstat -nap
+  Active Internet connections (servers and established)
+  Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+  tcp        0      0 0.0.0.0:4501            0.0.0.0:*               LISTEN      25511/coind     
+  tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      907/sshd        
+  tcp        0      0 0.0.0.0:7901            0.0.0.0:*               LISTEN      25511/coind     
+  tcp        0      0 127.0.0.1:32000         0.0.0.0:*               LISTEN      1688/java       
+  tcp        0      0 172.18.219.68:7901      47.104.240.30:49308     ESTABLISHED 25511/coind     
+  tcp        0      0 172.18.219.68:7901      39.104.158.97:54688     ESTABLISHED 25511/coind     
+  tcp        0      0 172.18.219.68:7901      47.99.132.207:56138     ESTABLISHED 25511/coind     
+  tcp        0      0 172.18.219.68:22        219.133.101.96:42080    ESTABLISHED 9831/0          
+  tcp        0      0 172.18.219.68:58788     47.104.240.30:7901      ESTABLISHED 25511/coind     
+  tcp        0      0 172.18.219.68:58600     47.99.132.207:7901      ESTABLISHED 25511/coind     
+  tcp        0      0 172.18.219.68:7901      39.106.164.24:59070     ESTABLISHED 25511/coind     
+  tcp        0      0 172.18.219.68:58122     106.11.248.209:80       ESTABLISHED 1287/AliYunDun  
+  tcp       32      0 172.18.219.68:43932     100.100.0.13:3128       CLOSE_WAIT  1688/java       
+  tcp        0      0 172.18.219.68:7901      47.104.229.53:46200     ESTABLISHED 25511/coind     
+  tcp        0      0 127.0.0.1:32000         127.0.0.1:31000         ESTABLISHED 1686/wrapper    
+  tcp        0      0 172.18.219.68:7901      116.62.67.116:59758     ESTABLISHED 25511/coind     
+  tcp        0      0 172.18.219.68:58226     106.14.112.174:7901     ESTABLISHED 25511/coind 
   ```
 
 - 利用 ifstat 查看系统网络流量是否异常

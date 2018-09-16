@@ -46,11 +46,13 @@
 
   ```bash
   # 查看网络统计信息
-  root@:~# netstat -s|grep -E "rejects|overflowed|timeout"
-      470847 times the listen queue of a socket overflowed
-      3 timeouts after SACK recovery
+  root@:~# netstat -s|grep -E "rejects|overflowed|timeout|dropped"
+      6 dropped because of missing route
+      479629 times the listen queue of a socket overflowed
+      482420 SYNs to LISTEN sockets dropped
+      5 timeouts after SACK recovery
       2 timeouts in loss state
-      10678 other TCP timeouts
+      12200 other TCP timeouts
       582 connections aborted due to timeout
   
   # 查看网络连接信息

@@ -2172,7 +2172,7 @@ int main()
 
 **输出**
 
-```basic
+```bash
 [root@localhost design_pattern]# g++ decorator.cpp -std=c++11
 [root@localhost design_pattern]# ./a.out                     
 Name: Nokia N8
@@ -2273,7 +2273,7 @@ int main()
 
 **输出**
 
-```basic
+```bash
 [root@localhost design_pattern]# g++ chain_of_responsibility.cpp -std=c++11
 [root@localhost design_pattern]# ./a.out 
 A: I can do it, done
@@ -2368,7 +2368,9 @@ ConcreteClass2::Primitive1()
 ConcreteClass2::Primitive2()
 ```
 
-## [Python 2.x] 输出不换行
+## [Python] 输出不换行
+
+> **环境：**Python 2.7.14 
 
 ```python
 # -*- coding:utf-8 -*-
@@ -2443,7 +2445,7 @@ if __name__ == '__main__':
 
 **输出**
 
-```basic
+```bash
 2018-05-24
 2018-04-25 18:00:34.123456
 2018-05-24
@@ -2548,7 +2550,7 @@ if __name__ == '__main__':
 
 > 输出较多，仅列出一小部分
 
-```basic
+```bash
 Difficulty: 1 (0 bits)
 Starting search...
 Success with nonce 0
@@ -2598,6 +2600,58 @@ Hash is 00f7abab177613afc42270e3f5f79ffddd694093030663b32fe26ce2a377a993
 Elapsed Time: 0.0008 seconds
 Hashing Power: 32956 hashes per second
 Difficulty: 256 (8 bits)
+```
+
+## [Python] 字串串十六进制转换
+
+> **环境：**Python 2.7.14 
+>
+> **源码：**[点此下载](https://dudebing99.github.io/blog/archives/code_snippet/hex_str.py)
+
+````python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import sys
+
+choose = ""
+data = ""
+
+
+def hex2char():
+    output = data.decode('hex')
+    print output
+
+
+def char2hex():
+    output = data.encode('hex')
+    print output
+
+
+if __name__ == '__main__':
+    if len(sys.argv) == 3:
+        choose = sys.argv[1]
+        data = sys.argv[2]
+
+        if choose.lower() == 'hex2char':
+            hex2char()
+        if choose.lower() == 'char2hex':
+            char2hex()
+
+        if choose.lower() != 'hex2char' and choose.lower() != 'char2hex':
+            print "Wrong param,try again"
+    else:
+        print "Usage: <hex2char|char2hex> <data>"
+
+````
+
+**输出**
+
+```bash
+$ ./hex_str.py char2hex "hello wolrd"
+68656c6c6f20776f6c7264
+$ ./hex_str.py hex2char "68656c6c6f20776f6c7264"
+hello wolrd
 ```
 
 ## [Python] 列表

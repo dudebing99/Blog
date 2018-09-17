@@ -889,6 +889,18 @@ root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance wKkoeBCynvuDmkS
 }
 ```
 
+> 通过 `getappinfo()` 接口，根据 `regid` 反向查询合约内容，字段 `scriptContent` 即为合约的十六进制显示
+>
+> ```bash
+> root@iZwz9iz7dge6lus7u0uvuzZ:~/node1# ./node1 -datadir=. getappinfo "17130-1"
+> {
+>     "scriptId" : "17130-1",
+>     "scriptId2" : "ea4200000100",
+>     "description" : "7265636f7264",
+>     "scriptContent" : "..."
+> }
+> ```
+
 #### 充值
 
 > - 合约中，包含总金额、自由余额、每月冻结金额。（初始）自由金额实时转移到合约接收方账户，每月冻结金额将逐步解冻，变成自有金额，并转移到合约接收方账户。

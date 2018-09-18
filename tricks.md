@@ -889,5 +889,38 @@ worker_rlimit_nofile 100000;
 - `worker_process` 定义 nginx 对外提供 web 服务是的工作进程数量。最优值取决于诸多因素，包括但不限于 CPU 核心数量。一般配置为机器 CPU 核心数量即可（`auto` 将尝试自动检测机器 CPU 核心数量）
 - `worker_rlimit_nofile` 更改工作进程的最大打开文件数限制。如果没设置的话，这个值为操作系统的限制。设置后你的操作系统和 nginx 可以处理比 `ulimit -a` 更多的文件，所以把这个值设高，这样 nginx 就不会出现 `too many open files` 的问题
 
+### Events 模块
+
+> events 模块中包含 nginx 中所有处理连接的设置。
+
+```basic
+events {
+    worker_connections 2048;
+    multi_accept on;
+    use epoll;
+}
+```
+
+- `worker_connections` 设置单个工作进程同时打开的连接数限制，如高层配置中 `worker_rlimit_nofile` 设置了较高的值，可以适当地提高这个值
+
+> 工作进程同时打开的连接数限制也由系统的可用 socket 连接数限制，所以设置不切实际的高没什么好处。
+
+- `multi_accept` 设置 nginx 收到一个新连接通知后接受尽可能多的链接
+
+> ```basic
+> Syntax:	multi_accept on | off;
+> Default:	
+> multi_accept off;
+> Context:	events
+> ```
+>
+> If `multi_accept` is disabled, a worker process will accept one new connection at a time. Otherwise, a worker process will accept all new connections at a time.
+
+- `use` 设置用于复用客户端线程的轮询方法。如果你使用 `Linux 2.6+`，你应该使用 `epoll`。如果你使用 `BSD`，你应该使用 `kqueue`
+
+> 如果你不知道 nginx 该使用哪种轮询方法的话，不配置该选项即可，它会选择一个最适合你操作系统的。
+
+
+
 
 

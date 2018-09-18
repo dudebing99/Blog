@@ -1185,3 +1185,39 @@ Windows 7 Ultimate x64/geth 1.8.13
 - 创世区块指定的 `gaslimit` 设置足够大
 - 运行以太坊私有网络节点，添加参数 `--targetgaslimit '9000000000000'`（该设置保证随着挖矿的进行，节点不断调高 `gaslimit` 直到接近 `9000000000000`）
 
+## [nginx] "POST / HTTP/1.1" 499 0 "-" "-"
+
+**系统环境**
+
+Ubuntu 14.04/nginx 1.4.6
+
+**问题描述**
+
+nginx 访问日志（默认路径 `/var/log/nginx/access.log`）存在大量的 499 错误码信息，如下所示
+
+```bash
+127.0.0.1 - - [18/Sep/2018:15:50:02 +0800] "POST / HTTP/1.1" 499 0 "-" "-"
+```
+
+**原因分析**
+
+在使用 wrk 工具对 nginx 负载的多个后端服务进行性能测试时，nginx 访问日志存在大量的 499 错误码信息。
+
+499 错误码是 nginx 扩展的 HTTP 错误码，如下定义
+
+```cpp
+/*
+* HTTP does notdefine the code for the case when a client closed
+* the connectionwhile we are processing its request so we introduce
+* own code to logsuch situation when a client has closed the connection
+* before we even tryto send the HTTP header to it
+*/
+#define NGX_HTTP_CLIENT_CLOSED_REQUEST 499
+```
+
+当客户端在请求的响应返回之前主动关闭连接，nginx 记录 499 错误码
+
+**解决方式**
+
+一般情况下，需要优化后端服务，在客户端超时关闭连接之前返回响应就能避免此类问题。
+

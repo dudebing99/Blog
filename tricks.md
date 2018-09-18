@@ -870,6 +870,8 @@ mysql> select CREATE_TIME from INFORMATION_SCHEMA.TABLES where TABLE_NAME='lates
 
 > nginx 默认的配置 `/etc/nginx/nginx.conf`，当然，一般 `nginx.conf` 会引用其他目录的配置文件，例如目录 `conf.d`，如下讨论主要基于 `nginx.conf` 全局配置。
 
+> NGINX 官方配置说明：http://nginx.org/en/docs/ngx_core_module.html
+
 ### 高层的配置
 
 > `nginx.conf` 文件中，nginx 中有少数的几个高级配置在模块部分之上。

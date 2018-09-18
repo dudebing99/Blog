@@ -866,6 +866,26 @@ mysql> select CREATE_TIME from INFORMATION_SCHEMA.TABLES where TABLE_NAME='lates
 +---------------------+
 ```
 
+## NGINX 性能优化
+
+> nginx 默认的配置 `/etc/nginx/nginx.conf`，当然，一般 `nginx.conf` 会引用其他目录的配置文件，例如目录 `conf.d`，如下讨论主要基于 `nginx.conf` 全局配置。
+
+### 高层的配置
+
+> `nginx.conf` 文件中，nginx 中有少数的几个高级配置在模块部分之上。
+
+```basic
+user www-data;
+pid /var/run/nginx.pid;
+
+worker_processes auto;
+worker_rlimit_nofile 100000;
+```
+
+- `user` 配置 nginx 启动用户，默认即可
+- `pid` 配置 nginx 进程号存放文件，默认即可
+- `worker_process` 定义 nginx 对外提供 web 服务是的工作进程数量。最优值取决于诸多因素，包括但不限于 CPU 核心数量。一般配置为机器 CPU 核心数量即可（`auto` 将尝试自动检测机器 CPU 核心数量）
+- `worker_rlimit_nofile` 更改工作进程的最大打开文件数限制。如果没设置的话，这个值为操作系统的限制。设置后你的操作系统和 nginx 可以处理比 `ulimit -a` 更多的文件，所以把这个值设高，这样 nginx 就不会出现 `too many open files` 的问题
 
 
- 
+

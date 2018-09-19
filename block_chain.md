@@ -4458,7 +4458,7 @@ Ether 单位之间的换算就是在数字后边加上 `wei`、 `finney`、 `sza
 
 ### 技术架构
 
-![](E:\blog\pic\blockchain\block_chain_architecture.png)
+![](blockchain_architecture.png)
 
 1. 数据层
 

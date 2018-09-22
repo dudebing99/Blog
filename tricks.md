@@ -377,6 +377,8 @@ Transfer/sec:     66.19KB
 
 ### 基本操作
 
+- 基础
+
 ```bash
 # 列出源码的一部分
 list
@@ -408,24 +410,42 @@ watch
 thread apply all bt
 ```
 
+- 调整堆栈层级
+
+```bash
+#0  __lll_lock_wait () at ../nptl/sysdeps/unix/sysv/linux/x86_64/lowlevellock.S:135
+135     in ../nptl/sysdeps/unix/sysv/linux/x86_64/lowlevellock.S
+
+# 进入上一层堆栈
+(gdb) up
+#1  0x00007f23cb9d2664 in _L_lock_952 () from /lib/x86_64-linux-gnu/libpthread.so.0
+(gdb) up
+#2  0x00007f23cb9d24c6 in __GI___pthread_mutex_lock (mutex=0x60adf38388 <mempool+8>) at ../nptl/pthread_mutex_lock.c:114
+114     ../nptl/pthread_mutex_lock.c: No such file or directory.
+
+# 进入下一层堆栈
+(gdb) down
+#1  0x00007f23cb9d2664 in _L_lock_952 () from /lib/x86_64-linux-gnu/libpthread.so.0
+```
+
 ### 调试 coredump
 
 - 生成 coredump 文件
 
-  ```bash
-  # 方式一
-  gcore -o xxx.core pid
-  
-  # 方式二
-  gdb attach pid
-  gcore
-  ```
+```bash
+# 方式一
+gcore -o xxx.core pid
+
+# 方式二
+gdb attach pid
+gcore
+```
 
 - 调试 coredump 文件
 
-  ```bash
-  gdb xxx -c xxx.core
-  ```
+```bash
+gdb xxx -c xxx.core
+```
 
 ## VIM 小技巧
 

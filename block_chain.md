@@ -28,6 +28,7 @@
 - [Data Insertion in Bitcoin's Blockchain](https://digitalcommons.augustana.edu/cgi/viewcontent.cgi?article=1000&context=cscfaculty)
 - [以太坊智能合约 - 函数多签](https://hackmd.io/s/HkkT9H5NX)
 - [Solidity Security](https://blog.sigmaprime.io/solidity-security.html)
+- [Oraclize](https://docs.oraclize.it/#ethereum)
 
 ## 缩略词
 

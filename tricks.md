@@ -946,6 +946,24 @@ events {
 
 ### 网络
 
+> - Setting tcp_tw_recycle to 1 makes a Linux host drop TIME_WAIT connections much faster.  Instead of a predefined 2*MSL period of 60s, the host will use a timeout based on RTT estimate.  For LANs, it is usually several milliseconds. 
+>
+> - Setting tcp_tw_reuse to 1 will make a host reuse the same connection quickly for outgoing connections.  
+>
+> - Many WEB sites say that setting the following tunable will change the 2*MSL (TIME_WAIT) period:
+>
+>   \# echo 30 > /proc/sys/net/ipv4/tcp_fin_timeout 
+>
+>   Is this correct? 
+>
+>   Answer:  No.  The tcp(7) manpage states correctly that this tunable does something different: 
+>
+>   ​	tcp_fin_timeout (integer; default: 60) 
+>
+>   ​	This  specifies  how many seconds to wait for a final FIN packet before the socket is forcibly closed. 
+>
+>   There is a hardwired constant, TCP_TIMEWAIT_LEN (defined to 60s), which is used in a number of places.  There is no way to change it without recompilation.   
+
 ```bash
 ######################## cat /proc/sys/net/ipv4/tcp_syncookies
 # 默认值：1
@@ -956,11 +974,6 @@ net.ipv4.tcp_syncookies = 1
 # 默认值：32768   61000
 # 作用：可用端口的范围
 net.ipv4.ip_local_port_range = 1024  65535
-
-######################## cat /proc/sys/net/ipv4/tcp_fin_timeout 
-# 默认值：60
-# 作用：TCP 的 FIN 报文超时时间
-net.ipv4.tcp_fin_timeout = 30
 
 ######################## cat /proc/sys/net/ipv4/tcp_timestamps 
 # 默认值：1

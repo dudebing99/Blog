@@ -967,19 +967,19 @@ net.ipv4.tcp_timestamps = 1
 
 ######################## cat /proc/sys/net/ipv4/tcp_tw_recycle
 # 默认值：0
-# 作用：针对 TIME-WAIT，不要开启。不少文章提到同时开启 tcp_tw_recycle 和 tcp_tw_reuse，会带来 C/S 在 NAT 方面的异常
+# 作用：针对 TIME-WAIT，不要开启
 net.ipv4.tcp_tw_recycle = 0
 
 ######################## cat /proc/sys/net/ipv4/tcp_tw_reuse
 # 默认值：0
-# 作用：针对 TIME-WAIT，做为客户端可以启用（例如，作为nginx-proxy前端代理，要访问后端的服务）
+# 作用：针对 TIME-WAIT，做为客户端可以启用
 net.ipv4.tcp_tw_reuse = 1
 
 ######################## cat /proc/sys/net/ipv4/tcp_max_tw_buckets 
 # 默认值：262144
-# 作用：针对 TIME-WAIT，配置其上限。如果降低这个值，可以显著的发现 time-wait 的数量减少，但系统日志中可能出现如下记录：
+# 作用：针对 TIME-WAIT，配置其上限。如果降低这个值，可以显著的发现 TIME-WAIT 的数量减少，但系统日志中可能出现如下记录：
 # kernel: TCP: time wait bucket table overflow
-# 对应的，如果升高这个值，可以显著的发现 time-wait 的数量增加。
+# 对应的，如果升高这个值，可以显著的发现 TIME-WAIT 的数量增加。
 # 综合考虑，保持默认值。
 net.ipv4.tcp_max_tw_buckets = 262144
 

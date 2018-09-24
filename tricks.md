@@ -940,4 +940,77 @@ events {
 
 > 如果你不知道 nginx 该使用哪种轮询方法的话，不配置该选项即可，它会选择一个最适合你操作系统的。
 
+## linux 内核调优参数
+
+### 网络
+
+```bash
+######################## cat /proc/sys/net/ipv4/tcp_syncookies
+# 默认值：1
+# 作用：是否打开 SYN Cookie 功能，该功能可以防止部分 SYN 攻击
+net.ipv4.tcp_syncookies = 1
+
+######################## cat /proc/sys/net/ipv4/ip_local_port_range
+# 默认值：32768   61000
+# 作用：可用端口的范围
+net.ipv4.ip_local_port_range = 1024  65535
+
+######################## cat /proc/sys/net/ipv4/tcp_fin_timeout 
+# 默认值：60
+# 作用：TCP 的 FIN 报文超时时间
+net.ipv4.tcp_fin_timeout = 30
+
+######################## cat /proc/sys/net/ipv4/tcp_timestamps 
+# 默认值：1
+# 作用：TCP 时间戳
+net.ipv4.tcp_timestamps = 1
+
+######################## cat /proc/sys/net/ipv4/tcp_tw_recycle
+# 默认值：0
+# 作用：针对 TIME-WAIT，不要开启。不少文章提到同时开启 tcp_tw_recycle 和 tcp_tw_reuse，会带来 C/S 在 NAT 方面的异常
+net.ipv4.tcp_tw_recycle = 0
+
+######################## cat /proc/sys/net/ipv4/tcp_tw_reuse
+# 默认值：0
+# 作用：针对 TIME-WAIT，做为客户端可以启用（例如，作为nginx-proxy前端代理，要访问后端的服务）
+net.ipv4.tcp_tw_reuse = 1
+
+######################## cat /proc/sys/net/ipv4/tcp_max_tw_buckets 
+# 默认值：262144
+# 作用：针对 TIME-WAIT，配置其上限。如果降低这个值，可以显著的发现 time-wait 的数量减少，但系统日志中可能出现如下记录：
+# kernel: TCP: time wait bucket table overflow
+# 对应的，如果升高这个值，可以显著的发现 time-wait 的数量增加。
+# 综合考虑，保持默认值。
+net.ipv4.tcp_max_tw_buckets = 262144
+
+######################## cat /proc/sys/net/ipv4/tcp_max_orphans 
+# 默认值：16384
+# 作用：orphans 的最大值
+net.ipv4.tcp_max_orphans = 3276800
+
+######################## cat /proc/sys/net/ipv4/tcp_keepalive_intvl 
+# 默认值：75
+# 作用：探测失败后，间隔几秒后重新探测
+net.ipv4.tcp_keepalive_intvl = 30
+
+######################## cat /proc/sys/net/ipv4/tcp_keepalive_probes 
+# 默认值：9
+# 作用：探测失败后，最多尝试探测几次
+net.ipv4.tcp_keepalive_probes = 3
+
+######################## cat /proc/sys/net/ipv4/tcp_keepalive_time 
+# 默认值：7200
+# 作用：间隔多久发送1次 keepalive 探测包
+net.ipv4.tcp_keepalive_time = 1200
+
+######################## cat /proc/sys/net/ipv4/tcp_max_syn_backlog
+# 默认值：128
+# 作用：增大 SYN 队列的长度，容纳更多连接
+net.ipv4.tcp_max_syn_backlog = 819200
+
+######################## cat /proc/sys/net/core/somaxconn
+# 默认值：128
+# 作用：已经成功建立连接的套接字将要进入队列的长度
+net.core.somaxconn = 65536
+```
 

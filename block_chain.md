@@ -1132,9 +1132,11 @@ root@ubuntu:~/chaincode/tmp/node1# ./node1 -datadir=. createcontracttx whmD4M8Q8
 error: {"code":-4,"message":"Error:run-script-error:luaL_loadbuffer fail:[string \"line\"]:375: Account balance is 0.\n"}
 ```
 
-###  智能坊 DPOS
+###  智能坊综合操作
 
-#### 查询投票节点信息
+#### DPOS
+
+- 查询投票节点信息
 
 ```bash
 root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. getdelegatelist 11
@@ -1276,12 +1278,41 @@ root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. getdelegatelist 11
 }
 ```
 
-#### 创建投票交易
+- 创建投票交易
 
 ```bash
 root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. createdelegatetx "wgd6Fs7d9ktJVUMv6qdwMup8tqe5ek7dj1" "[{\"delegate\": \"wgd6Fs7d9ktJVUMv6qdwMup8tqe5ek7dj1\", \"votes\": 10000}]" 100
 {
     "hash" : "ac8b97c6a68d1048f271ac6091dc867336394c78f73aa8178ea8674385beaf7f"
+}
+```
+
+#### 钱包
+
+- 钱包设置口令
+
+```bash
+root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. encryptwallet "123456"
+{
+    "encrypt" : true
+}
+```
+
+- 解锁钱包
+
+```bash
+root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. walletpassphrase "123456" 100
+{
+    "passphrase" : true
+}
+```
+
+- 锁定钱包
+
+```bash
+root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. walletlock
+{
+    "walletlock" : true
 }
 ```
 

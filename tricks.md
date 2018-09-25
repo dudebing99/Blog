@@ -401,12 +401,21 @@ print
 break
 # 查看所有断点信息
 info breakpoints
-# 查看本地变量
-info locals
 # 删除断点
 delete <num>
+
+# 查看本地变量
+info locals
+# 查看 goroutine 列表（GoLang 专用）
+info goroutines
+# 查看当前变量的类型
+whatis <变量名>
+
 # 监视一个变量的值，一旦发生变化，程序将会被暂停
 watch
+
+# 改变运行过程中的变量值
+set variable <var>=<value>
 
 # 打印所有线程堆栈
 thread apply all bt

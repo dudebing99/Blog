@@ -1316,6 +1316,88 @@ root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. walletlock
 }
 ```
 
+- 导出钱包
+
+```bash
+root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. dumpwallet "wallet.bak"
+{
+    "info" : "dump ok",
+    "key size" : 4
+}
+root@ubuntu:~/chaincode/node/node1# cat wallet.bak 
+{
+    "created by Coin" : "v1.0.0.9-unk-release-linuxSep 14 2018, 11:27:50",
+    "Created Time " : "2018-09-25T07:24:14Z",
+    "Best block index hight " : 524,
+    "Best block hash " : "139518cdce961dc3f861be019748ab0c8f26ac8427ffd89eca61b85806237443",
+    "key" : [
+        {
+            "address" : "wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4",
+            "mCkey" : "2d9a6bd47cf56860856f453c4b472494c25db3c1484b9b3065679fc0351fd2dd",
+            "mCkeyBase58" : "Y6J4aK6Wcs4A3Ex4HXdfjJ6ZsHpNZfjaS4B9w7xqEnmFEYMqQd13",
+            "mMainPk" : "036c5397f3227a1e209952829d249b7ad0f615e43b763ac15e3a6f52627a10df21",
+            "nCreationTime" : 1537854811,
+            "keyid" : "079b9296a00a2b655787fa90e66ec3cde4bf1c8c"
+        },
+        {
+            "address" : "wM6rWHMWrX2gpvsT4dVBXgsLnC2Xu7q1u5",
+            "mCkey" : "c54b3d60ce152f58aa9f7ece03b26d9d00e528e72c046efd19aaf28e25354da1",
+            "mCkeyBase58" : "YBNvrYUNYDo2m2YcidQ2XazwyygPEuDiJFNhTAkEwGVgHCYPtM2q",
+            "mMainPk" : "024074f8938403273f9f6016bdc18c117ec9d306df6eb9256bea4d6ce99a339f97",
+            "nCreationTime" : 1537854806,
+            "keyid" : "1027dff66105914ca76477948caaa76570c3db2c"
+        },
+        {
+            "address" : "wNDue1jHcgRSioSDL4o1AzXz3D72gCMkP6",
+            "mCkey" : "0e33bc16fc761cc5d244ebb3ff08724519915340ae69a13741ea0ee6f179ecc5",
+            "mCkeyBase58" : "Y5F2GraTdQqMbYrV6MG78Kbg4QE8p4B2DyxMdLMH7HmDNtiNmcbM",
+            "mMainPk" : "0376de6a21f63c35a053c849a339598016a0261d6bdc5567adeda0af78b750c4cc",
+            "nCreationTime" : 1537854811,
+            "keyid" : "1c758724cc60db35dd387bcf619a478ec3c065f2"
+        },
+        {
+            "address" : "wT1HrN6x9gFEbvvZvgD4GH8Baoa8fdeuR7",
+            "mCkey" : "2679dc5759ce94f93c8934e0849407954ef14a331e3f74a7660c3e1696409458",
+            "mCkeyBase58" : "Y64D2N3HVz4Scwyq9U3Ry6R3TKzmB1ZgT7dgN2h13pTyXRLomBay",
+            "mMainPk" : "02656c20d5acd60ece211a5a0a6834cde3842c7e1943ba0c6277c66d0ae7bd3462",
+            "mMinerCkey" : "77666e5d556052f2d2b0d73545b16d49129eaae03a5af4cee94e779fdd251d71",
+            "mMinerCkeyBase58" : "Y8mWmMFVMfGNr3CjGoQFwLinWKJZmz4WHTMQv9Y4mvEKZ8Gcy5nv",
+            "mMinerPk" : "03f71e5a25f8fdf95296391d8b48f580ebb0e00b57f23c2fcef7c84b680ad9edeb",
+            "nCreationTime" : 1537855826,
+            "keyid" : "50eb4ab0cb320415a43a2ae11fbe901c7261f701"
+        }
+    ]
+}
+```
+
+#### 私钥
+
+- 导出私钥
+
+```bash
+root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. dumpprivkey wT1HrN6x9gFEbvvZvgD4GH8Baoa8fdeuR7
+{
+    "privkey" : "Y64D2N3HVz4Scwyq9U3Ry6R3TKzmB1ZgT7dgN2h13pTyXRLomBay",
+    "minerkey" : "Y8mWmMFVMfGNr3CjGoQFwLinWKJZmz4WHTMQv9Y4mvEKZ8Gcy5nv"
+}
+```
+
+- 删除私钥
+
+```bash
+root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. dropprivkey
+{
+    "info" : "wallet is ready for cool miner"
+}
+```
+
+> 删除私钥之后，如果尝试导出一个不存在的私钥，将提示如下错误
+>
+> ```bash
+> root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. dumpprivkey wVueyLZYPHkKWizQ3uPyEdH2MnsmMe8Aew
+> error: {"code":-4,"message":"Private key for address wVueyLZYPHkKWizQ3uPyEdH2MnsmMe8Aew is not known"}
+> ```
+
 ### 以太坊初步探索
 
 > **OS:** Ubuntu 14.04.5 LTS

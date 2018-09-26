@@ -25,7 +25,7 @@ git config --global user.email xx@xxx.cn
 
 ## Git .gitignore
 
-```basic
+```bash
 # From https://github.com/github/gitignore
 
 # Prerequisites

@@ -8,23 +8,23 @@
 
 #### ACK、utACK
 
-- Concept ACK
+- `Concept ACK`
 
   Agree with the idea and overall direction, but haven't reviewed the code changes or tested them.
 
-- utACK (untested ACK)
+- `utACK (untested ACK)`
 
   Reviewed and agree with the code changes but haven't actually tested them.
 
-- Tested ACK
+- `Tested ACK`
 
   Reviewed the code changes and have verified the functionality or bug fix.
 
-- ACK
+- `ACK`
 
   A loose ACK can be confusing. It's best to avoid them unless it's a documentation/comment only change in which case there is nothing to test/verify; therefore the tested/untested distinction is not there.
 
-- NACK
+- `NACK`
 
   Disagree with the code changes/concept. Should be accompanied by an explanation.
 

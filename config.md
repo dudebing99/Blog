@@ -2412,7 +2412,7 @@ make install
 
 4. 验证工具链安装配置正确
 
-   ```basic
+   ```bash
    $ gcc -v
    Using built-in specs.
    COLLECT_GCC=C:\mingw32\bin\gcc.exe
@@ -2435,7 +2435,7 @@ make install
 
    - 执行如下命令
 
-     ```basic
+     ```bash
      cd /c/deps/
      tar -xvfz openssl-1.0.1l.tar.gz
      cd openssl-1.0.1l
@@ -2450,7 +2450,7 @@ make install
 
    - 执行如下命令
 
-     ```basic
+     ```bash
      cd /c/deps/
      tar -xvfz db-4.8.30.NC.tar.gz
      cd db-4.8.30.NC/build_unix
@@ -2464,7 +2464,7 @@ make install
 
    - 执行如下命令
 
-     ```basic
+     ```bash
      cd C/deps/boost_1_57_0
      ./bootstrap.bat mingw
      ./b2 --build-type=complete --with-chrono --with-filesystem --with-program_options --with-system --with-thread toolset=gcc variant=release link=static threading=multi runtime-link=static stage
@@ -2476,7 +2476,7 @@ make install
 
    - 执行如下命令
 
-     ```basic
+     ```bash
      cd C/deps
      tar -xzvf miniupnpc-1.9.20150206.tar.gz
      cd miniupnpc-1.9.20150206
@@ -2489,7 +2489,7 @@ make install
 
    - 执行如下命令
 
-     ```basic
+     ```bash
      tar -xzvf protobuf-2.6.1.tar.gz
      cd protobuf-2.6.1
      ./configure --disable-shared
@@ -2502,7 +2502,7 @@ make install
 
    - 执行如下命令
 
-     ```basic
+     ```bash
      tar -xzvf libpng-1.6.16.tar.gz
      cd libpng-1.6.16
      ./configure --disable-shared
@@ -2514,7 +2514,7 @@ make install
 
    - 执行如下命令
 
-     ```basic
+     ```bash
      tar -xzvf qrencode-3.4.4.tar.gz
      cd qrencode-3.4.4
      LIBS="../libpng-1.6.16/.libs/libpng.a ../../mingw32/i686-w64-mingw32/lib/libz.a" \
@@ -2535,7 +2535,7 @@ make install
      >
      > **错误处理：**出现 'fputs' is not a member of 'std' 编译错误时，在出错的文件所在目录 Makefile.Debug/Makefile.Release 文件，CXXFLAGS 添加编译选项 -std=c++11
 
-     ```basic
+     ```bash
      set INCLUDE=C:\deps\libpng-1.6.16;C:\deps\openssl-1.0.1l\include
      set LIB=C:\deps\libpng-1.6.16\.libs;C:\deps\openssl-1.0.1l
 
@@ -2557,7 +2557,7 @@ make install
 
 3. 执行如下命令
 
-   ```basic
+   ```bash
    cd /c/bitcoin-0.9.4
 
    ./autogen.sh
@@ -2597,7 +2597,7 @@ make install
 
 1. 从 [官方下载源 ](https://golang.org/dl/) 下载 golang 1.10.3，并配置环境变量
 
-```basic
+```bash
 GOPATH=D:\go
 GOROOT=C:\Go\
 PATH 添加 %GOROOT%\bin;%GOPATH%\bin

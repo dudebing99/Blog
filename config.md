@@ -1588,27 +1588,6 @@ make -j4
 make install
 ```
 
-## Ubuntu 安装 vim 8.1
-
-```bash
-# 安装依赖库
-apt-get install libncurses5-dev libncursesw5-dev
-
-# 下载解压
-curl -O http://ftp.vim.org/vim/unix/vim-8.1.tar.bz2
-bzip2 -d vim-8.1.tar.bz2
-tar -xvf vim-8.1.tar
-
-# 编译、安装
-cd vim81
-./configure
-make -j4
-make install
-
-# 覆盖老版本
-cp /usr/local/bin/vim /usr/bin/vim
-```
-
 ## zookeeper/kafka 安装配置
 
 ```bash
@@ -2680,7 +2659,7 @@ abigen  bootnode  clef  ethkey  evm  examples  faucet  geth  p2psim  puppeth  rl
 > Imports are automatically read from the filesystem, but it is also possible to
 > remap paths using the context:prefix=path syntax.
 > Example:
->     solc --bin -o /tmp/solcoutput dapp-bin=/usr/local/lib/dapp-bin contract.sol
+> ​    solc --bin -o /tmp/solcoutput dapp-bin=/usr/local/lib/dapp-bin contract.sol
 
 ```bash
 sudo add-apt-repository ppa:ethereum/ethereum
@@ -2748,6 +2727,27 @@ make install
 ###   et al).
 # editor-cmd = editor (vi, emacs, notepad, etc.)
 editor-cmd = vi
+```
+
+## Ubuntu 安装 vim 8.1
+
+```bash
+# 安装依赖库
+apt-get install libncurses5-dev libncursesw5-dev
+
+# 下载解压
+curl -O http://ftp.vim.org/vim/unix/vim-8.1.tar.bz2
+bzip2 -d vim-8.1.tar.bz2
+tar -xvf vim-8.1.tar
+
+# 编译、安装
+cd vim81
+./configure
+make -j4
+make install
+
+# 覆盖老版本
+cp /usr/local/bin/vim /usr/bin/vim
 ```
 
 ## Ubuntu 禁用 ipv6

@@ -1612,6 +1612,28 @@ nameserver 114.114.114.114
 nameserver 8.8.8.8
 ```
 
+## CentOS 安装 locust 0.8.1
+
+> locust 是基于 python 的性能测试工具，通过编写 python 代码来完成性能测试的。
+
+```bash
+sudo pip install locustio
+```
+
+安装包含多个依赖库，大致信息如下所示
+
+```bash
+Successfully installed Jinja2-2.10 Werkzeug-0.14.1 click-6.7 flask-1.0.2 gevent-1.3.5 greenlet-0.4.14 itsdangerous-0.24 locustio-0.8.1 msgpack-python-0.5.6 pyzmq-17.1.0 six-1.11.0
+```
+
+确认 locust 安装成功
+
+```bash
+[kevin@iZwz9cynwitmm46uagetmvZ ~]$ locust --version
+[2018-07-22 17:07:53,502] iZwz9cynwitmm46uagetmvZ/INFO/stdout: Locust 0.8.1
+[2018-07-22 17:07:53,502] iZwz9cynwitmm46uagetmvZ/INFO/stdout:
+```
+
 ## zookeeper/kafka 安装配置
 
 ```bash
@@ -2853,28 +2875,6 @@ root@ibc-VirtualBox:~/chaincode/tmp#
 
 ```bash
 root:fabric#
-```
-
-## CentOS 安装 locust 0.8.1
-
-> locust 是基于 python 的性能测试工具，通过编写 python 代码来完成性能测试的。
-
-```bash
-sudo pip install locustio
-```
-
-安装包含多个依赖库，大致信息如下所示
-
-```bash
-Successfully installed Jinja2-2.10 Werkzeug-0.14.1 click-6.7 flask-1.0.2 gevent-1.3.5 greenlet-0.4.14 itsdangerous-0.24 locustio-0.8.1 msgpack-python-0.5.6 pyzmq-17.1.0 six-1.11.0
-```
-
-确认 locust 安装成功
-
-```bash
-[kevin@iZwz9cynwitmm46uagetmvZ ~]$ locust --version
-[2018-07-22 17:07:53,502] iZwz9cynwitmm46uagetmvZ/INFO/stdout: Locust 0.8.1
-[2018-07-22 17:07:53,502] iZwz9cynwitmm46uagetmvZ/INFO/stdout:
 ```
 
 ## Windows 安装 remix-ide

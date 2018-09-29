@@ -1588,6 +1588,30 @@ make -j4
 make install
 ```
 
+## CentOS 配置静态 IP
+
+```bash
+[root@localhost ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0 
+DEVICE="eth0"
+NAME="eth0"
+BOOTPROTO="static"
+HWADDR="00:50:56:23:48:ea"
+IPV6INIT="no"
+NM_CONTROLLED="yes"
+ONBOOT="yes"
+TYPE="Ethernet"
+UUID="646484f7-86d3-44f8-a679-e7c8da598401"
+IPADDR=192.168.2.99
+NETMASK=255.255.255.0
+GATEWAY=192.168.2.254
+DNS1=114.114.114.114
+DNS2=8.8.8.8
+
+[root@localhost ~]# cat /etc/resolv.conf
+nameserver 114.114.114.114
+nameserver 8.8.8.8
+```
+
 ## zookeeper/kafka 安装配置
 
 ```bash

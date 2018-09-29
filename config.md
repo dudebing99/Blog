@@ -2842,6 +2842,26 @@ export LANG="zh_CN.UTF-8"
 export LC_ALL="zh_CN.UTF-8"
 ```
 
+## Ubuntu 设置静态 IP
+
+```bash
+root@ubuntu:~# cat /etc/network/interfaces
+# interfaces(5) file used by ifup(8) and ifdown(8)
+auto lo
+iface lo inet loopback
+ 
+auto eth0
+iface eth0 inet static
+ 
+address 192.168.2.100 
+netmask 255.255.255.0
+gateway 192.168.2.254
+
+root@ubuntu:~# cat /etc/resolvconf/resolv.conf.d/base 
+nameserver 114.114.114.114
+nameserver 8.8.8.8
+```
+
 ## Shell 终端提示符设置
 
 ```bash

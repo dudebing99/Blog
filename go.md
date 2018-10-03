@@ -26,7 +26,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 Hello World
 ```
 
@@ -53,7 +53,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 1*1=1 
 1*2=2 2*2=4 
 1*3=3 2*3=6 3*3=9 
@@ -94,8 +94,7 @@ loop:
 
 **输出**
 
-```basic
-
+```bash
 count:  1  in infinite loop
 count:  2  in infinite loop
 Go to loop
@@ -196,7 +195,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 two
 two
 three
@@ -266,7 +265,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 12
 TagID:  1
 TagID:  2
@@ -320,7 +319,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 1525963539
 1525963539636700900
 2018 May 10 Thursday
@@ -372,7 +371,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 init(default): [0 0 0 0 0]
 len: 5
 array: [0 10 20 30 0]
@@ -429,7 +428,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 assignment to entry in nil map
 1 hello
 2 world
@@ -509,7 +508,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 key: 1 , value: hello
 key: 2 , value: dummy
 key: 3 , value: world
@@ -574,7 +573,7 @@ func printSlice(x []int) {
 
 **输出**
 
-```basic
+```bash
 len=9 cap=9 slice=[0 1 2 3 4 5 6 7 8]
 len=4 cap=8 slice=[1 2 3 4]
 len=2 cap=9 slice=[0 1]
@@ -632,10 +631,96 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 hello
 hello
 lily
+```
+
+## 指针综合使用
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+func change(val *int) {
+	*val = 55
+}
+
+func modify1(arr *[3]int) {
+	(*arr)[0] = 90
+}
+
+func modify2(arr *[3]int) {
+	arr[0] = 90
+}
+
+func modify3(sls []int) {
+	sls[0] = 90
+}
+
+func main() {
+	// 创建指针
+	b := 255
+	var a *int = &b
+	fmt.Printf("Type of a is %T\n", a)
+	fmt.Println("address of b is", a)
+
+	// 未经初始化的指针为 nil
+	d := 25
+	var p *int
+	if p == nil {
+		fmt.Println("\np is", p)
+		p = &d
+		fmt.Println("p after initialization is", p)
+	}
+
+	i := 255
+	j := &i
+	fmt.Println("\naddress of i is", j)
+	fmt.Println("value of i is", *j)
+	*j++
+	fmt.Println("new value of i is", i)
+
+	// 指针不允许指针加减运算，如下报错 invalid operation: j++ (non-numeric type *int)
+	// j++
+
+	k := 58
+	fmt.Println("\nvalue of k before function call is", k)
+	l := &k
+	change(l)
+	fmt.Println("value of k after function call is", k)
+
+	// 通过传递数组指针给函数的方式来修改原始数组的值
+	m := [3]int{89, 90, 91}
+	modify1(&m)
+	fmt.Println("\nmodify1 using pointer to an array", m)
+
+	n := [3]int{89, 90, 91}
+	modify2(&n)
+	fmt.Println("modify2 using pointer to an array", n)
+
+	// 使用切片作为函数参数，代码更加简洁，在 Go 中更常被使用
+	o := [3]int{89, 90, 91}
+	modify3(o[:])
+	fmt.Println("modify3 using slice", o)
+}
+```
+
+**输出**
+
+```bash
+Type of a is *int
+address of b is 0xc042058080
+p is <nil>
+p after initialization is 0xc042058088
+address of i is 0xc0420580b0
+value of i is 255
+new value of i is 256
+value of k before function call is 58
 ```
 
 ## struct
@@ -719,7 +804,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 Age: 99, Sex: M, Name: jiakong
 after pass-by object:  jiakong
 Age: 99, Sex: M, Name: jiakong
@@ -785,7 +870,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 按照 score 逆序排序
 Conent ID: 100, Score: 12.340000
 Conent ID: 200, Score: 9.350000
@@ -849,7 +934,7 @@ func main() {
 }
 ```
 **输出**
-```basic
+```bash
 Before sort
 Key:  C++ , Value:  10
 Key:  go , Value:  2
@@ -939,7 +1024,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 ["Go","Java","Python","Android"]
 {"C":"No.3","Go":"No.1","Java":"No.2"}
 [{"ID":99,"Name":"Kevin"},{"ID":100,"Name":"Jianghai He"}]
@@ -1027,7 +1112,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 {"User":"Kevin","Age":22,"Gender":true,"Profile":"Coding Dog","Count":"0"}
 {"User":"Kevin","Age":22,"Profile":"Coding Dog","Count":"0"}
 {"User":"Kevin","Age":0,"Profile":"Coding Dog","Count":"0"}
@@ -1056,7 +1141,7 @@ func main() {
 
 2. 利用 protoc 编译 proto 文件，生成对应的 Golang 文件，命令如下（根据实际情况替换目录）
 
-```basic
+```bash
 protoc.exe --proto_path=/d/blog/archives/go/protobuf/1/proto --go_out=/d/blog/archives/go/protobuf/1/proto hello.proto
 ```
 
@@ -1097,14 +1182,14 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 ID:  99
 Message:  hello world
 ```
 
 **附**：工程目录结构
 
-```basic
+```bash
 ├── proto
 │   ├── hello.pb.go
 │   └── hello.proto
@@ -1145,7 +1230,7 @@ message MessageBox {
 
 2. 利用 protoc 编译 proto 文件，生成对应的 Golang 文件，命令如下（根据实际情况替换目录）
 
-```basic
+```bash
 protoc.exe --proto_path=/d/blog/archives/go/protobuf/2/proto --go_out=/d/blog/archives/go/protobuf/2/proto hello.proto
 ```
 
@@ -1212,7 +1297,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 ID:  99
 Message:  hello world 1
 ErrorCode:  EnumSuccess
@@ -1225,7 +1310,7 @@ Extra:  [protobuf example]
 
 **附**：工程目录结构
 
-```basic
+```bash
 ├── proto
 │   ├── hello.pb.go
 │   └── hello.proto
@@ -1301,7 +1386,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 PONG ,  <nil>
 key value ,  <nil>
 key2 not existed ,  redis: nil
@@ -1373,7 +1458,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 PONG ,  <nil>
 key value ,  <nil>
 key2 not existed ,  redis: nil
@@ -1424,7 +1509,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 $ curl http://localhost:12306 -s
 Hello World!
 ```
@@ -1474,7 +1559,7 @@ func main() {
 
 - 服务端启动成功，输出如下信息
 
-```basic
+```bash
 [GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
 [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
  - using env:	export GIN_MODE=release
@@ -1484,7 +1569,7 @@ func main() {
 ```
 
 - 通过 CURL 访问
-```basic
+```bash
 $ curl http://localhost:12306/ -s
 Hello World
 ```
@@ -1547,7 +1632,7 @@ func main() {
 
 - 服务端启动成功，处理请求，输出如下信息
 
-```basic
+```bash
 [GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
 [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
  - using env:	export GIN_MODE=release
@@ -1564,7 +1649,7 @@ func main() {
 ```
 
 - 通过 CURL 访问
-```basic
+```bash
 $ curl http://localhost:12306/api/version -X GET -s
 {"code":0,"version":"v1.0.1.0"}
 $ curl http://localhost:12306/api/version -X POST -s
@@ -1625,7 +1710,7 @@ func main() {
 
 ​	当启动 HTTP 服务器端并能够处理该请求时，客户端返回结果如下所示
 
-```basic
+```bash
 Code:  200 , Body:  {"code":0,"version":"v1.0.1.0"}
 ```
 
@@ -1710,7 +1795,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 x + y = 115
 x * y = 32
 ```
@@ -1749,7 +1834,7 @@ func main() {
 
 **输出**
 
-```basic
+```bash
 declare f()
 sum:  0
 call f()

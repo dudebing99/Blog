@@ -2,6 +2,12 @@
 
 ------
 
+## 参考资料
+
+- [gobyexample](https://gobyexample.com/)
+- [50 Shades of Go: Traps, Gotchas, and Common Mistakes for New Golang Devs](http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/)
+- [Golang tutorial series](https://golangbot.com/learn-golang-series/)
+
 ## Hello World
 
 **功能：**向控制台打印 Hello World

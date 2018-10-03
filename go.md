@@ -961,6 +961,110 @@ Key: testing , Value: 4
 Key: unix , Value: 0
 ```
 
+## 通用单链表
+
+**功能：**通用单链表，包含统计链表长度，头部插入、尾部插入
+
+**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/sort/single_linked_list.go)
+
+```go
+package main
+
+import "fmt"
+
+type LinkNode struct {
+	data interface{}
+	next *LinkNode
+}
+
+type Link struct {
+	head *LinkNode
+	tail *LinkNode
+}
+
+func (p *Link) Count() int {
+	count := 0
+	head := p.head
+	for head != nil {
+		head = head.next
+		count++
+	}
+
+	return count
+}
+
+func (p *Link) InsertHead(data interface{}) {
+	node := &LinkNode{
+		data: data,
+		next: nil,
+	}
+
+	if p.tail == nil && p.head == nil {
+		p.tail = node
+		p.head = node
+		return
+	}
+
+	node.next = p.head
+	p.head = node
+}
+
+func (p *Link) InsertTail(data interface{}) {
+	node := &LinkNode{
+		data: data,
+		next: nil,
+	}
+
+	if p.tail == nil && p.head == nil {
+		p.tail = node
+		p.head = node
+		return
+	}
+
+	p.tail.next = node
+	p.tail = node
+}
+
+func (p *Link) Trans() {
+	q := p.head
+	for q != nil {
+		fmt.Println(q.data)
+		q = q.next
+	}
+}
+
+func main() {
+	var link Link
+	for i := 0; i < 10; i++ {
+		if i%2 == 0 {
+			link.InsertHead(i)
+		} else {
+			link.InsertTail(fmt.Sprintf("str %d", i))
+		}
+	}
+
+	link.Trans()
+
+	fmt.Printf("Contains %d element(s)", link.Count())
+}
+```
+
+**输出**
+
+```bash
+8
+6
+4
+2
+0
+str 1
+str 3
+str 5
+str 7
+str 9
+Contains 10 element(s)
+```
+
 ## json 使用
 
 ### 常见数据结构序列为 json

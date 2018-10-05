@@ -725,7 +725,7 @@ new value of i is 256
 value of k before function call is 58
 ```
 
-## struct
+## struct 结构体
 
 **功能：**struct 的定义、实例化、使用
 
@@ -742,6 +742,15 @@ type Human struct {
 	Age  int8
 	Sex  byte
 	name string
+}
+
+func NewHuman(age int8, sex byte, name_ string) (h *Human) {
+	h = &Human{
+		Age:  age,
+		Sex:  sex,
+		name: name_,
+	}
+	return
 }
 
 // 类方法声明
@@ -763,7 +772,7 @@ func printInfo() {
 		Name string
 	}{22, "jiakong"}
 
-	fmt.Printf("%s is %d", h.Name, h.Age)
+	fmt.Printf("%s is %d\n", h.Name, h.Age)
 }
 
 func main() {
@@ -801,6 +810,10 @@ func main() {
 		Sex: 'M',
 	}
 	h6.name = "sb"
+
+	// 3. 构造函数
+	h7 := NewHuman(22, 'M', "jiakong")
+	fmt.Println(h7.Age, h7.Sex, h7.name)
 }
 ```
 
@@ -812,6 +825,7 @@ after pass-by object:  jiakong
 Age: 99, Sex: M, Name: jiakong
 after pass-by pointer:  sb
 jiakong is 22
+22 77 jiakong
 ```
 
 ## 自定义结构体 slice 排序

@@ -10,6 +10,15 @@ type Human struct {
 	name string
 }
 
+func NewHuman(age int8, sex byte, name_ string) (h *Human) {
+	h = &Human{
+		Age:  age,
+		Sex:  sex,
+		name: name_,
+	}
+	return
+}
+
 // 类方法声明
 func (h Human) printInfo() {
 	fmt.Printf("Age: %d, Sex: %c, Name: %s\n", h.Age, h.Sex, h.name)
@@ -29,7 +38,7 @@ func printInfo() {
 		Name string
 	}{22, "jiakong"}
 
-	fmt.Printf("%s is %d", h.Name, h.Age)
+	fmt.Printf("%s is %d\n", h.Name, h.Age)
 }
 
 func main() {
@@ -67,4 +76,8 @@ func main() {
 		Sex: 'M',
 	}
 	h6.name = "sb"
+
+	// 3. 构造函数
+	h7 := NewHuman(22, 'M', "jiakong")
+	fmt.Println(h7.Age, h7.Sex, h7.name)
 }

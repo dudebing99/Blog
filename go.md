@@ -365,7 +365,8 @@ func main() {
 	}
 
 	fmt.Println("array[x, y]:", arrayXY)
-	fmt.Printf("array[x, y]: %v", arrayXY)
+	fmt.Printf("array[x, y]: %v\n", arrayXY)
+	fmt.Printf("%T\n", arrayXY)
 }
 ```
 
@@ -379,6 +380,7 @@ get array[4]: 0
 init: [1 2 3 4 5]
 array[x, y]: [[0 1 2] [1 2 3]]
 array[x, y]: [[0 1 2] [1 2 3]]
+[2][3]int
 ```
 
 ## map

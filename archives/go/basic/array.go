@@ -26,5 +26,6 @@ func main() {
 	}
 
 	fmt.Println("array[x, y]:", arrayXY)
-	fmt.Printf("array[x, y]: %v", arrayXY)
+	fmt.Printf("array[x, y]: %v\n", arrayXY)
+	fmt.Printf("%T\n", arrayXY)
 }

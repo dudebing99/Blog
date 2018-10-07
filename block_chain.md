@@ -2986,7 +2986,7 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 >
 > web3：包含了以上对象，还包含一些单位换算的方法
 
-- eth 全局变量
+##### eth 全局变量
 
 ```javascript
 > eth
@@ -3050,7 +3050,7 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 }
 ```
 
-- personal 变量
+##### personal 变量
 
 ```javascript
 > personal
@@ -3076,7 +3076,7 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 }
 ```
 
-- miner 变量
+##### miner 变量
 
 ```javascript
 > miner
@@ -3090,7 +3090,9 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 }
 ```
 
-#### 查看节点信息
+#### 基础操作
+
+##### 查看节点信息
 
 ```javascript
 > admin.nodeInfo
@@ -3122,16 +3124,14 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 }
 ```
 
-#### 账户操作
-
-- 查看系统所有用户
+##### 查看系统所有用户
 
 ```javascript
 > eth.accounts
 ["0x04f14c835b74f79b7def175c4e481929f9800501"]
 ```
 
-- 创建新用户
+##### 创建新用户
 
 ```javascript
 > personal.newAccount('123456')
@@ -3142,7 +3142,7 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 
 创建成功后，会展示创建成功的地址，其中上面的表达式中，中间传入的 123456 为密码 。再次查看系统所有用户，可以看到共有两个用户。
 
-- 给用户取别名
+##### 给用户取别名
 
 ```javascript
 > user1 = eth.accounts[0]
@@ -3157,7 +3157,7 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 
 操作成功后，用户别名 `user1`、`user2` 已经成功赋值
 
-- 对账户进行解锁
+##### 对账户进行解锁
 
 ```javascript
 > personal.unlockAccount(user2, '123')
@@ -3179,7 +3179,7 @@ Error: authentication needed: password or unlock
     at <anonymous>:1:1
 ```
 
-- 检查账户余额
+##### 检查账户余额
 
 ```javascript
 > eth.getBalance(user1)
@@ -3188,7 +3188,7 @@ Error: authentication needed: password or unlock
 0
 ```
 
-- 转账
+##### 转账
 
 ```javascript
 > eth.sendTransaction({from:user1, to:user2, value:100})
@@ -3215,7 +3215,7 @@ WARN [07-25|16:58:52.399] Block sealing failed                     err="waiting 
 100
 ```
 
-- 查看交易信息
+##### 查看交易信息
 
 ```javascript
 > eth.getTransaction("0x4daf7f1fa1b7c8e8b0c5770fdeaf1d0945782027646399822dbf2a303b1adaaa")
@@ -3237,7 +3237,7 @@ WARN [07-25|16:58:52.399] Block sealing failed                     err="waiting 
 }
 ```
 
-- 查看排队的交易
+##### 查看排队的交易
 
 > 网络原因，或者设置的 `gasPrice` 较低，提交的交易可能存在排队
 
@@ -3265,7 +3265,7 @@ WARN [07-25|16:58:52.399] Block sealing failed                     err="waiting 
 
 #### 合约
 
-- 编写 Solidity 合约脚本
+##### 编写 Solidity 合约脚本
 
 ```javascript
 pragma solidity ^0.4.11;
@@ -3288,9 +3288,9 @@ contract Sample {
 }
 ```
 
-- 编译脚本，生成 ABI 接口和合约的二进制代码
+##### 编译脚本
 
-> 备注：利用 [Remix](https://remix.ethereum.org) 在线编译合约
+> 利用 `solc` 编译合约，生成 ABI 接口和合约的二进制代码，也可利用 [Remix](https://remix.ethereum.org) 在线编译合约
 
 ```bash
 root:ethereum# solc --optimize --abi --bin sample.sol
@@ -3302,7 +3302,7 @@ Contract JSON ABI
 [{"constant":true,"inputs":[],"name":"value","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"v","type":"uint256"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"v","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
 ```
 
-- 定义合约
+##### 定义合约
 
 ```javascript
 > abi = [{"constant":true,"inputs":[],"name":"value","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"v","type":"uint256"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"v","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
@@ -3448,7 +3448,7 @@ Contract JSON ABI
 }
 ```
 
-- 把合约代码部署上链
+##### 把合约代码部署上链
 
 > 合约部署上链时，给构造函数传参  99，即赋初值 99
 
@@ -3490,7 +3490,7 @@ Contract JSON ABI
 }
 ```
 
-- 查看交易细节
+##### 查看交易细节
 
 > 根据交易 hash 查看交易细节
 
@@ -3512,7 +3512,7 @@ Contract JSON ABI
 }
 ```
 
-- 合约命名
+##### 合约命名
 
 > 交易信息中，contractAddress 表示合约地址
 
@@ -3558,21 +3558,21 @@ Contract JSON ABI
 }
 ```
 
-- 执行合约 get 函数
+##### 执行合约 get 函数
 
 ```javascript
 > samplecontract.get.call()
 99
 ```
 
-- 执行合约 set 函数
+##### 执行合约 set 函数
 
 ```javascript
 > samplecontract.set.sendTransaction(1001, {from:eth.accounts[0], gas:3000000})
 "0x528209c6bcdbbb4a636eebd90cfc918eb8e463fed1f0cb3bbd8ef19df0654808"
 ```
 
-- 执行合约 get 函数
+##### 执行合约 get 函数
 
 ```javascript
 > samplecontract.get.call()

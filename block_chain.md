@@ -1319,12 +1319,12 @@ root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. walletlock
 - 导出钱包
 
 ```bash
-root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. dumpwallet "wallet.bak"
+root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. dumpwallet "wallet.dat"
 {
     "info" : "dump ok",
     "key size" : 4
 }
-root@ubuntu:~/chaincode/node/node1# cat wallet.bak 
+root@ubuntu:~/chaincode/node/node1# cat wallet.dat
 {
     "created by Coin" : "v1.0.0.9-unk-release-linuxSep 14 2018, 11:27:50",
     "Created Time " : "2018-09-25T07:24:14Z",
@@ -4305,7 +4305,7 @@ OP_DUP OP_HASH160 <Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG
 - `chainstate/*` 是一个 LevelDB 数据库，以紧凑的形式存储所有当前未花费的交易以及它们的元数据。这里的数据对于验证新传入的块和交易是必要的。在理论上，这些数据可以从块数据中重建，但是这需要很长时间。没有这些数据也可以对数据进行验证，但是需要现有块数据进行扫面，这无疑是非常慢的。
 - `blocks/rev*.dat` 中包含了“撤销”数据，可以将区块视为链的“补丁”（它们消耗一些未花费的输出并生成新的输出），那么这些撤销数据将是反向补丁。如果需要回滚链，这些数据将是必须的。
 
-> 比特币程序从网络中接受数据后，会将数据以 `.dat` 的形式转储到磁盘上。一个块文件大约为 128 MB。每个块文件会有一个对应的撤销文件，比如文件 `blocks/blk1234.dat` 和`blocks/recv1234.dat `对应。
+> 比特币程序从网络中接受数据后，会将数据以 `.dat` 的形式转储到磁盘上。一个块文件大约为 128 MB。每个块文件会有一个对应的撤销文件，比如文件 `blocks/blk1234.dat` 和 `blocks/recv1234.dat` 对应。
 
 #### 区块结构
 

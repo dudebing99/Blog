@@ -10,6 +10,7 @@
 - [Learning-Bitcoin-from-the-Command-Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line)
 - [调试 BTC 脚本](https://github.com/kallewoof/btcdeb)
 - [python-OP_RETURN](https://github.com/coinspark/python-OP_RETURN)
+- [Data Insertion in Bitcoin’s Blockchain](https://digitalcommons.augustana.edu/cgi/viewcontent.cgi?article=1000&context=cscfaculty)
 - [区块链技术指南](http://book.8btc.com/blockchain_guide)
 - [区块链维基百科](https://en.wikipedia.org/wiki/Blockchain)
 - [图灵完备维基百科](https://en.wikipedia.org/wiki/Turing_completeness)
@@ -4683,7 +4684,7 @@ Ether 单位之间的换算就是在数字后边加上 `wei`、 `finney`、 `sza
 
 运用比特币的区块链技术存储与比特币支付不相关数据的做法是一个有争议的话题。许多开发者认为其有滥用的嫌疑，因而试图予以阻止。另一些开发者则将之视为区块链技术强大功能的有力证明，从而试图给予大力支持。那些反对非支付相关应用的开发者认为这样做将引致“区块链膨胀”，因为所有的区块链节点都将以消耗磁盘存储空间为成本，负担存储此类 数据的任务。
 
-更为严重的是，此类交易仅将比特币地址当作自由组合的 20个字节而使用，进而会产生不能用于交易的UTXO。因为比特币地址只是被当作数据使用，并不与私钥相匹配，所以会导致 UTXO 不能被用于交易，因而是一种伪支付行为。因此，这些交易永远不会被花费，所以永远不会从 UTXO 集中删除，并导致 UTXO 数据库的大小永远增加或“膨胀”。
+更为严重的是，此类交易仅将比特币地址当作自由组合的 20 个字节而使用，进而会产生不能用于交易的 UTXO。因为比特币地址只是被当作数据使用，并不与私钥相匹配，所以会导致 UTXO 不能被用于交易，因而是一种伪支付行为。因此，这些交易永远不会被花费，所以永远不会从 UTXO 集中删除，并导致 UTXO 数据库的大小永远增加或“膨胀”。
 
 在 0.9 版的比特币核心客户端上，通过采用 RETURN 操作符最终实现了妥协。RETURN 允许开发者在交易输出上增加 80 字节的非交易数据。然后，与伪交易型的 UTXO 不同，Return 创造了一种明确的可复查的非交易型输出，此类数据无需存储于 UTXO 集。RETURN 输出被记录在区块链上，它们会消耗磁盘空间，也会导致区块链规模的增加，但 它们不存储在 UTXO 集中，因此也不会使得 UTXO 内存膨胀，更不会以消耗代价高昂的内存为代价使全节点都不堪重负。 RETURN 脚本的样式：
 

@@ -399,8 +399,10 @@ quit
 print
 # 设置断点
 break
-#查看所有断点信息
-info break
+# 查看所有断点信息
+info breakpoints
+# 查看本地变量
+info locals
 # 删除断点
 delete <num>
 # 监视一个变量的值，一旦发生变化，程序将会被暂停

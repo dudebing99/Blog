@@ -267,6 +267,61 @@ root@ubuntu:~# bitcoin-cli -testnet createrawtransaction "[{\"txid\":\"8e176938a
 020000000127855ddd2a61bbf6861d2bdda74c96d8fb46f562532d9b87273ab4a33869178e0100000000ffffffff0100aa25030000000017a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff8700000000
 ```
 
+##### 交易签名
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet signrawtransactionwithkey 020000000127855ddd2a61bbf6861d2bdda74c96d8fb46f562532d9b87273ab4a33869178e0100000000ffffffff0100aa25030000000017a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff8700000000 "[\"cTAdmTWpCQepcTFsYzxc1ZGVckdmEa23aZcTGbTQVSuB3iGX8XPC\"]"
+{
+  "hex": "0200000000010127855ddd2a61bbf6861d2bdda74c96d8fb46f562532d9b87273ab4a33869178e0100000017160014174f64fd72b0971bb77a7c40abe5b7deb5c6eea5ffffffff0100aa25030000000017a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff87024830450221009f5fb6990ade3a66d2156baf64054d73b16b2018c8fd91da25e09f57fa4a3723022059473e88b830653d3cb619c7a55c3b754d2513e3b99b4908a1b6b649ae6fe4e8012102579b88b0ab515c6fb7c668f42a0a7922d58b2c17f60ab041330094a8f1a938b500000000",
+  "complete": true
+}
+```
+
+##### 解码原始交易
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet decoderawtransaction  0200000000010127855ddd2a61bbf6861d2bdda74c96d8fb46f562532d9b87273ab4a33869178e0100000017160014174f64fd72b0971bb77a7c40abe5b7deb5c6eea5ffffffff0100aa25030000000017a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff87024830450221009f5fb6990ade3a66d2156baf64054d73b16b2018c8fd91da25e09f57fa4a3723022059473e88b830653d3cb619c7a55c3b754d2513e3b99b4908a1b6b649ae6fe4e8012102579b88b0ab515c6fb7c668f42a0a7922d58b2c17f60ab041330094a8f1a938b500000000
+{
+  "txid": "750183a0d47f62a428b4dd811eed414141d3e8013cd372930882ce11b867e7f0",
+  "hash": "5ca5c2eefac016dd9bde96199926d1407d32d3ccf779ac04fba687294cc1d4c0",
+  "version": 2,
+  "size": 216,
+  "vsize": 134,
+  "weight": 534,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "8e176938a3b43a27879b2d5362f546fbd8964ca7dd2b1d86f6bb612add5d8527",
+      "vout": 1,
+      "scriptSig": {
+        "asm": "0014174f64fd72b0971bb77a7c40abe5b7deb5c6eea5",
+        "hex": "160014174f64fd72b0971bb77a7c40abe5b7deb5c6eea5"
+      },
+      "txinwitness": [
+        "30450221009f5fb6990ade3a66d2156baf64054d73b16b2018c8fd91da25e09f57fa4a3723022059473e88b830653d3cb619c7a55c3b754d2513e3b99b4908a1b6b649ae6fe4e801",
+        "02579b88b0ab515c6fb7c668f42a0a7922d58b2c17f60ab041330094a8f1a938b5"
+      ],
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.52800000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_HASH160 a23c6a5cacf99a19b5a1c0da422e4df60bc391ff OP_EQUAL",
+        "hex": "a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff87",
+        "reqSigs": 1,
+        "type": "scripthash",
+        "addresses": [
+          "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ"
+        ]
+      }
+    }
+  ]
+}
+```
+
 ### 智能坊合约开发
 
 #### 获取节点信息

@@ -408,6 +408,10 @@ delete <num>
 info locals
 # 查看 goroutine 列表（GoLang 专用）
 info goroutines
+# 查看所有的线程
+info threads
+# 切换到某个线程
+thread <线程号>
 # 查看当前变量的类型
 whatis <变量名>
 

@@ -1437,7 +1437,7 @@ int main()
 
 **输出**
 
-```basic
+```bash
 [root@localhost design_pattern]# g++ hungry_singleton.cpp -std=c++11
 [root@localhost design_pattern]# ./a.out 
 Got the same instance
@@ -1503,7 +1503,7 @@ int main()
 
 **输出**
 
-```basic
+```bash
 [root@localhost design_pattern]# g++ full_singleton.cpp -std=c++11
 [root@localhost design_pattern]# ./a.out 
 Got the same instance
@@ -1659,7 +1659,7 @@ int main()
 
 **输出**
 
-```basic
+```bash
 [root@localhost design_pattern]# g++ template_singleton.cpp -std=c++11
 [root@localhost design_pattern]# ./a.out 
 Got the same instance
@@ -1731,7 +1731,7 @@ int main()
 
 **输出**
 
-```basic
+```bash
 [root@localhost design_pattern]# g++ class_adapter.cpp -std=c++11
 [root@localhost design_pattern]# ./a.out 
 Transfer Specific Request to Reuest
@@ -1804,7 +1804,7 @@ int main()
 
 **输出**
 
-```basic
+```bash
 [root@localhost design_pattern]# g++ object_adapter.cpp -std=c++11
 [root@localhost design_pattern]# ./a.out 
 Transfer Specific Request to Reuest

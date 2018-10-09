@@ -199,6 +199,32 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 1325482
 ```
 
+##### 按地址收款列表
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet listreceivedbyaddress
+[
+  {
+    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
+    "account": "",
+    "amount": 1.65000000,
+    "confirmations": 89158,
+    "label": "",
+    "txids": [
+      "7db5ac458ac204ceef8c23564f729ae1a3846e27815352d1d8e9275649ef5b9b",
+      "93ee4409e3adb0954c799cf7705d3c09a8d619c3f1ef3808472b6a5d9cc93ccd"
+    ]
+  }
+]
+```
+
+##### 导出私钥
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2NDj3tQw3RVmLzQa7CF9EXcBhyCgbVbEgDV
+cTAdmTWpCQepcTFsYzxc1ZGVckdmEa23aZcTGbTQVSuB3iGX8XPC
+```
+
 ##### 未花费输出
 
 ```bash
@@ -230,32 +256,6 @@ root@ubuntu:~# bitcoin-cli -testnet listunspent
     "safe": true
   }
 ]
-```
-
-##### 按地址收款列表
-
-```bash
-root@ubuntu:~# bitcoin-cli -testnet listreceivedbyaddress
-[
-  {
-    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
-    "account": "",
-    "amount": 1.65000000,
-    "confirmations": 89158,
-    "label": "",
-    "txids": [
-      "7db5ac458ac204ceef8c23564f729ae1a3846e27815352d1d8e9275649ef5b9b",
-      "93ee4409e3adb0954c799cf7705d3c09a8d619c3f1ef3808472b6a5d9cc93ccd"
-    ]
-  }
-]
-```
-
-##### 导出私钥
-
-```bash
-root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2NDj3tQw3RVmLzQa7CF9EXcBhyCgbVbEgDV
-cTAdmTWpCQepcTFsYzxc1ZGVckdmEa23aZcTGbTQVSuB3iGX8XPC
 ```
 
 ### 智能坊合约开发

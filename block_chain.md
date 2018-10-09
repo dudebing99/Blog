@@ -258,6 +258,15 @@ root@ubuntu:~# bitcoin-cli -testnet listunspent
 ]
 ```
 
+##### 创建原始交易
+
+> 使用未花费输出 `8e176938a3b43a27879b2d5362f546fbd8964ca7dd2b1d86f6bb612add5d8527` 给地址 `2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ` 转账 `0.528` 比特币，其中，`fee = 0.529 - 0.528 = 0.001`
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet createrawtransaction "[{\"txid\":\"8e176938a3b43a27879b2d5362f546fbd8964ca7dd2b1d86f6bb612add5d8527\",\"vout\":1}]" "[{\"2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ\":0.528}]" 
+020000000127855ddd2a61bbf6861d2bdda74c96d8fb46f562532d9b87273ab4a33869178e0100000000ffffffff0100aa25030000000017a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff8700000000
+```
+
 ### 智能坊合约开发
 
 #### 获取节点信息

@@ -368,6 +368,27 @@ root@ubuntu:~# bitcoin-cli -testnet gettransaction 750183a0d47f62a428b4dd811eed4
 }
 ```
 
+此时，再次查询未花费输出
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet listunspent
+[
+  {
+    "txid": "93ee4409e3adb0954c799cf7705d3c09a8d619c3f1ef3808472b6a5d9cc93ccd",
+    "vout": 0,
+    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
+    "label": "",
+    "redeemScript": "0014635522cd6d36b45cf770940c78642f266b143ff2",
+    "scriptPubKey": "a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff87",
+    "amount": 1.10000000,
+    "confirmations": 89159,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  }
+]
+```
+
 ### 智能坊合约开发
 
 #### 获取节点信息

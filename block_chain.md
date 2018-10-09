@@ -51,17 +51,17 @@
 >
 > **Bitcoin Code Daemon:** v0.16.99.0-7c32b41
 
-#### 运行 bitcoind
+#### bitcoind
 
 ```bash
 kevin@ubuntu:~$ bitcoind -testnet
 ```
 
-#### 运行 bitcoin-cli
+#### bitcoin-cli
 
 > **API 接口：**https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list
 
-- 获取状态信息
+##### 状态信息
 
 ```bash
 kevin@ubuntu:~$ bitcoin-cli -testnet -getinfo
@@ -84,7 +84,7 @@ kevin@ubuntu:~$ bitcoin-cli -testnet -getinfo
 }
 ```
 
-- 获取钱包信息
+##### 钱包信息
 
 > 可通过 https://testnet.manu.backend.hamburg/faucet 获取免费的测试币
 >
@@ -108,7 +108,7 @@ kevin@ubuntu:~$ bitcoin-cli -testnet getwalletinfo
 }
 ```
 
-- 查询交易信息
+##### 交易列表
 
 ```bash
 kevin@ubuntu:~$ bitcoin-cli -testnet listtransactions
@@ -150,7 +150,7 @@ kevin@ubuntu:~$ bitcoin-cli -testnet listtransactions
 ]
 ```
 
-- 获取对等节点连接信息
+##### 节点信息
 
 ```bash
 $ ./bitcoin-cli.exe -testnet getpeerinfo
@@ -192,11 +192,44 @@ $ ./bitcoin-cli.exe -testnet getpeerinfo
 ]
 ```
 
-- 获取最长区块链的区块数目
+##### 区块高度
 
 ```bash
 $ ./bitcoin-cli.exe -testnet getblockcount
 1325482
+```
+
+##### 未花费输出
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet listunspent
+[
+  {
+    "txid": "8e176938a3b43a27879b2d5362f546fbd8964ca7dd2b1d86f6bb612add5d8527",
+    "vout": 1,
+    "address": "2NDj3tQw3RVmLzQa7CF9EXcBhyCgbVbEgDV",
+    "redeemScript": "0014174f64fd72b0971bb77a7c40abe5b7deb5c6eea5",
+    "scriptPubKey": "a914e0a5bb045c7de267df7dab1fc190111ab255d6fa87",
+    "amount": 0.52900000,
+    "confirmations": 30552,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  },
+  {
+    "txid": "93ee4409e3adb0954c799cf7705d3c09a8d619c3f1ef3808472b6a5d9cc93ccd",
+    "vout": 0,
+    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
+    "label": "",
+    "redeemScript": "0014635522cd6d36b45cf770940c78642f266b143ff2",
+    "scriptPubKey": "a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff87",
+    "amount": 1.10000000,
+    "confirmations": 31194,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  }
+]
 ```
 
 ### 智能坊合约开发

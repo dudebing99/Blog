@@ -251,6 +251,13 @@ root@ubuntu:~# bitcoin-cli -testnet listreceivedbyaddress
 ]
 ```
 
+##### 导出私钥
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2NDj3tQw3RVmLzQa7CF9EXcBhyCgbVbEgDV
+cTAdmTWpCQepcTFsYzxc1ZGVckdmEa23aZcTGbTQVSuB3iGX8XPC
+```
+
 ### 智能坊合约开发
 
 #### 获取节点信息

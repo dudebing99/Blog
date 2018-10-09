@@ -232,6 +232,25 @@ root@ubuntu:~# bitcoin-cli -testnet listunspent
 ]
 ```
 
+##### 按地址收款列表
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet listreceivedbyaddress
+[
+  {
+    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
+    "account": "",
+    "amount": 1.65000000,
+    "confirmations": 89158,
+    "label": "",
+    "txids": [
+      "7db5ac458ac204ceef8c23564f729ae1a3846e27815352d1d8e9275649ef5b9b",
+      "93ee4409e3adb0954c799cf7705d3c09a8d619c3f1ef3808472b6a5d9cc93ccd"
+    ]
+  }
+]
+```
+
 ### 智能坊合约开发
 
 #### 获取节点信息

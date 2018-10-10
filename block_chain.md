@@ -31,6 +31,8 @@
 - [Solidity Security](https://blog.sigmaprime.io/solidity-security.html)
 - [Oraclize](https://docs.oraclize.it/#ethereum)
 - [P2P 网络](https://www.kancloud.cn/everpointer/test1/597770)
+- [比特币测试网络区块浏览器](https://live.blockcypher.com/)
+- [以太坊区块浏览器](https://etherscan.io/)
 
 ## 缩略词
 

@@ -498,6 +498,43 @@ root@ubuntu:~# bitcoin-cli -testnet getnewaddress
 2N8AQg8NhqVy77jPjkz7viHbvJ7aQQLcv8m
 ```
 
+##### 查询地址信息
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet getaddressinfo 2N8AQg8NhqVy77jPjkz7viHbvJ7aQQLcv8m
+{
+  "address": "2N8AQg8NhqVy77jPjkz7viHbvJ7aQQLcv8m",
+  "scriptPubKey": "a914a3a0ba5cb95a1878466d4465ed14752b3d8292fc87",
+  "ismine": true,
+  "iswatchonly": false,
+  "isscript": true,
+  "iswitness": false,
+  "script": "witness_v0_keyhash",
+  "hex": "001488ea91fb46dbf96d9d3a7e70bd1124f768ed9638",
+  "pubkey": "03dafede81c5886651093472c74e53a9caeb859577a435909a5f42a418366f81a4",
+  "embedded": {
+    "isscript": false,
+    "iswitness": true,
+    "witness_version": 0,
+    "witness_program": "88ea91fb46dbf96d9d3a7e70bd1124f768ed9638",
+    "pubkey": "03dafede81c5886651093472c74e53a9caeb859577a435909a5f42a418366f81a4",
+    "address": "tb1q3r4fr76xm0ukm8f60ect6yfy7a5wm93ct8f9e3",
+    "scriptPubKey": "001488ea91fb46dbf96d9d3a7e70bd1124f768ed9638"
+  },
+  "label": "",
+  "timestamp": 1528804513,
+  "hdkeypath": "m/0'/0'/2'",
+  "hdseedid": "44f0e603435bf5f58481b24fd597e8bd9180c840",
+  "hdmasterkeyid": "44f0e603435bf5f58481b24fd597e8bd9180c840",
+  "labels": [
+    {
+      "name": "",
+      "purpose": "receive"
+    }
+  ]
+}
+```
+
 ### 智能坊合约开发
 
 #### 获取节点信息

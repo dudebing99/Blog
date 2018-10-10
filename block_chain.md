@@ -545,6 +545,8 @@ root@ubuntu:~# bitcoin-cli -testnet sendtoaddress 2N8AQg8NhqVy77jPjkz7viHbvJ7aQQ
 此时，自动找出满足条件的未花费输出，并且设置小费，可通过查询交易信息验证
 
 > 选择未花费输出 1.1 BTC，转账金额 0.1 BTC，消费 0.00003320 BTC，找零 0.99996680 BTC
+>
+> 综上：`0.1 + 0.0.00003320 + 0.99996680 = 1.1`
 
 ![](pic/blockchain/sendtoaddress.png)
 

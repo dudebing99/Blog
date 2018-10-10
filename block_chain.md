@@ -231,7 +231,7 @@ cTAdmTWpCQepcTFsYzxc1ZGVckdmEa23aZcTGbTQVSuB3iGX8XPC
 
 ```bash
 root@ubuntu:~# bitcoin-cli -testnet getbalance
-1.10000000
+1.62796680
 ```
 
 ##### 未花费输出
@@ -533,6 +533,156 @@ root@ubuntu:~# bitcoin-cli -testnet getaddressinfo 2N8AQg8NhqVy77jPjkz7viHbvJ7aQ
     }
   ]
 }
+```
+
+##### 转账
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet sendtoaddress 2N8AQg8NhqVy77jPjkz7viHbvJ7aQQLcv8m 0.1
+28f0246fd9a867cc93b1b7e6231c47789fad8256f866c7c548d6d4ebe8cfa3a7
+```
+
+此时，自动找出满足条件的未花费输出，并且设置小费，可通过查询交易信息验证
+
+> 选择未花费输出 1.1 BTC，转账金额 0.1 BTC，消费 0.00003320 BTC，找零 0.99996680 BTC
+
+![](pic/blockchain/sendtoaddress.png)
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet gettransaction 28f0246fd9a867cc93b1b7e6231c47789fad8256f866c7c548d6d4ebe8cfa3a7
+{
+  "amount": 0.00000000,
+  "fee": -0.00003320,
+  "confirmations": 0,
+  "trusted": true,
+  "txid": "28f0246fd9a867cc93b1b7e6231c47789fad8256f866c7c548d6d4ebe8cfa3a7",
+  "walletconflicts": [
+  ],
+  "time": 1539141307,
+  "timereceived": 1539141307,
+  "bip125-replaceable": "no",
+  "details": [
+    {
+      "address": "2N8AQg8NhqVy77jPjkz7viHbvJ7aQQLcv8m",
+      "category": "send",
+      "amount": -0.10000000,
+      "label": "",
+      "vout": 0,
+      "fee": -0.00003320,
+      "abandoned": false
+    },
+    {
+      "address": "2N8AQg8NhqVy77jPjkz7viHbvJ7aQQLcv8m",
+      "category": "receive",
+      "amount": 0.10000000,
+      "label": "",
+      "vout": 0
+    }
+  ],
+  "hex": "02000000000101cd3cc99c5d6a2b470838eff1c319d6a8093c5d70f79c794c95b0ade30944ee930000000017160014635522cd6d36b45cf770940c78642f266b143ff2feffffff02809698000000000017a914a3a0ba5cb95a1878466d4465ed14752b3d8292fc8708d4f5050000000017a914c6f9118389ab61e9a4d8a1c8cf048b46358092a48702483045022100b16fde32330991d153bd4913ed1522cf110db1c65e3e222af41addba385c87ed02200ccd72a1871a3129d489f2947701b1700679c319211a77174c7df424f57065eb012102838aa4c771101a3045692ff1e49a583dd1a7e537f855bbe30324eed283cc8b30ad351500"
+}
+```
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet decoderawtransaction  02000000000101cd3cc99c5d6a2b470838eff1c319d6a8093c5d70f79c794c95b0ade30944ee930000000017160014635522cd6d36b45cf770940c78642f266b143ff2feffffff02809698000000000017a914a3a0ba5cb95a1878466d4465ed14752b3d8292fc8708d4f5050000000017a914c6f9118389ab61e9a4d8a1c8cf048b46358092a48702483045022100b16fde32330991d153bd4913ed1522cf110db1c65e3e222af41addba385c87ed02200ccd72a1871a3129d489f2947701b1700679c319211a77174c7df424f57065eb012102838aa4c771101a3045692ff1e49a583dd1a7e537f855bbe30324eed283cc8b30ad351500
+{
+  "txid": "28f0246fd9a867cc93b1b7e6231c47789fad8256f866c7c548d6d4ebe8cfa3a7",
+  "hash": "8a245bb68be22f4ff2ee836115f5b2e4f494d133414a22c7d093749f8d4853d1",
+  "version": 2,
+  "size": 248,
+  "vsize": 166,
+  "weight": 662,
+  "locktime": 1389997,
+  "vin": [
+    {
+      "txid": "93ee4409e3adb0954c799cf7705d3c09a8d619c3f1ef3808472b6a5d9cc93ccd",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "0014635522cd6d36b45cf770940c78642f266b143ff2",
+        "hex": "160014635522cd6d36b45cf770940c78642f266b143ff2"
+      },
+      "txinwitness": [
+        "3045022100b16fde32330991d153bd4913ed1522cf110db1c65e3e222af41addba385c87ed02200ccd72a1871a3129d489f2947701b1700679c319211a77174c7df424f57065eb01",
+        "02838aa4c771101a3045692ff1e49a583dd1a7e537f855bbe30324eed283cc8b30"
+      ],
+      "sequence": 4294967294
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.10000000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_HASH160 a3a0ba5cb95a1878466d4465ed14752b3d8292fc OP_EQUAL",
+        "hex": "a914a3a0ba5cb95a1878466d4465ed14752b3d8292fc87",
+        "reqSigs": 1,
+        "type": "scripthash",
+        "addresses": [
+          "2N8AQg8NhqVy77jPjkz7viHbvJ7aQQLcv8m"
+        ]
+      }
+    },
+    {
+      "value": 0.99996680,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "OP_HASH160 c6f9118389ab61e9a4d8a1c8cf048b46358092a4 OP_EQUAL",
+        "hex": "a914c6f9118389ab61e9a4d8a1c8cf048b46358092a487",
+        "reqSigs": 1,
+        "type": "scripthash",
+        "addresses": [
+          "2NBPJ9qrWzbNLru6Nbi5L7DHyZZziyjzWGW"
+        ]
+      }
+    }
+  ]
+}
+```
+
+然后，查看所有未花费输出
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet listunspent    
+[
+  {
+    "txid": "28f0246fd9a867cc93b1b7e6231c47789fad8256f866c7c548d6d4ebe8cfa3a7",
+    "vout": 0,
+    "address": "2N8AQg8NhqVy77jPjkz7viHbvJ7aQQLcv8m",
+    "label": "",
+    "redeemScript": "001488ea91fb46dbf96d9d3a7e70bd1124f768ed9638",
+    "scriptPubKey": "a914a3a0ba5cb95a1878466d4465ed14752b3d8292fc87",
+    "amount": 0.10000000,
+    "confirmations": 14,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  },
+  {
+    "txid": "28f0246fd9a867cc93b1b7e6231c47789fad8256f866c7c548d6d4ebe8cfa3a7",
+    "vout": 1,
+    "address": "2NBPJ9qrWzbNLru6Nbi5L7DHyZZziyjzWGW",
+    "redeemScript": "001491a5d0d38f307fc73d08edd24202884ff26ddfc7",
+    "scriptPubKey": "a914c6f9118389ab61e9a4d8a1c8cf048b46358092a487",
+    "amount": 0.99996680,
+    "confirmations": 14,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  },
+  {
+    "txid": "750183a0d47f62a428b4dd811eed414141d3e8013cd372930882ce11b867e7f0",
+    "vout": 0,
+    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
+    "label": "",
+    "redeemScript": "0014635522cd6d36b45cf770940c78642f266b143ff2",
+    "scriptPubKey": "a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff87",
+    "amount": 0.52800000,
+    "confirmations": 1084,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  }
+]
 ```
 
 ### 智能坊合约开发

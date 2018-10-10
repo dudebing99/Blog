@@ -331,7 +331,7 @@ root@ubuntu:~# bitcoin-cli -testnet sendrawtransaction 0200000000010127855ddd2a6
 
 ##### 查询交易
 
-![](pic/bitcoin/get_transaction.png)
+![](pic/blockchain/get_transaction.png)
 
 ```bash
 root@ubuntu:~# bitcoin-cli -testnet gettransaction 750183a0d47f62a428b4dd811eed414141d3e8013cd372930882ce11b867e7f0

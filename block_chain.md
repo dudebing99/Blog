@@ -227,6 +227,13 @@ root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2NDj3tQw3RVmLzQa7CF9EXcBhyCgbVbE
 cTAdmTWpCQepcTFsYzxc1ZGVckdmEa23aZcTGbTQVSuB3iGX8XPC
 ```
 
+##### 查询余额
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet getbalance
+1.10000000
+```
+
 ##### 未花费输出
 
 ```bash

@@ -398,6 +398,13 @@ root@ubuntu:~# bitcoin-cli -testnet listunspent
 ]
 ```
 
+##### 生成新地址
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet getnewaddress
+2N8AQg8NhqVy77jPjkz7viHbvJ7aQQLcv8m
+```
+
 ### 智能坊合约开发
 
 #### 获取节点信息

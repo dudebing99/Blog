@@ -398,6 +398,99 @@ root@ubuntu:~# bitcoin-cli -testnet listunspent
 ]
 ```
 
+##### 交易列表
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet listtransactions
+[
+  {
+    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
+    "category": "receive",
+    "amount": 1.10000000,
+    "label": "",
+    "vout": 0,
+    "confirmations": 57991,
+    "blockhash": "0000000000003f000137e5a3c5c8664b559c598b4edf293dac821dcbd24ba905",
+    "blockindex": 39,
+    "blocktime": 1528857252,
+    "txid": "93ee4409e3adb0954c799cf7705d3c09a8d619c3f1ef3808472b6a5d9cc93ccd",
+    "walletconflicts": [
+    ],
+    "time": 1528854102,
+    "timereceived": 1528854102,
+    "bip125-replaceable": "no"
+  },
+  {
+    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
+    "category": "receive",
+    "amount": 0.55000000,
+    "label": "",
+    "vout": 0,
+    "confirmations": 57990,
+    "blockhash": "000000000000002bf6b26f415d62c1c8a55b4463de8abb9ee1d467da86c77082",
+    "blockindex": 5,
+    "blocktime": 1528857923,
+    "txid": "7db5ac458ac204ceef8c23564f729ae1a3846e27815352d1d8e9275649ef5b9b",
+    "walletconflicts": [
+    ],
+    "time": 1528857557,
+    "timereceived": 1528857557,
+    "bip125-replaceable": "no"
+  },
+  {
+    "address": "2N8hwP1WmJrFF5QWABn38y63uYLhnJYJYTF",
+    "category": "send",
+    "amount": -0.02099834,
+    "label": "https://testnet.manu.backend.hamburg/faucet",
+    "vout": 0,
+    "fee": -0.00000166,
+    "confirmations": 57349,
+    "blockhash": "0000000000000039f9de143420eccd49afe0f024c37c8c8052d4713e7b5c2cd6",
+    "blockindex": 1103,
+    "blocktime": 1529488973,
+    "txid": "8e176938a3b43a27879b2d5362f546fbd8964ca7dd2b1d86f6bb612add5d8527",
+    "walletconflicts": [
+    ],
+    "time": 1529477301,
+    "timereceived": 1529477301,
+    "bip125-replaceable": "no",
+    "abandoned": false
+  },
+  {
+    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
+    "category": "receive",
+    "amount": 0.52800000,
+    "label": "",
+    "vout": 0,
+    "confirmations": 0,
+    "trusted": false,
+    "txid": "750183a0d47f62a428b4dd811eed414141d3e8013cd372930882ce11b867e7f0",
+    "walletconflicts": [
+    ],
+    "time": 1539079035,
+    "timereceived": 1539079035,
+    "bip125-replaceable": "unknown"
+  },
+  {
+    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
+    "category": "send",
+    "amount": -0.52800000,
+    "label": "",
+    "vout": 0,
+    "fee": -0.00100000,
+    "confirmations": 0,
+    "trusted": false,
+    "txid": "750183a0d47f62a428b4dd811eed414141d3e8013cd372930882ce11b867e7f0",
+    "walletconflicts": [
+    ],
+    "time": 1539079035,
+    "timereceived": 1539079035,
+    "bip125-replaceable": "unknown",
+    "abandoned": false
+  }
+]
+```
+
 ##### 生成新地址
 
 ```bash

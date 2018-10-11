@@ -1010,7 +1010,103 @@ root@ubuntu:~# bitcoin-cli -testnet listunspent
 > ]
 > ```
 
-##### 2-2 多签
+##### 3-2 多签
+
+查询未花费输出
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet listunspent 
+[
+  {
+    "txid": "60a4df6595762a5118f3b4f2d22f6d9b83edf35df0a2bd2001e99fd396cf9c67",
+    "vout": 1,
+    "address": "2N3RmG2qcyQmJ2hbKWicT7xGSJqTEZMkyQ5",
+    "redeemScript": "00149a39be1c75e23903eaa348816eb6052e0fa4d103",
+    "scriptPubKey": "a9146faf85885850818962c418f66fa0abbd67b0fef387",
+    "amount": 0.47296264,
+    "confirmations": 1,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  },
+  {
+    "txid": "750183a0d47f62a428b4dd811eed414141d3e8013cd372930882ce11b867e7f0",
+    "vout": 0,
+    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
+    "label": "",
+    "redeemScript": "0014635522cd6d36b45cf770940c78642f266b143ff2",
+    "scriptPubKey": "a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff87",
+    "amount": 0.52800000,
+    "confirmations": 1355,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  }
+]
+```
+
+生成 3 个新地址，并导出私钥
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet getnewaddress
+2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz
+root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz
+cPegPf2xaeaqYB9kqqM2gzVPPXnAmwCME2KjsAQG6gkVnbxZpTKo
+root@ubuntu:~# bitcoin-cli -testnet getnewaddress
+2MsJ1eKdVZrYLptCLGNrvuTvVjVQzR2FR5o
+root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2MsJ1eKdVZrYLptCLGNrvuTvVjVQzR2FR5o
+cQ8ZUeBy27NKafYioHp4f3isHFTFuAx65vPf6dgUgxdNSBegsW3W
+root@ubuntu:~# bitcoin-cli -testnet getnewaddress
+2N4fwyEsVN9Lowja9ab5ek4R3yck3PmasdN
+root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2N4fwyEsVN9Lowja9ab5ek4R3yck3PmasdN
+cVTFSWeeeB9uoKZgcCbCN7eovztbQzNySGsruAFrVSiiX8ogMqtJ
+```
+
+生成 3-2 多签地址 `2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3`
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet addmultisigaddress 2 "[\"2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz\",\"2MsJ1eKdVZrYLptCLGNrvuTvVjVQzR2FR5o\", \"2N4fwyEsVN9Lowja9ab5ek4R3yck3PmasdN\"]" "test account"
+{
+  "address": "2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3",
+  "redeemScript": "522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae"
+}
+```
+
+解码赎回脚本
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet decodescript 522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae
+{
+  "asm": "2 02f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46 0256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d 0269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b5 3 OP_CHECKMULTISIG",
+  "reqSigs": 2,
+  "type": "multisig",
+  "addresses": [
+    "mzzsUyocJXwrbQi13k1YVYuvUPKUL6H2Gz",
+    "myX8p3UGzyxJDEGxdBd3LouRjPahjpPvs4",
+    "mn6U9CQDBa5qM5WAg7KZQA9v4Z119UBCCZ"
+  ],
+  "p2sh": "2N5pft6YKrBmTi3UW3LXkaxjGFr9SQ2U3bE",
+  "segwit": {
+    "asm": "0 fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a",
+    "hex": "0020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a",
+    "reqSigs": 1,
+    "type": "witness_v0_scripthash",
+    "addresses": [
+      "tb1qlck8mzyx6mdv4mznpyt2zz9d9hgyp7lh9jqw50wad48jyrn73vaqvvpppr"
+    ],
+    "p2sh-segwit": "2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3"
+  }
+}
+```
+
+向多签地址 `2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3` 转账
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet sendtoaddress 2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3 0.527
+5332ed1482e665c6f7146283991ad69c05af99cfebab344729d54b382f68a46c
+```
+
+![](pic/blockchain/send_to_address.png)
 
 ### 智能坊合约开发
 

@@ -33,6 +33,7 @@
 - [P2P 网络](https://www.kancloud.cn/everpointer/test1/597770)
 - [比特币测试网络区块浏览器](https://live.blockcypher.com/)
 - [以太坊区块浏览器](https://etherscan.io/)
+- [比特币测试币水龙头]( https://testnet.manu.backend.hamburg/faucet)
 
 ## 缩略词
 
@@ -1008,6 +1009,8 @@ root@ubuntu:~# bitcoin-cli -testnet listunspent
 >   }
 > ]
 > ```
+
+##### 2-2 多签
 
 ### 智能坊合约开发
 

@@ -2360,6 +2360,8 @@ git clone https://github.com/bitcoin/bitcoin.git
 
 3. 配置
 
+> 可以根据需要配置，通过 `./configure --help` 查看全部支持配置选项，例如，不编译 qt 相关、测试用例，可以使用 `./configure --with-gui=no --disable-tests --disable-gui-tests`
+
 ```bash
 ./autogen.sh
 ./configure

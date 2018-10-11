@@ -687,6 +687,191 @@ root@ubuntu:~# bitcoin-cli -testnet listunspent
 ]
 ```
 
+##### OP_RETURN 携带数据
+
+选择未花费输出 `0.1`
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet listunspent
+[
+  {
+    "txid": "28f0246fd9a867cc93b1b7e6231c47789fad8256f866c7c548d6d4ebe8cfa3a7",
+    "vout": 0,
+    "address": "2N8AQg8NhqVy77jPjkz7viHbvJ7aQQLcv8m",
+    "label": "",
+    "redeemScript": "001488ea91fb46dbf96d9d3a7e70bd1124f768ed9638",
+    "scriptPubKey": "a914a3a0ba5cb95a1878466d4465ed14752b3d8292fc87",
+    "amount": 0.10000000,
+    "confirmations": 173,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  },
+  {
+    "txid": "28f0246fd9a867cc93b1b7e6231c47789fad8256f866c7c548d6d4ebe8cfa3a7",
+    "vout": 1,
+    "address": "2NBPJ9qrWzbNLru6Nbi5L7DHyZZziyjzWGW",
+    "redeemScript": "001491a5d0d38f307fc73d08edd24202884ff26ddfc7",
+    "scriptPubKey": "a914c6f9118389ab61e9a4d8a1c8cf048b46358092a487",
+    "amount": 0.99996680,
+    "confirmations": 173,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  },
+  {
+    "txid": "750183a0d47f62a428b4dd811eed414141d3e8013cd372930882ce11b867e7f0",
+    "vout": 0,
+    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
+    "label": "",
+    "redeemScript": "0014635522cd6d36b45cf770940c78642f266b143ff2",
+    "scriptPubKey": "a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff87",
+    "amount": 0.52800000,
+    "confirmations": 1243,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  }
+]
+```
+
+获取一个新的找零地址
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet getrawchangeaddress
+2N6CzPst6AajQpiiUxQ6R8qxUz6WkQD5rXD
+```
+
+创建原始交易，花费 0.1 BTC，找零 0.009 BTC，消费 0.0001 BTC，写入数据 `hello world`，对应十六进制 `68656c6c6f20776f726c64`
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet createrawtransaction "[{\"txid\":\"28f0246fd9a867cc93b1b7e6231c47789fad8256f866c7c548d6d4ebe8cfa3a7\",\"vout\":0}]" "[{\"2N6CzPst6AajQpiiUxQ6R8qxUz6WkQD5rXD\":0.099}, {\"data\":\"68656c6c6f20776f726c64\"}]"
+0200000001a7a3cfe8ebd4d648c5c766f85682ad9f78471c23e6b7b193cc67a8d96f24f0280000000000ffffffff02e00f97000000000017a9148e2d74cb762bf6220ec014c4f56db8263e197eac8700000000000000000d6a0b68656c6c6f20776f726c6400000000
+```
+
+解码原始交易
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet decoderawtransaction 0200000001a7a3cfe8ebd4d648c5c766f85682ad9f78471c23e6b7b193cc67a8d96f24f0280000000000ffffffff02e00f97000000000017a9148e2d74cb762bf6220ec014c4f56db8263e197eac8700000000000000000d6a0b68656c6c6f20776f726c6400000000
+{
+  "txid": "c001a2f53ff6e6f399d9480767a13210ec5dfd6c849434cda25bc05a341eb251",
+  "hash": "c001a2f53ff6e6f399d9480767a13210ec5dfd6c849434cda25bc05a341eb251",
+  "version": 2,
+  "size": 105,
+  "vsize": 105,
+  "weight": 420,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "28f0246fd9a867cc93b1b7e6231c47789fad8256f866c7c548d6d4ebe8cfa3a7",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "",
+        "hex": ""
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.09900000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_HASH160 8e2d74cb762bf6220ec014c4f56db8263e197eac OP_EQUAL",
+        "hex": "a9148e2d74cb762bf6220ec014c4f56db8263e197eac87",
+        "reqSigs": 1,
+        "type": "scripthash",
+        "addresses": [
+          "2N6CzPst6AajQpiiUxQ6R8qxUz6WkQD5rXD"
+        ]
+      }
+    },
+    {
+      "value": 0.00000000,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "OP_RETURN 68656c6c6f20776f726c64",
+        "hex": "6a0b68656c6c6f20776f726c64",
+        "type": "nulldata"
+      }
+    }
+  ]
+}
+```
+
+导出未花费输出对应的私钥
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2N8AQg8NhqVy77jPjkz7viHbvJ7aQQLcv8m
+cQ8EFAecj5BN1ASKPrQQamCtLTQUnvw9TYUCV32KVZPTiaG1be8x
+```
+
+用私钥给原始交易签名
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet signrawtransactionwithkey 0200000001a7a3cfe8ebd4d648c5c766f85682ad9f78471c23e6b7b193cc67a8d96f24f0280000000000ffffffff02e00f97000000000017a9148e2d74cb762bf6220ec014c4f56db8263e197eac8700000000000000000d6a0b68656c6c6f20776f726c6400000000 [\"cQ8EFAecj5BN1ASKPrQQamCtLTQUnvw9TYUCV32KVZPTiaG1be8x\"] 
+{
+  "hex": "02000000000101a7a3cfe8ebd4d648c5c766f85682ad9f78471c23e6b7b193cc67a8d96f24f028000000001716001488ea91fb46dbf96d9d3a7e70bd1124f768ed9638ffffffff02e00f97000000000017a9148e2d74cb762bf6220ec014c4f56db8263e197eac8700000000000000000d6a0b68656c6c6f20776f726c64024830450221008064e3767209b2eb6753f2cf91ef0dc860e7ccd1d9812b5b8edd7efd94f476d20220301ef08bf7bf005e41e64f9f7eb4f507999d3900f4581983685b5367f8a95019012103dafede81c5886651093472c74e53a9caeb859577a435909a5f42a418366f81a400000000",
+  "complete": true
+}
+```
+
+将签名后的交易发送
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet sendrawtransaction 02000000000101a7a3cfe8ebd4d648c5c766f85682ad9f78471c23e6b7b193cc67a8d96f24f028000000001716001488ea91fb46dbf96d9d3a7e70bd1124f768ed9638ffffffff02e00f97000000000017a9148e2d74cb762bf6220ec014c4f56db8263e197eac8700000000000000000d6a0b68656c6c6f20776f726c64024830450221008064e3767209b2eb6753f2cf91ef0dc860e7ccd1d9812b5b8edd7efd94f476d20220301ef08bf7bf005e41e64f9f7eb4f507999d3900f4581983685b5367f8a95019012103dafede81c5886651093472c74e53a9caeb859577a435909a5f42a418366f81a400000000
+dee761b481c08db99bb217e48f80b59edbbc8cbb0b8ff3f65dbee290fc4fb25a
+```
+
+在 `https://live.blockcypher.com/` 可以查询该交易信息，如下所示：
+
+![](pic/blockchain/op_return.png)
+
+再次查询未花费输出
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet listunspent
+[
+  {
+    "txid": "dee761b481c08db99bb217e48f80b59edbbc8cbb0b8ff3f65dbee290fc4fb25a",
+    "vout": 0,
+    "address": "2N6CzPst6AajQpiiUxQ6R8qxUz6WkQD5rXD",
+    "redeemScript": "0014511b358825e232279c1b8a64a1f46307110b248a",
+    "scriptPubKey": "a9148e2d74cb762bf6220ec014c4f56db8263e197eac87",
+    "amount": 0.09900000,
+    "confirmations": 1,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  },
+  {
+    "txid": "28f0246fd9a867cc93b1b7e6231c47789fad8256f866c7c548d6d4ebe8cfa3a7",
+    "vout": 1,
+    "address": "2NBPJ9qrWzbNLru6Nbi5L7DHyZZziyjzWGW",
+    "redeemScript": "001491a5d0d38f307fc73d08edd24202884ff26ddfc7",
+    "scriptPubKey": "a914c6f9118389ab61e9a4d8a1c8cf048b46358092a487",
+    "amount": 0.99996680,
+    "confirmations": 177,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  },
+  {
+    "txid": "750183a0d47f62a428b4dd811eed414141d3e8013cd372930882ce11b867e7f0",
+    "vout": 0,
+    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
+    "label": "",
+    "redeemScript": "0014635522cd6d36b45cf770940c78642f266b143ff2",
+    "scriptPubKey": "a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff87",
+    "amount": 0.52800000,
+    "confirmations": 1247,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  }
+]
+```
+
 ### 智能坊合约开发
 
 #### 获取节点信息

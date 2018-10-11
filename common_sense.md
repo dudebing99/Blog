@@ -8,23 +8,23 @@
 
 #### ACK、utACK
 
-- Concept ACK
+- `Concept ACK`
 
   Agree with the idea and overall direction, but haven't reviewed the code changes or tested them.
 
-- utACK (untested ACK)
+- `utACK (untested ACK)`
 
   Reviewed and agree with the code changes but haven't actually tested them.
 
-- Tested ACK
+- `Tested ACK`
 
   Reviewed the code changes and have verified the functionality or bug fix.
 
-- ACK
+- `ACK`
 
   A loose ACK can be confusing. It's best to avoid them unless it's a documentation/comment only change in which case there is nothing to test/verify; therefore the tested/untested distinction is not there.
 
-- NACK
+- `NACK`
 
   Disagree with the code changes/concept. Should be accompanied by an explanation.
 
@@ -80,6 +80,44 @@ contract Producer {
 > So, if minrelaytxfee is set to 0.00001 your node will happily relay any transactions with that fee or higher (ie. yours and other peoples txes)... however, if you then set mintxfee to 0.00005, then any transaction you create will have that value as the minimum possible fee, but you'll still relay other peoples txes with fees of only 0.00001. 
 >
 
+### 数据库
+
+#### SQL 注入
+
+SQL 注入攻击（SQL Injection），简称注入攻击，是 Web 开发中最常见的一种安全漏洞。可以用它来从数据库获取敏感信息，或者利用数据库的特性执行添加用户，导出文件等一系列恶意操作，甚至有可能获取数据库乃至系统用户最高权限。而造成 SQL 注入的原因是因为程序没有有效过滤用户的输入，使攻击者成功的向服务器提交恶意的 SQL 查询代码，程序在接收后错误的将攻击者的输入作为查询语句的一部分执行，导致原始的查询逻辑被改变，额外的执行了攻击者精心构造的恶意代码。
+
+假设有如下登陆表单：
+
+```html
+<form action="/login" method="POST">
+<p>Username: <input type="text" name="username" /></p>
+<p>Password: <input type="password" name="password" /></p>
+<p><input type="submit" value="登陆" /></p>
+</form>
+```
+
+登陆逻辑的 SQL 可能是这样的：
+
+```go
+username:=r.Form.Get("username")
+password:=r.Form.Get("password")
+sql:="SELECT * FROM user WHERE username='"+username+"' AND password='"+password+"'"
+```
+
+如果用户的输入的用户名如下，密码任意
+
+```bash
+myuser' or 'foo' = 'foo' --
+```
+
+那么我们的 SQL 就变成了如下所示
+
+```sql
+SELECT * FROM user WHERE username='myuser' or 'foo' = 'foo' --'' AND password='xxx'
+```
+
+在 SQL 里面 `--` 是注释标记，所以查询语句会在此中断。这就让攻击者在不知道任何合法用户名和密码的情况下成功登录了。
+
 ## 计算机组成原理
 
 ### 原码、反码、补码
@@ -124,7 +162,7 @@ contract Producer {
 
 对于负数，补码表示方式也是人脑无法直观看出其数值的。通常也需要转换成原码再计算其数值。
 
-## 网络编程
+## 计算机网络
 
 ###  `MSL`
 

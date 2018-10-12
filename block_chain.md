@@ -1010,9 +1010,9 @@ root@ubuntu:~# bitcoin-cli -testnet listunspent
 > ]
 > ```
 
-##### 3-2 多签
+##### 2/3 多签
 
-> 构造一笔 3-2 多签交易，利用 3 个私钥签名交易，后续需要前者中的 2 个私钥才能花费该未花费输出
+> 构造一笔 2/3 多签交易，利用 3 个私钥签名交易，后续需要前者中的 2 个私钥才能花费该未花费输出
 
 查询未花费输出
 
@@ -1064,7 +1064,7 @@ root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2N4fwyEsVN9Lowja9ab5ek4R3yck3Pma
 cVTFSWeeeB9uoKZgcCbCN7eovztbQzNySGsruAFrVSiiX8ogMqtJ
 ```
 
-生成 3-2 多签地址 `2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3`
+生成 2/3 多签地址 `2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3`
 
 ```bash
 root@ubuntu:~# bitcoin-cli -testnet addmultisigaddress 2 "[\"2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz\",\"2MsJ1eKdVZrYLptCLGNrvuTvVjVQzR2FR5o\", \"2N4fwyEsVN9Lowja9ab5ek4R3yck3PmasdN\"]" "test account"
@@ -1103,12 +1103,315 @@ root@ubuntu:~# bitcoin-cli -testnet decodescript 522102f396b11941706b0424499fbf6
 
 向多签地址 `2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3` 转账
 
+![](pic/blockchain/send_to_address.png)
+
 ```bash
 root@ubuntu:~# bitcoin-cli -testnet sendtoaddress 2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3 0.527
 5332ed1482e665c6f7146283991ad69c05af99cfebab344729d54b382f68a46c
 ```
 
-![](pic/blockchain/send_to_address.png)
+查询交易信息
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet gettransaction 5332ed1482e665c6f7146283991ad69c05af99cfebab344729d54b382f68a46c
+{
+  "amount": 0.00000000,
+  "fee": -0.00000646,
+  "confirmations": 566,
+  "blockhash": "00000000000002cfc4df802cec81a71db91226d891967461d13fd2efc4a1e12a",
+  "blockindex": 55,
+  "blocktime": 1539251947,
+  "txid": "5332ed1482e665c6f7146283991ad69c05af99cfebab344729d54b382f68a46c",
+  "walletconflicts": [
+  ],
+  "time": 1539251710,
+  "timereceived": 1539251710,
+  "bip125-replaceable": "no",
+  "details": [
+    {
+      "address": "2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3",
+      "category": "send",
+      "amount": -0.52700000,
+      "label": "test account",
+      "vout": 1,
+      "fee": -0.00000646,
+      "abandoned": false
+    },
+    {
+      "address": "2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3",
+      "category": "receive",
+      "amount": 0.52700000,
+      "label": "test account",
+      "vout": 1
+    }
+  ],
+  "hex": "02000000000102f0e767b811ce82089372d33c01e8d3414141ed1e81ddb428a4627fd4a08301750000000017160014635522cd6d36b45cf770940c78642f266b143ff2feffffff679ccf96d39fe90120bda2f05df3ed839b6d2fd2f2b4f318512a769565dfa46001000000171600149a39be1c75e23903eaa348816eb6052e0fa4d103feffffff022233d3020000000017a91474e740e17eab3f6afbc65b68e06607bafb71b50b87602324030000000017a91430b5e8e9151e46be789562580b0118911d875f3d8702483045022100fc4ed93bf11a84d3ebf3a32850b27df4e800f4d7cdcb079278685866d7d0196102206313c70b24dbbfb9ed014a7613997645b2fa5ffcb03856cb156be581428ea6f6012102838aa4c771101a3045692ff1e49a583dd1a7e537f855bbe30324eed283cc8b300247304402201f19da9f999249041880ecc4319f42890ffddb3502941cc2dd1daf929e77952e0220675603fc6608f4ad5aa09eb8e6dde071ed0354f259cd0c5906a489f3851d62e901210393822b1788b15dee5cd629ebd018a29d3a3d644415810d464b309fbcffa8f0654fe81500"
+}
+```
+
+解码原始交易
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet decoderawtransaction 02000000000102f0e767b811ce82089372d33c01e8d3414141ed1e81ddb428a4627fd4a08301750000000017160014635522cd6d36b45cf770940c78642f266b143ff2feffffff679ccf96d39fe90120bda2f05df3ed839b6d2fd2f2b4f318512a769565dfa46001000000171600149a39be1c75e23903eaa348816eb6052e0fa4d103feffffff022233d3020000000017a91474e740e17eab3f6afbc65b68e06607bafb71b50b87602324030000000017a91430b5e8e9151e46be789562580b0118911d875f3d8702483045022100fc4ed93bf11a84d3ebf3a32850b27df4e800f4d7cdcb079278685866d7d0196102206313c70b24dbbfb9ed014a7613997645b2fa5ffcb03856cb156be581428ea6f6012102838aa4c771101a3045692ff1e49a583dd1a7e537f855bbe30324eed283cc8b300247304402201f19da9f999249041880ecc4319f42890ffddb3502941cc2dd1daf929e77952e0220675603fc6608f4ad5aa09eb8e6dde071ed0354f259cd0c5906a489f3851d62e901210393822b1788b15dee5cd629ebd018a29d3a3d644415810d464b309fbcffa8f0654fe81500
+{
+  "txid": "5332ed1482e665c6f7146283991ad69c05af99cfebab344729d54b382f68a46c",
+  "hash": "4f388f0ec97318d91a0624468dbffbf3f2c6b4ce349ca5edd70b07e69ac9851c",
+  "version": 2,
+  "size": 419,
+  "vsize": 257,
+  "weight": 1025,
+  "locktime": 1435727,
+  "vin": [
+    {
+      "txid": "750183a0d47f62a428b4dd811eed414141d3e8013cd372930882ce11b867e7f0",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "0014635522cd6d36b45cf770940c78642f266b143ff2",
+        "hex": "160014635522cd6d36b45cf770940c78642f266b143ff2"
+      },
+      "txinwitness": [
+        "3045022100fc4ed93bf11a84d3ebf3a32850b27df4e800f4d7cdcb079278685866d7d0196102206313c70b24dbbfb9ed014a7613997645b2fa5ffcb03856cb156be581428ea6f601",
+        "02838aa4c771101a3045692ff1e49a583dd1a7e537f855bbe30324eed283cc8b30"
+      ],
+      "sequence": 4294967294
+    },
+    {
+      "txid": "60a4df6595762a5118f3b4f2d22f6d9b83edf35df0a2bd2001e99fd396cf9c67",
+      "vout": 1,
+      "scriptSig": {
+        "asm": "00149a39be1c75e23903eaa348816eb6052e0fa4d103",
+        "hex": "1600149a39be1c75e23903eaa348816eb6052e0fa4d103"
+      },
+      "txinwitness": [
+        "304402201f19da9f999249041880ecc4319f42890ffddb3502941cc2dd1daf929e77952e0220675603fc6608f4ad5aa09eb8e6dde071ed0354f259cd0c5906a489f3851d62e901",
+        "0393822b1788b15dee5cd629ebd018a29d3a3d644415810d464b309fbcffa8f065"
+      ],
+      "sequence": 4294967294
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.47395618,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_HASH160 74e740e17eab3f6afbc65b68e06607bafb71b50b OP_EQUAL",
+        "hex": "a91474e740e17eab3f6afbc65b68e06607bafb71b50b87",
+        "reqSigs": 1,
+        "type": "scripthash",
+        "addresses": [
+          "2N3uMQJm7WgsyHsnmoQS8d8eDKBco1LHzWx"
+        ]
+      }
+    },
+    {
+      "value": 0.52700000,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "OP_HASH160 30b5e8e9151e46be789562580b0118911d875f3d OP_EQUAL",
+        "hex": "a91430b5e8e9151e46be789562580b0118911d875f3d87",
+        "reqSigs": 1,
+        "type": "scripthash",
+        "addresses": [
+          "2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3"
+        ]
+      }
+    }
+  ]
+}
+```
+
+查看未花费输出
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet listunspent 0 1000000 "[\"2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3\"]"
+[
+  {
+    "txid": "5332ed1482e665c6f7146283991ad69c05af99cfebab344729d54b382f68a46c",
+    "vout": 1,
+    "address": "2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3",
+    "label": "test account",
+    "redeemScript": "0020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a",
+    "scriptPubKey": "a91430b5e8e9151e46be789562580b0118911d875f3d87",
+    "amount": 0.52700000,
+    "confirmations": 619,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  }
+]
+```
+
+生成一个新地址
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet getnewaddress
+2NDYvTxmsRmyPw612KwBGCqLNsBRQSDpjXL
+```
+
+使用上述 2/3 多签未花费输出向地址 `2NDYvTxmsRmyPw612KwBGCqLNsBRQSDpjXL` 转账 0.5269 BTC
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet createrawtransaction "[{\"txid\":\"5332ed1482e665c6f7146283991ad69c05af99cfebab344729d54b382f68a46c\",\"vout\":1}]" "[{\"2NDYvTxmsRmyPw612KwBGCqLNsBRQSDpjXL\":0.5269}]"
+02000000016ca4682f384bd5294734abebcf99af059cd61a99836214f7c665e68214ed32530100000000ffffffff0150fc23030000000017a914debb602e1c37628d1f411918f87f1680d59e1a0f8700000000
+```
+
+如果只是用一个私钥去签名交易（2/3 多签中至少需要 2 个有效私钥），失败信息如下
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet signrawtransactionwithkey 02000000016ca4682f384bd5294734abebcf99af059cd61a99836214f7c665e68214ed32530100000000ffffffff0150fc23030000000017a914debb602e1c37628d1f411918f87f1680d59e1a0f8700000000 "[\"cPegPf2xaeaqYB9kqqM2gzVPPXnAmwCME2KjsAQG6gkVnbxZpTKo\"]" "[{\"txid\":\"5332ed1482e665c6f7146283991ad69c05af99cfebab344729d54b382f68a46c\", \"vout\":1, \"scriptPubKey\": \"a91430b5e8e9151e46be789562580b0118911d875f3d87\", \"redeemScript\": \"522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae\", \"amount\": 0.52700000}]"
+{
+  "hex": "020000000001016ca4682f384bd5294734abebcf99af059cd61a99836214f7c665e68214ed32530100000023220020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3affffffff0150fc23030000000017a914debb602e1c37628d1f411918f87f1680d59e1a0f870300473044022074f1b0daaba84a5192a4d5eed4c8b792f8b6a063efb612176aa49837582b925f022068c110b40c505af6bfafb5bf4ea7008e0a2697d189b2498290818803ea6341a10169522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae00000000",
+  "complete": false,
+  "errors": [
+    {
+      "txid": "5332ed1482e665c6f7146283991ad69c05af99cfebab344729d54b382f68a46c",
+      "vout": 1,
+      "witness": [
+        "",
+        "3044022074f1b0daaba84a5192a4d5eed4c8b792f8b6a063efb612176aa49837582b925f022068c110b40c505af6bfafb5bf4ea7008e0a2697d189b2498290818803ea6341a101",
+        "522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae"
+      ],
+      "scriptSig": "220020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a",
+      "sequence": 4294967295,
+      "error": "Unable to sign input, invalid stack size (possibly missing key)"
+    }
+  ]
+}
+```
+
+如果使用一个有效私钥，一个无效私钥（`cVCHvKPezAr4gNCP5uLcDUcUP7kbydWAhV7CizA9V5QrNSKSRfXh` 钱包中无此私钥）去签名交易，失败信息如下
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet signrawtransactionwithkey 02000000016ca4682f384bd5294734abebcf99af059cd61a99836214f7c665e68214ed32530100000000ffffffff0150fc23030000000017a914debb602e1c37628d1f411918f87f1680d59e1a0f8700000000 "[\"cPegPf2xaeaqYB9kqqM2gzVPPXnAmwCME2KjsAQG6gkVnbxZpTKo\", \"cVCHvKPezAr4gNCP5uLcDUcUP7kbydWAhV7CizA9V5QrNSKSRfXh\"]" "[{\"txid\":\"5332ed1482e665c6f7146283991ad69c05af99cfebab344729d54b382f68a46c\", \"vout\":1, \"scriptPubKey\": \"a91430b5e8e9151e46be789562580b0118911d875f3d87\", \"redeemScript\": \"522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae\", \"amount\": 0.52700000}]"
+{
+  "hex": "020000000001016ca4682f384bd5294734abebcf99af059cd61a99836214f7c665e68214ed32530100000023220020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3affffffff0150fc23030000000017a914debb602e1c37628d1f411918f87f1680d59e1a0f870300473044022074f1b0daaba84a5192a4d5eed4c8b792f8b6a063efb612176aa49837582b925f022068c110b40c505af6bfafb5bf4ea7008e0a2697d189b2498290818803ea6341a10169522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae00000000",
+  "complete": false,
+  "errors": [
+    {
+      "txid": "5332ed1482e665c6f7146283991ad69c05af99cfebab344729d54b382f68a46c",
+      "vout": 1,
+      "witness": [
+        "",
+        "3044022074f1b0daaba84a5192a4d5eed4c8b792f8b6a063efb612176aa49837582b925f022068c110b40c505af6bfafb5bf4ea7008e0a2697d189b2498290818803ea6341a101",
+        "522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae"
+      ],
+      "scriptSig": "220020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a",
+      "sequence": 4294967295,
+      "error": "Unable to sign input, invalid stack size (possibly missing key)"
+    }
+  ]
+}
+```
+
+使用两个有效私钥签名交易，成功信息如下
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet signrawtransactionwithkey 02000000016ca4682f384bd5294734abebcf99af059cd61a99836214f7c665e68214ed32530100000000ffffffff0150fc23030000000017a914debb602e1c37628d1f411918f87f1680d59e1a0f8700000000 "[\"cPegPf2xaeaqYB9kqqM2gzVPPXnAmwCME2KjsAQG6gkVnbxZpTKo\", \"cQ8ZUeBy27NKafYioHp4f3isHFTFuAx65vPf6dgUgxdNSBegsW3W\"]" "[{\"txid\":\"5332ed1482e665c6f7146283991ad69c05af99cfebab344729d54b382f68a46c\", \"vout\":1, \"scriptPubKey\": \"a91430b5e8e9151e46be789562580b0118911d875f3d87\", \"redeemScript\": \"522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae\", \"amount\": 0.52700000}]"
+{
+  "hex": "020000000001016ca4682f384bd5294734abebcf99af059cd61a99836214f7c665e68214ed32530100000023220020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3affffffff0150fc23030000000017a914debb602e1c37628d1f411918f87f1680d59e1a0f870400473044022074f1b0daaba84a5192a4d5eed4c8b792f8b6a063efb612176aa49837582b925f022068c110b40c505af6bfafb5bf4ea7008e0a2697d189b2498290818803ea6341a10147304402206a9afcb4b3865532668a895de297de9b1a0c6fd3c42be94777c140bbd19b1c5202200c3068b4b1286cac0b49aaaa16a8fadf6bdc4e4abed3719f2030e14afa2e2e3b0169522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae00000000",
+  "complete": true
+}
+```
+
+解码原始交易信息
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet decoderawtransaction 020000000001016ca4682f384bd5294734abebcf99af059cd61a99836214f7c665e68214ed32530100000023220020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3affffffff0150fc23030000000017a914debb602e1c37628d1f411918f87f1680d59e1a0f870400473044022074f1b0daaba84a5192a4d5eed4c8b792f8b6a063efb612176aa49837582b925f022068c110b40c505af6bfafb5bf4ea7008e0a2697d189b2498290818803ea6341a10147304402206a9afcb4b3865532668a895de297de9b1a0c6fd3c42be94777c140bbd19b1c5202200c3068b4b1286cac0b49aaaa16a8fadf6bdc4e4abed3719f2030e14afa2e2e3b0169522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae00000000
+{
+  "txid": "05dfc6503286f2472246ea43cdcf3004d0553df8da2635a42eaf2c321b889a03",
+  "hash": "024b94200522250ef2b63da12062eec63d9476c13e4545f36b2592eaa9bb2422",
+  "version": 2,
+  "size": 372,
+  "vsize": 182,
+  "weight": 726,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "5332ed1482e665c6f7146283991ad69c05af99cfebab344729d54b382f68a46c",
+      "vout": 1,
+      "scriptSig": {
+        "asm": "0020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a",
+        "hex": "220020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a"
+      },
+      "txinwitness": [
+        "",
+        "3044022074f1b0daaba84a5192a4d5eed4c8b792f8b6a063efb612176aa49837582b925f022068c110b40c505af6bfafb5bf4ea7008e0a2697d189b2498290818803ea6341a101",
+        "304402206a9afcb4b3865532668a895de297de9b1a0c6fd3c42be94777c140bbd19b1c5202200c3068b4b1286cac0b49aaaa16a8fadf6bdc4e4abed3719f2030e14afa2e2e3b01",
+        "522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae"
+      ],
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.52690000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_HASH160 debb602e1c37628d1f411918f87f1680d59e1a0f OP_EQUAL",
+        "hex": "a914debb602e1c37628d1f411918f87f1680d59e1a0f87",
+        "reqSigs": 1,
+        "type": "scripthash",
+        "addresses": [
+          "2NDYvTxmsRmyPw612KwBGCqLNsBRQSDpjXL"
+        ]
+      }
+    }
+  ]
+}
+```
+
+发送原始交易
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet sendrawtransaction 020000000001016ca4682f384bd5294734abebcf99af059cd61a99836214f7c665e68214ed32530100000023220020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3affffffff0150fc23030000000017a914debb602e1c37628d1f411918f87f1680d59e1a0f870400473044022074f1b0daaba84a5192a4d5eed4c8b792f8b6a063efb612176aa49837582b925f022068c110b40c505af6bfafb5bf4ea7008e0a2697d189b2498290818803ea6341a10147304402206a9afcb4b3865532668a895de297de9b1a0c6fd3c42be94777c140bbd19b1c5202200c3068b4b1286cac0b49aaaa16a8fadf6bdc4e4abed3719f2030e14afa2e2e3b0169522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae00000000
+05dfc6503286f2472246ea43cdcf3004d0553df8da2635a42eaf2c321b889a03
+```
+
+查看交易信息
+
+> 多签地址 `2NDYvTxmsRmyPw612KwBGCqLNsBRQSDpjXL` 包含两笔交易：
+>
+> - 向多签地址转账 0.527 BTC
+> - 从多签地址转出 0.5269 BTC
+
+![](pic/blockchain/get_transaction2.png)
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet gettransaction 05dfc6503286f2472246ea43cdcf3004d0553df8da2635a42eaf2c321b889a03
+{
+  "amount": 0.00000000,
+  "fee": -0.00010000,
+  "confirmations": 2,
+  "blockhash": "0000000000000bd3197bd8bc87460937ff77b091b16233a1720fb1448da2f34d",
+  "blockindex": 6,
+  "blocktime": 1539334017,
+  "txid": "05dfc6503286f2472246ea43cdcf3004d0553df8da2635a42eaf2c321b889a03",
+  "walletconflicts": [
+  ],
+  "time": 1539333939,
+  "timereceived": 1539333939,
+  "bip125-replaceable": "no",
+  "details": [
+    {
+      "address": "2NDYvTxmsRmyPw612KwBGCqLNsBRQSDpjXL",
+      "category": "send",
+      "amount": -0.52690000,
+      "label": "",
+      "vout": 0,
+      "fee": -0.00010000,
+      "abandoned": false
+    },
+    {
+      "address": "2NDYvTxmsRmyPw612KwBGCqLNsBRQSDpjXL",
+      "category": "receive",
+      "amount": 0.52690000,
+      "label": "",
+      "vout": 0
+    }
+  ],
+  "hex": "020000000001016ca4682f384bd5294734abebcf99af059cd61a99836214f7c665e68214ed32530100000023220020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3affffffff0150fc23030000000017a914debb602e1c37628d1f411918f87f1680d59e1a0f870400473044022074f1b0daaba84a5192a4d5eed4c8b792f8b6a063efb612176aa49837582b925f022068c110b40c505af6bfafb5bf4ea7008e0a2697d189b2498290818803ea6341a10147304402206a9afcb4b3865532668a895de297de9b1a0c6fd3c42be94777c140bbd19b1c5202200c3068b4b1286cac0b49aaaa16a8fadf6bdc4e4abed3719f2030e14afa2e2e3b0169522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae00000000"
+}
+```
 
 ### 智能坊合约开发
 

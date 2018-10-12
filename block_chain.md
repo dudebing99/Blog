@@ -1012,6 +1012,8 @@ root@ubuntu:~# bitcoin-cli -testnet listunspent
 
 ##### 3-2 多签
 
+> 构造一笔 3-2 多签交易，利用 3 个私钥签名交易，后续需要前者中的 2 个私钥才能花费该未花费输出
+
 查询未花费输出
 
 ```bash

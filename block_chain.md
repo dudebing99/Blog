@@ -54,15 +54,29 @@
 >
 > **Bitcoin Code Daemon:** v0.16.99.0-7c32b41
 
-#### bitcoind
+#### 启动服务
+
+##### bitcoind
 
 ```bash
 kevin@ubuntu:~$ bitcoind -testnet
 ```
 
-#### bitcoin-cli
+##### bitcoin-cli
 
 > **API 接口：**https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list
+
+```bash
+root@iZwz978rorvlg75nct99l1Z:~# bitcoin-cli -testnet -h
+Bitcoin Core RPC client version v0.17.99.0-be99270
+
+Usage:  bitcoin-cli [options] <command> [params]  Send command to Bitcoin Core
+or:     bitcoin-cli [options] -named <command> [name=value]...  Send command to Bitcoin Core (with named arguments)
+or:     bitcoin-cli [options] help                List commands
+or:     bitcoin-cli [options] help <command>      Get help for a command
+```
+
+#### 基础功能
 
 ##### 状态信息
 

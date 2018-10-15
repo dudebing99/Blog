@@ -5531,6 +5531,32 @@ OP_DUP OP_HASH160 <Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG
 
 主要验证两项，第一是 Public Key 是否能够转换成正确的地址，第二是 Signature 是否正确，也就是证明你是否是这个Public Key 的主人。 
 
+##### P2PK（Pay-to-Public-Key）
+
+与 P2PKH 相比，P2PK 模式更为简单。与 P2PKH 模式含有公钥哈希的模式不同，在 P2PK 脚本模式中，公钥本身已经存储在锁定脚本中，而且代码长度也更短。P2PKH 是由 Satoshi 创建的，主要目的一方面为使比特币地址更简短，另一方面也使之更方便使用。P2PK 目前在 Coinbase 交易中最为常见。
+
+P2PK 锁定版脚本形式如下：
+
+```basic
+<Public Key A> OP_CHECKSIG
+```
+
+用于解锁的脚本是一个简单签名：
+
+```basic
+<Signature from Private Key A>
+```
+
+经由交易验证软件确认的组合脚本为：
+
+```basic
+<Signature from Private Key A> <Public Key A> OP_CHECKSIG
+```
+
+该脚本只是 CHECKSIG 操作符的简单调用，该操作主要是为了验证签名是否正确，如果正确，则返回为真（True）。
+
+> 根据上方的规则去运行就可以发现，此规则比 P2PKH 要简单的多，只有一步验证，少了上方的地址验证。其实，P2PKH 被创建主要目的一方面为使比特币地址更简短，使之更方便使用，核心内容还是 P2PK 的。 
+
 ### 比特币网络
 
 #### p2p 网络架构

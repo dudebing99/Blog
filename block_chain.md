@@ -1116,6 +1116,38 @@ root@ubuntu:~# bitcoin-cli -testnet decodescript 522102f396b11941706b0424499fbf6
 }
 ```
 
+> 查看上述地址中信息，以 `mzzsUyocJXwrbQi13k1YVYuvUPKUL6H2Gz` 为例
+>
+> ```bash
+> root@ubuntu:~# bitcoin-cli -testnet validateaddress mzzsUyocJXwrbQi13k1YVYuvUPKUL6H2Gz                                                                                     {
+>   "isvalid": true,
+>   "address": "mzzsUyocJXwrbQi13k1YVYuvUPKUL6H2Gz",
+>   "scriptPubKey": "76a914d5b20531701831678f620f33d3127b8dfe20b67288ac",
+>   "isscript": false,
+>   "iswitness": false
+> }
+> root@ubuntu:~# bitcoin-cli -testnet decodescript 76a914d5b20531701831678f620f33d3127b8dfe20b67288ac
+> {
+>   "asm": "OP_DUP OP_HASH160 d5b20531701831678f620f33d3127b8dfe20b672 OP_EQUALVERIFY OP_CHECKSIG",
+>   "reqSigs": 1,
+>   "type": "pubkeyhash",
+>   "addresses": [
+>     "mzzsUyocJXwrbQi13k1YVYuvUPKUL6H2Gz"
+>   ],
+>   "p2sh": "2N8egGvjyaT1Kfm44bCNXNtztcWG8kZDz99",
+>   "segwit": {
+>     "asm": "0 d5b20531701831678f620f33d3127b8dfe20b672",
+>     "hex": "0014d5b20531701831678f620f33d3127b8dfe20b672",
+>     "reqSigs": 1,
+>     "type": "witness_v0_keyhash",
+>     "addresses": [
+>       "tb1q6keq2vtsrqck0rmzpueaxynm3hlzpdnjjd70ms"
+>     ],
+>     "p2sh-segwit": "2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz"
+>   }
+> }
+> ```
+
 向多签地址 `2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3` 转账
 
 ![](pic/blockchain/send_to_address.png)
@@ -1374,6 +1406,48 @@ root@ubuntu:~# bitcoin-cli -testnet decoderawtransaction 020000000001016ca4682f3
   ]
 }
 ```
+
+> 解码锁定脚本
+>
+> ```bash
+> root@ubuntu:~# bitcoin-cli -testnet decodescript 0020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a
+> {
+>   "asm": "0 fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a",
+>   "reqSigs": 1,
+>   "type": "witness_v0_scripthash",
+>   "addresses": [
+>     "tb1qlck8mzyx6mdv4mznpyt2zz9d9hgyp7lh9jqw50wad48jyrn73vaqvvpppr"
+>   ],
+>   "p2sh": "2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3"
+> }
+> ```
+>
+> 解码赎回脚本
+>
+> ```bash
+> root@ubuntu:~# bitcoin-cli -testnet decodescript 522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae
+> {
+>   "asm": "2 02f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46 0256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d 0269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b5 3 OP_CHECKMULTISIG",
+>   "reqSigs": 2,
+>   "type": "multisig",
+>   "addresses": [
+>     "mzzsUyocJXwrbQi13k1YVYuvUPKUL6H2Gz",
+>     "myX8p3UGzyxJDEGxdBd3LouRjPahjpPvs4",
+>     "mn6U9CQDBa5qM5WAg7KZQA9v4Z119UBCCZ"
+>   ],
+>   "p2sh": "2N5pft6YKrBmTi3UW3LXkaxjGFr9SQ2U3bE",
+>   "segwit": {
+>     "asm": "0 fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a",
+>     "hex": "0020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a",
+>     "reqSigs": 1,
+>     "type": "witness_v0_scripthash",
+>     "addresses": [
+>       "tb1qlck8mzyx6mdv4mznpyt2zz9d9hgyp7lh9jqw50wad48jyrn73vaqvvpppr"
+>     ],
+>     "p2sh-segwit": "2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3"
+>   }
+> }
+> ```
 
 发送原始交易
 

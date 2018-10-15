@@ -32,6 +32,7 @@
 - [Oraclize](https://docs.oraclize.it/#ethereum)
 - [P2P 网络](https://www.kancloud.cn/everpointer/test1/597770)
 - [比特币测试网络区块浏览器](https://live.blockcypher.com/)
+- [比特币区块浏览器](https://www.blockchain.com/)
 - [以太坊区块浏览器](https://etherscan.io/)
 - [比特币测试币水龙头]( https://testnet.manu.backend.hamburg/faucet)
 

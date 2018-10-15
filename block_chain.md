@@ -5579,24 +5579,18 @@ UTXO 在 UTXO 集（UTXOset）中被每一个全节点比特币客户端追踪�
 
 例如，我们可以再次回顾一下 Alice 向 Bob 咖啡馆支付的案例。Alice 下达了向 Bob 咖啡馆的比特币地址支付0.015 比特币的支付指令，该笔交易的输出内容为以下形式的锁定脚本：
 
-```basic
-OP_DUP OP_HASH160 <Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG
-```
+`OP_DUP OP_HASH160 <Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG`
 
 脚本中的 Cafe Public Key Hash 即为咖啡馆的比特币地址，但该地址不是基于 Base58Check 编码。事实上，大多数比特币地址的公钥哈希值都显示为十六进制码，而不是大家所熟知的以1开头的基于 Bsase58Check 编码的比特币地址。
 
 上述锁定脚本相应的解锁脚本是：
 
-```basic
-<Cafe Signature> <Cafe Public Key>
-```
+`<Cafe Signature> <Cafe Public Key>`
 
 将两个脚本结合起来可以形成如下组合验证脚本：
 
-```basic
-<Cafe Signature> <Cafe Public Key> OP_DUP OP_HASH160
-<Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG
-```
+`<Cafe Signature> <Cafe Public Key> OP_DUP OP_HASH160`
+`<Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG`
 
 只有当解锁版脚本与锁定版脚本的设定条件相匹配时，执行组合有效脚本时才会显示结果为真（True）。即只有当解锁脚本得到了咖啡馆的有效签名，交易执行结果才会被通过（结果为真），该有效签名是从与公钥哈希相匹配的咖啡馆的私钥中所获取的。 
 
@@ -5612,25 +5606,47 @@ OP_DUP OP_HASH160 <Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG
 
 P2PK 锁定版脚本形式如下：
 
-```basic
-<Public Key A> OP_CHECKSIG
-```
+`<Public Key A> OP_CHECKSIG`
 
 用于解锁的脚本是一个简单签名：
 
-```basic
 <Signature from Private Key A>
-```
 
 经由交易验证软件确认的组合脚本为：
 
-```basic
-<Signature from Private Key A> <Public Key A> OP_CHECKSIG
-```
+`<Signature from Private Key A> <Public Key A> OP_CHECKSIG`
 
 该脚本只是 CHECKSIG 操作符的简单调用，该操作主要是为了验证签名是否正确，如果正确，则返回为真（True）。
 
 > 根据上方的规则去运行就可以发现，此规则比 P2PKH 要简单的多，只有一步验证，少了上方的地址验证。其实，P2PKH 被创建主要目的一方面为使比特币地址更简短，使之更方便使用，核心内容还是 P2PK 的。 
+
+##### MS（Multiple Signatures）
+
+多重签名脚本设置了这样一个条件，假如记录在脚本中的公钥个数为 N，则至少需提供其中的 M 个公钥才可以解锁。这也被称为 M-N 组合，其中，N 是记录在脚本中的公钥总个数，M 是使得多重签名生效的公钥数阀值（最少数目）。例如，对于一个 2-3 多重签名组合而言，存档公钥数为 3 个，至少同时使用其中 2 个或者 2 个以上的公钥时，才能生成激活交易的签名，通过验证后才可使用这笔资金。最初，标准多重签名脚本的最大存档公钥数被限定为 15 个，这意味着可采用 1-1 乃至15-15 的任意多重签名组合，或者组合的组合来激活交易。
+
+通用的 M-N 多重签名锁定脚本形式为： 
+
+`M <Public Key 1> <Public Key 2> ... <Public Key N> N OP_CHECKMULTISIG`
+
+其中，N 是存档公钥总数，M 是要求激活交易的最少公钥数。 
+
+2-3多重签名条件：
+
+`2 <Public Key A> <Public Key B> <Public Key C> 3 OP_CHECKMULTISIG`
+
+上述锁定脚本可由含有签名和公钥的脚本予以解锁：
+
+`OP_0 <Signature B> <Signature C>`
+
+或者由 3 个存档公钥中的任意 2 个相一致的私钥签名组合予以解锁。
+
+> 之所以要加上前缀 OP_0，是因为最早的 CHECKMULTISIG 在处理含有多个项目的过程中有个小漏洞，CHECKMULTISIG 会自动忽略这个前缀，它只是占位符而已。
+
+两个脚本组合将形成一个验证脚本：
+
+`OP_0 <Signature B> <Signature C> 2 <Public Key A> <Public Key B> <Public Key C> 3 OP_CHECKMULTISIG`
+
+当执行时，只有当未解锁版脚本与解锁脚本设置条件相匹配时，组合脚本才显示得到结果为真（True）。上述例子中相应的设置条件即为未解锁脚本是否含有与 3 个公钥中的任意 2 个相一致的私钥的有效签名。 
 
 ### 比特币网络
 

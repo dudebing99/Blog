@@ -1384,7 +1384,7 @@ root@ubuntu:~# bitcoin-cli -testnet sendrawtransaction 020000000001016ca4682f384
 
 查看交易信息
 
-> 多签地址 `2NDYvTxmsRmyPw612KwBGCqLNsBRQSDpjXL` 包含两笔交易：
+> 多签地址 `2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3` 包含两笔交易：
 >
 > - 向多签地址转账 0.527 BTC
 > - 从多签地址转出 0.5269 BTC

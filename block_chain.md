@@ -10,7 +10,7 @@
 - [Learning-Bitcoin-from-the-Command-Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line)
 - [调试 BTC 脚本](https://github.com/kallewoof/btcdeb)
 - [python-OP_RETURN](https://github.com/coinspark/python-OP_RETURN)
-- [Data Insertion in Bitcoin’s Blockchain](https://digitalcommons.augustana.edu/cgi/viewcontent.cgi?article=1000&context=cscfaculty)
+- [bitcoin-api](http://chainquery.com/bitcoin-api)
 - [区块链技术指南](http://book.8btc.com/blockchain_guide)
 - [区块链维基百科](https://en.wikipedia.org/wiki/Blockchain)
 - [图灵完备维基百科](https://en.wikipedia.org/wiki/Turing_completeness)

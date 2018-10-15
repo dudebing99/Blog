@@ -5630,7 +5630,7 @@ P2PK 锁定版脚本形式如下：
 
 其中，N 是存档公钥总数，M 是要求激活交易的最少公钥数。 
 
-2-3多重签名条件：
+2-3 多重签名条件：
 
 `2 <Public Key A> <Public Key B> <Public Key C> 3 OP_CHECKMULTISIG`
 

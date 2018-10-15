@@ -5529,6 +5529,8 @@ OP_DUP OP_HASH160 <Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG
 
 ![](pic/blockchain/p2pkh_2.png)
 
+主要验证两项，第一是 Public Key 是否能够转换成正确的地址，第二是 Signature 是否正确，也就是证明你是否是这个Public Key 的主人。 
+
 ### 比特币网络
 
 #### p2p 网络架构

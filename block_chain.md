@@ -5523,6 +5523,12 @@ OP_DUP OP_HASH160 <Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG
 <Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG
 ```
 
+只有当解锁版脚本与锁定版脚本的设定条件相匹配时，执行组合有效脚本时才会显示结果为真（True）。即只有当解锁脚本得到了咖啡馆的有效签名，交易执行结果才会被通过（结果为真），该有效签名是从与公钥哈希相匹配的咖啡馆的私钥中所获取的。 
+
+![](pic/blockchain/p2pkh_1.png)
+
+![](pic/blockchain/p2pkh_2.png)
+
 ### 比特币网络
 
 #### p2p 网络架构

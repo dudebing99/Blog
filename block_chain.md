@@ -556,6 +556,8 @@ root@ubuntu:~# bitcoin-cli -testnet getaddressinfo 2N8AQg8NhqVy77jPjkz7viHbvJ7aQ
 
 ##### 转账
 
+- P2SH 转账
+
 ```bash
 root@ubuntu:~# bitcoin-cli -testnet sendtoaddress 2N8AQg8NhqVy77jPjkz7viHbvJ7aQQLcv8m 0.1
 28f0246fd9a867cc93b1b7e6231c47789fad8256f866c7c548d6d4ebe8cfa3a7
@@ -660,50 +662,92 @@ root@ubuntu:~# bitcoin-cli -testnet decoderawtransaction  02000000000101cd3cc99c
 }
 ```
 
-然后，查看所有未花费输出
+- P2PKH 转账
+
+> 解锁脚本中，对于找零地址 `2MvbfqkYTRfEurhJ9iP9hgbUGAL4Ed8ebdX`，属于 P2SH；对于目标地址 `mu2cVKoUsTSyUEJJMMbhNuGa6yVvMvXj6n`，属于 P2PKH
 
 ```bash
-root@ubuntu:~# bitcoin-cli -testnet listunspent    
-[
-  {
-    "txid": "28f0246fd9a867cc93b1b7e6231c47789fad8256f866c7c548d6d4ebe8cfa3a7",
-    "vout": 0,
-    "address": "2N8AQg8NhqVy77jPjkz7viHbvJ7aQQLcv8m",
-    "label": "",
-    "redeemScript": "001488ea91fb46dbf96d9d3a7e70bd1124f768ed9638",
-    "scriptPubKey": "a914a3a0ba5cb95a1878466d4465ed14752b3d8292fc87",
-    "amount": 0.10000000,
-    "confirmations": 14,
-    "spendable": true,
-    "solvable": true,
-    "safe": true
-  },
-  {
-    "txid": "28f0246fd9a867cc93b1b7e6231c47789fad8256f866c7c548d6d4ebe8cfa3a7",
-    "vout": 1,
-    "address": "2NBPJ9qrWzbNLru6Nbi5L7DHyZZziyjzWGW",
-    "redeemScript": "001491a5d0d38f307fc73d08edd24202884ff26ddfc7",
-    "scriptPubKey": "a914c6f9118389ab61e9a4d8a1c8cf048b46358092a487",
-    "amount": 0.99996680,
-    "confirmations": 14,
-    "spendable": true,
-    "solvable": true,
-    "safe": true
-  },
-  {
-    "txid": "750183a0d47f62a428b4dd811eed414141d3e8013cd372930882ce11b867e7f0",
-    "vout": 0,
-    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
-    "label": "",
-    "redeemScript": "0014635522cd6d36b45cf770940c78642f266b143ff2",
-    "scriptPubKey": "a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff87",
-    "amount": 0.52800000,
-    "confirmations": 1084,
-    "spendable": true,
-    "solvable": true,
-    "safe": true
-  }
-]
+root@ubuntu:~# bitcoin-cli -testnet sendtoaddress mu2cVKoUsTSyUEJJMMbhNuGa6yVvMvXj6n 0.2
+f475b1d691096d922c54ec7d4f65287b00305f68431c7ca31700e714e6139843
+root@ubuntu:~# bitcoin-cli -testnet gettransaction f475b1d691096d922c54ec7d4f65287b00305f68431c7ca31700e714e6139843
+{
+  "amount": -0.20000000,
+  "fee": -0.00000172,
+  "confirmations": 1,
+  "blockhash": "00000000000001bf87a5803c54b4686fbc8612e077016d8f02bf0be22d288480",
+  "blockindex": 13,
+  "blocktime": 1539683239,
+  "txid": "f475b1d691096d922c54ec7d4f65287b00305f68431c7ca31700e714e6139843",
+  "walletconflicts": [
+  ],
+  "time": 1539683131,
+  "timereceived": 1539683131,
+  "bip125-replaceable": "no",
+  "details": [
+    {
+      "address": "mu2cVKoUsTSyUEJJMMbhNuGa6yVvMvXj6n",
+      "category": "send",
+      "amount": -0.20000000,
+      "vout": 1,
+      "fee": -0.00000172,
+      "abandoned": false
+    }
+  ],
+  "hex": "020000000001019045478e19afe707eefcf0a5dcf323294226e03ad5d27664d4370becd6c9a06f0100000017160014634c5b2ab67c8ea9f0888217509994e56d5e928bfeffffff0274c8a1010000000017a91424c64709bfd829949d4948a9dda8daabe9b5f2c387002d3101000000001976a914943594c2eec7e6e386b7f7ca5c84b623d989882a88ac0247304402205d7bb5cd13a1bcc7d2018336478d2421a40cf4be5e89d449ecb121889444947a022012b4852470cc96d9113f84f900de835501b9564345134e521d4b88c291eda621012103febd10527fd74cca6b7ee1109a9a00f9e94355a0bb4c5a474f7d0a457110abf266f31500"
+}
+root@ubuntu:~# bitcoin-cli -testnet decoderawtransaction 020000000001019045478e19afe707eefcf0a5dcf323294226e03ad5d27664d4370becd6c9a06f0100000017160014634c5b2ab67c8ea9f0888217509994e56d5e928bfeffffff0274c8a1010000000017a91424c64709bfd829949d4948a9dda8daabe9b5f2c387002d3101000000001976a914943594c2eec7e6e386b7f7ca5c84b623d989882a88ac0247304402205d7bb5cd13a1bcc7d2018336478d2421a40cf4be5e89d449ecb121889444947a022012b4852470cc96d9113f84f900de835501b9564345134e521d4b88c291eda621012103febd10527fd74cca6b7ee1109a9a00f9e94355a0bb4c5a474f7d0a457110abf266f31500
+{
+  "txid": "f475b1d691096d922c54ec7d4f65287b00305f68431c7ca31700e714e6139843",
+  "hash": "888813d88348067684b933cfd6ad5aaf51ac27530bee2dcec3ac475f38369b41",
+  "version": 2,
+  "size": 249,
+  "vsize": 168,
+  "weight": 669,
+  "locktime": 1438566,
+  "vin": [
+    {
+      "txid": "6fa0c9d6ec0b37d46476d2d53ae026422923f3dca5f0fcee07e7af198e474590",
+      "vout": 1,
+      "scriptSig": {
+        "asm": "0014634c5b2ab67c8ea9f0888217509994e56d5e928b",
+        "hex": "160014634c5b2ab67c8ea9f0888217509994e56d5e928b"
+      },
+      "txinwitness": [
+        "304402205d7bb5cd13a1bcc7d2018336478d2421a40cf4be5e89d449ecb121889444947a022012b4852470cc96d9113f84f900de835501b9564345134e521d4b88c291eda62101",
+        "03febd10527fd74cca6b7ee1109a9a00f9e94355a0bb4c5a474f7d0a457110abf2"
+      ],
+      "sequence": 4294967294
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.27379828,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_HASH160 24c64709bfd829949d4948a9dda8daabe9b5f2c3 OP_EQUAL",
+        "hex": "a91424c64709bfd829949d4948a9dda8daabe9b5f2c387",
+        "reqSigs": 1,
+        "type": "scripthash",
+        "addresses": [
+          "2MvbfqkYTRfEurhJ9iP9hgbUGAL4Ed8ebdX"
+        ]
+      }
+    },
+    {
+      "value": 0.20000000,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 943594c2eec7e6e386b7f7ca5c84b623d989882a OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a914943594c2eec7e6e386b7f7ca5c84b623d989882a88ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "mu2cVKoUsTSyUEJJMMbhNuGa6yVvMvXj6n"
+        ]
+      }
+    }
+  ]
+}
 ```
 
 ##### OP_RETURN 携带数据

@@ -1094,6 +1094,18 @@ root@ubuntu:~# bitcoin-cli -testnet addmultisigaddress 2 "[\"2Mv3bjnJv2XtDjAvjYf
 
 解码赎回脚本
 
+> **赎回脚本由如下几部分组成：**`52` `21` `02f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46` `21` `0256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d` `21` `0269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b5` `53` `ae`
+>
+> - 0x52 = OP_2
+> - 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
+> - 0x02f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46 = the next 33 bytes (public-key hash)
+> - 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
+> - 0x0256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d = the next 33 bytes (public-key hash)
+> - 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
+> - 0x0269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b5 = the next 33 bytes (public-key hash)
+> - 0x53 = OP_3
+> - 0xae = OP_CHECKMULTISIG
+
 ```bash
 root@ubuntu:~# bitcoin-cli -testnet decodescript 522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae
 {

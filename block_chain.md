@@ -3318,8 +3318,7 @@ Contract JSON ABI
       payable: false,
       stateMutability: "nonpayable",
       type: "function"
-  }, INFO [07-26|22:33:47.302] Commit new mining work                   number=2 txs=0 uncles=0 elapsed=1.098ms
-{
+  }, {
       constant: true,
       inputs: [],
       name: "get",
@@ -3327,8 +3326,7 @@ Contract JSON ABI
       payable: false,
       stateMutability: "view",
       type: "function"
-  }, WARN [07-26|22:33:47.303] Block sealing failed                     err="waiting for transactions"
-{
+  }, {
       inputs: [{...}],
       payable: false,
       stateMutability: "nonpayable",

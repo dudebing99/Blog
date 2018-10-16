@@ -2717,6 +2717,26 @@ root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. dropprivkey
 
 **开发者网络：**`./geth --datadir="./devdata" --dev --rpc --rpccorsdomain "*" console`
 
+> 上述命令即启动了一个节点服务，同时启动了一个控制台。实际上，可以独立启动节点服务，即，``./geth --datadir="./devdata" --dev --rpc --rpccorsdomain "*"`
+>
+> 需要启动控制台的时候，执行 `./geth attach http://localhost:8545` 或 `./geth attach ./testnet/geth.ipc`
+>
+> ```bash
+> root@~/eth# ./geth attach ./testnet/geth.ipc
+> Welcome to the Geth JavaScript console!
+> 
+> instance: Geth/v1.8.13-unstable-040dd5bd/linux-amd64/go1.10.3
+> coinbase: 0x96d81d81149a3a8501eb99fb8aca1cff5cc19d7c
+> at block: 4245054 (Tue, 16 Oct 2018 11:54:45 CST)
+>  datadir: /root/eth/testnet
+>  modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
+> 
+> > eth.getBalance(eth.accounts[0])
+> 146513139948307702333
+> > exit
+> root@~/eth#
+> ```
+
 **以太坊正式网络：**`./geth --syncmode "fast" --cache=512 --datadir="./data" --rpc --rpccorsdomain "*" console`
 
 **以太坊测试网络：**`./geth --syncmode "fast" --datadir="./testnet" --testnet  --mine --minerthreads=2 --cache=1024 --rpc --rpccorsdomain "*" console`

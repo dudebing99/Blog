@@ -1026,9 +1026,9 @@ root@ubuntu:~# bitcoin-cli -testnet listunspent
 > ]
 > ```
 
-##### 2/3 多签
+##### 2-3 多签
 
-> 多重签名 2/3，表示 3 个人拥有签名权，而 2 个人签名就可以支付这个账户里的比特币。本示例中，通过构造一笔 2/3 多签交易，利用 3 个私钥签名交易，后续需要前者中的 2 个私钥才能花费该未花费输出
+> 多重签名 2-3，表示 3 个人拥有签名权，而 2 个人签名就可以支付这个账户里的比特币。本示例中，通过构造一笔 2-3 多签交易，利用 3 个私钥签名交易，后续需要前者中的 2 个私钥才能花费该未花费输出
 
 查询未花费输出
 
@@ -1080,7 +1080,7 @@ root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2N4fwyEsVN9Lowja9ab5ek4R3yck3Pma
 cVTFSWeeeB9uoKZgcCbCN7eovztbQzNySGsruAFrVSiiX8ogMqtJ
 ```
 
-生成 2/3 多签地址 `2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3`
+生成 2-3 多签地址 `2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3`
 
 ```bash
 root@ubuntu:~# bitcoin-cli -testnet addmultisigaddress 2 "[\"2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz\",\"2MsJ1eKdVZrYLptCLGNrvuTvVjVQzR2FR5o\", \"2N4fwyEsVN9Lowja9ab5ek4R3yck3PmasdN\"]" "test account"
@@ -1296,14 +1296,14 @@ root@ubuntu:~# bitcoin-cli -testnet getnewaddress
 2NDYvTxmsRmyPw612KwBGCqLNsBRQSDpjXL
 ```
 
-使用上述 2/3 多签未花费输出向地址 `2NDYvTxmsRmyPw612KwBGCqLNsBRQSDpjXL` 转账 0.5269 BTC
+使用上述 2-3 多签未花费输出向地址 `2NDYvTxmsRmyPw612KwBGCqLNsBRQSDpjXL` 转账 0.5269 BTC
 
 ```bash
 root@ubuntu:~# bitcoin-cli -testnet createrawtransaction "[{\"txid\":\"5332ed1482e665c6f7146283991ad69c05af99cfebab344729d54b382f68a46c\",\"vout\":1}]" "[{\"2NDYvTxmsRmyPw612KwBGCqLNsBRQSDpjXL\":0.5269}]"
 02000000016ca4682f384bd5294734abebcf99af059cd61a99836214f7c665e68214ed32530100000000ffffffff0150fc23030000000017a914debb602e1c37628d1f411918f87f1680d59e1a0f8700000000
 ```
 
-如果只是用一个私钥去签名交易（2/3 多签中至少需要 2 个有效私钥），失败信息如下
+如果只是用一个私钥去签名交易（2-3 多签中至少需要 2 个有效私钥），失败信息如下
 
 ```bash
 root@ubuntu:~# bitcoin-cli -testnet signrawtransactionwithkey 02000000016ca4682f384bd5294734abebcf99af059cd61a99836214f7c665e68214ed32530100000000ffffffff0150fc23030000000017a914debb602e1c37628d1f411918f87f1680d59e1a0f8700000000 "[\"cPegPf2xaeaqYB9kqqM2gzVPPXnAmwCME2KjsAQG6gkVnbxZpTKo\"]" "[{\"txid\":\"5332ed1482e665c6f7146283991ad69c05af99cfebab344729d54b382f68a46c\", \"vout\":1, \"scriptPubKey\": \"a91430b5e8e9151e46be789562580b0118911d875f3d87\", \"redeemScript\": \"522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae\", \"amount\": 0.52700000}]"

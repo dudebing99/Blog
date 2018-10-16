@@ -5706,13 +5706,13 @@ P2SH 是 MS 多重签名的简化版本，如果使用 P2SH 进行和上方相�
 
 `2 PK1 PK2 PK3 3 OP_CHECKMULTISIG`
 
-对锁定脚本，首先采用 SHA256 哈希算法，随后对其运用 RIPEMD160 算法。20 字节的脚本为：
+对锁定脚本，首先采用 SHA256 哈希算法，随后对其运用 RIPEMD160 算法，变成类似于 `8ac1d7a2fa204a16dc984fa81cfdf86a2a4e1731` 形式的 20 字节的脚本：
 
-`8ac1d7a2fa204a16dc984fa81cfdf86a2a4e1731`
+`<lock scriptHash>` 
 
 于是锁定脚本变为： 
 
-`OP_HASH160 8ac1d7a2fa204a16dc984fa81cfdf86a2a4e1731 OP_EQUAL`
+`OP_HASH160 <lock scriptHash> OP_EQUAL`
 
 此锁定脚本要比原先使用 MS 的锁定脚本要简短的多，当接收方要使用此交易中的 UTXO 时，需要提交解锁脚本（这里又可称为赎回脚本）： 
 

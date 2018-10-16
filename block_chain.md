@@ -666,6 +666,8 @@ root@ubuntu:~# bitcoin-cli -testnet decoderawtransaction  02000000000101cd3cc99c
 
 > 解锁脚本中，对于找零地址 `2MvbfqkYTRfEurhJ9iP9hgbUGAL4Ed8ebdX`，属于 P2SH；对于目标地址 `mu2cVKoUsTSyUEJJMMbhNuGa6yVvMvXj6n`，属于 P2PKH
 
+![](pic/blockchain/send_to_address2.png)
+
 ```bash
 root@ubuntu:~# bitcoin-cli -testnet sendtoaddress mu2cVKoUsTSyUEJJMMbhNuGa6yVvMvXj6n 0.2
 f475b1d691096d922c54ec7d4f65287b00305f68431c7ca31700e714e6139843

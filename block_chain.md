@@ -1112,21 +1112,117 @@ root@ubuntu:~# bitcoin-cli -testnet listunspent
 ]
 ```
 
-生成 3 个新地址，并导出私钥
+生成 3 个新地址，并导出私钥、查看公钥
 
 ```bash
 root@ubuntu:~# bitcoin-cli -testnet getnewaddress
 2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz
 root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz
 cPegPf2xaeaqYB9kqqM2gzVPPXnAmwCME2KjsAQG6gkVnbxZpTKo
+root@ubuntu:~# bitcoin-cli -testnet getaddressinfo 2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz 
+{
+  "address": "2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz",
+  "scriptPubKey": "a9141eb58ab1463c6f851ad61a5fab8c76582b3cecc187",
+  "ismine": true,
+  "iswatchonly": false,
+  "isscript": true,
+  "iswitness": false,
+  "script": "witness_v0_keyhash",
+  "hex": "0014d5b20531701831678f620f33d3127b8dfe20b672",
+  "pubkey": "02f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46",
+  "embedded": {
+    "isscript": false,
+    "iswitness": true,
+    "witness_version": 0,
+    "witness_program": "d5b20531701831678f620f33d3127b8dfe20b672",
+    "pubkey": "02f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46",
+    "address": "tb1q6keq2vtsrqck0rmzpueaxynm3hlzpdnjjd70ms",
+    "scriptPubKey": "0014d5b20531701831678f620f33d3127b8dfe20b672"
+  },
+  "label": "",
+  "timestamp": 1528804513,
+  "hdkeypath": "m/0'/0'/3'",
+  "hdseedid": "44f0e603435bf5f58481b24fd597e8bd9180c840",
+  "hdmasterkeyid": "44f0e603435bf5f58481b24fd597e8bd9180c840",
+  "labels": [
+    {
+      "name": "",
+      "purpose": "receive"
+    }
+  ]
+}
 root@ubuntu:~# bitcoin-cli -testnet getnewaddress
 2MsJ1eKdVZrYLptCLGNrvuTvVjVQzR2FR5o
 root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2MsJ1eKdVZrYLptCLGNrvuTvVjVQzR2FR5o
 cQ8ZUeBy27NKafYioHp4f3isHFTFuAx65vPf6dgUgxdNSBegsW3W
+root@ubuntu:~# bitcoin-cli -testnet getaddressinfo 2MsJ1eKdVZrYLptCLGNrvuTvVjVQzR2FR5o
+{
+  "address": "2MsJ1eKdVZrYLptCLGNrvuTvVjVQzR2FR5o",
+  "scriptPubKey": "a9140086f1888f456640f895e71888570a6f2d96ba6387",
+  "ismine": true,
+  "iswatchonly": false,
+  "isscript": true,
+  "iswitness": false,
+  "script": "witness_v0_keyhash",
+  "hex": "0014c57b0b161ddab0c427659414f448f4bf89136ec8",
+  "pubkey": "0256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d",
+  "embedded": {
+    "isscript": false,
+    "iswitness": true,
+    "witness_version": 0,
+    "witness_program": "c57b0b161ddab0c427659414f448f4bf89136ec8",
+    "pubkey": "0256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d",
+    "address": "tb1qc4ask9sam2cvgfm9js20gj85h7y3xmkgkmhs9n",
+    "scriptPubKey": "0014c57b0b161ddab0c427659414f448f4bf89136ec8"
+  },
+  "label": "",
+  "timestamp": 1528804513,
+  "hdkeypath": "m/0'/0'/4'",
+  "hdseedid": "44f0e603435bf5f58481b24fd597e8bd9180c840",
+  "hdmasterkeyid": "44f0e603435bf5f58481b24fd597e8bd9180c840",
+  "labels": [
+    {
+      "name": "",
+      "purpose": "receive"
+    }
+  ]
+}
 root@ubuntu:~# bitcoin-cli -testnet getnewaddress
 2N4fwyEsVN9Lowja9ab5ek4R3yck3PmasdN
 root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2N4fwyEsVN9Lowja9ab5ek4R3yck3PmasdN
 cVTFSWeeeB9uoKZgcCbCN7eovztbQzNySGsruAFrVSiiX8ogMqtJ
+root@ubuntu:~# bitcoin-cli -testnet getaddressinfo 2N4fwyEsVN9Lowja9ab5ek4R3yck3PmasdN
+{
+  "address": "2N4fwyEsVN9Lowja9ab5ek4R3yck3PmasdN",
+  "scriptPubKey": "a9147d566958f15ac3db0d1ba22d1c451a00f770c7db87",
+  "ismine": true,
+  "iswatchonly": false,
+  "isscript": true,
+  "iswitness": false,
+  "script": "witness_v0_keyhash",
+  "hex": "00144827658ef02893a863bd5fa16c1fb331ed6a49e9",
+  "pubkey": "0269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b5",
+  "embedded": {
+    "isscript": false,
+    "iswitness": true,
+    "witness_version": 0,
+    "witness_program": "4827658ef02893a863bd5fa16c1fb331ed6a49e9",
+    "pubkey": "0269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b5",
+    "address": "tb1qfqnktrhs9zf6scaat7skc8anx8kk5j0f0rstdv",
+    "scriptPubKey": "00144827658ef02893a863bd5fa16c1fb331ed6a49e9"
+  },
+  "label": "",
+  "timestamp": 1528804513,
+  "hdkeypath": "m/0'/0'/5'",
+  "hdseedid": "44f0e603435bf5f58481b24fd597e8bd9180c840",
+  "hdmasterkeyid": "44f0e603435bf5f58481b24fd597e8bd9180c840",
+  "labels": [
+    {
+      "name": "",
+      "purpose": "receive"
+    }
+  ]
+}
 ```
 
 生成 2-3 多签地址 `2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3`
@@ -1145,11 +1241,11 @@ root@ubuntu:~# bitcoin-cli -testnet addmultisigaddress 2 "[\"2Mv3bjnJv2XtDjAvjYf
 >
 > - 0x52 = OP_2
 > - 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
-> - 0x02f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46 = the next 33 bytes (public-key hash)
+> - 0x02f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46 = the next 33 bytes (public key)
 > - 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
-> - 0x0256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d = the next 33 bytes (public-key hash)
+> - 0x0256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d = the next 33 bytes (public key)
 > - 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
-> - 0x0269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b5 = the next 33 bytes (public-key hash)
+> - 0x0269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b5 = the next 33 bytes (public key)
 > - 0x53 = OP_3
 > - 0xae = OP_CHECKMULTISIG
 

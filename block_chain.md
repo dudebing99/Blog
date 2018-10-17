@@ -106,7 +106,7 @@ kevin@ubuntu:~$ bitcoin-cli -testnet -getinfo
 }
 ```
 
-##### 查看 UXTO 集合
+##### 查看 UTXOset
 
 ```bash
 root@ubuntu:~# bitcoin-cli -testnet gettxoutsetinfo

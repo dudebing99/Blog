@@ -106,6 +106,22 @@ kevin@ubuntu:~$ bitcoin-cli -testnet -getinfo
 }
 ```
 
+##### 查看 UXTO 集合
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet gettxoutsetinfo
+{
+  "height": 1439004,
+  "bestblock": "000000000000038fa537b200a3385df20d74733b68db7c55b2352e561a19c4b3",
+  "transactions": 6217918,
+  "txouts": 20349375,
+  "bogosize": 1528706234,
+  "hash_serialized_2": "d98c6a7b349f7f177663de37256c3073e525d23c5bf8aae60c9e531b06598835",
+  "disk_size": 1069346272,
+  "total_amount": 20810885.93776073
+}
+```
+
 ##### 钱包信息
 
 > 可通过 https://testnet.manu.backend.hamburg/faucet 获取免费的测试币
@@ -1191,38 +1207,6 @@ root@ubuntu:~# bitcoin-cli -testnet getnewaddress
 2N4fwyEsVN9Lowja9ab5ek4R3yck3PmasdN
 root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2N4fwyEsVN9Lowja9ab5ek4R3yck3PmasdN
 cVTFSWeeeB9uoKZgcCbCN7eovztbQzNySGsruAFrVSiiX8ogMqtJ
-root@ubuntu:~# bitcoin-cli -testnet getaddressinfo 2N4fwyEsVN9Lowja9ab5ek4R3yck3PmasdN
-{
-  "address": "2N4fwyEsVN9Lowja9ab5ek4R3yck3PmasdN",
-  "scriptPubKey": "a9147d566958f15ac3db0d1ba22d1c451a00f770c7db87",
-  "ismine": true,
-  "iswatchonly": false,
-  "isscript": true,
-  "iswitness": false,
-  "script": "witness_v0_keyhash",
-  "hex": "00144827658ef02893a863bd5fa16c1fb331ed6a49e9",
-  "pubkey": "0269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b5",
-  "embedded": {
-    "isscript": false,
-    "iswitness": true,
-    "witness_version": 0,
-    "witness_program": "4827658ef02893a863bd5fa16c1fb331ed6a49e9",
-    "pubkey": "0269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b5",
-    "address": "tb1qfqnktrhs9zf6scaat7skc8anx8kk5j0f0rstdv",
-    "scriptPubKey": "00144827658ef02893a863bd5fa16c1fb331ed6a49e9"
-  },
-  "label": "",
-  "timestamp": 1528804513,
-  "hdkeypath": "m/0'/0'/5'",
-  "hdseedid": "44f0e603435bf5f58481b24fd597e8bd9180c840",
-  "hdmasterkeyid": "44f0e603435bf5f58481b24fd597e8bd9180c840",
-  "labels": [
-    {
-      "name": "",
-      "purpose": "receive"
-    }
-  ]
-}
 ```
 
 生成 2-3 多签地址 `2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3`
@@ -1234,6 +1218,17 @@ root@ubuntu:~# bitcoin-cli -testnet addmultisigaddress 2 "[\"2Mv3bjnJv2XtDjAvjYf
   "redeemScript": "522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae"
 }
 ```
+
+> ```bash
+> root@ubuntu:~# bitcoin-cli -testnet validateaddress 2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3
+> {
+>   "isvalid": true,
+>   "address": "2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3",
+>   "scriptPubKey": "a91430b5e8e9151e46be789562580b0118911d875f3d87",
+>   "isscript": true,
+>   "iswitness": false
+> }
+> ```
 
 解码赎回脚本
 

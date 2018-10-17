@@ -14,6 +14,7 @@
 - [bitcoin-api](http://chainquery.com/bitcoin-api)
 - [developer-examples](https://bitcoin.org/en/developer-examples)
 - [bitcoin-2-of-3-multisig](https://github.com/anders94/bitcoin-2-of-3-multisig)
+- [unspent-transaction-output-set](https://statoshi.info/dashboard/db/unspent-transaction-output-set)
 - [区块链技术指南](http://book.8btc.com/blockchain_guide)
 - [区块链维基百科](https://en.wikipedia.org/wiki/Blockchain)
 - [图灵完备维基百科](https://en.wikipedia.org/wiki/Turing_completeness)

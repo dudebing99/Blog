@@ -3138,6 +3138,15 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 true
 ```
 
+##### 开启挖矿
+
+> 默认第一个账户得到挖矿收益吗，2 为挖矿占用的 CPU 数量
+
+```bash
+> miner.start(2)
+true
+```
+
 ##### 查看系统所有用户
 
 ```javascript

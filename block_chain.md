@@ -3171,7 +3171,7 @@ true
 
 操作成功后，用户别名 `user1`、`user2` 已经成功赋值
 
-##### 对账户进行解锁
+##### 解锁账户
 
 ```javascript
 > personal.unlockAccount(user2, '123')

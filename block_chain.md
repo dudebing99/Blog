@@ -3124,6 +3124,13 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 }
 ```
 
+##### 查看当前区块高度
+
+```bash
+> eth.blockNumber
+112
+```
+
 ##### 查看矿工账户
 
 ```bash

@@ -3198,10 +3198,14 @@ true
 
 ##### 解锁账户
 
+> 可设置解锁账户持续时间
+
 ```javascript
 > personal.unlockAccount(user2, '123')
 Error: could not decrypt key with given passphrase
 > personal.unlockAccount(user2, '123456')
+true
+> personal.unlockAccount(user2, '123456', 3600)
 true
 ```
 

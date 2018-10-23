@@ -3124,6 +3124,13 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 }
 ```
 
+##### 查看矿工账户
+
+```bash
+> eth.coinbase
+"0xce8c956ad62120682999ba6834a9ee88feadf70c"
+```
+
 ##### 查看系统所有用户
 
 ```javascript

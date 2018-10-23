@@ -910,6 +910,24 @@ personal.unlockAccount(eth.accounts[0])
 miner.start()
 ```
 
+## [geth] first argument must be the account to unlock
+
+**系统环境**
+
+Windows 7 Ultimate x64/geth 1.8.13
+
+**问题描述**
+
+以太坊私有网络，在控制台尝试解锁账户时报错，如上所示
+
+**原因分析**
+
+以太坊私有网络初始无账户，对不存在的账户解锁必然出错
+
+**解决方式**
+
+首先先建立账户 `personal.newAccount('password')` 即可，然后尝试解锁账户
+
 ## [NPM] sh: 1: node: not found npm WARN This failure might be due to the use of legacy binary 
 
 **系统环境**

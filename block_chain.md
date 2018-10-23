@@ -2872,7 +2872,7 @@ root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. dropprivkey
 
 > 上述命令即启动了一个节点服务，同时启动了一个控制台。实际上，可以独立启动节点服务，即，`./geth --datadir="./devdata" --dev --rpc --rpccorsdomain "*"`
 >
-> 需要启动控制台的时候，执行 `./geth attach http://localhost:8545` 或 `./geth attach ./testnet/geth.ipc`
+> 需要启动控制台的时候，执行 `./geth attach http://localhost:8545` 或 `./geth attach ./testnet/geth.ipc`
 >
 > ```bash
 > root@~/eth# ./geth attach ./testnet/geth.ipc

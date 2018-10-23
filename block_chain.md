@@ -3131,6 +3131,13 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 "0xce8c956ad62120682999ba6834a9ee88feadf70c"
 ```
 
+##### 设置矿工账户
+
+```bash
+> miner.setEtherbase(eth.accounts[0])
+true
+```
+
 ##### 查看系统所有用户
 
 ```javascript

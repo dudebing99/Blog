@@ -3144,6 +3144,13 @@ true
 
 ```bash
 > miner.start(2)
+null
+```
+
+##### 停止挖矿
+
+```bash
+> miner.stop()
 true
 ```
 

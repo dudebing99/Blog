@@ -3154,6 +3154,8 @@ null
 true
 ```
 
+> 合并挖矿操作：`miner.start(2); admin.sleepBlocks(1); miner.stop();`
+
 ##### 查看系统所有用户
 
 ```javascript

@@ -67,6 +67,13 @@ contract Producer {
 
 总结：使用时，加上枚举所在合约作为域前缀即可，例如 `Supplier.State.active`
 
+#### 合约函数可见性修饰符
+
+- **public** - all can access
+- **external** - Cannot be accessed internally, only externally
+- **internal** - only this contract and contracts deriving from it can access
+- **private** - can be accessed only from this contract
+
 ### Bitcoin
 
 #### minrelaytxfee、mintxfee

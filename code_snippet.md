@@ -4165,7 +4165,7 @@ contract Sample {
 
 使用 SolC 编译上述脚本
 
-```basic
+```bash
 root:ethereum# solc --optimize --abi --bin sample.sol
 
 ======= sample.sol:Sample =======

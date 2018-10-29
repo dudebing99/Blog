@@ -74,6 +74,12 @@ contract Producer {
 - **internal** - only this contract and contracts deriving from it can access
 - **private** - can be accessed only from this contract
 
+#### How to get contract internal transactions?
+
+There's not currently any way to do this using the web3 API. Internal transactions, despite the name (which isn't part of the yellowpaper; it's a convention people have settled on) aren't actual transactions, and aren't included directly in the blockchain; they're value transfers that were initiated by executing a contract.
+
+As such, they're not stored explicitly anywhere: they're the effects of running the transaction in question on the blockchain state. Blockchain explorers like etherscan obtain them by running a modified node with an instrumented EVM, which record all the value transfers that took place as part of transaction execution, storing them separately.
+
 ### Bitcoin
 
 #### minrelaytxfee、mintxfee

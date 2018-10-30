@@ -3392,10 +3392,6 @@ Contract JSON ABI
     stateMutability: "nonpayable",
     type: "constructor"
 }]
-
-> hex = "0x608060405234801561001057600080fd5b50604051602080610114833981016040525160005560e1806100336000396000f30060806040526004361060525763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416633fa4f2458114605757806360fe47b114607b5780636d4ce63c146092575b600080fd5b348015606257600080fd5b50606960a4565b60408051918252519081900360200190f35b348015608657600080fd5b50609060043560aa565b005b348015609d57600080fd5b50606960af565b60005481565b600055565b600054905600a165627a7a723058207098d9dc5ae86fe75d1016078954658c002f112da516ed90f64c901feb340d870029"
-"0x608060405234801561001057600080fd5b50604051602080610114833981016040525160005560e1806100336000396000f30060806040526004361060525763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416633fa4f2458114605757806360fe47b114607b5780636d4ce63c146092575b600080fd5b348015606257600080fd5b50606960a4565b60408051918252519081900360200190f35b348015608657600080fd5b50609060043560aa565b005b348015609d57600080fd5b50606960af565b60005481565b600055565b600054905600a165627a7a723058207098d9dc5ae86fe75d1016078954658c002f112da516ed90f64c901feb340d870029"
-
 > sample = eth.contract(abi)
 {
   abi: [{
@@ -3429,9 +3425,9 @@ Contract JSON ABI
       type: "constructor"
   }],
   eth: {
-    accounts: ["0x2f3efd9475fb969eecfdade75a1dae02dbd92e25"],
-    blockNumber: 0,
-    coinbase: "0x2f3efd9475fb969eecfdade75a1dae02dbd92e25",
+    accounts: ["0x96d81d81149a3a8501eb99fb8aca1cff5cc19d7c", "0x4c84487c52bfe27c8163d7728a3d3beb2927b57b", "0x273ff2cb17b58ff9af92bbc6382a15b9909401e2", "0x7290ea5a3475f50189123199a8e3a2801a1892a3", "0xefaa9f7b0e060b9e3d57c273b757522fd5a3e664", "0xe379d8f62f07bfd179eb8c071f1d63af3affee2c"],
+    blockNumber: 4335201,
+    coinbase: "0x96d81d81149a3a8501eb99fb8aca1cff5cc19d7c",
     compile: {
       lll: function(),
       serpent: function(),
@@ -3439,7 +3435,7 @@ Contract JSON ABI
     },
     defaultAccount: undefined,
     defaultBlock: "latest",
-    gasPrice: 1,
+    gasPrice: 3000000000,
     hashrate: 0,
     mining: true,
     pendingTransactions: [],
@@ -3494,7 +3490,7 @@ Contract JSON ABI
 
 ##### 把合约代码部署上链
 
-> 合约部署上链时，给构造函数传参  99，即赋初值 99
+> 合约部署上链（以太坊测试网络）时，给构造函数传参  99，即赋初值 99
 
 ```javascript
 > thesample = sample.new(99, {from:eth.accounts[0], data:hex, gas:3000000})
@@ -3530,7 +3526,7 @@ Contract JSON ABI
       type: "constructor"
   }],
   address: undefined,
-  transactionHash: "0x2280fe5f44756e44f0c7e9740f254ab18261d3b7836d801b43678ddf442480a0"
+  transactionHash: "0x62a76049a23ed43c2a805b5852ee743f4bf9e2274fcc9bb685a42327f7659308"
 }
 ```
 
@@ -3539,29 +3535,31 @@ Contract JSON ABI
 > 根据交易 hash 查看交易细节
 
 ```javascript
-> samplerecpt = eth.getTransactionReceipt("0x2280fe5f44756e44f0c7e9740f254ab18261d3b7836d801b43678ddf442480a0")
+> samplerecpt = eth.getTransactionReceipt("0x62a76049a23ed43c2a805b5852ee743f4bf9e2274fcc9bb685a42327f7659308")
 {
-  blockHash: "0x3656ba77328cd78087d3f5a61287d95241fba76d7de606868f1561f147a17dc1",
-  blockNumber: 1,
-  contractAddress: "0x1ce836d1d1839f1ed07b01ae152a4c5f0ee2a041",
-  cumulativeGasUsed: 134093,
-  from: "0x2f3efd9475fb969eecfdade75a1dae02dbd92e25",
+  blockHash: "0xc6a60ac6e3f290378102c1d6b7676be5a59015d92c6b670468fa90f18a602490",
+  blockNumber: 4335203,
+  contractAddress: "0xe9a29710d25e0819444d11ba75fecf11fefb3411",
+  cumulativeGasUsed: 160022,
+  from: "0x96d81d81149a3a8501eb99fb8aca1cff5cc19d7c",
   gasUsed: 134093,
   logs: [],
   logsBloom: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
   status: "0x1",
   to: null,
-  transactionHash: "0x2280fe5f44756e44f0c7e9740f254ab18261d3b7836d801b43678ddf442480a0",
-  transactionIndex: 0
+  transactionHash: "0x62a76049a23ed43c2a805b5852ee743f4bf9e2274fcc9bb685a42327f7659308",
+  transactionIndex: 1
 }
 ```
+
+![](pic/blockchain/deploy_contract.png)
 
 ##### 合约命名
 
 > 交易信息中，contractAddress 表示合约地址
 
 ``` javascript
-> samplecontract = sample.at("0x1ce836d1d1839f1ed07b01ae152a4c5f0ee2a041")
+> samplecontract = sample.at("0xe9a29710d25e0819444d11ba75fecf11fefb3411")
 {
   abi: [{
       constant: true,
@@ -3622,6 +3620,52 @@ Contract JSON ABI
 > samplecontract.get.call()
 1001
 ```
+
+#### 区块浏览器与合约
+
+> 此处特指以太坊测试网络区块浏览器 `https://ropsten.etherscan.io`
+
+##### 验证与发布
+
+在以太坊测试网络 `code` 菜单选择 `verify and publish`，提交合约源码并验证
+
+![](pic/blockchain/verify_publish.png)
+
+填写合约名字、编译器版本、是否开启优化选项，然后将合约代码粘贴（如果项目中合约包含多个文件，将多个文件内容整合即可）
+
+![](pic/blockchain/verify_publish2.png)
+
+![](pic/blockchain/verify_publish3.png)
+
+再次回到以太坊测试网查看合约信息，可看到合约已通过验证的提示
+
+![](pic/blockchain/verify_publish4.png)
+
+##### 合约读接口
+
+在 `Read Contract` 菜单可以查看或调用合约读接口
+
+![](pic/blockchain/read_contract.png)
+
+##### 合约写接口
+
+在 `Write Contract` 菜单，借助于 `Metamask` 可以调用合约写接口
+
+![](pic/blockchain/write_contract.png)
+
+根据上述提示 `Connect with Metamask`，连接 `Metamsk`
+
+![](pic/blockchain/write_contract2.png)
+
+连接 `Metamask` 之后，即可调用合约写接口
+
+##### 查看合约相关交易
+
+![](pic/blockchain/get_transaction3.png)
+
+##### 查看合约相关事件
+
+![](pic/blockchain/get_event.png)
 
 ### 以太坊 web3.js 开发基础
 

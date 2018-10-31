@@ -91,7 +91,18 @@ As such, they're not stored explicitly anywhere: they're the effects of running 
 - mintxfee is the minimum fee that the client will *create* a transaction with
 
 > So, if minrelaytxfee is set to 0.00001 your node will happily relay any transactions with that fee or higher (ie. yours and other peoples txes)... however, if you then set mintxfee to 0.00005, then any transaction you create will have that value as the minimum possible fee, but you'll still relay other peoples txes with fees of only 0.00001. 
+
+### Ethereum
+
+#### Can I Speed Up My Transaction?
+
+> 可通过 [https://ethgasstation.info/](https://ethgasstation.info/) 查看最近交易的平均交易费，以及交易费对应的优先级、大概确认时间等信息。
+
+可以通过设置高额的 `gas price` 提高交易处理的优先级，进而达到加快交易确认速度。
+
+> You can actually choose the priority level of your transaction. Miners will “work on” and execute transactions that offer a **higher gas price**, as they’ll get to keep the fees that you pay. Therefore, they will be incentivized to prioritize transactions that have a higher Gwei.
 >
+> If you want your transaction to be executed at a faster speed, then you have to be willing to pay a higher gas price. You’re essentially “jumping the line”, beating everybody that paid a lower gas price. 
 
 ### 数据库
 

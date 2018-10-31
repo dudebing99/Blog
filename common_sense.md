@@ -104,6 +104,24 @@ As such, they're not stored explicitly anywhere: they're the effects of running 
 >
 > If you want your transaction to be executed at a faster speed, then you have to be willing to pay a higher gas price. You’re essentially “jumping the line”, beating everybody that paid a lower gas price. 
 
+#### Gas/Gas Price/Gas Limit 之间的关系
+
+![](pic/commonsense/gas_gasprice_gaslimit.png) 
+
+Looking at this transaction at [Etherscan](https://etherscan.io/), we can see the breakdown of all terms associated with gas. Here’s what they mean:
+
+**Gas Limit:** Maximum amount of gas that a user will pay for this transaction. The default amount for a standard ETH transfer is 21,000 gas
+
+**Gas Used by Txn**: Actual amount of gas used to execute the transaction. Since this is a standard transfer, the gas used is also 21,000
+
+**Gas Price:** Amount of ETH a user is prepared to pay for each unit of gas. The user chose to pay 8 Gwei for every gas unit, which is considered a “high priority” transaction and would be executed very fast
+
+**Actual Tx Cost Fee:** This is the actual amount of fees that the user will pay for the transaction in Ether value (USD value is in brackets). Not bad; the user paid a total of 2 cents for his ETH to be transferred in less than 1 minutes!
+
+In summary, the ultimate formula to calculate the amount of fees you'll end up paying for a transaction is:
+
+`实际交易费用 = 交易实际消耗的 Gas * Gas Price`
+
 ### 数据库
 
 #### SQL 注入

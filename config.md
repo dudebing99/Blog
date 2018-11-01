@@ -3092,8 +3092,22 @@ $ git config commit.gpgsign true
 ```
 
 > 设置全局生效，使用 `git config --global commit.gpgsign true`
->
+
 > 关闭，使用 `git config commit.gpgsign false`
->
+
 > 也可以每次提交时，指定使用 GPG 签名 `git commit -S -m "your commit message"`
+>
+> ```bash
+> kevin@kevin-PC MINGW64 /d/blog (master)
+> $ git commit -m "config: Windows 配置 GPG 签名 commit" -S
+> 
+> You need a passphrase to unlock the secret key for
+> user: "Kevin (wupolifa1) <c.r2009@163.com>"
+> 2048-bit RSA key, ID FF939C7E, created 2018-11-01
+> 
+> [master 9059a7a] config: Windows 配置 GPG 签名 commit
+>  4 files changed, 152 insertions(+), 4 deletions(-)
+>  create mode 100644 pic/config/gpg1.png
+>  create mode 100644 pic/config/gpg2.png
+> ```
 

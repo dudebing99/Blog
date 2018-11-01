@@ -2949,3 +2949,151 @@ root:fabric#
 
    将 julia 安装路径添加到环境变量 `Path` 即可
 
+## Windows 配置 GPG 签名 commit
+
+1. 安装 gpg4win
+2. 生成 GPG 密钥
+
+```bash
+$ gpg --list-secret-keys --keyid-format LONG
+gpg: /c/Users/kevin/.gnupg/trustdb.gpg: trustdb created
+
+kevin@kevin-PC MINGW64 /d/blog (master)
+$ gpg --gen-key
+gpg (GnuPG) 1.4.22; Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Please select what kind of key you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+Your selection? 1
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (2048)
+Requested keysize is 2048 bits
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+Key is valid for? (0)
+Key does not expire at all
+Is this correct? (y/N)
+Key is valid for? (0)
+Key does not expire at all
+Is this correct? (y/N) y
+
+You need a user ID to identify your key; the software constructs the user ID
+from the Real Name, Comment and Email Address in this form:
+    "Heinrich Heine (Der Dichter) <heinrichh@duesseldorf.de>"
+
+Real name: Kevin
+Email address: c.r2009@163.com
+Comment: wupolifa1
+You selected this USER-ID:
+    "Kevin (wupolifa1) <c.r2009@163.com>"
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+You need a Passphrase to protect your secret key.
+
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+....+++++
++++++
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+.........+++++
+.+++++
+gpg: key FF939C7E marked as ultimately trusted
+public and secret key created and signed.
+
+gpg: checking the trustdb
+gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model
+gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
+pub   2048R/FF939C7E 2018-11-01
+      Key fingerprint = 7032 C3B1 BC33 6747 3FD9  04C7 4A96 54CE FF93 9C7E
+uid                  Kevin (wupolifa1) <c.r2009@163.com>
+sub   2048R/3B2770AE 2018-11-01
+
+
+kevin@kevin-PC MINGW64 /d/blog (master)
+$ gpg --list-secret-keys --keyid-format LONG
+/c/Users/kevin/.gnupg/secring.gpg
+---------------------------------
+sec   2048R/4A9654CEFF939C7E 2018-11-01
+uid                          Kevin (wupolifa1) <c.r2009@163.com>
+ssb   2048R/8AA6B7CD3B2770AE 2018-11-01
+```
+
+> 其中，`pub` 为公钥，`sub` 为私钥
+
+3. 获取公钥
+
+```bash
+$ gpg --armor --export 8AA6B7CD3B2770AE
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mQENBFvbIzsBCADD4jQLsEmpRLyy99iSIU666JF+2abGACpab+KT1KTFGFncTscr
+//4cf90fQvxYe5O5AwirDT7Gfa8QY4QVDVCY+RysYMYExEcmdLwzqI7yiCd7n8h7
+PQ9/oaA4i6X/VgTZehYdI0MSzcPIK1XywyJgW/0HYrDoZbs9bXlNGamp7vGTiT4h
+gq3HdAPUXa65/4r0dQdWmrhYrR4Ls8hyUnx6KQQ+LC3kMmu87Z32J3I8uGwVpKk9
+mOYnxM9jaPcHMwjQXBzed8rmL6S1yps21i1ct9pgz7k0u5G8i5z2AaijCsG/X1Pd
+Rieh5aWN9/uRL6ivfRt/Xn4BaLFRWzE9DFzbABEBAAG0I0tldmluICh3dXBvbGlm
+YTEpIDxjLnIyMDA5QDE2My5jb20+iQE4BBMBAgAiBQJb2yM7AhsDBgsJCAcDAgYV
+CAIJCgsEFgIDAQIeAQIXgAAKCRBKllTO/5Ocfs/vB/4qqvw9lEFwdIsBXOg7y/Bz
+tyspDY0qvl0F2a9DFgY2HnUgHFD99GMG8YWXg4gP+EQ/P/ZWz5kmYdgT64vSrKEJ
+n94Mc/Wt8AvRF1Z2C0Cld4Eyg9KGF6+z8eBEaGbjCREyaKMSkQ4Butk0LUZHQbJX
+DmZFJ4IPZDm8u/XXLYudUTRWuwofXvqRVAYNRRspkXBz5F4/fzPa3uS1dU9SdydM
+RHZ3I4ivr3ZyckpXtF8H9skVKxnyR9CTq2K+ZYgQ4Y3rY//itcjjxw51XIizDMtX
+pTzD1fenf1u5smUgmTifnnOmJ4UuX207jpdBHCqihcUxFrHZBwd8XuPtm2Xzjo7P
+uQENBFvbIzsBCADPjsXvIKzdhN9is0Q7GupI8vrClOQZxk5MXSnFC9nEjWYCxtwp
+TRbOSIz6soJDtgAP9ywsIZLJCnRtFxEbmNq62FqGV28wlaFQ9DXGGOFwWZ9SnUDQ
+vlw91WaZmRNfp2TlYcRyYReeP0RpSaIUqLBM7m5x5oL+I8nQSGQ7IhDSa4JPTkxz
+N1D+rn8GSqnLKSy/3hJ8TJRLu8NDmVrZL9Bono/+2uktgStZ4tkCW8JRRxr+luTH
+1Je6k7wxGy9ZjnltKR5rjWr9vy5+RKUbULsE4EB449DfRKpXVRjEnFdW97ve9r1M
+yMSOrp+Rdgmux5LeRvxeHkfZHBjpVwh/fo1pABEBAAGJAR8EGAECAAkFAlvbIzsC
+GwwACgkQSpZUzv+TnH5Gkgf/TPZuVntRuGtRRlDOkzrvLNQaFRbkU1wYlUK7H0tA
+XJNlqLmSs5xbNgIYVUnDmlZz05sLQDeBC+0AzQlZLxu387BKOnY4n4ENNuemvQEX
+hCHJGh7WjPbyePIDs1keNZPElvk1V4kVVPqy6nCgQfWky1twY407d43F2wrDOPAT
+ioMgH7JqnB2UXVWDui32y4GTM4qZYcN6R5YxAFJcMbfq9O55F8J4uucs+mbRTMgP
+grspFu3RPZzaFyO+Yg/osiyb1G+rELjOkE8GC/g0IEIm+IHShHExlXPlSqvfbRCc
+kyvEg5BUv27Zdkp0M4AWRFZBKEUDJSv9P6xPh4vxIx+lIg==
+=XZvL
+-----END PGP PUBLIC KEY BLOCK-----
+```
+
+4. 拷贝上面得到的公钥到 github 账号中，格式如下
+
+   开头：`-----BEGIN PGP PUBLIC KEY BLOCK-----`，结尾：`-----END PGP PUBLIC KEY BLOCK-----`
+
+![](pic/config/gpg1.png)
+
+![](pic/config/gpg2.png)
+
+5. 设置 git 签名时使用的 `key`
+
+> 通过 `gpg --list-keys` 查看 `Pub GPG key ID`
+
+```bash
+$ git config --global user.signingkey FF939C7E
+```
+
+6. 设置使用 GPG 签名 `commit`
+
+```bash
+$ git config commit.gpgsign true
+```
+
+> 设置全局生效，使用 `git config --global commit.gpgsign true`
+>
+> 关闭，使用 `git config commit.gpgsign false`
+>
+> 也可以每次提交时，指定使用 GPG 签名 `git commit -S -m "your commit message"`
+

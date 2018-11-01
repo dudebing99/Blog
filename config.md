@@ -746,7 +746,7 @@ a.md-toc-inner {
 
 ## Makefile 模板
 
-```basic
+```bash
 INCLUDES := -I. -I./include -I/opt/Ice-3.5.1/include
 LIBS := -Wl,--enable-new-dtags -Wl,-rpath,/opt/Ice-3.5/lib64
 LIBS += -Wl,-Bstatic  -L./lib -lcpp_redis -ltacopie
@@ -774,7 +774,7 @@ client: db.o dbi.o client.o
 clean:
 	rm -f *.o $(TARGETS)
 ```
-## 基于 vsftpd 的 ftp 服务器
+## CentOS 安装配置 vsftpd
 
 ### 授权用户访问模式
 
@@ -886,7 +886,8 @@ pasv_max_port=31000
 -A INPUT -p tcp --dport 30000:31000 -j ACCEPT
 ```
 
-## 安装配置 Apache Tomcat 9，支持 http2
+## CentOS 安装配置 Apache Tomcat 9，支持 http2
+
 ```bash
 #!/bin/sh
 
@@ -1634,7 +1635,7 @@ Successfully installed Jinja2-2.10 Werkzeug-0.14.1 click-6.7 flask-1.0.2 gevent-
 [2018-07-22 17:07:53,502] iZwz9cynwitmm46uagetmvZ/INFO/stdout:
 ```
 
-## zookeeper/kafka 安装配置
+## CentOS 安装配置 zookeeper/kafka
 
 ```bash
 zookeeper-3.4.6 安装配置
@@ -1858,7 +1859,7 @@ Host 172.13.31.14
 
 6. 登陆 Gerrit，进入个人中心，将上一步产生的公钥 id_rsa.pub 添加到 SSH 公钥（SSH Public Keys）
 
-## gSOAP 2.8.18 安装
+## CentOS 安装 gSOAP 2.8.18
 
 1. 安装 gSOAP 2.8.18
 
@@ -1879,7 +1880,7 @@ make -j4 && make install
 
 3. source /etc/profile
 
-## Nginx 用户认证配置
+## CentOS 配置 Nginx 用户认证
 
 1. 利用 htpasswd 生成密码文件
 
@@ -2207,7 +2208,7 @@ mail -s "test" -a ca.pem cloud_dev@bigsillybear.com < ca.pem
 # 发送主题为 test，邮件正文为 hello world 的邮件到 cloud_dev@bigsillybear.com
 echo "hello world"|mail -s "test" cloud_dev@bigsillybear.com
 ```
-## Windows 下 nodejs /npm 安装配置
+## Windows 安装配置 nodejs/npm
 
 > **说明：**使用 Node.js 的 npm 命令需要访问国外的站点，但由于国内网络的问题，可能安装 react-native-cli 的速度会比较慢，甚至完全无法安装，淘宝为国内开发者提供了 npm 镜像服务。
 >
@@ -2226,7 +2227,7 @@ npm install -g cnpm --registry=https://registry.npm.taobao.org
 # npm 后接参数的命令都可以把 npm 换为 cnpm 来加快速度，比如安装 react-native-cli
 cnpm install -g react-native-cli
 ```
-## Windows 下 Git Bash 支持 wget/make/protoc
+## Windows 安装 Git Bash 支持 wget/make/protoc
 
 > **参考资料：**[How to add more to Git Bash on Windows](https://gist.github.com/evanwill/0207876c3243bbb6863e65ec5dc3f058)
 

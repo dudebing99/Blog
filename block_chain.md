@@ -3824,7 +3824,43 @@ BigNumber { s: 1, e: 0, c: [ 0 ] }
 
 ### 以太坊智能合约编译、部署、调试
 
+> 此处合约特指 `Solidity`
 
+#### 编译
+
+- 通过 `solc` 编译
+- 通过 `remix-ide` 本地环境编译
+- 通过 `remix` 在线环境编译，如 [https://remix.ethereum.org](https://remix.ethereum.org)
+
+#### 部署
+
+- 通过运行以太坊节点 `geth` 控制台部署
+- 通过连接以太坊节点 `geth`，以客户端的形式连接节点并运行脚本
+- 通过 `remix-ide` 或在线 `remix` 部署
+
+#### 调试
+
+> 此处特指 `remix` 或 `remix-ide` 调试
+
+- `JavaScript VM` 模式
+
+  虚拟机模式，内置 5 个账户，每个账户余额 100 以太坊
+
+![](pic/blockchain/javascript_vm.png)
+
+- `Injected Web3` 模式
+
+  注入模式，先登录 `Metamask`，假设登录的是测试网账户，并且余额为 1.93 以太坊
+
+  ![](pic/blockchain/metamask.png)
+
+![](pic/blockchain/injected_web3.png)
+
+- `Web3 Provider` 模式
+
+  本地运行一个 节点（主网、测试网、私有网、开发者网络均可），remix 连接本地的节点，如，本地运行开发者网络
+
+![](pic/blockchain/web3_provider.png)
 
 ### 以太坊智能合约： ERC20 Token
 

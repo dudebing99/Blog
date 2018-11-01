@@ -5235,7 +5235,7 @@ function withdraw(address to, uint256 amount) {
 
 > 合约 A 以 `call` 方式调用外部合约 B 的 `func()` 函数，在外部合约 B 上下文执行完 `func()` 后继续返回 A 合约上下文继续执行；而当 A 以 `delegatecall` 方式调用时，相当于将外部合约 B 的 `func()` 代码复制过来（其函数中涉及的变量或函数都需要存在）在 A 上下文空间中执行。
 
-![img](pic/blockchain/call_delegatecall.png)
+![](pic/blockchain/call_delegatecall.png)
 
 #### 存在漏洞的合约
 

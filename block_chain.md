@@ -3667,7 +3667,7 @@ Contract JSON ABI
 
 ![](pic/blockchain/get_event.png)
 
-### 以太坊 web3.js 开发基础
+### 以太坊 web3 开发基础
 
 > **OS:** Ubuntu 14.04.5 LTS
 >

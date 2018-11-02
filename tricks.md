@@ -622,6 +622,36 @@ git blame <filename>
 git push --mirror git@github.com:dudebing99/project2.git
 ```
 
+### github 同步 fork 仓库
+
+> 以同步 `master` 分支为例，其他分支同理
+
+1. 克隆已 fork 的项目到本地
+
+```bash
+git clone git@github.com:YOUR-USERNAME/YOUR-FORKED-REPO.git
+```
+
+2. 添加远程原始仓库
+
+```bash
+cd into/cloned/fork-repo
+git remote add upstream git://github.com/ORIGINAL-DEV-USERNAME/REPO-YOU-FORKED-FROM.git
+git fetch upstream
+```
+
+3. 同远程原始仓库同步
+
+```bash
+git pull upstream master
+```
+
+4. 同步之后推送到 github 已 fork 的项目
+
+```bash
+git push
+```
+
 ## 同步机器时间、硬件时钟
 
 ```bash

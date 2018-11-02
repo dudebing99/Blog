@@ -3621,24 +3621,27 @@ Contract JSON ABI
 1001
 ```
 
-### 以太坊 web3 开发基础
+### 以太坊开发基础
 
-> **OS:** Ubuntu 14.04.5 LTS
+> **基础环境：**NPM v5.6.0/nodejs v8.11.3
 >
-> **NPM:** 5.6.0
->
-> **nodejs:** 8.11.3
->
-> **web3:** 0.20.1（**注意：不同版本接口不兼容**）
 
-#### 简介
+#### web3
 
-`web3.js` 是一个通过 [RPC 调用](https://github.com/ethereum/wiki/wiki/JSON-RPC) 和本地以太坊节点进行通信的 js 库。`web3.js` 可以与任何暴露了 RPC 接口的以太坊节点连接。 `web3` 中提供了 `eth` 对象 `web3.eth` 来与以太坊区块链进行交互。
+> `web3.js` 是一个通过 [RPC 调用](https://github.com/ethereum/wiki/wiki/JSON-RPC) 和本地以太坊节点进行通信的 js 库
 
-#### 安装 testrpc
+> `web3.js` 可以与任何暴露了 RPC 接口的以太坊节点连接。 `web3` 中提供了 `eth` 对象 `web3.eth` 来与以太坊区块链进行交互
+
+```bash
+npm install -g web3@0.20.1
+```
+
+> web3 不同版本接口不兼容，根据需要安装对应版本
+
+#### testrpc
 
 > - `ethereumjs-testrpc` 库后续被重命名为 `Ganache CLI`
-> - `testrpc` 不同于 `geth`，`geth` 是真正的以太坊环境，`testrpc` 是在本地使用内存模拟的一个以太坊环境，对于开发调试来说，更为方便快捷，当合约在 `testrpc` 中测试通过后，再部署到 `geth` 中去。
+> - `testrpc` 不同于 `geth`，`geth` 是真正的以太坊环境，`testrpc` 是在本地使用内存模拟的一个以太坊环境，对于开发调试来说，更为方便快捷，当合约在 `testrpc` 中测试通过后，再部署到 `geth` 中去
 
 ```bash
 root:~#  npm install -g ethereumjs-testrpc
@@ -3650,9 +3653,9 @@ npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@
 updated 1 package in 11.83s
 ```
 
-#### 启动 testrpc
+> 运行 testrpc 之后自动创建 10 个账户，每个账户默认有 100 个以太币
 
-> **备注：**自动创建 10 个账户，每个账户默认有 100 个以太币
+> 可指定运行参数，例如设置 gaslimit、出块时间 `testrpc --gasLimit 0x800000000 -b 2`
 
 ```bash
 root:~# testrpc
@@ -3692,88 +3695,16 @@ Base HD Path:  m/44'/60'/0'/0/{account_index}
 Listening on localhost:8545
 ```
 
-#### 方式一：交互式操作
+#### truffle
 
-- 初始化 web3
+> `Truffle` 是最流行的开发框架，能够在本地编译、部署智能合约，使命是让开发更容易
+>
+> `Truffle` 需要以太坊客户端支持，需要支持标准的 `JSON RPC API`
 
-> 执行 node 进入交互式环境，输入（复制 + 粘贴）如下代码
-
-```javascript
-let Web3 = require('web3');
-let web3;
-
-if (typeof web3 !== 'undefined') {
-    web3 = new Web3(web3.currentProvider);
-} else {
-    // set the provider you want from Web3.providers
-    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-}
-```
-
-- 查看账户
-
-```javascript
-> web3.eth.accounts
-[ '0x931a85a8b24e00e5aa56651a64dd55f3c849fe14',
-  '0x7a74f95c7b520f498b31fedcbffaa9a1b12a7dea',
-  '0xe4ef6200839fd673eb1dd42db3842bb4cbf1450b',
-  '0x9444971ba35b6dcbca9909021cb6463902940dc6',
-  '0x79d39a05ec5afda98ccd435ba0124de32a186619',
-  '0xeaef1169fdb348b44efe860228666a35f2a33476',
-  '0xb7e4e662bf202c16c4d2e6c9b8254f3dc771f9b2',
-  '0xf887537611c4f20b788c0448e912e29cbc46e398',
-  '0x33687b265c9910ae865334735959f9d02c874db2',
-  '0x20587c3c3609c4cd954364c828b85077d68357cd' ]
-```
-
-- 查看账户余额
-
-```javascript
-> web3.eth.getBalance('0x931a85a8b24e00e5aa56651a64dd55f3c849fe14')
-BigNumber { s: 1, e: 20, c: [ 1000000 ] }
-```
-
-#### 方式二：运行 js 脚本
-
-- 创建包含操作的 js 脚本
-
-```javascript
-let Web3 = require('web3');
-let web3;
-
-if (typeof web3 !== 'undefined') {
-    web3 = new Web3(web3.currentProvider);
-} else {
-    // set the provider you want from Web3.providers
-    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-}
-
-version = web3.version.api
-console.log(version);
-
-console.log(web3.eth.accounts);
-
-console.log(web3.eth.getBalance('0x3ead381b015ee447e753081f96b918350861417e'));
-```
-
-- 执行脚本
+> 可指定安装版本，如 `npm install -g truffle@4.0.0`
 
 ```bash
-root:ethereum# node test.js
-0.20.1
-[ '0x931a85a8b24e00e5aa56651a64dd55f3c849fe14',
-  '0x7a74f95c7b520f498b31fedcbffaa9a1b12a7dea',
-  '0xe4ef6200839fd673eb1dd42db3842bb4cbf1450b',
-  '0x9444971ba35b6dcbca9909021cb6463902940dc6',
-  '0x79d39a05ec5afda98ccd435ba0124de32a186619',
-  '0xeaef1169fdb348b44efe860228666a35f2a33476',
-  '0xb7e4e662bf202c16c4d2e6c9b8254f3dc771f9b2',
-  '0xf887537611c4f20b788c0448e912e29cbc46e398',
-  '0x33687b265c9910ae865334735959f9d02c874db2',
-  '0x20587c3c3609c4cd954364c828b85077d68357cd',
-  '0xb272afb0246c0b29768976384713d277ab09a92d',
-  '0x1a671ee00f4233dcd572c92f88a187a0f134aeca' ]
-BigNumber { s: 1, e: 0, c: [ 0 ] }
+npm install -g truffle
 ```
 
 ### 以太坊智能合约编译、部署、调试

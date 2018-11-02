@@ -3697,14 +3697,98 @@ Listening on localhost:8545
 
 #### truffle
 
-> `Truffle` 是最流行的开发框架，能够在本地编译、部署智能合约，使命是让开发更容易
->
-> `Truffle` 需要以太坊客户端支持，需要支持标准的 `JSON RPC API`
+> `Truffle` 是最流行的开发框架，能够在本地编译、部署智能合约，使命是让开发更容易；`Truffle` 需要以太坊客户端支持，需要支持标准的 `JSON RPC API`
+
+> truffle 集成了 web3.js（可能使用较低版本的 web3.js，与最新版本的 web3.js 接口、语法可能存在不兼容）
 
 > 可指定安装版本，如 `npm install -g truffle@4.0.0`
 
 ```bash
 npm install -g truffle
+```
+
+### 以太坊 Truffle、TestRPC 开发基础
+
+> **基础环境：**EthereumJS TestRPC v6.0.3 (ganache-core: 2.0.2)/Truffle v4.1.14 (core: 4.1.14)/Solidity v0.4.24 (solc-js)
+
+1. 启动 TestRPC 服务
+
+```bash
+$ testrpc --gasLimit 0x800000000 -b 2
+```
+
+2. 新建 Truffle 工程，并初始化
+
+```bash
+Administrator@USER-20180502AZ MINGW64 /e
+$ mkdir project
+
+Administrator@USER-20180502AZ MINGW64 /e
+$ cd project/
+
+Administrator@USER-20180502AZ MINGW64 /e/project
+$ truffle init
+Downloading...
+Unpacking...
+Setting up...
+Unbox successful. Sweet!
+
+Commands:
+
+  Compile:        truffle compile
+  Migrate:        truffle migrate
+  Test contracts: truffle test
+
+Administrator@USER-20180502AZ MINGW64 /e/project
+$ ls
+contracts/  migrations/  test/  truffle.js  truffle-config.js
+```
+
+> 在 Windows 下，删除 `truffle.js`，否则有 `truffle-config.js` 重定义问题
+
+> - `contracts` 智能合约目录
+> - `migrations` 发布脚本目录
+> - `test` 存放测试文件
+> - `truffle.js` Truffle的配置文件
+
+修改 `truffle-config.js` 文件，内容如下
+
+```javascript
+module.exports = {
+  networks: {
+    development: {
+      host: "localhost",
+      port: 8545,
+      network_id: "*" // Match any network id
+    }
+  }
+};
+```
+
+3. 编译合约
+
+> `Truffle` 仅默认编译自上次编译后被修改过的文件，来减少不必要的编译。如果你想编译全部文件，可以使用  `--compile-all` 选项
+
+```bash
+$ truffle compile
+Compiling .\contracts\Migrations.sol...
+Writing artifacts to .\build\contracts
+```
+
+4. 创建业务合约并编译
+
+   在 `contracts` 编写业务合约 `MyStringStore.sol`；在 `migrations` 添加
+
+```javascript
+pragma solidity ^0.4.24;
+
+contract MyStringStore {
+  string public myString = "Hello World";
+
+  function set(string x) public {
+    myString = x;
+  }
+}
 ```
 
 ### 以太坊智能合约编译、部署、调试

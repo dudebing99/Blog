@@ -685,13 +685,12 @@ rdate -t 30 -s time.nist.gov && hwclock -w
   ServerAliveInterval 30
   ```
 
-		以上在客户端配置后，就会有反空闲设置，即每 30s 会自动和服务端做一次确认。
-		
-		如果在 Windows 下使用 SecureCRT，如下操作即可
+  > 以上在客户端配置后，就会有反空闲设置，即每 30s 会自动和服务端做一次确认。如果在 Windows 下使用 SecureCRT，如下操作即可
+  >
 
 ![](pic/securecrt/keepalive.png)
 
-	如果在 Windows 下使用 Putty，putty -> Connection -> Seconds between keepalives ( 0 to turn off )，默认为 0，改为30。
+> 如果在 Windows 下使用 Putty，putty -> Connection -> Seconds between keepalives ( 0 to turn off )，默认为 0，改为30
 
 ## 跳板机 Jumpserver 上传/下载文件
 
@@ -814,7 +813,7 @@ $db
 **语法：**insert into table(column1, column2, ..., columnN) select value1, value2, value3, ..., valueN from dual where not exists (condition clause)
 
    ```sql
- insert into push_log_tbl(guid, origin_url, new_url, beg_ts) select '1111', '', '', sysdate() from dual where not exists (select guid from push_log_tbl where guid='1111');
+insert into push_log_tbl(guid, origin_url, new_url, beg_ts) select '1111', '', '', sysdate() from dual where not exists (select guid from push_log_tbl where guid='1111');
    ```
 
 ### timestamp 字段查询
@@ -822,7 +821,7 @@ $db
 **场景一：**查询某个时间范围的数据
 
 ```sql
- SELECT `id`, `create_time` FROM `record` WHERE (create_time >= '2011-05-27 11:27:00') ORDER BY id DESC LIMIT 0, 20
+SELECT `id`, `create_time` FROM `record` WHERE (create_time >= '2011-05-27 11:27:00') ORDER BY id DESC LIMIT 0, 20
 ```
 
 **场景二：**查询某一天数据
@@ -942,14 +941,14 @@ events {
 
 - `multi_accept` 设置 nginx 收到一个新连接通知后接受尽可能多的链接
 
-> ```basic
-> Syntax:	multi_accept on | off;
-> Default:	
-> multi_accept off;
-> Context:	events
-> ```
->
-> If `multi_accept` is disabled, a worker process will accept one new connection at a time. Otherwise, a worker process will accept all new connections at a time.
+  ```bash
+  Syntax:	multi_accept on | off;
+  Default:	
+  multi_accept off;
+  Context:	events
+  ```
+
+  If `multi_accept` is disabled, a worker process will accept one new connection at a time. Otherwise, a worker process will accept all new connections at a time.
 
 - `use` 设置用于复用客户端线程的轮询方法。如果你使用 `Linux 2.6+`，你应该使用 `epoll`。如果你使用 `BSD`，你应该使用 `kqueue`
 

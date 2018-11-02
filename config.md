@@ -3024,6 +3024,9 @@ sub   2048R/3B2770AE 2018-11-01
 
 3. 获取公钥
 
+> 通过 `gpg --list-keys` 查看 `Pub GPG key ID`
+>
+
 ```bash
 $ gpg --armor --export FF939C7E
 -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -3057,17 +3060,13 @@ kyvEg5BUv27Zdkp0M4AWRFZBKEUDJSv9P6xPh4vxIx+lIg==
 -----END PGP PUBLIC KEY BLOCK-----
 ```
 
-4. 拷贝上面得到的公钥到 github 账号中，格式如下
-
-   开头：`-----BEGIN PGP PUBLIC KEY BLOCK-----`，结尾：`-----END PGP PUBLIC KEY BLOCK-----`
+4. 拷贝上面得到的公钥到 github 账号设置 `SSH and GPG keys`
 
 ![](pic/config/gpg1.png)
 
 ![](pic/config/gpg2.png)
 
 5. 设置 git 签名时使用的 `key`
-
-> 通过 `gpg --list-keys` 查看 `Pub GPG key ID`
 
 ```bash
 $ git config --global user.signingkey FF939C7E

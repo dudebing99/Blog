@@ -2981,9 +2981,6 @@ Please specify how long the key should be valid.
       <n>y = key expires in n years
 Key is valid for? (0)
 Key does not expire at all
-Is this correct? (y/N)
-Key is valid for? (0)
-Key does not expire at all
 Is this correct? (y/N) y
 
 You need a user ID to identify your key; the software constructs the user ID

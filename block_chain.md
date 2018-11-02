@@ -3621,52 +3621,6 @@ Contract JSON ABI
 1001
 ```
 
-#### 区块浏览器与合约
-
-> 此处特指以太坊测试网络区块浏览器 `https://ropsten.etherscan.io`
-
-##### 验证与发布
-
-在以太坊测试网络 `code` 菜单选择 `verify and publish`，提交合约源码并验证
-
-![](pic/blockchain/verify_publish.png)
-
-填写合约名字、编译器版本、是否开启优化选项，然后将合约代码粘贴（如果项目中合约包含多个文件，将多个文件内容整合即可）
-
-![](pic/blockchain/verify_publish2.png)
-
-![](pic/blockchain/verify_publish3.png)
-
-再次回到以太坊测试网查看合约信息，可看到合约已通过验证的提示
-
-![](pic/blockchain/verify_publish4.png)
-
-##### 合约读接口
-
-在 `Read Contract` 菜单可以查看或调用合约读接口
-
-![](pic/blockchain/read_contract.png)
-
-##### 合约写接口
-
-在 `Write Contract` 菜单，借助于 `Metamask` 可以调用合约写接口
-
-![](pic/blockchain/write_contract.png)
-
-根据上述提示 `Connect with Metamask`，连接 `Metamsk`
-
-![](pic/blockchain/write_contract2.png)
-
-连接 `Metamask` 之后，即可调用合约写接口
-
-##### 查看合约相关交易
-
-![](pic/blockchain/get_transaction3.png)
-
-##### 查看合约相关事件
-
-![](pic/blockchain/get_event.png)
-
 ### 以太坊 web3 开发基础
 
 > **OS:** Ubuntu 14.04.5 LTS
@@ -3861,6 +3815,52 @@ BigNumber { s: 1, e: 0, c: [ 0 ] }
   本地运行一个 节点（主网、测试网、私有网、开发者网络均可），remix 连接本地的节点，如，本地运行开发者网络
 
 ![](pic/blockchain/web3_provider.png)
+
+### 以太坊区块浏览器与合约
+
+> 此处特指以太坊测试网络区块浏览器 `https://ropsten.etherscan.io`
+
+#### 验证与发布
+
+在以太坊测试网络 `code` 菜单选择 `verify and publish`，提交合约源码并验证
+
+![](pic/blockchain/verify_publish.png)
+
+填写合约名字、编译器版本、是否开启优化选项，然后将合约代码粘贴（如果项目中合约包含多个文件，将多个文件内容整合即可）
+
+![](pic/blockchain/verify_publish2.png)
+
+![](pic/blockchain/verify_publish3.png)
+
+再次回到以太坊测试网查看合约信息，可看到合约已通过验证的提示
+
+![](pic/blockchain/verify_publish4.png)
+
+#### 合约读接口
+
+在 `Read Contract` 菜单可以查看或调用合约读接口
+
+![](pic/blockchain/read_contract.png)
+
+#### 合约写接口
+
+在 `Write Contract` 菜单，借助于 `Metamask` 可以调用合约写接口
+
+![](pic/blockchain/write_contract.png)
+
+根据上述提示 `Connect with Metamask`，连接 `Metamsk`
+
+![](pic/blockchain/write_contract2.png)
+
+连接 `Metamask` 之后，即可调用合约写接口
+
+#### 查看合约相关交易
+
+![](pic/blockchain/get_transaction3.png)
+
+#### 查看合约相关事件
+
+![](pic/blockchain/get_event.png)
 
 ### 以太坊智能合约： ERC20 Token
 

@@ -3018,15 +3018,6 @@ pub   2048R/FF939C7E 2018-11-01
       Key fingerprint = 7032 C3B1 BC33 6747 3FD9  04C7 4A96 54CE FF93 9C7E
 uid                  Kevin (wupolifa1) <c.r2009@163.com>
 sub   2048R/3B2770AE 2018-11-01
-
-
-kevin@kevin-PC MINGW64 /d/blog (master)
-$ gpg --list-secret-keys --keyid-format LONG
-/c/Users/kevin/.gnupg/secring.gpg
----------------------------------
-sec   2048R/4A9654CEFF939C7E 2018-11-01
-uid                          Kevin (wupolifa1) <c.r2009@163.com>
-ssb   2048R/8AA6B7CD3B2770AE 2018-11-01
 ```
 
 > 其中，`pub` 为公钥，`sub` 为私钥
@@ -3034,7 +3025,7 @@ ssb   2048R/8AA6B7CD3B2770AE 2018-11-01
 3. 获取公钥
 
 ```bash
-$ gpg --armor --export 8AA6B7CD3B2770AE
+$ gpg --armor --export FF939C7E
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mQENBFvbIzsBCADD4jQLsEmpRLyy99iSIU666JF+2abGACpab+KT1KTFGFncTscr
@@ -3107,6 +3098,5 @@ user: "Kevin (wupolifa1) <c.r2009@163.com>"
  create mode 100644 pic/config/gpg1.png
  create mode 100644 pic/config/gpg2.png
 ```
-
 
 

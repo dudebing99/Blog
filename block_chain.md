@@ -41,6 +41,7 @@
 - [以太坊区块浏览器](https://etherscan.io/)
 - [比特币测试币水龙头]( https://testnet.manu.backend.hamburg/faucet)
 - [coin market cap](https://coinmarketcap.com/)
+- [truffle framework tutorials](https://truffleframework.com/tutorials)
 
 ## 缩略词
 
@@ -3711,13 +3712,13 @@ npm install -g truffle
 
 > **基础环境：**EthereumJS TestRPC v6.0.3 (ganache-core: 2.0.2)/Truffle v4.1.14 (core: 4.1.14)/Solidity v0.4.24 (solc-js)
 
-1. 启动 TestRPC 服务
+#### 启动 TestRPC 服务
 
 ```bash
 $ testrpc --gasLimit 0x800000000 -b 2
 ```
 
-2. 新建 Truffle 工程，并初始化
+#### 新建 Truffle 工程，并初始化
 
 ```bash
 Administrator@USER-20180502AZ MINGW64 /e
@@ -3765,19 +3766,9 @@ module.exports = {
 };
 ```
 
-3. 编译合约
+#### 开发、编译、部署合约
 
-> `Truffle` 仅默认编译自上次编译后被修改过的文件，来减少不必要的编译。如果你想编译全部文件，可以使用  `--compile-all` 选项
-
-```bash
-$ truffle compile
-Compiling .\contracts\Migrations.sol...
-Writing artifacts to .\build\contracts
-```
-
-4. 创建业务合约并编译
-
-   在 `contracts` 编写业务合约 `MyStringStore.sol`；在 `migrations` 添加
+在 `contracts` 编写业务合约 `MyStringStore.sol`；在 `migrations` 添加 `2_deploy_contracts.js`
 
 ```javascript
 pragma solidity ^0.4.24;
@@ -3790,6 +3781,88 @@ contract MyStringStore {
   }
 }
 ```
+
+```javascript
+const MyStringStore = artifacts.require("MyStringStore");
+
+module.exports = function(deployer) {
+  deployer.deploy(MyStringStore);
+};
+```
+
+编译合约
+
+> `Truffle` 仅默认编译自上次编译后被修改过的文件，来减少不必要的编译。如果你想编译全部文件，可以使用  `--compile-all` 选项
+
+```bash
+$ truffle compile
+Compiling .\contracts\MyStringStore.sol...
+Writing artifacts to .\build\contracts
+```
+
+部署合约
+
+```bash
+$ truffle migrate
+Using network 'development'.
+
+Running migration: 1_initial_migration.js
+  Deploying Migrations...
+  ... 0xb16a8c6e246282b1ca26bfce789a644b6aeea521cf4f06bf7df1d23532efbb23
+  Migrations: 0x8751b4eb379270fb2de09d275718ce75886d133d
+Saving successful migration to network...
+  ... 0x66e6fe95b27922fca5bba4bbda3c4aa32d729acfea2f15378cfe76e925ffecd7
+Saving artifacts...
+Running migration: 2_deploy_contracts.js
+  Deploying MyStringStore...
+  ... 0x20de9b4d058bc6c64011b9f2dc6e1d8c349248800a93a95c7dca3f4dc58f4345
+  MyStringStore: 0xae238f7c54991a083b1fd318160bf22de3bba4d1
+Saving successful migration to network...
+  ... 0x8fc33d16aacb8c0d53d96f5641937a512cd6eaf71429a9b8000495fb54604daf
+Saving artifacts...
+```
+
+#### 测试合约
+
+在目录 `test` 编写测试用例文件 `MyStringStore.js`
+
+```javascript
+const MyStringStore = artifacts.require("./MyStringStore.sol");
+
+contract("MyStringStore", accounts => {
+  it("should store the string 'Hey there!'", async () => {
+    const myStringStore = await MyStringStore.deployed();
+
+    // Set myString to "Hey there!"
+    await myStringStore.set("Hey there!", { from: accounts[0] });
+
+    // Get myString from public variable getter
+    const storedString = await myStringStore.myString.call();
+
+    assert.equal(storedString, "Hey there!", "The string was not stored");
+  });
+});
+```
+
+执行测试用例
+
+```bash
+$ truffle test
+Using network 'development'.
+
+
+
+  Contract: MyStringStore
+    √ should store the string 'Hey there!' (2073ms)
+
+
+  1 passing (2s)
+
+```
+
+> 部署、测试合约过程中，可以查看 `TestRPC` 输出窗口
+
+![](pic/blockchain/truffle_output.png)
 
 ### 以太坊智能合约编译、部署、调试
 

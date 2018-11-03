@@ -2594,7 +2594,7 @@ error: {"code":-4,"message":"Error:run-script-error:luaL_loadbuffer fail:[string
 
 ###  智能坊综合操作
 
-#### DPOS
+#### DPoS
 
 - 查询投票节点信息
 
@@ -2744,6 +2744,36 @@ root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. getdelegatelist 11
 root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. createdelegatetx "wgd6Fs7d9ktJVUMv6qdwMup8tqe5ek7dj1" "[{\"delegate\": \"wgd6Fs7d9ktJVUMv6qdwMup8tqe5ek7dj1\", \"votes\": 10000}]" 100
 {
     "hash" : "ac8b97c6a68d1048f271ac6091dc867336394c78f73aa8178ea8674385beaf7f"
+}
+```
+
+- 创建原始投票交易
+
+```bash
+root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=./ createdelegatetxraw wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4 
+"[{\"delegate\":\"wVTUdfEaeAAVSuXKrmMyqQXH5j5Z9oGmTt\", \"votes\":1000000000}]" 1000
+"[{\"delegate\":\"wNDue1jHcgRSioSDL4o1AzXz3D72gCMkP6\", \"votes\":100000000}]" 1000
+
+{
+    "rawtx" : "06013b02000101012103ff9fb0c58b6097bc944592faee68fbdb2d1c5cd901f6eae9198bd8b31a1e6f5e82dbea9300866800"
+}
+```
+
+- 对原始投票交易签名
+
+```bash
+root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. sigstr 06013b02000101012103ff9fb0c58b6097bc944592faee68fbdb2d1c5cd901f6eae9198bd8b31a1e6f5e82dbea9300866800 wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4
+{
+    "rawtx" : "06013b02000101012103ff9fb0c58b6097bc944592faee68fbdb2d1c5cd901f6eae9198bd8b31a1e6f5e82dbea9300866846304402205f6466af52af2674712860d45c70a6c8f1f74fdc55b93b67997021729eda147b022015fa2ee2c41822baf00e36aeb26e3ac20a1cb444f6b3cf4934e863525114c124"
+}
+```
+
+- 提交经过签名的原始投票交易
+
+```bash
+root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. submittx "06013b02000101012103ff9fb0c58b6097bc944592faee68fbdb2d1c5cd901f6eae9198bd8b31a1e6f5e82dbea9300866846304402205f6466af52af2674712860d45c70a6c8f1f74fdc55b93b67997021729eda147b022015fa2ee2c41822baf00e36aeb26e3ac20a1cb444f6b3cf4934e863525114c124"
+{
+    "hash" : "41f5a496fc22d97ff406d391c884a85ef8fe57ccf1d1ab4859c0469592ab2497"
 }
 ```
 

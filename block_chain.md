@@ -2749,6 +2749,10 @@ root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. createdelegatetx "wgd6Fs7
 
 - 创建原始投票交易
 
+> 创建投票原始交易不包含签名，需要经过签名之后，再提交交易（广播到网络），即，包含如下三个步骤
+>
+> `createdelegatetxraw` `->` `sigstr` `->` `submittx`
+
 ```bash
 root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=./ createdelegatetxraw wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4 
 "[{\"delegate\":\"wVTUdfEaeAAVSuXKrmMyqQXH5j5Z9oGmTt\", \"votes\":1000000000}]" 1000

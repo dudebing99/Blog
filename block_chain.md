@@ -128,8 +128,8 @@ root@ubuntu:~# bitcoin-cli -testnet gettxoutsetinfo
 ##### 钱包信息
 
 > 可通过 https://testnet.manu.backend.hamburg/faucet 获取免费的测试币
->
-> ![](pic/blockchain/faucet.png)
+
+![](pic/blockchain/faucet.png)
 
 ```bash
 kevin@ubuntu:~$ bitcoin-cli -testnet getwalletinfo
@@ -988,111 +988,111 @@ root@ubuntu:~# bitcoin-cli -testnet listunspent
 ```
 
 > 实际上，也可以直接选择一个未花费输出 `X`，将 `X` 全部当成小费构造一笔携带数据的交易，如下所示：
->
-> ![](pic/blockchain/op_return0.png)
->
-> ```bash
-> root@ubuntu:~# bitcoin-cli -testnet createrawtransaction "[{\"txid\":\"dee761b481c08db99bb217e48f80b59edbbc8cbb0b8ff3f65dbee290fc4fb25a\",\"vout\":0}]" "[{\"data\":\"68656c6c6f20776f726c64\"}]"
-> 02000000015ab24ffc90e2be5df6f38f0bbb8cbcdb9eb5808fe417b29bb98dc081b461e7de0000000000ffffffff0100000000000000000d6a0b68656c6c6f20776f726c6400000000
-> 
-> root@ubuntu:~# bitcoin-cli -testnet decoderawtransaction 02000000015ab24ffc90e2be5df6f38f0bbb8cbcdb9eb5808fe417b29bb98dc081b461e7de0000000000ffffffff0100000000000000000d6a0b68656c6c6f20776f726c6400000000
-> {
->   "txid": "8f408083dac292594b211fd45e20c6e709899d1ad45a8685e097d9217ee3f5a1",
->   "hash": "8f408083dac292594b211fd45e20c6e709899d1ad45a8685e097d9217ee3f5a1",
->   "version": 2,
->   "size": 73,
->   "vsize": 73,
->   "weight": 292,
->   "locktime": 0,
->   "vin": [
->     {
->       "txid": "dee761b481c08db99bb217e48f80b59edbbc8cbb0b8ff3f65dbee290fc4fb25a",
->       "vout": 0,
->       "scriptSig": {
->         "asm": "",
->         "hex": ""
->       },
->       "sequence": 4294967295
->     }
->   ],
->   "vout": [
->     {
->       "value": 0.00000000,
->       "n": 0,
->       "scriptPubKey": {
->         "asm": "OP_RETURN 68656c6c6f20776f726c64",
->         "hex": "6a0b68656c6c6f20776f726c64",
->         "type": "nulldata"
->       }
->     }
->   ]
-> }
-> 
-> root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2N6CzPst6AajQpiiUxQ6R8qxUz6WkQD5rXD
-> cNnG2j46PmUjJoKwJvZ5iTNJjhq2VBCteeoJD2NSsnSJpvdf99TB
-> 
-> root@ubuntu:~# bitcoin-cli -testnet signrawtransactionwithkey 02000000015ab24ffc90e2be5df6f38f0bbb8cbcdb9eb5808fe417b29bb98dc081b461e7de0000000000ffffffff0100000000000000000d6a0b68656c6c6f20776f726c6400000000 [\"cNnG2j46PmUjJoKwJvZ5iTNJjhq2VBCteeoJD2NSsnSJpvdf99TB\"]
-> {
->   "hex": "020000000001015ab24ffc90e2be5df6f38f0bbb8cbcdb9eb5808fe417b29bb98dc081b461e7de0000000017160014511b358825e232279c1b8a64a1f46307110b248affffffff0100000000000000000d6a0b68656c6c6f20776f726c6402473044022012f153c0df6d4641d808c4becc578f5ab1178a24a7727d8453bc7321b1523ec402205593b87e6e1edb1a05dca6607381e7a3ed502a4e26f9f395d18a255fbcf3acab012102ac1069a3e25179b3f918c88837e316402414fc0cfe7ea5fab9825ecce3dbfd3f00000000",
->   "complete": true
-> }
-> 
-> root@ubuntu:~# bitcoin-cli -testnet sendrawtransaction 020000000001015ab24ffc90e2be5df6f38f0bbb8cbcdb9eb5808fe417b29bb98dc081b461e7de0000000017160014511b358825e232279c1b8a64a1f46307110b248affffffff0100000000000000000d6a0b68656c6c6f20776f726c6402473044022012f153c0df6d4641d808c4becc578f5ab1178a24a7727d8453bc7321b1523ec402205593b87e6e1edb1a05dca6607381e7a3ed502a4e26f9f395d18a255fbcf3acab012102ac1069a3e25179b3f918c88837e316402414fc0cfe7ea5fab9825ecce3dbfd3f00000000
-> b236b8d9d5038ec304629b7c6e7a3ae9df9924bbdf552d551f7b9d90b326cf72
-> 
-> root@ubuntu:~# bitcoin-cli -testnet gettransaction b236b8d9d5038ec304629b7c6e7a3ae9df9924bbdf552d551f7b9d90b326cf72
-> {
->   "amount": 0.00000000,
->   "fee": -0.09900000,
->   "confirmations": 0,
->   "trusted": true,
->   "txid": "b236b8d9d5038ec304629b7c6e7a3ae9df9924bbdf552d551f7b9d90b326cf72",
->   "walletconflicts": [
->   ],
->   "time": 1539236481,
->   "timereceived": 1539236481,
->   "bip125-replaceable": "no",
->   "details": [
->     {
->       "category": "send",
->       "amount": 0.00000000,
->       "vout": 0,
->       "fee": -0.09900000,
->       "abandoned": false
->     }
->   ],
->   "hex": "020000000001015ab24ffc90e2be5df6f38f0bbb8cbcdb9eb5808fe417b29bb98dc081b461e7de0000000017160014511b358825e232279c1b8a64a1f46307110b248affffffff0100000000000000000d6a0b68656c6c6f20776f726c6402473044022012f153c0df6d4641d808c4becc578f5ab1178a24a7727d8453bc7321b1523ec402205593b87e6e1edb1a05dca6607381e7a3ed502a4e26f9f395d18a255fbcf3acab012102ac1069a3e25179b3f918c88837e316402414fc0cfe7ea5fab9825ecce3dbfd3f00000000"
-> }
-> 
-> root@ubuntu:~# bitcoin-cli -testnet listunspent
-> [
->   {
->     "txid": "28f0246fd9a867cc93b1b7e6231c47789fad8256f866c7c548d6d4ebe8cfa3a7",
->     "vout": 1,
->     "address": "2NBPJ9qrWzbNLru6Nbi5L7DHyZZziyjzWGW",
->     "redeemScript": "001491a5d0d38f307fc73d08edd24202884ff26ddfc7",
->     "scriptPubKey": "a914c6f9118389ab61e9a4d8a1c8cf048b46358092a487",
->     "amount": 0.99996680,
->     "confirmations": 219,
->     "spendable": true,
->     "solvable": true,
->     "safe": true
->   },
->   {
->     "txid": "750183a0d47f62a428b4dd811eed414141d3e8013cd372930882ce11b867e7f0",
->     "vout": 0,
->     "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
->     "label": "",
->     "redeemScript": "0014635522cd6d36b45cf770940c78642f266b143ff2",
->     "scriptPubKey": "a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff87",
->     "amount": 0.52800000,
->     "confirmations": 1289,
->     "spendable": true,
->     "solvable": true,
->     "safe": true
->   }
-> ]
-> ```
+
+![](pic/blockchain/op_return0.png)
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet createrawtransaction "[{\"txid\":\"dee761b481c08db99bb217e48f80b59edbbc8cbb0b8ff3f65dbee290fc4fb25a\",\"vout\":0}]" "[{\"data\":\"68656c6c6f20776f726c64\"}]"
+02000000015ab24ffc90e2be5df6f38f0bbb8cbcdb9eb5808fe417b29bb98dc081b461e7de0000000000ffffffff0100000000000000000d6a0b68656c6c6f20776f726c6400000000
+
+root@ubuntu:~# bitcoin-cli -testnet decoderawtransaction 02000000015ab24ffc90e2be5df6f38f0bbb8cbcdb9eb5808fe417b29bb98dc081b461e7de0000000000ffffffff0100000000000000000d6a0b68656c6c6f20776f726c6400000000
+{
+  "txid": "8f408083dac292594b211fd45e20c6e709899d1ad45a8685e097d9217ee3f5a1",
+  "hash": "8f408083dac292594b211fd45e20c6e709899d1ad45a8685e097d9217ee3f5a1",
+  "version": 2,
+  "size": 73,
+  "vsize": 73,
+  "weight": 292,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "dee761b481c08db99bb217e48f80b59edbbc8cbb0b8ff3f65dbee290fc4fb25a",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "",
+        "hex": ""
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.00000000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_RETURN 68656c6c6f20776f726c64",
+        "hex": "6a0b68656c6c6f20776f726c64",
+        "type": "nulldata"
+      }
+    }
+  ]
+}
+
+root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2N6CzPst6AajQpiiUxQ6R8qxUz6WkQD5rXD
+cNnG2j46PmUjJoKwJvZ5iTNJjhq2VBCteeoJD2NSsnSJpvdf99TB
+
+root@ubuntu:~# bitcoin-cli -testnet signrawtransactionwithkey 02000000015ab24ffc90e2be5df6f38f0bbb8cbcdb9eb5808fe417b29bb98dc081b461e7de0000000000ffffffff0100000000000000000d6a0b68656c6c6f20776f726c6400000000 [\"cNnG2j46PmUjJoKwJvZ5iTNJjhq2VBCteeoJD2NSsnSJpvdf99TB\"]
+{
+  "hex": "020000000001015ab24ffc90e2be5df6f38f0bbb8cbcdb9eb5808fe417b29bb98dc081b461e7de0000000017160014511b358825e232279c1b8a64a1f46307110b248affffffff0100000000000000000d6a0b68656c6c6f20776f726c6402473044022012f153c0df6d4641d808c4becc578f5ab1178a24a7727d8453bc7321b1523ec402205593b87e6e1edb1a05dca6607381e7a3ed502a4e26f9f395d18a255fbcf3acab012102ac1069a3e25179b3f918c88837e316402414fc0cfe7ea5fab9825ecce3dbfd3f00000000",
+  "complete": true
+}
+
+root@ubuntu:~# bitcoin-cli -testnet sendrawtransaction 020000000001015ab24ffc90e2be5df6f38f0bbb8cbcdb9eb5808fe417b29bb98dc081b461e7de0000000017160014511b358825e232279c1b8a64a1f46307110b248affffffff0100000000000000000d6a0b68656c6c6f20776f726c6402473044022012f153c0df6d4641d808c4becc578f5ab1178a24a7727d8453bc7321b1523ec402205593b87e6e1edb1a05dca6607381e7a3ed502a4e26f9f395d18a255fbcf3acab012102ac1069a3e25179b3f918c88837e316402414fc0cfe7ea5fab9825ecce3dbfd3f00000000
+b236b8d9d5038ec304629b7c6e7a3ae9df9924bbdf552d551f7b9d90b326cf72
+
+root@ubuntu:~# bitcoin-cli -testnet gettransaction b236b8d9d5038ec304629b7c6e7a3ae9df9924bbdf552d551f7b9d90b326cf72
+{
+  "amount": 0.00000000,
+  "fee": -0.09900000,
+  "confirmations": 0,
+  "trusted": true,
+  "txid": "b236b8d9d5038ec304629b7c6e7a3ae9df9924bbdf552d551f7b9d90b326cf72",
+  "walletconflicts": [
+  ],
+  "time": 1539236481,
+  "timereceived": 1539236481,
+  "bip125-replaceable": "no",
+  "details": [
+    {
+      "category": "send",
+      "amount": 0.00000000,
+      "vout": 0,
+      "fee": -0.09900000,
+      "abandoned": false
+    }
+  ],
+  "hex": "020000000001015ab24ffc90e2be5df6f38f0bbb8cbcdb9eb5808fe417b29bb98dc081b461e7de0000000017160014511b358825e232279c1b8a64a1f46307110b248affffffff0100000000000000000d6a0b68656c6c6f20776f726c6402473044022012f153c0df6d4641d808c4becc578f5ab1178a24a7727d8453bc7321b1523ec402205593b87e6e1edb1a05dca6607381e7a3ed502a4e26f9f395d18a255fbcf3acab012102ac1069a3e25179b3f918c88837e316402414fc0cfe7ea5fab9825ecce3dbfd3f00000000"
+}
+
+root@ubuntu:~# bitcoin-cli -testnet listunspent
+[
+  {
+    "txid": "28f0246fd9a867cc93b1b7e6231c47789fad8256f866c7c548d6d4ebe8cfa3a7",
+    "vout": 1,
+    "address": "2NBPJ9qrWzbNLru6Nbi5L7DHyZZziyjzWGW",
+    "redeemScript": "001491a5d0d38f307fc73d08edd24202884ff26ddfc7",
+    "scriptPubKey": "a914c6f9118389ab61e9a4d8a1c8cf048b46358092a487",
+    "amount": 0.99996680,
+    "confirmations": 219,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  },
+  {
+    "txid": "750183a0d47f62a428b4dd811eed414141d3e8013cd372930882ce11b867e7f0",
+    "vout": 0,
+    "address": "2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ",
+    "label": "",
+    "redeemScript": "0014635522cd6d36b45cf770940c78642f266b143ff2",
+    "scriptPubKey": "a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff87",
+    "amount": 0.52800000,
+    "confirmations": 1289,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  }
+]
+```
 
 ##### 2-3 多签
 
@@ -1222,30 +1222,30 @@ root@ubuntu:~# bitcoin-cli -testnet addmultisigaddress 2 "[\"2Mv3bjnJv2XtDjAvjYf
 }
 ```
 
-> ```bash
-> root@ubuntu:~# bitcoin-cli -testnet validateaddress 2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3
-> {
->   "isvalid": true,
->   "address": "2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3",
->   "scriptPubKey": "a91430b5e8e9151e46be789562580b0118911d875f3d87",
->   "isscript": true,
->   "iswitness": false
-> }
-> ```
+```bash
+root@ubuntu:~# bitcoin-cli -testnet validateaddress 2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3
+{
+  "isvalid": true,
+  "address": "2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3",
+  "scriptPubKey": "a91430b5e8e9151e46be789562580b0118911d875f3d87",
+  "isscript": true,
+  "iswitness": false
+}
+```
 
 解码赎回脚本
 
-> **赎回脚本由如下几部分组成：**`52` `21` `02f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46` `21` `0256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d` `21` `0269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b5` `53` `ae`
->
-> - 0x52 = OP_2
-> - 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
-> - 0x02f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46 = the next 33 bytes (public key)
-> - 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
-> - 0x0256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d = the next 33 bytes (public key)
-> - 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
-> - 0x0269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b5 = the next 33 bytes (public key)
-> - 0x53 = OP_3
-> - 0xae = OP_CHECKMULTISIG
+**赎回脚本由如下几部分组成：**`52` `21` `02f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46` `21` `0256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d` `21` `0269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b5` `53` `ae`
+
+- 0x52 = OP_2
+- 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
+- 0x02f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46 = the next 33 bytes (public key)
+- 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
+- 0x0256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d = the next 33 bytes (public key)
+- 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
+- 0x0269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b5 = the next 33 bytes (public key)
+- 0x53 = OP_3
+- 0xae = OP_CHECKMULTISIG
 
 ```bash
 root@ubuntu:~# bitcoin-cli -testnet decodescript 522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae
@@ -1273,36 +1273,36 @@ root@ubuntu:~# bitcoin-cli -testnet decodescript 522102f396b11941706b0424499fbf6
 ```
 
 > 查看上述地址中信息，以 `mzzsUyocJXwrbQi13k1YVYuvUPKUL6H2Gz` 为例
->
-> ```bash
-> root@ubuntu:~# bitcoin-cli -testnet validateaddress mzzsUyocJXwrbQi13k1YVYuvUPKUL6H2Gz                                                                                     {
->   "isvalid": true,
->   "address": "mzzsUyocJXwrbQi13k1YVYuvUPKUL6H2Gz",
->   "scriptPubKey": "76a914d5b20531701831678f620f33d3127b8dfe20b67288ac",
->   "isscript": false,
->   "iswitness": false
-> }
-> root@ubuntu:~# bitcoin-cli -testnet decodescript 76a914d5b20531701831678f620f33d3127b8dfe20b67288ac
-> {
->   "asm": "OP_DUP OP_HASH160 d5b20531701831678f620f33d3127b8dfe20b672 OP_EQUALVERIFY OP_CHECKSIG",
->   "reqSigs": 1,
->   "type": "pubkeyhash",
->   "addresses": [
->     "mzzsUyocJXwrbQi13k1YVYuvUPKUL6H2Gz"
->   ],
->   "p2sh": "2N8egGvjyaT1Kfm44bCNXNtztcWG8kZDz99",
->   "segwit": {
->     "asm": "0 d5b20531701831678f620f33d3127b8dfe20b672",
->     "hex": "0014d5b20531701831678f620f33d3127b8dfe20b672",
->     "reqSigs": 1,
->     "type": "witness_v0_keyhash",
->     "addresses": [
->       "tb1q6keq2vtsrqck0rmzpueaxynm3hlzpdnjjd70ms"
->     ],
->     "p2sh-segwit": "2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz"
->   }
-> }
-> ```
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet validateaddress mzzsUyocJXwrbQi13k1YVYuvUPKUL6H2Gz                                                                                     {
+  "isvalid": true,
+  "address": "mzzsUyocJXwrbQi13k1YVYuvUPKUL6H2Gz",
+  "scriptPubKey": "76a914d5b20531701831678f620f33d3127b8dfe20b67288ac",
+  "isscript": false,
+  "iswitness": false
+}
+root@ubuntu:~# bitcoin-cli -testnet decodescript 76a914d5b20531701831678f620f33d3127b8dfe20b67288ac
+{
+  "asm": "OP_DUP OP_HASH160 d5b20531701831678f620f33d3127b8dfe20b672 OP_EQUALVERIFY OP_CHECKSIG",
+  "reqSigs": 1,
+  "type": "pubkeyhash",
+  "addresses": [
+    "mzzsUyocJXwrbQi13k1YVYuvUPKUL6H2Gz"
+  ],
+  "p2sh": "2N8egGvjyaT1Kfm44bCNXNtztcWG8kZDz99",
+  "segwit": {
+    "asm": "0 d5b20531701831678f620f33d3127b8dfe20b672",
+    "hex": "0014d5b20531701831678f620f33d3127b8dfe20b672",
+    "reqSigs": 1,
+    "type": "witness_v0_keyhash",
+    "addresses": [
+      "tb1q6keq2vtsrqck0rmzpueaxynm3hlzpdnjjd70ms"
+    ],
+    "p2sh-segwit": "2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz"
+  }
+}
+```
 
 向多签地址 `2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3` 转账
 
@@ -1564,46 +1564,46 @@ root@ubuntu:~# bitcoin-cli -testnet decoderawtransaction 020000000001016ca4682f3
 ```
 
 > 解码锁定脚本
->
-> ```bash
-> root@ubuntu:~# bitcoin-cli -testnet decodescript 0020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a
-> {
->   "asm": "0 fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a",
->   "reqSigs": 1,
->   "type": "witness_v0_scripthash",
->   "addresses": [
->     "tb1qlck8mzyx6mdv4mznpyt2zz9d9hgyp7lh9jqw50wad48jyrn73vaqvvpppr"
->   ],
->   "p2sh": "2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3"
-> }
-> ```
->
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet decodescript 0020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a
+{
+  "asm": "0 fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a",
+  "reqSigs": 1,
+  "type": "witness_v0_scripthash",
+  "addresses": [
+    "tb1qlck8mzyx6mdv4mznpyt2zz9d9hgyp7lh9jqw50wad48jyrn73vaqvvpppr"
+  ],
+  "p2sh": "2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3"
+}
+```
+
 > 解码赎回脚本
->
-> ```bash
-> root@ubuntu:~# bitcoin-cli -testnet decodescript 522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae
-> {
->   "asm": "2 02f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46 0256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d 0269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b5 3 OP_CHECKMULTISIG",
->   "reqSigs": 2,
->   "type": "multisig",
->   "addresses": [
->     "mzzsUyocJXwrbQi13k1YVYuvUPKUL6H2Gz",
->     "myX8p3UGzyxJDEGxdBd3LouRjPahjpPvs4",
->     "mn6U9CQDBa5qM5WAg7KZQA9v4Z119UBCCZ"
->   ],
->   "p2sh": "2N5pft6YKrBmTi3UW3LXkaxjGFr9SQ2U3bE",
->   "segwit": {
->     "asm": "0 fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a",
->     "hex": "0020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a",
->     "reqSigs": 1,
->     "type": "witness_v0_scripthash",
->     "addresses": [
->       "tb1qlck8mzyx6mdv4mznpyt2zz9d9hgyp7lh9jqw50wad48jyrn73vaqvvpppr"
->     ],
->     "p2sh-segwit": "2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3"
->   }
-> }
-> ```
+
+```bash
+root@ubuntu:~# bitcoin-cli -testnet decodescript 522102f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46210256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d210269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b553ae
+{
+  "asm": "2 02f396b11941706b0424499fbf679c3e5987a8d2bf5b47116ec60ceb4f71804d46 0256c0ec8ee73ba5fff9b12910880c12be9ff7d15f1f1b5d64685c3bcbdeb6734d 0269321ca40da82f1fb8da8932b25beb96b4a84e6af593e89ee64e4c3f867eb7b5 3 OP_CHECKMULTISIG",
+  "reqSigs": 2,
+  "type": "multisig",
+  "addresses": [
+    "mzzsUyocJXwrbQi13k1YVYuvUPKUL6H2Gz",
+    "myX8p3UGzyxJDEGxdBd3LouRjPahjpPvs4",
+    "mn6U9CQDBa5qM5WAg7KZQA9v4Z119UBCCZ"
+  ],
+  "p2sh": "2N5pft6YKrBmTi3UW3LXkaxjGFr9SQ2U3bE",
+  "segwit": {
+    "asm": "0 fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a",
+    "hex": "0020fe2c7d8886d6dacaec530916a108ad2dd040fbf72c80ea3ddd6d4f220e7e8b3a",
+    "reqSigs": 1,
+    "type": "witness_v0_scripthash",
+    "addresses": [
+      "tb1qlck8mzyx6mdv4mznpyt2zz9d9hgyp7lh9jqw50wad48jyrn73vaqvvpppr"
+    ],
+    "p2sh-segwit": "2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3"
+  }
+}
+```
 
 发送原始交易
 
@@ -1614,10 +1614,10 @@ root@ubuntu:~# bitcoin-cli -testnet sendrawtransaction 020000000001016ca4682f384
 
 查看交易信息
 
-> 多签地址 `2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3` 包含两笔交易：
->
-> - 向多签地址转账 0.527 BTC
-> - 从多签地址转出 0.5269 BTC
+多签地址 `2MwgnLokB4WA9NLNd6yL36AvPHHVChDh5r3` 包含两笔交易：
+
+- 向多签地址转账 0.527 BTC
+- 从多签地址转出 0.5269 BTC
 
 ![](pic/blockchain/get_transaction2.png)
 
@@ -1815,21 +1815,21 @@ root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. sendtoaddress whmD4M8Q8qbE
 > `334f447dfd284b2a084560f57d3c4ad044cde1fc41470c68ffeae55aefe270fb`
 >
 > `2ab57b070aa87aac85afaf21fd18e4e4211017f7104ab18980ccef287d750012`
->
-> ```bash
-> root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. listtx
-> {
->     "ConfirmTx" : [
->         "2ab57b070aa87aac85afaf21fd18e4e4211017f7104ab18980ccef287d750012",
->         "334f447dfd284b2a084560f57d3c4ad044cde1fc41470c68ffeae55aefe270fb",
->         "8ebdb18e325ae00259e6072f5c5b403dd02c3b1847c16a3f59a2c3e46c4e5cb4",
->         "f37c59ed4b4af2a85b072a823cd3c720a8fd39f8903138a1ff41d29579a9a78e",
->         "bba67872503e0eeb65b83c8e932778e7aae7cd8b379645a5cb766a072a0ad561"
->     ],
->     "UnConfirmTx" : [
->     ]
-> }
-> ```
+
+```bash
+root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. listtx
+{
+    "ConfirmTx" : [
+        "2ab57b070aa87aac85afaf21fd18e4e4211017f7104ab18980ccef287d750012",
+        "334f447dfd284b2a084560f57d3c4ad044cde1fc41470c68ffeae55aefe270fb",
+        "8ebdb18e325ae00259e6072f5c5b403dd02c3b1847c16a3f59a2c3e46c4e5cb4",
+        "f37c59ed4b4af2a85b072a823cd3c720a8fd39f8903138a1ff41d29579a9a78e",
+        "bba67872503e0eeb65b83c8e932778e7aae7cd8b379645a5cb766a072a0ad561"
+    ],
+    "UnConfirmTx" : [
+    ]
+}
+```
 
 ```bash
 root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance wKkoeBCynvuDmkS9XebY5vAUQC6aLVbznC
@@ -2352,41 +2352,41 @@ root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance wKkoeBCynvuDmkS
 ```
 
 > 通过 `getappinfo()` 接口，根据 `regid` 反向查询合约内容，字段 `scriptContent` 即为合约的十六进制显示
->
-> ```bash
-> root@iZwz9iz7dge6lus7u0uvuzZ:~/node1# ./node1 -datadir=. getappinfo "17130-1"
-> {
->     "scriptId" : "17130-1",
->     "scriptId2" : "ea4200000100",
->     "description" : "7265636f7264",
->     "scriptContent" : "..."
-> }
-> ```
+
+```bash
+root@iZwz9iz7dge6lus7u0uvuzZ:~/node1# ./node1 -datadir=. getappinfo "17130-1"
+{
+    "scriptId" : "17130-1",
+    "scriptId2" : "ea4200000100",
+    "description" : "7265636f7264",
+    "scriptContent" : "..."
+}
+```
 
 #### 充值
 
-> - 合约中，包含总金额、自由余额、每月冻结金额。（初始）自由金额实时转移到合约接收方账户，每月冻结金额将逐步解冻，变成自有金额，并转移到合约接收方账户。
+> 合约中，包含总金额、自由余额、每月冻结金额。（初始）自由金额实时转移到合约接收方账户，每月冻结金额将逐步解冻，变成自有金额，并转移到合约接收方账户。
+
+> 解冻逻辑：执行合约后，可以看到如下信息
+
+```bash
+"vFreezedFund" : [
+        {
+            "value" : 500000000,
+            "nHeight" : 538,
+            "vTag" : ""
+        },
+        {
+            "value" : 500000000,
+            "nHeight" : 543,
+            "vTag" : ""
+        }
+]
+```
+
+> 当有新的区块加入时，检查当前区块高度是否大于等于合约中冻结金额的 `nHeight`，如果是，将该比冻结金额解冻，变成自有金额，并转移到合约接收方账户。
 >
-> - 解冻逻辑：执行合约后，可以看到如下信息
->
->   ```json
->   "vFreezedFund" : [
->           {
->               "value" : 500000000,
->               "nHeight" : 538,
->               "vTag" : ""
->           },
->           {
->               "value" : 500000000,
->               "nHeight" : 543,
->               "vTag" : ""
->           }
->   ]
->   ```
->
->   多有新的区块加入时，检查当前区块高度是否大于等于合约中冻结金额的 nHeight，如果是，将该比冻结金额解冻，变成自有金额，并转移到合约接收方账户。
->
->   同时，可以借助于出块的速度，设置达到多少块高度某笔金额解冻，实现合约冻结解冻逻辑。
+> 同时，可以借助于出块的速度，设置达到多少块高度某笔金额解冻，实现合约冻结解冻逻辑。
 
 ##### 计算合约内容
 
@@ -2882,11 +2882,11 @@ root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. dropprivkey
 ```
 
 > 删除私钥之后，如果尝试导出一个不存在的私钥，将提示如下错误
->
-> ```bash
-> root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. dumpprivkey wVueyLZYPHkKWizQ3uPyEdH2MnsmMe8Aew
-> error: {"code":-4,"message":"Private key for address wVueyLZYPHkKWizQ3uPyEdH2MnsmMe8Aew is not known"}
-> ```
+
+```bash
+root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. dumpprivkey wVueyLZYPHkKWizQ3uPyEdH2MnsmMe8Aew
+error: {"code":-4,"message":"Private key for address wVueyLZYPHkKWizQ3uPyEdH2MnsmMe8Aew is not known"}
+```
 
 ### 以太坊初步探索
 
@@ -2903,24 +2903,24 @@ root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. dropprivkey
 **开发者网络：**`./geth --datadir="./devdata" --dev --rpc --rpccorsdomain "*" console`
 
 > 上述命令即启动了一个节点服务，同时启动了一个控制台。实际上，可以独立启动节点服务，即，`./geth --datadir="./devdata" --dev --rpc --rpccorsdomain "*"`
->
+
 > 需要启动控制台的时候，执行 `./geth attach http://localhost:8545` 或 `./geth attach ./testnet/geth.ipc`
->
-> ```bash
-> root@~/eth# ./geth attach ./testnet/geth.ipc
-> Welcome to the Geth JavaScript console!
-> 
-> instance: Geth/v1.8.13-unstable-040dd5bd/linux-amd64/go1.10.3
-> coinbase: 0x96d81d81149a3a8501eb99fb8aca1cff5cc19d7c
-> at block: 4245054 (Tue, 16 Oct 2018 11:54:45 CST)
->  datadir: /root/eth/testnet
->  modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
-> 
-> > eth.getBalance(eth.accounts[0])
-> 146513139948307702333
-> > exit
-> root@~/eth#
-> ```
+
+```bash
+root@~/eth# ./geth attach ./testnet/geth.ipc
+Welcome to the Geth JavaScript console!
+
+instance: Geth/v1.8.13-unstable-040dd5bd/linux-amd64/go1.10.3
+coinbase: 0x96d81d81149a3a8501eb99fb8aca1cff5cc19d7c
+at block: 4245054 (Tue, 16 Oct 2018 11:54:45 CST)
+ datadir: /root/eth/testnet
+ modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
+
+> eth.getBalance(eth.accounts[0])
+146513139948307702333
+> exit
+root@~/eth#
+```
 
 **以太坊正式网络：**`./geth --syncmode "fast" --cache=512 --datadir="./data" --rpc --rpccorsdomain "*" console`
 
@@ -3004,19 +3004,13 @@ at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
 
 #### 查看系统变量
 
-> eth：包含一些跟操作区块链相关的方法
->
-> net：包含一些查看 p2p 网络状态的方法
->
-> admin：包含一些与管理节点相关的方法
->
-> miner：包含启动 & 停止挖矿的一些方法
->
-> personal：主要包含一些管理账户的方法
->
-> txpool：包含一些查看交易内存池的方法
->
-> web3：包含了以上对象，还包含一些单位换算的方法
+- eth：包含一些跟操作区块链相关的方法
+- net：包含一些查看 p2p 网络状态的方法
+- admin：包含一些与管理节点相关的方法
+- miner：包含启动 & 停止挖矿的一些方法
+- personal：主要包含一些管理账户的方法
+- txpool：包含一些查看交易内存池的方法
+- web3：包含了以上对象，还包含一些单位换算的方法
 
 ##### eth 全局变量
 
@@ -3671,8 +3665,9 @@ npm install -g web3@0.20.1
 
 #### testrpc
 
-> - `ethereumjs-testrpc` 库后续被重命名为 `Ganache CLI`
-> - `testrpc` 不同于 `geth`，`geth` 是真正的以太坊环境，`testrpc` 是在本地使用内存模拟的一个以太坊环境，对于开发调试来说，更为方便快捷，当合约在 `testrpc` 中测试通过后，再部署到 `geth` 中去
+> `ethereumjs-testrpc` 库后续被重命名为 `Ganache CLI`
+
+> `testrpc` 不同于 `geth`，`geth` 是真正的以太坊环境，`testrpc` 是在本地使用内存模拟的一个以太坊环境，对于开发调试来说，更为方便快捷，当合约在 `testrpc` 中测试通过后，再部署到测试网络或主网络
 
 ```bash
 root:~#  npm install -g ethereumjs-testrpc
@@ -3777,10 +3772,10 @@ contracts/  migrations/  test/  truffle.js  truffle-config.js
 
 > 在 Windows 下，删除 `truffle.js`，否则有 `truffle-config.js` 重定义问题
 
-> - `contracts` 智能合约目录
-> - `migrations` 发布脚本目录
-> - `test` 存放测试文件
-> - `truffle.js` Truffle的配置文件
+- `contracts` 智能合约目录
+- `migrations` 发布脚本目录
+- `test` 存放测试文件
+- `truffle.js` Truffle的配置文件
 
 修改 `truffle-config.js` 文件，内容如下
 
@@ -4325,10 +4320,10 @@ Contract mined! address: 0x7f224de3c7276312ac8cca8b822ca2d1579d2197 transactionH
 
 #### 在测试网络一键发币
 
-> **前提条件：**
->
-> - 本地运行测试网络全节点 `./geth --datadir=./testnet --testnet --cache=2048 --rpc console`，开启 rpc 服务（监听 8545 端口）
-> - 本地运行代理服务 `node erc20_deploy.js`，监听 12306 端口，支持客户端 `POST` 请求一键发币
+**前提条件：**
+
+- 本地运行测试网络全节点 `./geth --datadir=./testnet --testnet --cache=2048 --rpc console`，开启 rpc 服务（监听 8545 端口）
+- 本地运行代理服务 `node erc20_deploy.js`，监听 12306 端口，支持客户端 `POST` 请求一键发币
 
 代理服务脚本 [点击下载](https://dudebing99.github.io/blog/archives/solidity/erc20_deploy.js)，主要解析请求的代币初始化参数，发布合约成功后，返回合约地址、交易 hash
 
@@ -5299,14 +5294,15 @@ contract Attack {
 
 > **计算思路：**`97.9 + 2 - 1 + 45 * 0.5 = 121.4`，其中，97.9 为部署 `Attack` 合约之后的余额， 2 为转到 `Attack` 合约中的以太坊数量（合约销毁即退回原账户），1 为存入 `IDMoney` 合约的以太坊数量， 45 * 0.5 为递归提现的以太坊数量。
 >
+
 > 另外，对于锁定在 `IDMoney` 中的 0.5 以太坊，可以通过在 `IDMoney` 预留销毁合约接口，即可实现销毁合约退回到原账户，大致如下：
->
-> ```javascript
-> // selfdestruct, send all balance to owner
-> function stopAttack() ownerOnly {
->     selfdestruct(owner);
-> }
-> ```
+
+```bash
+// selfdestruct, send all balance to owner
+function stopAttack() ownerOnly {
+    selfdestruct(owner);
+}
+```
 
 ![](pic/blockchain/balanceof_idmoney3.png)
 
@@ -5810,28 +5806,29 @@ contract WithdrawalContract {
 
 > **如下详细展示一个钱包地址的生成步骤**
 >
-> 第一步，随机选取一个 32 字节的数、大小介于 1 ~ 0xFFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFE BAAE DCE6 AF48 A03B BFD2 5E8C D036 4141 之间，作为私钥
-> 18E14A7B6A307F426A94F8114701E7C8E774E7F9A47E2C2035DB29A206321725
-> 第二步，使用椭圆曲线加密算法（ECDSA-secp256k1）计算私钥所对应的**非压缩公钥**。 (共 65 字节， 1 字节 0x04, 32 字节为 x 坐标，32 字节为 y 坐标）
->
-> 0450863AD64A87AE8A2FE83C1AF1A8403CB53F53E486D8511DAD8A04887E5B
-> 23522CD470243453A299FA9E77237716103ABC11A1DF38855ED6F2EE187E9C582BA6
-> 第三步，计算公钥的 SHA-256 哈希值
-> 600FFE422B4E00731A59557A5CCA46CC183944191006324A447BDB2D98D4B408
-> 第四步，取上一步结果，计算 RIPEMD-160 哈希值
-> 010966776006953D5567439E5E39F86A0D273BEE
-> 第五步，取上一步结果，前面加入地址版本号（比特币主网版本号“0x00”）
-> 00010966776006953D5567439E5E39F86A0D273BEE
-> 第六步，取上一步结果，计算 SHA-256 哈希值
-> 445C7A8007A93D8733188288BB320A8FE2DEBD2AE1B47F0F50BC10BAE845C094
-> 第七步，取上一步结果，再计算一下 SHA-256 哈希值
-> D61967F63C7DD183914A4AE452C9F6AD5D462CE3D277798075B107615C1A8A30 
-> 第八步，取上一步结果的前 4 个字节（8 位十六进制）
-> D61967F6
-> 第九步，把这 4 个字节加在第五步的结果后面，作为校验（这就是比特币钱包地址的十六进制形态）
-> 00010966776006953D5567439E5E39F86A0D273BEED61967F6 
-> 第十步，用 base58 表示法变换一下地址（这就是最常见的比特币钱包地址形态）
-> 1M8DPUBQXsVUNnNiXw5oFdRciguXctWpUD
+
+第一步，随机选取一个 32 字节的数、大小介于 1 ~ 0xFFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFE BAAE DCE6 AF48 A03B BFD2 5E8C D036 4141 之间，作为私钥
+18E14A7B6A307F426A94F8114701E7C8E774E7F9A47E2C2035DB29A206321725
+第二步，使用椭圆曲线加密算法（ECDSA-secp256k1）计算私钥所对应的**非压缩公钥**。 (共 65 字节， 1 字节 0x04, 32 字节为 x 坐标，32 字节为 y 坐标）
+
+0450863AD64A87AE8A2FE83C1AF1A8403CB53F53E486D8511DAD8A04887E5B
+23522CD470243453A299FA9E77237716103ABC11A1DF38855ED6F2EE187E9C582BA6
+第三步，计算公钥的 SHA-256 哈希值
+600FFE422B4E00731A59557A5CCA46CC183944191006324A447BDB2D98D4B408
+第四步，取上一步结果，计算 RIPEMD-160 哈希值
+010966776006953D5567439E5E39F86A0D273BEE
+第五步，取上一步结果，前面加入地址版本号（比特币主网版本号“0x00”）
+00010966776006953D5567439E5E39F86A0D273BEE
+第六步，取上一步结果，计算 SHA-256 哈希值
+445C7A8007A93D8733188288BB320A8FE2DEBD2AE1B47F0F50BC10BAE845C094
+第七步，取上一步结果，再计算一下 SHA-256 哈希值
+D61967F63C7DD183914A4AE452C9F6AD5D462CE3D277798075B107615C1A8A30 
+第八步，取上一步结果的前 4 个字节（8 位十六进制）
+D61967F6
+第九步，把这 4 个字节加在第五步的结果后面，作为校验（这就是比特币钱包地址的十六进制形态）
+00010966776006953D5567439E5E39F86A0D273BEED61967F6 
+第十步，用 base58 表示法变换一下地址（这就是最常见的比特币钱包地址形态）
+1M8DPUBQXsVUNnNiXw5oFdRciguXctWpUD
 
 #### 私钥、公钥、钱包地址
 
@@ -5881,6 +5878,7 @@ contract WithdrawalContract {
 
 > 比特币交易是比特币系统中最重要的部分。根据比特币系统的设计原理，系统中任何其他的部分都是为了确保比特币交易可以被生成、能在比特币网络中得以传播和通过验证，并最终添加入全球比特币交易总账簿（比特币区块链）。比特币交易的本质是数据结构，这些数据结构中含有比特币交易参与者价值转移的相关信息。比特币区块链是一本全球复式记账总账簿，每个比特币交易都是在比特币区块链上的一个公开记录。
 >
+
 > 五大标准脚本分别为 P2PKH、P2PK、MS（限15个密钥）、P2SH 和 OP_RETURN
 
 通过 Bitcoin Core 解码的一笔标准的交易信息如下：
@@ -6126,7 +6124,7 @@ P2SH 是 MS 多重签名的简化版本，如果使用 P2SH 进行和上方相�
 `<Sig1> <Sig2> 2 PK1 PK2 PK3 3 OP_CHECKMULTISIG`
 
 > 验证过程分两步，首先验证的是接收方附上的赎回脚本是否符合发送方的锁定脚本，如果是，便执行该脚本，进行多重签名的验证。
->
+
 > P2SH 的特点是，将制作脚本的责任给了接收方，好处是可以暂缓节点存储的压力。
 
 ### 比特币网络
@@ -6144,14 +6142,14 @@ P2SH 是 MS 多重签名的简化版本，如果使用 P2SH 进行和上方相�
 
 #### 区块数据存储
 
-> There are basically four pieces of data that are maintained:
->
-> - `blocks/blk*.dat`: the actual Bitcoin blocks, in network format, dumped in raw on disk. They are only needed for rescanning missing transactions in a wallet, reorganizing to a different part of the chain, and serving the block data to other nodes that are synchronizing.
-> - `blocks/index/*`: this is a LevelDB database that contains metadata about all known blocks, and where to find them on disk. Without this, finding a block would be very slow.
-> - `chainstate/*`: this is a LevelDB database with a compact representation of all currently unspent transaction outputs and some metadata about the transactions they are from. The data here is necessary for validating new incoming blocks and transactions. It can theoretically be rebuilt from the block data (see the `-reindex` command line option), but this takes a rather long time. Without it, you could still theoretically do validation indeed, but it would mean a full scan through the blocks (140 GB as of July 2017) for every output being spent.
-> - `blocks/rev*.dat`: these contain "undo" data. You can see blocks as 'patches' to the chain state (they consume some unspent outputs, and produce new ones), and see the undo data as reverse patches. They are necessary for rolling back the chainstate, which is necessary in case of reorganizations.
->
-> So yes, everything but the block data itself is indeed redundant, as it can be rebuilt from it. But validation and other operations would become intolerably slow without them.
+There are basically four pieces of data that are maintained:
+
+- `blocks/blk*.dat`: the actual Bitcoin blocks, in network format, dumped in raw on disk. They are only needed for rescanning missing transactions in a wallet, reorganizing to a different part of the chain, and serving the block data to other nodes that are synchronizing.
+- `blocks/index/*`: this is a LevelDB database that contains metadata about all known blocks, and where to find them on disk. Without this, finding a block would be very slow.
+- `chainstate/*`: this is a LevelDB database with a compact representation of all currently unspent transaction outputs and some metadata about the transactions they are from. The data here is necessary for validating new incoming blocks and transactions. It can theoretically be rebuilt from the block data (see the `-reindex` command line option), but this takes a rather long time. Without it, you could still theoretically do validation indeed, but it would mean a full scan through the blocks (140 GB as of July 2017) for every output being spent.
+- `blocks/rev*.dat`: these contain "undo" data. You can see blocks as 'patches' to the chain state (they consume some unspent outputs, and produce new ones), and see the undo data as reverse patches. They are necessary for rolling back the chainstate, which is necessary in case of reorganizations.
+
+So yes, everything but the block data itself is indeed redundant, as it can be rebuilt from it. But validation and other operations would become intolerably slow without them.
 
 - `blocks/blk*.dat` 的文件中存储了实际的块数据，这些数据以网络格式存储。它们仅用于重新扫描钱包中丢失的交易，将这些交易重新组织到链的不同部分，并将数据块提供给其他正在同步数据的节点。
 - `blocks/index/*` 是一个 LevelDB 数据库，存储着目前已知块的元数据，这些元数据记录所有已知的块以及它们存储在磁盘上的位置。没有这些文件，查找一个块将是非常慢的。
@@ -6265,13 +6263,14 @@ EVM（Ethereum Virtual Machine）以太坊虚拟机是以太坊中智能合约�
 
 > 以太坊中有两类账户：
 >
-> - 外部账户
->   该类账户被私钥控制（由人控制），没有关联任何代码。
-> - 合约账户
->   该类账户被它们的合约代码控制且有代码与之关联。
-> - 外部账户与合约账户的区别和关系是这样的：一个外部账户可以通过创建和用自己的私钥来对交易进行签名，来发送消息给另一个外部账户或合约账户。
-> - 在两个外部账户之间传送消息是价值转移的过程。但从外部账户到合约账户的消息会激活合约账户的代码，允许它执行各种动作（比如转移代币，写入内部存储，挖出一个新代币，执行一些运算，创建一个新的合约等等）。
-> - 只有当外部账户发出指令时，合约账户才会执行相应的操作。
+
+- 外部账户
+  该类账户被私钥控制（由人控制），没有关联任何代码。
+- 合约账户
+  该类账户被它们的合约代码控制且有代码与之关联。
+- 外部账户与合约账户的区别和关系是这样的：一个外部账户可以通过创建和用自己的私钥来对交易进行签名，来发送消息给另一个外部账户或合约账户。
+- 在两个外部账户之间传送消息是价值转移的过程。但从外部账户到合约账户的消息会激活合约账户的代码，允许它执行各种动作（比如转移代币，写入内部存储，挖出一个新代币，执行一些运算，创建一个新的合约等等）。
+- 只有当外部账户发出指令时，合约账户才会执行相应的操作。
 
 合约部署就是将编译好的合约字节码通过外部账号发送交易的形式部署到以太坊区块链上（由实际矿工出块之后，才真正部署成功）。
 
@@ -6554,9 +6553,9 @@ OP_RETURN 常为一个金额为 0 的比特币输出， 因为任何与该输出
 
 **举例**
 
-> [交易 0xb17a027a8f7ae0db4ddbaa58927d0f254e97fce63b7e57e8e50957d3dad2e66e](https://www.blockchain.com/btc/tx/b17a027a8f7ae0db4ddbaa58927d0f254e97fce63b7e57e8e50957d3dad2e66e)
->
-> [交易 0xe89e09ac184e1a175ce748775b3e63686cb1e5fe948365236aac3b3aef3fedd0](https://www.blockchain.com/btc/tx/e89e09ac184e1a175ce748775b3e63686cb1e5fe948365236aac3b3aef3fedd0)
+[交易 0xb17a027a8f7ae0db4ddbaa58927d0f254e97fce63b7e57e8e50957d3dad2e66e](https://www.blockchain.com/btc/tx/b17a027a8f7ae0db4ddbaa58927d0f254e97fce63b7e57e8e50957d3dad2e66e)
+
+[交易 0xe89e09ac184e1a175ce748775b3e63686cb1e5fe948365236aac3b3aef3fedd0](https://www.blockchain.com/btc/tx/e89e09ac184e1a175ce748775b3e63686cb1e5fe948365236aac3b3aef3fedd0)
 
 如下，两个交易输出脚本只包含数据（十六进制），解码分别对应
 

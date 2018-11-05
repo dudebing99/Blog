@@ -3893,6 +3893,29 @@ Using network 'development'.
 
 ![](pic/blockchain/truffle_output.png)
 
+### 以太坊第三方开放 API
+
+> 本地不部署节点，利用第三方开放 API 开发自身的业务
+
+#### 官方社区
+
+> 详见 [https://etherscan.io/apis](https://etherscan.io/apis)，以太坊社区提供的无需授权的服务，但是请求频率限制比较严，5 Request/Second，且 API 只支持主网
+
+首先，申请 `Access Token`
+
+![](pic/blockchain/access_token.png)
+
+然后，调用对应的接口即可，如，获取事件日志
+
+```bash
+root@ubuntu:~# curl 'https://api.etherscan.io/api?module=logs&action=getLogs&fromBlock=1668250&toBlock=latest&address=0x33990122638b9132ca29c723bdf037f1a891a70c&topic0=0xf63780e752c6a54a94fc52715dbc5518a3b4c3c2833d301a204226548a2a8545&apikey=NDWT8M75DHHBBB5NBY41G2ZWAXIP3S58D6'
+{"status":"1","message":"OK","result":[{"address":"0x33990122638b9132ca29c723bdf037f1a891a70c","topics":["0xf63780e752c6a54a94fc52715dbc5518a3b4c3c2833d301a204226548a2a8545","0x616c656300000000000000000000000000000000000000000000000000000000","0x00000000000000000000000021641fa7efc05e776da24d7e1046e68b2dd09adf"],"data":"","blockNumber":"0x19749b","timeStamp":"0x57587a9f","gasPrice":"0x4a817c800","gasUsed":"0xca6a","logIndex":"0x3","transactionHash":"0xbb60625e9c4df3cd1c66f77fb673e478c81b58deccb182da09a0258c8940285c","transactionIndex":"0x5"},{"address":"0x33990122638b9132ca29c723bdf037f1a891a70c","topics":["0xf63780e752c6a54a94fc52715dbc5518a3b4c3c2833d301a204226548a2a8545","0x636f696e38362e6f726700000000000000000000000000000000000000000000","0x00000000000000000000000005b71e90d9f3da4d8b61484560df89063f398fc9"],"data":"0x","blockNumber":"0x2399ec","timeStamp":"0x57e9bb5c","gasPrice":"0xba43b7400","gasUsed":"0x10682","logIndex":"0x","transactionHash":"0x980742edcf7b5cc9e1fdb2ddd71df20a176454c09be50dd2ac8231831f1d78a5","transactionIndex":"0x"}]}
+```
+
+对应地，以太坊区块链浏览器信息如下
+
+![](pic/blockchain/get_eventlog.png)
+
 ### 以太坊智能合约编译、部署、调试
 
 > 此处合约特指 `Solidity`

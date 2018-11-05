@@ -170,6 +170,17 @@ imap jj <ESC>
 }
 ```
 
+## VS Code 快捷键
+
+- 打开命令面板：`Ctrl Alt P`
+- 查找文件：`Ctrl P`
+- 结构导航：`Alt N`
+- 跳转到指定行：`Alt G`
+- 查找：`Ctrl F`
+- 替换：`Ctrl H`
+
+- 放大/缩小：`Ctrl +`/`Ctrl -`
+
 ## Typora Han 主题配置
 
 在 Typora 主题配置目录新建 `Han`，将如下内容保存为 `Han.css`，[点此下载](https://dudebing99.github.io/blog/archives/config/han.css)，目录如下所示

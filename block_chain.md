@@ -1660,7 +1660,7 @@ root@ubuntu:~# bitcoin-cli -testnet gettransaction 05dfc6503286f2472246ea43cdcf3
 
 ### 智能坊合约开发
 
-#### 获取节点信息
+#### 获取基本信息
 
 ```bash
 root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getinfo
@@ -2890,6 +2890,39 @@ root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. dropprivkey
 ```bash
 root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. dumpprivkey wVueyLZYPHkKWizQ3uPyEdH2MnsmMe8Aew
 error: {"code":-4,"message":"Private key for address wVueyLZYPHkKWizQ3uPyEdH2MnsmMe8Aew is not known"}
+```
+
+#### 节点
+
+- 获取节点信息
+
+```bash
+root@ubuntu:~/WaykiChain/node/node0# ./node0 -datadir=. getpeerinfo
+[
+    {
+        "addr" : "127.0.0.1:7903",
+        "services" : "00000001",
+        "lastsend" : 1541557080,
+        "lastrecv" : 1541557080,
+        "bytessent" : 64123,
+        "bytesrecv" : 27285,
+        "conntime" : 1541556982,
+        "pingtime" : 0.00000000,
+        "version" : 10001,
+        "subver" : "/waykichain:1.0.0.1:linux/",
+        "inbound" : false,
+        "startingheight" : 106,
+        "banscore" : 0,
+        "syncnode" : true
+    }
+]
+```
+
+- 获取连接数
+
+```bash
+root@ubuntu:~/WaykiChain/node/node0# ./coind -datadir=. getconnectioncount
+1
 ```
 
 ### 以太坊初步探索

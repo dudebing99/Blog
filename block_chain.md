@@ -42,6 +42,7 @@
 - [比特币测试币水龙头]( https://testnet.manu.backend.hamburg/faucet)
 - [coin market cap](https://coinmarketcap.com/)
 - [truffle framework tutorials](https://truffleframework.com/tutorials)
+- [infura docs](https://infura.io/docs)
 
 ## 缩略词
 
@@ -3948,6 +3949,32 @@ root@ubuntu:~# curl 'https://api.etherscan.io/api?module=logs&action=getLogs&fro
 对应地，以太坊区块链浏览器信息如下
 
 ![](pic/blockchain/get_eventlog.png)
+
+#### infura 开放 API
+
+> Infura provide secure, reliable, and scalable access to Ethereum APIs and IPFS gateways.
+
+在 infura 注册个人账户，创建项目即可分配访问 API 相关的身份认证信息以及 Endpoint
+
+![](pic/blockchain/infura.png)
+
+通过 [https://infura.io/docs](https://infura.io/docs) 查看 API 文档。例如，获取测试网、主网区块高度
+
+```bash
+root@iZwz978rorvlg75nct99l1Z:~# curl https://api.infura.io/v1/jsonrpc/ropsten/eth_blockNumber
+{"jsonrpc":"2.0","id":0,"result":"0x42e4f3"}
+root@iZwz978rorvlg75nct99l1Z:~# curl https://api.infura.io/v1/jsonrpc/mainnet/eth_blockNumber
+{"jsonrpc":"2.0","id":0,"result":"0x65a34e"}
+```
+
+发送 API 请求时可以携带账户中的 Token，结合统计面板查看 API 调用情况，如下所示
+
+```bash
+root@iZwz978rorvlg75nct99l1Z:~# curl https://api.infura.io/v1/jsonrpc/mainnet/eth_blockNumber?token=9a29276938d14f8e98fc6054ce013ca 
+{"jsonrpc":"2.0","id":0,"result":"0x65a365"}
+```
+
+![](pic/blockchain/infura_stat.png)
 
 ### 以太坊智能合约编译、部署、调试
 

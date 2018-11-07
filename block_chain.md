@@ -2925,19 +2925,15 @@ root@ubuntu:~/WaykiChain/node/node0# ./coind -datadir=. getconnectioncount
 1
 ```
 
-### 以太坊初步探索
+### 以太坊初**步探索**
 
-> **OS:** Ubuntu 14.04.5 LTS
->
-> **geth: **1.8.13-unstable
->
-> **solc:** 0.4.24+commit.e67f0147.Linux.g++
->
-> **golang:** 1.10.3
+> Ubuntu 14.04.5 LTS/geth v1.8.13-unstable/solc v0.4.24+commit.e67f0147.Linux.g++/golang v1.10.3
 
 #### 启动 geth
 
-**开发者网络：**`./geth --datadir="./devdata" --dev --rpc --rpccorsdomain "*" console`
+**开发者网络**
+
+`./geth --datadir="./devdata" --dev --rpc --rpccorsdomain "*" console`
 
 > 上述命令即启动了一个节点服务，同时启动了一个控制台。实际上，可以独立启动节点服务，即，`./geth --datadir="./devdata" --dev --rpc --rpccorsdomain "*"`
 
@@ -2959,11 +2955,15 @@ at block: 4245054 (Tue, 16 Oct 2018 11:54:45 CST)
 root@~/eth#
 ```
 
-**以太坊正式网络：**`./geth --syncmode "fast" --cache=512 --datadir="./data" --rpc --rpccorsdomain "*" console`
+**以太坊正式网络**
 
-**以太坊测试网络：**`./geth --syncmode "fast" --datadir="./testnet" --testnet  --mine --minerthreads=2 --cache=1024 --rpc --rpccorsdomain "*" console`
+`./geth --syncmode "fast" --cache=512 --datadir="./data" --rpc --rpccorsdomain "*" console`
 
-**以太坊私有网络：**
+**以太坊测试网络**
+
+`./geth --syncmode "fast" --datadir="./testnet" --testnet  --mine --minerthreads=2 --cache=1024 --rpc --rpccorsdomain "*" console`
+
+**以太坊私有网络**
 
 配置创世块配置文件 `genesis.json `
 

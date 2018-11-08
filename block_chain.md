@@ -2926,6 +2926,14 @@ root@ubuntu:~/WaykiChain/node/node0# ./coind -datadir=. getconnectioncount
 1
 ```
 
+- 手动添加节点
+
+给节点添加 `127.0.0.1:7901` 的节点
+
+```bash
+root@ubuntu:~/WaykiChain/node2# ./coind -datadir=. addnode "127.0.0.1:7901" add
+```
+
 ### 以太坊初**步探索**
 
 > Ubuntu 14.04.5 LTS/geth v1.8.13-unstable/solc v0.4.24+commit.e67f0147.Linux.g++/golang v1.10.3

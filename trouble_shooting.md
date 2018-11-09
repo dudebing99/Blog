@@ -736,6 +736,61 @@ apt-get update
 apt-get install -y libdb4.8-dev libdb4.8++-dev
 ```
 
+## [Ubuntu] E: Unable to correct problems, you have held broken packages.
+
+**系统环境**
+
+Ubuntu 16.04
+
+**问题描述**
+
+执行 `apt-get install vim -y` 出错，提示包冲突，如下所示
+
+```bash
+root@ubuntu:~# apt-get install vim -y
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies:
+ vim : Depends: vim-common (= 2:7.4.052-1ubuntu3.1) but 2:7.4.1689-3ubuntu1.2 is to be installed
+E: Unable to correct problems, you have held broken packages.
+```
+
+**解决方式**
+
+卸载冲突的包，重新执行 `apt-get install vim -y` 即可
+
+```bash
+root@ubuntu:~# apt-get remove --purge vim-common
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages will be REMOVED:
+  ubuntu-minimal* vim-common* vim-tiny*
+0 upgraded, 0 newly installed, 3 to remove and 2 not upgraded.
+After this operation, 1,520 kB disk space will be freed.
+Do you want to continue? [Y/n] Y
+(Reading database ... 177073 files and directories currently installed.)
+Removing ubuntu-minimal (1.361.1) ...
+Removing vim-tiny (2:7.4.1689-3ubuntu1.2) ...
+Purging configuration files for vim-tiny (2:7.4.1689-3ubuntu1.2) ...
+Removing vim-common (2:7.4.1689-3ubuntu1.2) ...
+Purging configuration files for vim-common (2:7.4.1689-3ubuntu1.2) ...
+Processing triggers for man-db (2.7.5-1) ...
+Processing triggers for mime-support (3.59ubuntu1) ...
+Processing triggers for hicolor-icon-theme (0.15-0ubuntu1.1) ...
+Processing triggers for gnome-menus (3.13.3-6ubuntu3.1) ...
+Processing triggers for desktop-file-utils (0.22-1ubuntu5.2) ...
+Processing triggers for bamfdaemon (0.5.3~bzr0+16.04.20180209-0ubuntu1) ...
+Rebuilding /usr/share/applications/bamf-2.index...
+```
+
 ## [Golang] package xxx: cannot download, $GOPATH not set. For more details see: go help gopath
 
 **系统环境**

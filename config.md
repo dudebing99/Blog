@@ -2881,7 +2881,9 @@ nameserver 8.8.8.8
 
 > **环境：**Ubuntu Ubuntu 18.04 LTS
 
-1. 下载安装
+1. 下载、编译
+
+> 运行脚本之后，提示安装依赖包，输入 `Yes` 即可
 
 ```bash
 git clone https://github.com/EOSIO/eos --recursive
@@ -2893,6 +2895,26 @@ root@ubuntu:~/eos# ./eosio_build.sh
 > 修改**最小硬盘限制**：修改文件 `eosio_build.sh` 中 `DISK_MIN=20`
 
 > 修改**最小内存限制**：修改文件 `scripts/eosio_build_ubuntu.sh` 中 `"${MEM_MEG}" -lt 7000`
+
+![](pic/config/build_eos.png)
+
+2. 运行上述提示，测试正确性
+
+```bash
+export PATH=${HOME}/opt/mongodb/bin:$PATH
+/root/opt/mongodb/bin/mongod -f /root/opt/mongodb/mongod.conf &
+cd /root/eos/build; make test
+```
+
+![](pic/config/run_test_eos.png)
+
+3. 安装 eos
+
+```bash
+root@ubuntu:~/eos# ./eosio_install.sh 
+```
+
+![](pic/config/install_eos.png)
 
 ## Shell 终端提示符设置
 

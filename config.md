@@ -2329,6 +2329,8 @@ sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
 
 2. 替换阿里云的源
 
+> 通过 `lsb_release -c` 查看系统版本，例如 14.04 对应 `trusty`，而 18.04 对应 `bionic`。因此，如果需要替换 18.04 为阿里云的源，替换 `trusty` 为 `bionic` 即可。
+
 ```bash
 su -
 
@@ -2874,6 +2876,23 @@ root@ubuntu:~# cat /etc/resolvconf/resolv.conf.d/base
 nameserver 114.114.114.114
 nameserver 8.8.8.8
 ```
+
+## Ubuntu 安装 eos
+
+> **环境：**Ubuntu Ubuntu 18.04 LTS
+
+1. 下载安装
+
+```bash
+git clone https://github.com/EOSIO/eos --recursive
+root@ubuntu:~/eos# ./eosio_build.sh
+```
+
+> 默认**最小硬盘限制**为 `20G`，**最小内存限制**为 `7000M`，如果编译机器物理硬件较差，可以适当修改
+
+> 修改**最小硬盘限制**：修改文件 `eosio_build.sh` 中 `DISK_MIN=20`
+
+> 修改**最小内存限制**：修改文件 `scripts/eosio_build_ubuntu.sh` 中 `"${MEM_MEG}" -lt 7000`
 
 ## Shell 终端提示符设置
 

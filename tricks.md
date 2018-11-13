@@ -626,7 +626,7 @@ git push --mirror git@github.com:dudebing99/project2.git
 
 > 以同步 `master` 分支为例，其他分支同理
 
-1. 克隆已 fork 的项目到本地
+1. 克隆已 `fork` 的项目到本地
 
 ```bash
 git clone git@github.com:YOUR-USERNAME/YOUR-FORKED-REPO.git
@@ -646,11 +646,35 @@ git fetch upstream
 git pull upstream master
 ```
 
-4. 同步之后推送到 github 已 fork 的项目
+4. 同步之后推送到 `github` 已 `fork` 的项目
 
 ```bash
 git push
 ```
+
+### github 提交 PR
+
+> 一般地，为每一个 `PR` 创建一个分支
+
+1. 将远程分支（待提交 `PR` 的目标仓库的目标分支）检出作为本地分支 `fix_pr`
+
+```bash
+git checkout -b fix_pr upstream/master
+```
+
+2. 将某次（或多次）提交 `cherry-pick` 到本地分支 `fix_pr`
+
+```bash
+git cherry-pick 30cd5a3
+```
+
+3. 将本地分支推到自己的远程仓库
+
+```bash
+git push origin fix_pr
+```
+
+4. 在 `github` 上面基于 `fix_pr` 与 `upstream/master` 提交 `PR`
 
 ## 同步机器时间、硬件时钟
 

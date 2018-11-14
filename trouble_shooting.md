@@ -543,6 +543,45 @@ CentOS 7.x/Python 2.7.4
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 ```
 
+## [Python] ImportError: No module named flask_restful
+
+**系统环境**
+
+CentOS 7.x/Python 2.7.5
+
+**问题描述**
+
+使用 `flask_restful`，提示如上错误
+
+**解决方式**
+
+`flask_restful` 独立于 `flask`，需要单独安装。
+
+首先查看已安装模块，发现只包含 `flask`，未包含 `flask_restful`
+
+```bash
+[kevin@iZwz9cynwitmm46uagetmvZ nginx]$ pip freeze|grep -i flask
+You are using pip version 8.1.2, however version 18.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+Flask==1.0.2
+```
+
+通过 `pip` 安装 `flask_restful` 即可
+
+```bash
+pip install flask_restful
+```
+
+确认 `flask_restful` 已安装
+
+```bash
+[kevin@iZwz9cynwitmm46uagetmvZ nginx]$ pip freeze|grep -i flask
+You are using pip version 8.1.2, however version 18.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+Flask==1.0.2
+Flask-RESTful==0.3.6
+```
+
 ## [Pip] str(c.version) for c in all_candidates SyntaxError: invalid syntax
 
 **系统环境**

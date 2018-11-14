@@ -59,9 +59,8 @@
 
 ### 比特币测试网络
 
-> **OS: **Ubuntu 14.04.5 LTS
+> **基础环境： **Ubuntu 14.04.5 LTS/Bitcoin Code Daemon v0.16.99.0-7c32b41
 >
-> **Bitcoin Code Daemon:** v0.16.99.0-7c32b41
 
 #### 启动服务
 

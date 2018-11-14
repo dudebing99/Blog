@@ -1966,6 +1966,8 @@ tree /etc/letsencrypt/live/
 
 **域名解析：**bigsillybear.com/api.bigsillybear.com
 
+**证书：**bigsillybear.com/api.bigsillybear.com
+
 **目标：**
 
 - `Nginx` 监听 80、443、11111 端口，且反向代理 10000 端口
@@ -2195,6 +2197,12 @@ root@iZwz978rorvlg75nct99l1Z:~# curl https://api.bigsillybear.com/
 ```
 
 > 由于 `api.bigsillybear.com` 只针对 443 端口（未针对 80 端口）配置了规则，相当于只配置了客户端访问`https://api.bigsillybear.com` 的规则而未配置 `http://api.bigsillybear.com` 的规则，使用 `curl https://api.bigsillybear.com/` 将自动匹配到 `http://bigsillybear.com`
+
+使用谷歌浏览器，查看证书信息如下
+
+![](pic/config/cert1.png)
+
+![](pic/config/cert2.png)
 
 ## 安装配置 CURL 支持 http2
 

@@ -1926,20 +1926,7 @@ server {
 /usr/local/nginx/sbin/nginx -s reload
 ```
 
-## Lets Encrypt 证书制作、部署
-
-> **References:**
->
-> [Lets Encrypt](https://community.letsencrypt.org/t/trying-to-renew-got-message-cert-not-yet-due-for-renewal/36303)
->
-> [Nginx 与 Apache Tomcat 组合的简单使用]([Nginx与tomcat组合的简单使用](http://www.cnblogs.com/naaoveGIS/p/5478208.html))
-
-### 基础环境
-
-- CentOS 6.8
-- Nginx 1.10.2
-- Apache Tomcat 8.0.47
-- 配置域名解析 api.danbay.cn xxx.xxx.xxx.xxx
+## Lets Encrypt 证书制作、使用
 
 ### 证书制作
 
@@ -1966,140 +1953,248 @@ tree /etc/letsencrypt/live/
 
 ![证书文件](pic/certbot/cert.jpg)
 
-### 部署
-
-#### Nginx 同时支持 http/https
-
-   ```bash
- server {
-   listen	80;
-   listen  443;
-
-   ssl_certificate      /etc/letsencrypt/live/api.danbay.cn/fullchain.pem;
-   ssl_certificate_key  /etc/letsencrypt/live/api.danbay.cn/privkey.pem;
-
-   ssl_session_timeout 1d;
-   ssl_session_cache shared:SSL:32m;
-   ssl_session_tickets off;
-
-   # modern configuration. tweak to your needs.
-   ssl_protocols TLSv1.2;
-   ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
-   ssl_prefer_server_ciphers on;
-
-   server_name          api.danbay.cn;
-   root         		/usr/share/nginx/html;
-
-   # Load configuration files for the default server block.
-   include /etc/nginx/default.d/*.conf;
-
-   location / {
-   }
-
-   error_page 404 /404.html;
-   location = /40x.html {
-   }
-
-   error_page 500 502 503 504 /50x.html;
-   location = /50x.html {
-   }
-}
-   ```
-
-#### Nginx 强制启用 https
-
-```bash
-server {
-    listen  80;
-    listen  443;
-
-    server_name             api.danbay.cn;
-    root         		    /usr/share/nginx/html;
-    ssl             		on;
-    error_page 497          https://$host:443$uri;
-    #error_page 497         https://$host:443$request_uri?$args;
-
-    ssl_certificate         /etc/letsencrypt/live/dev3.danbay.cn/fullchain.pem;
-    ssl_certificate_key     /etc/letsencrypt/live/dev3.danbay.cn/privkey.pem;
-
-    ssl_session_timeout 1d;
-    ssl_session_cache shared:SSL:32m;
-    ssl_session_tickets off;
-
-    # modern configuration. tweak to your needs.
-    ssl_protocols TLSv1.2;
-    ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
-    ssl_prefer_server_ciphers on;
-
-    # Load configuration files for the default server block.
-    include /etc/nginx/default.d/*.conf;
-
-    location / {
-    }
-
-    error_page 404 /404.html;
-    location = /40x.html {
-    }
-
-    error_page 500 502 503 504 /50x.html;
-    location = /50x.html {
-    }
-}
-```
-
-#### Nginx 代理 Apache Tomcat
-
-```bash
-upstream tomcat {
-    server 127.0.0.1:7080;
-}
-
-server {
-    listen  80;
-    listen  443;
-
-    server_name             api.danbay.cn;
-    root         		    /usr/share/nginx/html;
-    ssl             		on;
-
-    #error_page 497         https://$host:443$uri?$args;
-    error_page 497          https://$host:443$request_uri;
-
-    ssl_certificate         /etc/letsencrypt/live/api.danbay.cn/fullchain.pem;
-    ssl_certificate_key     /etc/letsencrypt/live/api.danbay.cn/privkey.pem;
-
-    ssl_session_timeout 1d;
-    ssl_session_cache shared:SSL:32m;
-    ssl_session_tickets off;
-
-    # modern configuration. tweak to your needs.
-    ssl_protocols TLSv1.2;
-    ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
-    ssl_prefer_server_ciphers on;
-
-    # Load configuration files for the default server block.
-    include /etc/nginx/default.d/*.conf;
-
-    location / {
-            proxy_pass http://tomcat;
-    }
-
-    error_page 404 /404.html;
-    location = /40x.html {
-    }
-
-    error_page 500 502 503 504 /50x.html;
-    location = /50x.html {
-    }
-}
-```
-
-### 更新证书
+### 证书更新
 
 ```bash
 # 证书默认 90 有效，更新不能太频繁，同一域名一周之内最多只能更新5次
 /opt/certbot-auto renew
 ```
+
+### 综合使用
+
+**基础环境：**Nginx 1.12.2/CentOS 7.4
+
+**域名解析：**bigsillybear.com/api.bigsillybear.com
+
+**目标：**
+
+- `Nginx` 监听 80、443、11111 端口，且反向代理 10000 端口
+
+- 支持 `http://bigsillybear.com` 与 `https://bigsillybear.com`
+- 只支持 `https://bigsllybear.com:11111`
+- 支持 `https://api.bigsillybear.com`
+
+```bash
+# For more information on configuration, see:
+#   * Official English Documentation: http://nginx.org/en/docs/
+#   * Official Russian Documentation: http://nginx.org/ru/docs/
+
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+
+# Load dynamic modules. See /usr/share/nginx/README.dynamic.
+include /usr/share/nginx/modules/*.conf;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile            on;
+    tcp_nopush          on;
+    tcp_nodelay         on;
+    keepalive_timeout   65;
+    types_hash_max_size 2048;
+
+    include             /etc/nginx/mime.types;
+    default_type        application/octet-stream;
+
+    # Load modular configuration files from the /etc/nginx/conf.d directory.
+    # See http://nginx.org/en/docs/ngx_core_module.html#include
+    # for more information.
+    include /etc/nginx/conf.d/*.conf;
+
+    server {
+        listen       80 default_server;
+        listen       [::]:80 default_server;
+        server_name  _;
+        root         /usr/share/nginx/html;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+        }
+
+        error_page 404 /404.html;
+            location = /40x.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+        }
+    }
+
+    # Settings for a TLS enabled server.
+    server {
+        listen       443 ssl http2 default_server;
+        listen       [::]:443 ssl http2 default_server;
+        server_name  bigsillybear.com;
+        root         /usr/share/nginx/html;
+
+        ssl_certificate         "/etc/letsencrypt/live/bigsillybear.com/fullchain.pem";
+        ssl_certificate_key     "/etc/letsencrypt/live/bigsillybear.com/privkey.pem";
+        ssl_session_cache shared:SSL:1m;
+        ssl_session_timeout  10m;
+        ssl_ciphers HIGH:!aNULL:!MD5;
+        ssl_prefer_server_ciphers on;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+        }
+
+        error_page 404 /404.html;
+            location = /40x.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+        }
+    }
+
+    server {
+        listen       11111;
+        listen       [::]:11111;
+        server_name  bigsillybear.com;
+        root         /usr/share/nginx/html;
+
+        ssl                     on;
+        error_page 497          https://$host:443$uri;
+        #error_page 497         https://$host:443$request_uri?$args;
+        ssl_certificate         "/etc/letsencrypt/live/bigsillybear.com/fullchain.pem";
+        ssl_certificate_key     "/etc/letsencrypt/live/bigsillybear.com/privkey.pem";
+        ssl_session_cache shared:SSL:1m;
+        ssl_session_timeout  10m;
+        ssl_ciphers HIGH:!aNULL:!MD5;
+        ssl_prefer_server_ciphers on;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+        }
+
+        error_page 404 /404.html;
+            location = /40x.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+        }
+    }
+
+    upstream api_server {
+        server 127.0.0.1:10000;
+    }
+
+    server {
+        listen       443;
+        listen       [::]:443;
+        server_name  api.bigsillybear.com;
+        root         /usr/share/nginx/html;
+
+        ssl_certificate         "/etc/letsencrypt/live/api.bigsillybear.com/fullchain.pem";
+        ssl_certificate_key     "/etc/letsencrypt/live/api.bigsillybear.com/privkey.pem";
+        ssl_session_cache shared:SSL:1m;
+        ssl_session_timeout  10m;
+        ssl_ciphers HIGH:!aNULL:!MD5;
+        ssl_prefer_server_ciphers on;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+                proxy_redirect          off;
+                proxy_set_header        Host            $host;
+                proxy_set_header        X-Real-IP       $remote_addr;
+                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_pass              http://api_server;
+        }
+
+        error_page 404 /404.html;
+            location = /40x.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+        }
+    }
+
+}
+```
+
+**验证结果**
+
+```bash
+root@iZwz978rorvlg75nct99l1Z:~# curl -I http://bigsillybear.com
+HTTP/1.1 200 OK
+Server: nginx/1.12.2
+Date: Wed, 14 Nov 2018 09:16:03 GMT
+Content-Type: text/html
+Content-Length: 3700
+Last-Modified: Tue, 06 Mar 2018 09:26:21 GMT
+Connection: keep-alive
+ETag: "5a9e5ebd-e74"
+Accept-Ranges: bytes
+
+root@iZwz978rorvlg75nct99l1Z:~# curl -I https://bigsillybear.com
+HTTP/1.1 200 OK
+Server: nginx/1.12.2
+Date: Wed, 14 Nov 2018 09:16:06 GMT
+Content-Type: text/html
+Content-Length: 3700
+Last-Modified: Tue, 06 Mar 2018 09:26:21 GMT
+Connection: keep-alive
+ETag: "5a9e5ebd-e74"
+Accept-Ranges: bytes
+```
+
+```bash
+root@iZwz978rorvlg75nct99l1Z:~# curl https://bigsillybear.com:11111 -I
+HTTP/1.1 200 OK
+Server: nginx/1.12.2
+Date: Wed, 14 Nov 2018 08:59:57 GMT
+Content-Type: text/html
+Content-Length: 3700
+Last-Modified: Tue, 06 Mar 2018 09:26:21 GMT
+Connection: keep-alive
+ETag: "5a9e5ebd-e74"
+Accept-Ranges: bytes
+
+root@iZwz978rorvlg75nct99l1Z:~# curl http://bigsillybear.com:11111 -I 
+HTTP/1.1 302 Moved Temporarily
+Server: nginx/1.12.2
+Date: Wed, 14 Nov 2018 09:00:04 GMT
+Content-Type: text/html
+Content-Length: 161
+Connection: close
+Location: https://bigsillybear.com:443/
+```
+
+```bash
+root@iZwz978rorvlg75nct99l1Z:~# curl http://bigsillybear.com:10000/
+{
+    "id": 0, 
+    "message": "hello world"
+}
+root@iZwz978rorvlg75nct99l1Z:~# curl https://api.bigsillybear.com/
+{
+    "id": 0, 
+    "message": "hello world"
+}
+```
+
+> 由于 `api.bigsillybear.com` 只针对 443 端口（未针对 80 端口）配置了规则，相当于只配置了客户端访问`https://api.bigsillybear.com` 的规则而未配置 `http://api.bigsillybear.com` 的规则，使用 `curl https://api.bigsillybear.com/` 将自动匹配到 `http://bigsillybear.com`
 
 ## 安装配置 CURL 支持 http2
 

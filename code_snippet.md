@@ -3688,7 +3688,7 @@ if __name__ == '__main__':
 
 **输出**
 
-```basic
+```bash
 [root@~]# python app.py
  * Running on http://0.0.0.0:12345/ (Press CTRL+C to quit)
  * Restarting with stat
@@ -3697,7 +3697,7 @@ if __name__ == '__main__':
 127.0.0.1 - - [25/May/2018 09:34:49] "GET /index HTTP/1.1" 200 -
 ```
 
-```basic
+```bah
 [root@~]# curl http://0.0.0.0:12345/index
 {
     "message": "hello world"
@@ -3757,7 +3757,7 @@ httpd.serve_forever()
 
 **输出**
 
-```basic
+```bah
 Serving on port 8000...
 ('middleware, uri: ', '/hi')
 127.0.0.1 - - [28/May/2018 00:06:03] "GET /hi HTTP/1.1" 200 3
@@ -3767,7 +3767,7 @@ Serving on port 8000...
 127.0.0.1 - - [28/May/2018 00:06:15] "GET /haha HTTP/1.1" 404 10
 ```
 
-```basic
+```bash
 $ curl http://127.0.0.1:8000/hi -s
 Hi!
 $ curl http://127.0.0.1:8000/hello -s

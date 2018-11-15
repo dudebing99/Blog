@@ -1509,3 +1509,23 @@ rethrow
 
 删除 `~/.local/share/eosio/nodeos/data` 目录，重新启动即可
 
+## [eos] unable to find plugin: eosio::wallet_api_plugin
+
+**系统环境**
+
+Ubuntu 18.04/nodeos 1.4.3
+
+**问题描述**
+
+`nodeos` 启动报错，如下所示
+
+```bash
+error 2018-11-15T07:53:44.135 thread-0  main.cpp:138                  main                 ] /root/eos/libraries/appbase/application.cpp(309): Throw in function appbase::abstract_plugin &appbase::application::get_plugin(const string &) const
+Dynamic exception type: boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error> >
+std::exception::what: unable to find plugin: eosio::wallet_api_plugin
+```
+
+**解决方式**
+
+新版本 `nodeos` 已经将钱包插件移除，因此将该配置项从 `config.ini` 移除即可
+

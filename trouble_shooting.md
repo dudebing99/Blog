@@ -1478,3 +1478,34 @@ non-mandatory-script-verify-flag (Signature must be zero for failed CHECK(MULTI)
 **解决方式**
 
 在给原始交易签名时，amount 未设置为未花费输出即可（本示例中， amount 对应 0.527）
+
+## [eos] block_log_exception: Block log exception Block log was not setup properly.
+
+**系统环境**
+
+Ubuntu 18.04/nodeos 1.4.3
+
+**问题描述**
+
+nodeos 启动报错，如下所示
+
+```bash
+kevin@ubuntu:~$ nodeos --config-dir ~/.local/share/eosio/nodeos/config
+info  2018-11-15T07:51:03.418 thread-0  chain_plugin.cpp:333          plugin_initialize    ] initializing chain plugin
+warn  2018-11-15T07:51:03.418 thread-0  chain_plugin.cpp:684          plugin_initialize    ] 3190000 block_log_exception: Block log exception
+Block log was not setup properly.
+    {}
+    thread-0  block_log.cpp:537 extract_genesis_state
+error 2018-11-15T07:51:03.418 thread-0  main.cpp:132                  main                 ] 3190000 block_log_exception: Block log exception
+Block log was not setup properly.
+    {}
+    thread-0  block_log.cpp:537 extract_genesis_state
+rethrow
+    {}
+    thread-0  chain_plugin.cpp:684 plugin_initialize
+```
+
+**解决方式**
+
+删除 `~/.local/share/eosio/nodeos/data` 目录，重新启动即可
+

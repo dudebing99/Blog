@@ -1588,6 +1588,15 @@ curl  https://bootstrap.pypa.io/get-pip.py | python2.7 -
 pip 10.0.1 from /usr/local/lib/python2.7/site-packages/pip (python 2.7)
 ```
 
+## CentOS 安装 MySQLdb
+
+```bash
+wget https://files.pythonhosted.org/packages/a5/e9/51b544da85a36a68debe7a7091f068d802fc515a3a202652828c73453cad/MySQL-python-1.2.5.zip
+unzip MySQL-python-1.2.5.zip
+cd MySQL-python-1.2.5
+python setup.py install
+```
+
 ## CentOS 安装 protobuf 3.5.1
 
 ```bash

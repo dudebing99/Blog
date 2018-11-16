@@ -43,6 +43,7 @@
 - [coin market cap](https://coinmarketcap.com/)
 - [truffle framework tutorials](https://truffleframework.com/tutorials)
 - [infura docs](https://infura.io/docs)
+- [为什么比特币硬分叉不会分裂成两个币？](https://bitcointalk.org/index.php?topic=1837147.0;imode) 
 
 ## 缩略词
 

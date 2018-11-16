@@ -582,6 +582,38 @@ Flask==1.0.2
 Flask-RESTful==0.3.6
 ```
 
+## [Flask] request.remote_addr 无法获取用户真实 IP
+
+**系统环境**
+
+CentOS 7.4/Python 2.7.5
+
+**问题描述**
+
+Flask 中使用 `request.remote.addr` 无法获取用户真实 IP，均为 `127.0.0.1`
+
+**原因分析**
+
+服务经过了 Nginx 反向代理，直接使用 `request.remote.addr` 获取的 IP 为 Nginx 的地址，对应的 Nginx 代理配置如下所示：
+
+```bash
+location / {
+        proxy_redirect          off;
+        proxy_set_header        Host            $host;
+        proxy_set_header        X-Real-IP       $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass              http://api_server;
+}
+```
+
+**解决方式**
+
+正确处理后端服务经过 Nginx 代理这种情况即可，代码如下所示：
+
+```python
+client_ip = request.headers.getlist("X-Forwarded-For")[0] if request.headers.getlist("X-Forwarded-For") else request.remote.addr
+```
+
 ## [Pip] str(c.version) for c in all_candidates SyntaxError: invalid syntax
 
 **系统环境**

@@ -863,9 +863,8 @@ $db
 
 2. chmod +x xdb.sh
 
-3. 使用
+3. 使用 `./xdb.sh log` 即可快捷登陆 log.topnews.com 的数据库 log
 
-   ./xdb.sh log 即可快捷登陆 log.topnews.com 的数据库 log
 
 ### 条件插入
 
@@ -942,7 +941,7 @@ INSERT INTO table2 SELECT * FROM table1;
 ```
 
 ```sql
-INSERT INTO table2 (column_name(s))
+INSERT INTO table2 (column_name(s));
 SELECT column_name(s) FROM table1;
 ```
 
@@ -953,12 +952,13 @@ show table status
 ```
 
 ```sql
-mysql> select CREATE_TIME from INFORMATION_SCHEMA.TABLES where TABLE_NAME='latest_active_user_tbl';
-+---------------------+
-| CREATE_TIME         |
-+---------------------+
-| 2018-05-30 10:36:31 |
-+---------------------+
+select CREATE_TIME from INFORMATION_SCHEMA.TABLES where TABLE_NAME='latest_active_user_tbl';
+```
+
+### 三目表达式
+
+```sql
+select name,if(sex=0,'女','男') as sex from student;
 ```
 
 ## NGINX 性能优化

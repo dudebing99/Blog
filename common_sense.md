@@ -92,6 +92,17 @@ As such, they're not stored explicitly anywhere: they're the effects of running 
 
 > So, if minrelaytxfee is set to 0.00001 your node will happily relay any transactions with that fee or higher (ie. yours and other peoples txes)... however, if you then set mintxfee to 0.00005, then any transaction you create will have that value as the minimum possible fee, but you'll still relay other peoples txes with fees of only 0.00001. 
 
+#### 挖空块
+
+> 此处以比特币为例
+
+挖空块是因为区块的传输需要时间，比如 1M 区块现在一般需要 6 秒传完， 那矿池就有 1% 的概率（6 秒/区块间隔 600秒），在传输区块 N 的过程中又挖出了一个块。 这时候矿池就有 2 个选择： 
+
+- 原始方案：在块 N 传输结束后，才开始在 N 的基础上挖 N+1块， 传输过程中，认为别人还没挖出 N 块，所以把自己挖出的块，也打包交易，作为 N 块广播， 当然这样自己的 N 块大概率被孤立（因为别人已经先于你打包，广播出去了） 
+- 改进方案：在收到块 N 的区块头，还没传完区块数据时，就认为别人已经挖出了 N 块，开始在N的基础上挖 N+1 块， 但这就有个问题，N 块没传完，不知道别人打包了什么交易，如果 N+1 打包交易，那有可能打包到 N 块已打包的交易，就冲突了， 所以用这种提早挖 N+1 块的方法，如果在 6 秒内挖出了，那就只能打空块。 也就是说，这 6 秒的块，矿池 要么选择被孤立掉，损失 1% 产出（原始方案） 要么选择不被孤立，打空块（改进方案） 
+
+> **利益驱动尽量不挖空块，**包含基础奖励的 12.5 BTC，但没有打包交易费的奖励（现在约 1.5 BTC） 矿池每打一个空块，就会损失 1.5 BTC 的打包手续费，所以矿池都在想尽办法，不打空块。 
+
 ### Ethereum
 
 #### Can I Speed Up My Transaction?

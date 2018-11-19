@@ -44,6 +44,7 @@
 - [truffle framework tutorials](https://truffleframework.com/tutorials)
 - [infura docs](https://infura.io/docs)
 - [为什么比特币硬分叉不会分裂成两个币？](https://bitcointalk.org/index.php?topic=1837147.0;imode) 
+- [first steps in eos blockchain development](https://medium.com/infinitexlabs/first-steps-in-eos-blockchain-development-56824502c799)
 
 ## 缩略词
 
@@ -5879,6 +5880,169 @@ contract WithdrawalContract {
         msg.sender.transfer(amount);
     }
 }
+```
+
+### EOS 入门
+
+> **环境：**Ubuntu 18.04/nodeos v1.4.3
+
+#### 启动 nodeos
+
+```bash
+root@ubuntu:~# nodeos -e -p eosio --plugin eosio::chain_api_plugin --plugin eosio::history_api_plugin --contracts-console
+```
+
+默认生成的配置、数据目录位于 `~/.local/share/eosio/nodeos/`，如下所示
+
+```bash
+root@ubuntu:~# tree .local/share/eosio/nodeos/
+.local/share/eosio/nodeos/
+├── config
+│   └── config.ini
+└── data
+    ├── blocks
+    │   ├── blocks.index
+    │   ├── blocks.log
+    │   └── reversible
+    │       ├── shared_memory.bin
+    │       └── shared_memory.meta
+    ├── snapshots
+    └── state
+        ├── forkdb.dat
+        ├── shared_memory.bin
+        └── shared_memory.meta
+```
+
+监听端口如下所示
+
+```bash
+root@ubuntu:~# netstat -ntlp|grep nodeos
+tcp        0      0 0.0.0.0:9876            0.0.0.0:*               LISTEN      25100/nodeos        
+tcp        0      0 127.0.0.1:8888          0.0.0.0:*               LISTEN      25100/nodeos
+```
+
+#### 查看运行信息
+
+```bash
+root@ubuntu:~# cleos get info
+{
+  "server_version": "11c25394",
+  "chain_id": "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
+  "head_block_num": 2088,
+  "last_irreversible_block_num": 2087,
+  "last_irreversible_block_id": "00000827796a76048471f29c524761b3334e26d3f13909be8f0314f0c7637d77",
+  "head_block_id": "00000828eff6e1967bd42aec3a538bf12533aecda3bc6df3097bd06eed975af8",
+  "head_block_time": "2018-11-19T09:04:04.000",
+  "head_block_producer": "eosio",
+  "virtual_block_cpu_limit": 1610273,
+  "virtual_block_net_limit": 8457587,
+  "block_cpu_limit": 199900,
+  "block_net_limit": 1048576,
+  "server_version_string": "v1.4.3-dirty"
+}
+```
+
+#### 创建钱包
+
+```bash
+root@ubuntu:~# cleos wallet create -n kevin --to-console
+"/usr/local/eosio/bin/keosd" launched
+Creating wallet: kevin
+Save password to use in the future to unlock this wallet.
+Without password imported keys will not be retrievable.
+"PW5KVG15pS7McimPQz7J6jcx5Z1Bq3GJD5mZLok9QSScBMKPbi8f4"
+```
+
+> 钱包的密码为 `PW5KVG15pS7McimPQz7J6jcx5Z1Bq3GJD5mZLok9QSScBMKPbi8f4`
+
+#### 查看钱包列表
+
+```bash
+root@ubuntu:~# cleos wallet list
+Wallets:
+[
+  "kevin *"
+]
+```
+
+> `*` 表示已解锁钱包
+
+#### 锁定解锁钱包
+
+```bash
+root@ubuntu:~# cleos wallet lock -n kevin
+Locked: kevin
+root@ubuntu:~# cleos wallet unlock -n kevin --password PW5KVG15pS7McimPQz7J6jcx5Z1Bq3GJD5mZLok9QSScBMKPbi8f4
+Unlocked: kevin
+```
+
+#### 创建密钥
+
+```bash
+root@ubuntu:~# cleos create key --to-console
+Private key: 5JZeMnMyDY4W4qrxqgkGVDzFeGcarmFWjk9qsBor4E26TFUf4HZ
+Public key: EOS5SNzJujim4XxKRUXNTYivBxT1D3ocMf7BE4jpiqeuAjPWAixy9
+```
+
+#### 将密钥导入钱包
+
+```bash
+root@ubuntu:~# cleos wallet import --private-key=5JZeMnMyDY4W4qrxqgkGVDzFeGcarmFWjk9qsBor4E26TFUf4HZ -n kevin
+imported private key for: EOS5SNzJujim4XxKRUXNTYivBxT1D3ocMf7BE4jpiqeuAjPWAixy9
+```
+
+#### 查看钱包管理的密钥
+
+```bash
+root@ubuntu:~# cleos wallet keys
+[
+  "EOS5SNzJujim4XxKRUXNTYivBxT1D3ocMf7BE4jpiqeuAjPWAixy9"
+]
+```
+
+#### 创建账户
+
+```bash
+cleosroot@ubuntu:~# cleos create account eosio token EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV EOS7aUXGRgL2oyWerZ7fkfeMp5WH7tDa6UWpiaazswN56odYmvYNe
+executed transaction: eed25cb09b017e3fffdac50aecfa69bd8c22caec3db945d161129a2bfd105ef7  200 bytes  35373 us
+#         eosio <= eosio::newaccount            {"creator":"eosio","name":"token","owner":{"threshold":1,"keys":[{"key":"EOS6MRyAjQq8ud7hVNYcfnVPJqc...
+warning: transaction executed locally, but may not be confirmed by the network yet         ]  create account eosio token {public-OwnerKey} {public-ActiveKey}
+```
+
+> `cleos create account eosio token {public-OwnerKey} {public-ActiveKey}` 执行创建新账户需要确保 `public-OwnerKey` 已经导入钱包并且具有权限。
+
+在使用默认配置文件启动 `nodeos`，将内置了一个 `owner` 账户 `eos`，且对应的密钥对如下所示
+
+```bash
+root@ubuntu:~# cat ~/.local/share/eosio/nodeos/config/config.ini | grep signature-provider
+# (DEPRECATED - Use signature-provider instead) Tuple of [public key, WIF private key] (may specify multiple times) (eosio::producer_plugin)
+signature-provider = EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV=KEY:5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
+```
+
+因此，需要将此密钥对导入钱包，然后才可以利用账户 `eos` 授权创建新账户，否则报错，如下所示
+
+`Error 3090003: Provided keys, permissions, and delays do not satisfy declared authorizations Ensure that you have the related private keys inside your wallet and your wallet is unlocked.` 
+
+#### 查看账户
+
+```bash
+root@ubuntu:~# cleos get account token
+created: 2018-11-19T09:54:39.500
+permissions: 
+     owner     1:    1 EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
+        active     1:    1 EOS7aUXGRgL2oyWerZ7fkfeMp5WH7tDa6UWpiaazswN56odYmvYNe
+memory: 
+     quota:       unlimited  used:      2.66 KiB  
+
+net bandwidth: 
+     used:               unlimited
+     available:          unlimited
+     limit:              unlimited
+
+cpu bandwidth:
+     used:               unlimited
+     available:          unlimited
+     limit:              unlimited
 ```
 
 ## 比特币

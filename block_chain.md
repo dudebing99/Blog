@@ -45,6 +45,7 @@
 - [infura docs](https://infura.io/docs)
 - [为什么比特币硬分叉不会分裂成两个币？](https://bitcointalk.org/index.php?topic=1837147.0;imode) 
 - [first steps in eos blockchain development](https://medium.com/infinitexlabs/first-steps-in-eos-blockchain-development-56824502c799)
+- [比特阁：区块链行业消息](https://www.btege.com/)
 
 ## 缩略词
 

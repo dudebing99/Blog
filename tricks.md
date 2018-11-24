@@ -537,6 +537,9 @@ git remote -v
 # 以某个分支强制覆盖本地分支并推送
 git reset --hard <remote_branch>
 git push -f
+
+# 切换 HEAD 指向的默认分支
+git remote set-head origin <target_branch>
 ```
 
 ### git stash

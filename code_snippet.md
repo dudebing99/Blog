@@ -4806,3 +4806,63 @@ $ julia test.jl
 [1, 4, 9, 49]
 ```
 
+## [微信小程序] 利用滑块容器实现内容循环滚动
+
+- js 文件给 `msgList` 初始化
+
+```javascript
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    var that = this
+    var user_info = wx.getStorageSync("user_info");
+    //更新数据
+    that.setData({
+      msgList: [
+        '当前系统版本： v1.0.0',
+        '当前登录用户：' + user_info.nickname
+      ],
+      users: [{
+        "url": "../resource/images/exit.png",
+        "title": "退出登陆",
+        "content": "",
+        "indicator": "../resource/images/next.png"
+      }]
+    })
+  },
+```
+
+- wxml 文件定义容器
+
+```html
+<swiper class="swiper-container" vertical="true" autoplay="true" circular="true" interval="2000">
+  <block wx:for="{{msgList}}">
+    <swiper-item>
+      <view class="swiper-item">{{item}}</view>
+    </swiper-item>
+  </block>
+</swiper>
+```
+
+- wxss 文件定义样式
+
+```css
+.swiper-container {
+  width: 100%;
+  height: 1.2rem;
+  z-index: 999;
+}
+
+.swiper-item {
+  line-height: 1.0rem;
+  font-size: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: 0.1rem;
+  padding-left: 1.0rem;
+  color: rgb(5, 58, 192);
+}
+```
+

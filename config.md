@@ -3086,22 +3086,22 @@ root:fabric#
    npm install -g remix-ide
    ```
 
-4. 在 合约文件目录运行 remix-ide
+4. 在合约文件目录运行 remix-ide
 
-   redix-ide 服务监听本地 8080 端口，同时调用 remixd 服务监听本地的 65520 端口，如下所示
+   `redix-ide` 服务监听本地 8080 端口，同时调用 `remixd` 服务监听本地的 65520 端口，如下所示
 
    ```bash
    $ remix-ide
    setup notifications for E:\iblocktech\mf\contractcode
    Shared folder : E:\iblocktech\mf\contractcode
    Starting Remix IDE at http://localhost:8080 and sharing E:\iblocktech\mf\contrac                                                                                            tcode
-   Mon Aug 13 2018 14:57:01 GMT+0800 (中国标准时间) Remixd is listening on 127.0.0.                                                                                            1:65520
+   Mon Aug 13 2018 14:57:01 GMT+0800 (中国标准时间) Remixd is listening on 127.0.0.1:65520
    origin http://localhost:8080
    Mon Aug 13 2018 14:57:23 GMT+0800 (中国标准时间) Connection accepted.
    setup notifications for E:\iblocktech\mf\contractcode
    ```
 
-5. 打开浏览器，访问 http://localhost:8080，通过 remixd 服务配置 remix-ide 与本地合约文件，如下所示
+5. 打开浏览器，访问 `http://localhost:8080`，通过 `remixd` 服务配置 `remix-ide` 与本地合约文件，如下所示
 
 ![](pic/config/remix_connect_localhost.png)
 

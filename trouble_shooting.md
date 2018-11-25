@@ -1054,6 +1054,23 @@ Windows 7 Ultimate x64/geth 1.8.13
 
 首先先建立账户 `personal.newAccount('password')` 即可，然后尝试解锁账户
 
+## [geth] remove the blockchain and state databases
+
+**系统环境**
+
+Ubuntu 14.04/geth 1.8.13
+
+**问题描述**
+
+区块同步数据始终失败或者数据目录被部分破坏，需要情况数据重新同步
+
+**解决方式**
+
+```bash
+root@iZwz978rorvlg75nct99l1Z:~/eth# geth removedb
+Remove local database? [y/N] 
+```
+
 ## [NPM] sh: 1: node: not found npm WARN This failure might be due to the use of legacy binary 
 
 **系统环境**

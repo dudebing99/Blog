@@ -4778,6 +4778,13 @@ contract OwnedUpgradeabilityProxy is UpgradeabilityProxy {
 }
 ```
 
+**使用方法：**
+
+1. 部署 `OwnedUpgradeabilityProxy` 合约，假设合约地址 `X`
+2. 部署目标合约，假设合约地址 `Y`
+3. 调用 `OwnedUpgradeabilityProxy` 合约的接口 `upgradeTo(Y)`
+4. 生成目标合约指向地址 `X`，当调用目标合约接口时，实际将数据都存储在 `OwnedUpgradeabilityProxy` 合约的地址空间，后续升级目标合约，重新执行步骤 3 即可。
+
 ## [Julia] Hello World
 
 ```julia

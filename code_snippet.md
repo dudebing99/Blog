@@ -5049,3 +5049,25 @@ $ julia test.jl
 }
 ```
 
+## [微信小程序] 利用全局属性 globalData 跨页面传值
+
+- 在 `app.js` 中定义需要跨页面传递的值，例如，向动态配置项目的 URL
+
+```javascript
+App (
+    globalData: {
+    	URL: 'https://api.bigsillybear.com'
+    }
+    // ...
+)
+```
+
+- 需要使用值的页面，假设 `x.js`
+
+```javascript
+// 获取 app 实例
+var app = getApp();
+// 直接访问 globalData 即可
+console.log('URL: ', app.globalData.URL)
+```
+

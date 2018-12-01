@@ -675,7 +675,11 @@ git checkout -b fix_pr upstream/master
 2. 将某次（或多次）提交 `cherry-pick` 到本地分支 `fix_pr`
 
 ```bash
+# 一次提交
 git cherry-pick 30cd5a3
+
+# 多次提交 (commit from, commit to]
+git cherry-pick <commit from>..<commit to>
 ```
 
 3. 将本地分支推到自己的远程仓库

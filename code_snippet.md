@@ -4866,3 +4866,24 @@ $ julia test.jl
 }
 ```
 
+## [js] 判断字符串为空
+
+```javascript
+//判断字符是否为空的方法
+function isEmpty(obj){
+    if(typeof obj == "undefined" || obj == null || obj == ""){
+        return true;
+    }else{
+        return false;
+    }
+}
+```
+
+使用方式如下
+
+```javascript
+if (!isEmpty(value)) {
+    alert(value);
+}
+```
+

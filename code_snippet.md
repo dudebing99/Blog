@@ -2368,6 +2368,63 @@ ConcreteClass2::Primitive1()
 ConcreteClass2::Primitive2()
 ```
 
+## [CPP] LevelDB 基础使用
+
+```cpp
+#include <iostream>
+#include <cassert>
+#include "leveldb/db.h"
+#include "leveldb/write_batch.h"
+
+int main()
+{
+    // Open a database.
+    leveldb::DB* db;
+    leveldb::Options opts;
+    opts.create_if_missing = true;
+    leveldb::Status status = leveldb::DB::Open(opts, "./testdb", &db);
+    assert(status.ok());
+    
+    // Write data.
+    status = db->Put(leveldb::WriteOptions(), "key", "value");
+    assert(status.ok());
+
+    // Read data.
+    std::string val;
+    status = db->Get(leveldb::ReadOptions(), "key", &val);
+    assert(status.ok());
+    std::cout << val << std::endl;
+
+    // Batch atomic write.
+    leveldb::WriteBatch batch;
+    batch.Delete("key");
+    batch.Put("key0", "value0");
+    batch.Put("key1", "value1");
+    batch.Put("key2", "value2");
+    status = db->Write(leveldb::WriteOptions(), &batch);
+    assert(status.ok());
+
+    // Scan database.
+    leveldb::Iterator* it = db->NewIterator(leveldb::ReadOptions());
+    for (it->SeekToFirst(); it->Valid(); it->Next()) {
+        std::cout << it->key().ToString() << ": " << 
+          it->value().ToString() << std::endl;
+    }
+    assert(it->status().ok());
+    
+    // Range scan, example: [key1, value2)
+    for (it->Seek("key1"); 
+         it->Valid() && it->key().ToString() < "value2"; 
+         it->Next()) {
+        std::cout << it->key().ToString() << ": " << 
+          it->value().ToString() << std::endl;
+    } 
+
+    // Close a database.
+    delete db;
+}
+```
+
 ## [Python] 输出不换行
 
 > **环境：**Python 2.7.14 

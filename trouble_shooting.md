@@ -614,6 +614,41 @@ location / {
 client_ip = request.headers.getlist("X-Forwarded-For")[0] if request.headers.getlist("X-Forwarded-For") else request.remote.addr
 ```
 
+## [Flask] view[write_offset:write_offset+buffer_size]
+
+ **系统环境**
+
+CentOS 7.4/Flask 1.0.2/Python 2.7.5
+
+**问题描述**
+
+app.py 运行过程中报如下错误
+
+```bash
+Exception happened during processing of request from ('172.16.80.1', 52437)
+Traceback (most recent call last):
+File "/usr/lib/python2.7/SocketServer.py", line 593, in process_request_thread
+self.finish_request(request, client_address)
+File "/usr/lib/python2.7/SocketServer.py", line 334, in finish_request
+self.RequestHandlerClass(request, client_address, self)
+File "/usr/lib/python2.7/SocketServer.py", line 651, in init
+self.finish()
+File "/usr/lib/python2.7/SocketServer.py", line 710, in finish
+self.wfile.close()
+File "/usr/lib/python2.7/socket.py", line 279, in close
+self.flush()
+File "/usr/lib/python2.7/socket.py", line 303, in flush
+self._sock.sendall(view[write_offset:write_offset+buffer_size])
+```
+
+**问题分析**
+
+服务器在接受一个请求，如果处理时间较长，当服务器还没有处理完而客户端中断了连接时（比如关闭了浏览器），由于flask server 在发送数据时没有确认连接状态而直接进行 flush，就会导致发生这个错误。这个异常只会影响服务端的单个请求，不会影响并行的其它请求。
+
+**解决方式**
+
+暂无。
+
 ## [Pip] str(c.version) for c in all_candidates SyntaxError: invalid syntax
 
 **系统环境**

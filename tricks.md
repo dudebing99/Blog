@@ -4,13 +4,21 @@
 
 ## 内存泄露排查
 
+### OOM 导致被杀
+
+利用 `dmesg` 查看
+
+```bash
+dmesg | grep a.out
+```
+
 ### 较为明显的内存泄漏
 
 > 通过系统自带的命令持续地观察进程内存的占用情况，即可发现有明显内存泄漏的进程；更进一步，当进程运行一段时间导致系统内存耗尽，将会被操作系统杀掉。
 
-- 利用 free 查看系统内存
+- 利用 `free` 查看系统内存
 
-- 利用 top/htop 查看进程占用内存
+- 利用 `top`/`htop` 查看进程占用内存
 
   ```bash
   top -d 1 -p pid
@@ -24,7 +32,7 @@
 
 ### 不太明显的内存泄漏
 
-- 利用 valgrind 工具查看内存分配、释放、泄漏
+- 利用 `valgrind` 工具查看内存分配、释放、泄漏
 
   ```bash
   valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reachable=no --workaround-gcc296-bugs=yes ./a.out
@@ -34,15 +42,15 @@
 
 ### 查看系统级别是否运行异常
 
-- 利用 top/htop 查看全局资源使用
+- 利用 `top`/`htop` 查看全局资源使用
 
-- 利用 free 查看系统内存使用
+- 利用 `free` 查看系统内存使用
 
-- 利用 iostat 查看磁盘 I/O 是否异常
+- 利用 `iostat` 查看磁盘 `I/O` 是否异常
 
-- 利用 df -i 查看系统 inode 使用是否异常；df -h 查看系统磁盘使用是否异常
+- 利用 `df -i` 查看系统 `inode` 使用是否异常；`df -h` 查看系统磁盘使用是否异常
 
-- 利用 ss/netstat 查看系统网络连接是否异常
+- 利用 `ss`/`netstat` 查看系统网络连接是否异常
 
   ```bash
   # 查看网络统计信息
@@ -78,13 +86,13 @@
   tcp        0      0 172.18.219.68:58226     106.14.112.174:7901     ESTABLISHED 25511/coind 
   ```
 
-- 利用 ifstat 查看系统网络流量是否异常
+- 利用 `ifstat` 查看系统网络流量是否异常
 
 ### 查看进程级别是否运行异常
 
-- top/htop 查看进程资源使用是否正常（特别注意，内存是否一致在增加）
+- `top`/`htop` 查看进程资源使用是否正常（特别注意，内存是否一致在增加）
 
-- lsof 查看进程打开的文件句柄数
+- `lsof` 查看进程打开的文件句柄数
 
 - 查看进程堆栈信息（2388 为进程号）
 
@@ -97,7 +105,7 @@
   [<ffffffffffffffff>] 0xffffffffffffffff
   ```
 
-- strace 查看系统调用和信号
+- `strace` 查看系统调用和信号
 
   ```bash
   [root@www ~]#  strace -s 99 -ffp 3363
@@ -109,7 +117,7 @@
   Process 3365 detached
   ```
 
-- gdb attach 进程并获取堆栈信息
+- `gdb attach` 进程并获取堆栈信息
 
   ```bash
   [root@www ~]# gdb attach 2388
@@ -140,7 +148,7 @@
   #5  0x00000000007734dd in _start ()
   ```
 
-- java 程序，可以借助 jstack、jstat、jmap、jinfo 等查看进程的运行信息
+- java 程序，可以借助 `jstack`、`jstat`、`jmap`、`jinfo` 等查看进程的运行信息
 
 ## TCP 协议
 
@@ -154,9 +162,9 @@
 
 ![](pic/tcp/connect.png)
 
-> **为什么要三次握手？**
->
-> 防止失效的连接请求突然传到服务器端，让服务器端误认为要建立连接。
+**为什么要三次握手？**
+
+防止失效的连接请求突然传到服务器端，让服务器端误认为要建立连接。
 
 ### TCP 连接释放
 
@@ -164,18 +172,18 @@
 
 ![](pic/tcp/disconnect.png)
 
-> **为什么 Client 进入 TIME-WAIT 后必须等待 2 MSL？**
->
-> - 保证 Client 发送的最后一个 ACK 报文段能达到 Server
-> - 防止失效的报文段出现在连接中
+**为什么 Client 进入 TIME-WAIT 后必须等待 2 MSL？**
+
+- 保证 Client 发送的最后一个 ACK 报文段能达到 Server
+- 防止失效的报文段出现在连接中
 
 ## HTTP 压力测试
 
 ### wrk
 
-> - wrk 是一款现代化的 http 压测工具，提供 lua 脚本的功能可以满足每个请求或部分请求的差异化
-> - wrk 中执行 http 请求的时候，调用 lua 分为3个阶段，setup，running，done，每个 wrk 线程中都有独立的脚本环境
-> - 可以参考 [wrk benchmark](https://github.com/wg/wrk) 项目包含的样例（目录 scripts）以及说明（SCRIPTING）
+- wrk 是一款现代化的 http 压测工具，提供 lua 脚本的功能可以满足每个请求或部分请求的差异化
+- wrk 中执行 http 请求的时候，调用 lua 分为3个阶段，setup，running，done，每个 wrk 线程中都有独立的脚本环境
+- 可以参考 [wrk benchmark](https://github.com/wg/wrk) 项目包含的样例（目录 scripts）以及说明（SCRIPTING）
 
 ![](pic/wrk/wrk.png)
 

@@ -2368,6 +2368,63 @@ ConcreteClass2::Primitive1()
 ConcreteClass2::Primitive2()
 ```
 
+## [CPP] LevelDB 基础使用
+
+```cpp
+#include <iostream>
+#include <cassert>
+#include "leveldb/db.h"
+#include "leveldb/write_batch.h"
+
+int main()
+{
+    // Open a database.
+    leveldb::DB* db;
+    leveldb::Options opts;
+    opts.create_if_missing = true;
+    leveldb::Status status = leveldb::DB::Open(opts, "./testdb", &db);
+    assert(status.ok());
+    
+    // Write data.
+    status = db->Put(leveldb::WriteOptions(), "key", "value");
+    assert(status.ok());
+
+    // Read data.
+    std::string val;
+    status = db->Get(leveldb::ReadOptions(), "key", &val);
+    assert(status.ok());
+    std::cout << val << std::endl;
+
+    // Batch atomic write.
+    leveldb::WriteBatch batch;
+    batch.Delete("key");
+    batch.Put("key0", "value0");
+    batch.Put("key1", "value1");
+    batch.Put("key2", "value2");
+    status = db->Write(leveldb::WriteOptions(), &batch);
+    assert(status.ok());
+
+    // Scan database.
+    leveldb::Iterator* it = db->NewIterator(leveldb::ReadOptions());
+    for (it->SeekToFirst(); it->Valid(); it->Next()) {
+        std::cout << it->key().ToString() << ": " << 
+          it->value().ToString() << std::endl;
+    }
+    assert(it->status().ok());
+    
+    // Range scan, example: [key1, value2)
+    for (it->Seek("key1"); 
+         it->Valid() && it->key().ToString() < "value2"; 
+         it->Next()) {
+        std::cout << it->key().ToString() << ": " << 
+          it->value().ToString() << std::endl;
+    } 
+
+    // Close a database.
+    delete db;
+}
+```
+
 ## [Python] 输出不换行
 
 > **环境：**Python 2.7.14 
@@ -4424,8 +4481,8 @@ receiver's balance:  BigNumber { s: 1, e: 0, c: [ 0 ] }
 ## [Solidity] 以太坊合约示例：币安 Token
 
 > **参考资料：**https://etherscan.io/address/0xB8c77482e45F1F44dE1745F52C74426C631bDD52#code
->
-> **点击下载：**[Binance Token](https://dudebing99.github.io/blog/archives/solidity/binance_token.sol)
+
+Solidity 合约脚本如下，[点此下载](https://dudebing99.github.io/blog/archives/solidity/binance_token.sol)
 
 ```javascript
 pragma solidity ^0.4.8;
@@ -4578,7 +4635,7 @@ contract BNB is SafeMath{
 
 ## [Solidity] 以太坊合约示例：以太坊支付
 
-由于 Solidity 是基于 EVM，语言层面直接支持以太坊支付。函数添加 `paylable` 标识，即可接受 ether，并把 ether 存入当前合约，如下合约中的 `deposit` 函数。
+由于 Solidity 是基于 `EVM`，语言层面直接支持以太坊支付。函数添加 `paylable` 标识，即可接受 ether，并把 ether 存入当前合约，如下合约中的 `deposit` 函数。
 
 ```javascript
 pragma solidity ^0.4.0;
@@ -4601,6 +4658,189 @@ contract supportPay{
 > 部署合约之后，分别调用 `depoist()` 和 `getBalance()`
 
 ![](pic/codesnippt/pay_ether.png)
+
+## [Solidity] 以太坊合约示例：使用非结构化存储实现可升级合约
+
+Solidity 合约脚本如下，[点此下载](https://dudebing99.github.io/blog/archives/solidity/owned_upgradeability_proxy.sol)
+
+```javascript
+pragma solidity ^0.4.24;
+
+/**
+ * @title Proxy
+ * @dev Gives the possibility to delegate any call to a foreign implementation.
+ */
+contract Proxy {
+    /**
+    * @dev Tells the address of the implementation where every call will be delegated.
+    * @return address of the implementation to which it will be delegated
+    */
+    function implementation() public view returns (address);
+
+    /**
+    * @dev Fallback function allowing to perform a delegatecall to the given implementation.
+    * This function will return whatever the implementation call returns
+    */
+    function () public payable {
+        address _impl = implementation();
+        require(_impl != address(0), "address invalid");
+
+        assembly {
+            let ptr := mload(0x40)
+            calldatacopy(ptr, 0, calldatasize)
+            let result := delegatecall(gas, _impl, ptr, calldatasize, 0, 0)
+            let size := returndatasize
+            returndatacopy(ptr, 0, size)
+
+            switch result
+            case 0 { revert(ptr, size) }
+            default { return(ptr, size) }
+        }
+    }
+}
+
+/**
+ * @title UpgradeabilityProxy
+ * @dev This contract represents a proxy where the implementation address to which it will delegate can be upgraded
+ */
+contract UpgradeabilityProxy is Proxy {
+    /**
+    * @dev This event will be emitted every time the implementation gets upgraded
+    * @param implementation representing the address of the upgraded implementation
+    */
+    event Upgraded(address indexed implementation);
+
+    // Storage position of the address of the current implementation
+    bytes32 private constant implementationPosition = keccak256("you are the lucky man.proxy");
+
+    /**
+    * @dev Constructor function
+    */
+    constructor() public {}
+
+    /**
+    * @dev Tells the address of the current implementation
+    * @return address of the current implementation
+    */
+    function implementation() public view returns (address impl) {
+        bytes32 position = implementationPosition;
+        assembly {
+            impl := sload(position)
+        }
+    }
+
+    /**
+    * @dev Sets the address of the current implementation
+    * @param newImplementation address representing the new implementation to be set
+    */
+    function setImplementation(address newImplementation) internal {
+        bytes32 position = implementationPosition;
+        assembly {
+            sstore(position, newImplementation)
+        }
+    }
+
+    /**
+    * @dev Upgrades the implementation address
+    * @param newImplementation representing the address of the new implementation to be set
+    */
+    function _upgradeTo(address newImplementation) internal {
+        address currentImplementation = implementation();
+        require(currentImplementation != newImplementation, "new address is the same");
+        setImplementation(newImplementation);
+        emit Upgraded(newImplementation);
+    }
+}
+
+/**
+ * @title OwnedUpgradeabilityProxy
+ * @dev This contract combines an upgradeability proxy with basic authorization control functionalities
+ */
+contract OwnedUpgradeabilityProxy is UpgradeabilityProxy {
+    /**
+    * @dev Event to show ownership has been transferred
+    * @param previousOwner representing the address of the previous owner
+    * @param newOwner representing the address of the new owner
+    */
+    event ProxyOwnershipTransferred(address previousOwner, address newOwner);
+
+    // Storage position of the owner of the contract
+    bytes32 private constant proxyOwnerPosition = keccak256("you are the lucky man.proxy.owner");
+
+    /**
+    * @dev the constructor sets the original owner of the contract to the sender account.
+    */
+    constructor() public {
+        setUpgradeabilityOwner(msg.sender);
+    }
+
+    /**
+    * @dev Throws if called by any account other than the owner.
+    */
+    modifier onlyProxyOwner() {
+        require(msg.sender == proxyOwner(), "owner only");
+        _;
+    }
+
+    /**
+    * @dev Tells the address of the owner
+    * @return the address of the owner
+    */
+    function proxyOwner() public view returns (address owner) {
+        bytes32 position = proxyOwnerPosition;
+        assembly {
+            owner := sload(position)
+        }
+    }
+
+    /**
+    * @dev Sets the address of the owner
+    */
+    function setUpgradeabilityOwner(address newProxyOwner) internal {
+        bytes32 position = proxyOwnerPosition;
+        assembly {
+            sstore(position, newProxyOwner)
+        }
+    }
+
+    /**
+    * @dev Allows the current owner to transfer control of the contract to a newOwner.
+    * @param newOwner The address to transfer ownership to.
+    */
+    function transferProxyOwnership(address newOwner) public onlyProxyOwner {
+        require(newOwner != address(0), "address is invalid");
+        emit ProxyOwnershipTransferred(proxyOwner(), newOwner);
+        setUpgradeabilityOwner(newOwner);
+    }
+
+    /**
+    * @dev Allows the proxy owner to upgrade the current version of the proxy.
+    * @param implementation representing the address of the new implementation to be set.
+    */
+    function upgradeTo(address implementation) public onlyProxyOwner {
+        _upgradeTo(implementation);
+    }
+
+    /**
+    * @dev Allows the proxy owner to upgrade the current version of the proxy and call the new implementation
+    * to initialize whatever is needed through a low level call.
+    * @param implementation representing the address of the new implementation to be set.
+    * @param data represents the msg.data to bet sent in the low level call. This parameter may include the function
+    * signature of the implementation to be called with the needed payload
+    */
+    function upgradeToAndCall(address implementation, bytes data) public payable onlyProxyOwner {
+        upgradeTo(implementation);
+        require(address(this).call.value(msg.value)(data), "data is invalid");
+    }
+}
+```
+
+**使用方法：**
+
+1. 部署 `OwnedUpgradeabilityProxy` 合约，假设合约地址 `X`
+2. 部署目标合约，假设合约地址 `Y`
+3. 调用 `OwnedUpgradeabilityProxy` 合约的接口 `upgradeTo(Y)`
+4. 生成目标合约指向地址 `X`，当调用目标合约接口时，实际将数据都存储在 `OwnedUpgradeabilityProxy` 合约的地址空间，后续升级目标合约，重新执行步骤 3 即可。
 
 ## [Julia] Hello World
 
@@ -4866,6 +5106,7 @@ $ julia test.jl
 }
 ```
 
+<<<<<<< HEAD
 ## [js] 判断字符串为空
 
 ```javascript
@@ -4885,5 +5126,27 @@ function isEmpty(obj){
 if (!isEmpty(value)) {
     alert(value);
 }
+=======
+## [微信小程序] 利用全局属性 globalData 跨页面传值
+
+- 在 `app.js` 中定义需要跨页面传递的值，例如，向动态配置项目的 URL
+
+```javascript
+App (
+    globalData: {
+    	URL: 'https://api.bigsillybear.com'
+    }
+    // ...
+)
+```
+
+- 需要使用值的页面，假设 `x.js`
+
+```javascript
+// 获取 app 实例
+var app = getApp();
+// 直接访问 globalData 即可
+console.log('URL: ', app.globalData.URL)
+>>>>>>> a1ba51efe1b9956868ed304f3f5cb145378566ac
 ```
 

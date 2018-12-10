@@ -233,6 +233,11 @@ sed -i 's/[ \t]*$//g' file
 
 # 删除所有的空格
 sed -i 's/[[:space:]]//g' file
+
+# 替换第 3~5 行中的 第 2 个 hello 为 world
+sed -i '3,5s/hello/world/2' file
+# 替换所有的 hello 为 world
+sed -i 's/hello/world/g'
 ```
 
 ## 过滤空白行

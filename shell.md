@@ -50,7 +50,7 @@ sshd    2381 root    3r  IPv4  15983      0t0  TCP localhost:ssh->192.168.2.1:61
 
 ## 字符串截取
 
-> **Tips:** man bash 获取更全面的语法（[在线手册](http://www.gnu.org/software/bash/manual/bash.html)）
+> man bash 获取更全面的语法（[在线手册](http://www.gnu.org/software/bash/manual/bash.html)）
 
 ```bash
 # ${parameter#word} 最小限度从前面截取 word

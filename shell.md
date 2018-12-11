@@ -240,6 +240,13 @@ sed -i '3,5s/hello/world/2' file
 sed -i 's/hello/world/g'
 ```
 
+### 综合使用
+
+```bash
+# 将当前目录下所有 env.conf 文件中 debug 替换为 release
+find . -name env.conf | xargs sed -i 's/debug/release/g'
+```
+
 ## 过滤空白行
 
 ```bash

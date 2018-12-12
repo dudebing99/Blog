@@ -1939,5 +1939,22 @@ root@iZbp18qlevqaoff8jmlpx7Z:~# chattr -i stack.log
 root@iZbp18qlevqaoff8jmlpx7Z:~# echo "a" >> stack.log
 ```
 
+## md5sum 校验文件完整性
+
+```bash
+# 生成 md5sum
+root@iZwz9b1eyn1aqqy0s3qbadZ:~/paychain# md5sum coind
+91cc995a9406262bc70794c00042e69e  coind
+
+# 将 md5sum 写入文件
+root@iZwz9b1eyn1aqqy0s3qbadZ:~/paychain# md5sum coind > coind.md5
+root@iZwz9b1eyn1aqqy0s3qbadZ:~/paychain# cat coind.md5 
+91cc995a9406262bc70794c00042e69e  coind
+
+# 校验文件完整性，OK 即为完整
+root@iZwz9b1eyn1aqqy0s3qbadZ:~/paychain# md5sum -c coind.md5 
+coind: OK
+```
+
 
 

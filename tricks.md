@@ -714,24 +714,23 @@ rdate -t 30 -s time.nist.gov && hwclock -w
 
 1. client 产生公钥
 
-   ```bash
-   ssh-keygen -t rsa
-   # 后续回车即可
-   ```
+
+```bash
+ssh-keygen -t rsa
+# 后续回车即可
+```
 
 2. 将步骤 1 中产生的 id_rsa.pub 拷贝并追加到 server 已授权 key 文件中
 
-   ```bash
-   cat id_rsa.pub >> root/.ssh/authorized_keys
-   ```
-
+```bash
+cat id_rsa.pub >> root/.ssh/authorized_keys
+```
 3. 重启 server 端 ssh 服务
 
-   ```bash
-   # Ubuntu，service ssh restart 即可
-   service sshd restart
-   ```
-
+```bash
+# Ubuntu，service ssh restart 即可
+service sshd restart
+```
 ## SSH 禁用超时
 
 **目标：**SSH 空闲之后，默认断掉，每次需要重连太过麻烦，可以修改 SSH 服务端设置禁用超时；也可以客户端定时发送心跳包保活。
@@ -740,29 +739,24 @@ rdate -t 30 -s time.nist.gov && hwclock -w
 
 1. 在 /etc/ssh/sshd_config 添加/修改如下配置项
 
-   ```bash
-   TCPKeepAlive yes
-   ClientAliveInterval 30
-   ClientAliveCountMax 999999
-   ```
+```bash
+TCPKeepAlive yes
+ClientAliveInterval 30
+ClientAliveCountMax 999999
+```
 
 2. 重启 server 端 ssh 服务
 
-   ```bash
-   # Ubuntu，service ssh restart 即可
-   service sshd restart
-   ```
+```bash
+# Ubuntu，service ssh restart 即可
+service sshd restart
+```
 
 - SSH 客户端
 
-  在 /etc/ssh/ssh_config 添加/修改如下配置项
+  在 /etc/ssh/ssh_config 添加/修改如下配置项 `ServerAliveInterval 30`
 
-  ```bash
-  ServerAliveInterval 30
-  ```
-
-  > 以上在客户端配置后，就会有反空闲设置，即每 30s 会自动和服务端做一次确认。如果在 Windows 下使用 SecureCRT，如下操作即可
-  >
+> 在客户端配置后，就会有反空闲设置，即每 30s 会自动和服务端做一次确认。如果在 Windows 下使用 SecureCRT，如下操作即可
 
 ![](pic/securecrt/keepalive.png)
 
@@ -771,7 +765,7 @@ rdate -t 30 -s time.nist.gov && hwclock -w
 ## 跳板机 Jumpserver 上传/下载文件
 
 > **需求：**linux 服务器大多是通过 ssh 客户端来进行远程的登陆和管理，使用跳板机 Jumpserver，传输文件是个基础需求，可以借助 rz/sz 实现
->
+
 > **限制：**rz/sz 只支持对文件（不支持文件夹）操作
 
 ### 上传文件 rz

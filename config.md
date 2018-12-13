@@ -1896,6 +1896,12 @@ make -j4 && make install
 
 3. source /etc/profile
 
+## CentOS 安装 flask
+
+```bash
+pip install flask flask-restful
+```
+
 ## CentOS 配置 Nginx 用户认证
 
 1. 利用 htpasswd 生成密码文件

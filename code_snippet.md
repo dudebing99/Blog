@@ -2989,9 +2989,9 @@ __del__
 
 ## [Python] 全局变量
 
-> - 全局变量可在函数中直接使用
-> - 函数中存在同名变量，局部变量覆盖全局变量作用域
-> - 函数中显示声明 global var，实现对全局变量的修改；对于列表、字典等全局变量，不需要额外的 global 声明
+- 全局变量可在函数中直接使用
+- 函数中存在同名变量，局部变量覆盖全局变量作用域
+- 函数中显示声明 global var，实现对全局变量的修改；对于列表、字典等全局变量，不需要额外的 global 声明
 
 ```python
 #! /usr/bin/python
@@ -3090,9 +3090,9 @@ print add_3(5)
 ## [Python] Redis 使用
 
 > **环境：**Python 2.7.14 
->
+
 > **安装 redis：**pip install redis *redis*-py-cluster
->
+
 > **源码：**[点此下载](https://dudebing99.github.io/blog/archives/code_snippet/redis_helper.py)
 
 ```python
@@ -3157,9 +3157,9 @@ kevin
 ## [Python] MySQL 使用
 
 > **环境：**Python 2.7.14 
->
+
 > **源码：**[点此下载](https://dudebing99.github.io/blog/archives/code_snippet/mysql_helper.py)
->
+
 > **Tag：**查询、批量插入、truncate
 
 ```python
@@ -3398,14 +3398,12 @@ if __name__ == '__main__':
 ## [Python] kafka 使用
 
 > **环境：**Python 2.7.14/kafka-python 1.4.2
+
+> **源码：**[kafka_consumer.py](https://dudebing99.github.io/blog/archives/code_snippet/kafka_consumer.py)、[kafka_producer.py](https://dudebing99.github.io/blog/archives/code_snippet/kafka_producer.py)
 >
-> **源码：**
->
-> - [kafka_consumer.py](https://dudebing99.github.io/blog/archives/code_snippet/kafka_consumer.py)
-> - [kafka_producer.py](https://dudebing99.github.io/blog/archives/code_snippet/kafka_producer.py)
->
+
 > **Tag：**kafka 生产者、消费者
->
+
 > **参考：**http://kafka-python.readthedocs.io/en/master/usage.html
 
 ### 消费者
@@ -3497,7 +3495,7 @@ test:0:137: key=None value={"msg": "hello world", "id": 2}
 ## [Python] YAML 配置文件
 
 > **环境：**Python 2.7.14/PyYAML 3.12
->
+
 > **依赖库：**pip install pyyaml
 
 ```python
@@ -3764,7 +3762,7 @@ if __name__ == '__main__':
 ## [Python] WSGI 服务器以及中间件
 
 > **环境：**Python 2.7.4
->
+
 > **源码：**[点此下载](https://dudebing99.github.io/blog/archives/code_snippet/wsgi_server.py)
 
 ```python
@@ -3836,9 +3834,9 @@ Not Found!
 ## [Python] 微信报警
 
 > **环境：**Python 2.7.14
->
+
 > **源码：**[点此下载](https://dudebing99.github.io/blog/archives/code_snippet/wechat_alarm.py)
->
+
 > **功能：**将服务异常信息通过微信企业号 api 发送给运维员工企业微信
 
 ```python
@@ -5131,7 +5129,7 @@ if (!isEmpty(value)) {
 
 - 在 `app.js` 中定义需要跨页面传递的值，例如，向动态配置项目的 URL
 
-```javascript
+​```javascript
 App (
     globalData: {
     	URL: 'https://api.bigsillybear.com'

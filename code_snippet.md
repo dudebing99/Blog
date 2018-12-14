@@ -5128,6 +5128,16 @@ var app = getApp();
 console.log('URL: ', app.globalData.URL)
 ```
 
+## [微信小程序] 解决 switchTab 不刷新
+
+当 switchTab 点击过的时候，只有第一次加载数据，第二次点击的时候不刷新数据。可以通过在 onShow() 调用 onLoad() 或者将 onLoad() 需要重新加载的逻辑抽取出来，在 onShow() 中复用即可。
+
+```javascript
+onShow:function(e){
+	this.onLoad();
+}
+```
+
 ## [js] 判断字符串为空
 
 ```javascript

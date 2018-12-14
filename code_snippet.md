@@ -5106,27 +5106,6 @@ $ julia test.jl
 }
 ```
 
-<<<<<<< HEAD
-## [js] 判断字符串为空
-
-```javascript
-//判断字符是否为空的方法
-function isEmpty(obj){
-    if(typeof obj == "undefined" || obj == null || obj == ""){
-        return true;
-    }else{
-        return false;
-    }
-}
-```
-
-使用方式如下
-
-```javascript
-if (!isEmpty(value)) {
-    alert(value);
-}
-=======
 ## [微信小程序] 利用全局属性 globalData 跨页面传值
 
 - 在 `app.js` 中定义需要跨页面传递的值，例如，向动态配置项目的 URL
@@ -5147,6 +5126,26 @@ App (
 var app = getApp();
 // 直接访问 globalData 即可
 console.log('URL: ', app.globalData.URL)
->>>>>>> a1ba51efe1b9956868ed304f3f5cb145378566ac
+```
+
+## [js] 判断字符串为空
+
+```javascript
+//判断字符是否为空的方法
+function isEmpty(obj){
+    if(typeof obj == "undefined" || obj == null || obj == ""){
+        return true;
+    }else{
+        return false;
+    }
+}
+```
+
+使用方式如下
+
+```javascript
+if (!isEmpty(value)) {
+    alert(value);
+}
 ```
 

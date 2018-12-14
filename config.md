@@ -1862,16 +1862,12 @@ auto.leader.rebalance.enable=true
 > **Tips:** 公司启用 Gerrit 代码审查，作为使用者，例如开发人员，须完成初始配置之后才能使用 Gerrit。
 
 1. 使用 CM 分配的 Gerrit 账号登陆 gerrit WEB 服务器
-
 2. 进入设置（Setting），填写个人邮箱，点击注册邮箱（Register New Mail）
-
 3. 登陆个人邮箱，找到 Gerrit 发送的验证邮件，点击邮件链接进行确认激活
-
 4. 安装 Git 客户端
-
 5. 生成 SSH 公钥（ssh-kengen -t rsa）
+> 如果客户端使用的 openssl 库版本较高而服务器端版本较低，openssl 高版本禁用某些安全性较低的算法，这种情形下，需要在客户端的 .ssh 目录（即，id_rsa.pub所在目录）新建一个文件 config（Windows 下注意去掉后缀），内容如下
 
-   **备注：**如果客户端使用的 openssl 库版本较高而服务器端版本较低，openssl 高版本禁用某些安全性较低的算法，这种情形下，需要在客户端的 .ssh 目录（即，id_rsa.pub所在目录）新建一个文件 config（Windows 下注意去掉后缀），内容如下
 ```bash
 Host 172.13.31.14
     KexAlgorithms +diffie-hellman-group1-sha1
@@ -1899,6 +1895,12 @@ make -j4 && make install
    export PATH
 
 3. source /etc/profile
+
+## CentOS 安装 flask
+
+```bash
+pip install flask flask-restful
+```
 
 ## CentOS 配置 Nginx 用户认证
 

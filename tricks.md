@@ -714,23 +714,59 @@ rdate -t 30 -s time.nist.gov && hwclock -w
 
 1. client 产生公钥
 
-   ```bash
-   ssh-keygen -t rsa
-   # 后续回车即可
-   ```
+
+```bash
+ssh-keygen -t rsa
+# 后续回车即可
+```
 
 2. 将步骤 1 中产生的 id_rsa.pub 拷贝并追加到 server 已授权 key 文件中
 
-   ```bash
-   cat id_rsa.pub >> root/.ssh/authorized_keys
-   ```
-
+```bash
+cat id_rsa.pub >> root/.ssh/authorized_keys
+```
 3. 重启 server 端 ssh 服务
 
-   ```bash
-   # Ubuntu，service ssh restart 即可
-   service sshd restart
-   ```
+```bash
+# Ubuntu，service ssh restart 即可
+service sshd restart
+```
+## PSSH 批量操作
+
+1. 目标机器均已经对操作机器做互信
+2. 通过 PSSH 批量操作，如下所示
+
+```bash
+root@iZwz9b1eyn1aqqy0s3qbadZ:~/pssh-tool# cat hosts 
+120.76.61.90:22
+47.99.204.62:22
+116.62.234.240:22
+47.99.178.161:22
+47.98.49.93:22
+47.99.194.5:22
+47.52.193.118:22
+47.105.140.237:22
+47.105.65.96:22
+root@iZwz9b1eyn1aqqy0s3qbadZ:~/pssh-tool# pssh -h hosts -l root -P date
+120.76.61.90: Thu Dec 13 17:16:43 CST 2018
+[1] 17:16:43 [SUCCESS] 120.76.61.90:22
+47.52.193.118: Thu Dec 13 17:16:43 CST 2018
+[2] 17:16:43 [SUCCESS] 47.52.193.118:22
+47.99.204.62: Thu Dec 13 17:16:43 CST 2018
+[3] 17:16:43 [SUCCESS] 47.99.204.62:22
+47.98.49.93: Thu Dec 13 17:16:43 CST 2018
+[4] 17:16:43 [SUCCESS] 47.98.49.93:22
+47.99.178.161: Thu Dec 13 17:16:43 CST 2018
+[5] 17:16:43 [SUCCESS] 47.99.178.161:22
+116.62.234.240: Thu Dec 13 17:16:43 CST 2018
+[6] 17:16:43 [SUCCESS] 116.62.234.240:22
+47.99.194.5: Thu Dec 13 17:16:43 CST 2018
+[7] 17:16:43 [SUCCESS] 47.99.194.5:22
+47.105.65.96: Thu Dec 13 17:16:43 CST 2018
+[8] 17:16:43 [SUCCESS] 47.105.65.96:22
+47.105.140.237: Thu Dec 13 17:16:44 CST 2018
+[9] 17:16:44 [SUCCESS] 47.105.140.237:22
+```
 
 ## SSH 禁用超时
 
@@ -740,29 +776,24 @@ rdate -t 30 -s time.nist.gov && hwclock -w
 
 1. 在 /etc/ssh/sshd_config 添加/修改如下配置项
 
-   ```bash
-   TCPKeepAlive yes
-   ClientAliveInterval 30
-   ClientAliveCountMax 999999
-   ```
+```bash
+TCPKeepAlive yes
+ClientAliveInterval 30
+ClientAliveCountMax 999999
+```
 
 2. 重启 server 端 ssh 服务
 
-   ```bash
-   # Ubuntu，service ssh restart 即可
-   service sshd restart
-   ```
+```bash
+# Ubuntu，service ssh restart 即可
+service sshd restart
+```
 
 - SSH 客户端
 
-  在 /etc/ssh/ssh_config 添加/修改如下配置项
+  在 /etc/ssh/ssh_config 添加/修改如下配置项 `ServerAliveInterval 30`
 
-  ```bash
-  ServerAliveInterval 30
-  ```
-
-  > 以上在客户端配置后，就会有反空闲设置，即每 30s 会自动和服务端做一次确认。如果在 Windows 下使用 SecureCRT，如下操作即可
-  >
+> 在客户端配置后，就会有反空闲设置，即每 30s 会自动和服务端做一次确认。如果在 Windows 下使用 SecureCRT，如下操作即可
 
 ![](pic/securecrt/keepalive.png)
 
@@ -771,7 +802,7 @@ rdate -t 30 -s time.nist.gov && hwclock -w
 ## 跳板机 Jumpserver 上传/下载文件
 
 > **需求：**linux 服务器大多是通过 ssh 客户端来进行远程的登陆和管理，使用跳板机 Jumpserver，传输文件是个基础需求，可以借助 rz/sz 实现
->
+
 > **限制：**rz/sz 只支持对文件（不支持文件夹）操作
 
 ### 上传文件 rz

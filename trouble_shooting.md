@@ -557,7 +557,7 @@ CentOS 7.x/Python 2.7.5
 
 `flask_restful` 独立于 `flask`，需要单独安装。
 
-首先查看已安装模块，发现只包含 `flask`，未包含 `flask_restful`
+首先查看已安装模块，发现只包含 `flask`，未包含 `flask-restful`
 
 ```bash
 [kevin@iZwz9cynwitmm46uagetmvZ nginx]$ pip freeze|grep -i flask
@@ -569,7 +569,7 @@ Flask==1.0.2
 通过 `pip` 安装 `flask_restful` 即可
 
 ```bash
-pip install flask_restful
+pip install flask-restful
 ```
 
 确认 `flask_restful` 已安装

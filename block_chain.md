@@ -2947,7 +2947,7 @@ root@ubuntu:~/WaykiChain/node2# ./coind -datadir=. addnode "127.0.0.1:7901" add
 
 `./geth --datadir="./devdata" --dev --rpc --rpccorsdomain "*" console`
 
-> 上述命令即启动了一个节点服务，同时启动了一个控制台。实际上，可以独立启动节点服务，即，`./geth --datadir="./devdata" --dev --rpc --rpccorsdomain "*"`
+> 上述命令即启动了一个节点服务，同时启动了一个控制台。`console` 参数开启了一个 `javascript` 的控制台，这个控制台注入了 `web3.js` 这个库，以使我们可以通过 `web3` 对象与以太坊节点做交互。实际上，可以独立启动节点服务，即，`./geth --datadir="./devdata" --dev --rpc --rpccorsdomain "*"`
 
 > 需要启动控制台的时候，执行 `./geth attach http://localhost:8545` 或 `./geth attach ./testnet/geth.ipc`
 

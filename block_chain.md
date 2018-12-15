@@ -3306,6 +3306,13 @@ Error: authentication needed: password or unlock
 0
 ```
 
+##### 单位转换
+
+```javascript
+> web3.fromWei(eth.accounts[0], 'ether')
+1.23
+```
+
 ##### 转账
 
 ```javascript

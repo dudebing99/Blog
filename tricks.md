@@ -1067,23 +1067,23 @@ events {
 
 ### 网络
 
-> - Setting tcp_tw_recycle to 1 makes a Linux host drop TIME_WAIT connections much faster.  Instead of a predefined 2*MSL period of 60s, the host will use a timeout based on RTT estimate.  For LANs, it is usually several milliseconds. 
+> Setting tcp_tw_recycle to 1 makes a Linux host drop TIME_WAIT connections much faster.  Instead of a predefined 2*MSL period of 60s, the host will use a timeout based on RTT estimate.  For LANs, it is usually several milliseconds. 
+
+> Setting tcp_tw_reuse to 1 will make a host reuse the same connection quickly for outgoing connections.  
+
+> Many WEB sites say that setting the following tunable will change the 2*MSL (TIME_WAIT) period:
 >
-> - Setting tcp_tw_reuse to 1 will make a host reuse the same connection quickly for outgoing connections.  
+> \# echo 30 > /proc/sys/net/ipv4/tcp_fin_timeout 
 >
-> - Many WEB sites say that setting the following tunable will change the 2*MSL (TIME_WAIT) period:
+> Is this correct? 
 >
->   \# echo 30 > /proc/sys/net/ipv4/tcp_fin_timeout 
+> Answer:  No.  The tcp(7) manpage states correctly that this tunable does something different: 
 >
->   Is this correct? 
+> ​	tcp_fin_timeout (integer; default: 60) 
 >
->   Answer:  No.  The tcp(7) manpage states correctly that this tunable does something different: 
+> ​	This  specifies  how many seconds to wait for a final FIN packet before the socket is forcibly closed. 
 >
->   ​	tcp_fin_timeout (integer; default: 60) 
->
->   ​	This  specifies  how many seconds to wait for a final FIN packet before the socket is forcibly closed. 
->
->   There is a hardwired constant, TCP_TIMEWAIT_LEN (defined to 60s), which is used in a number of places.  There is no way to change it without recompilation.   
+> There is a hardwired constant, TCP_TIMEWAIT_LEN (defined to 60s), which is used in a number of places.  There is no way to change it without recompilation.   
 
 ```bash
 ######################## cat /proc/sys/net/ipv4/tcp_syncookies

@@ -5157,3 +5157,17 @@ if (!isEmpty(value)) {
 }
 ```
 
+### [js] 以太坊导出私钥
+
+> 通过 `npm install keythereum` 安装依赖库
+
+```javascript
+var keythereum = require("keythereum");
+var datadir = "./testnet";
+var address= "0x96d81d81149a3a8501eb99fb8aca1cff5cc19d7c";
+const password = "123";
+var keyObject = keythereum.importFromFile(address, datadir);
+var privateKey = keythereum.recover(password, keyObject);
+console.log(privateKey.toString('hex'));
+```
+

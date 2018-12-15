@@ -155,6 +155,14 @@ done.
 
 - java 程序，可以借助 `jstack`、`jstat`、`jmap`、`jinfo` 等查看进程的运行信息
 
+## 进程后台运行
+
+- 代码层面，不同语言均可调用系统接口 daemon() 去实现
+- damon/damonlize 等小工具（不同系统名字略有不同）
+- screen/tmux
+- nohup
+- systemd/supervisor
+
 ## TCP 协议
 
 ### TCP 连接建立

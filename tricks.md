@@ -17,26 +17,27 @@ dmesg | grep a.out
 > 通过系统自带的命令持续地观察进程内存的占用情况，即可发现有明显内存泄漏的进程；更进一步，当进程运行一段时间导致系统内存耗尽，将会被操作系统杀掉。
 
 - 利用 `free` 查看系统内存
-
 - 利用 `top`/`htop` 查看进程占用内存
 
-  ```bash
-  top -d 1 -p pid
-  ```
+```bash
+top -d 1 -p pid
+```
 
 - 利用 ps 查看进程占用内存
 
-  ```bash
-  watch -n1 'ps -aux|grep -v grep|grep pid'
-  ```
+
+```bash
+watch -n1 'ps -aux|grep -v grep|grep pid'
+```
 
 ### 不太明显的内存泄漏
 
 - 利用 `valgrind` 工具查看内存分配、释放、泄漏
 
-  ```bash
-  valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reachable=no --workaround-gcc296-bugs=yes ./a.out
-  ```
+
+```bash
+valgrind --log-file=valgrind.log --tool=memcheck --leak-check=full --show-reachable=no --workaround-gcc296-bugs=yes ./a.out
+```
 
 ## 进程异常排查
 
@@ -52,39 +53,40 @@ dmesg | grep a.out
 
 - 利用 `ss`/`netstat` 查看系统网络连接是否异常
 
-  ```bash
-  # 查看网络统计信息
-  root@:~# netstat -s|grep -E "rejects|overflowed|timeout|dropped"
-      6 dropped because of missing route
-      479629 times the listen queue of a socket overflowed
-      482420 SYNs to LISTEN sockets dropped
-      5 timeouts after SACK recovery
-      2 timeouts in loss state
-      12200 other TCP timeouts
-      582 connections aborted due to timeout
-  
-  # 查看网络连接信息
-  root@:~# netstat -nap
-  Active Internet connections (servers and established)
-  Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
-  tcp        0      0 0.0.0.0:4501            0.0.0.0:*               LISTEN      25511/coind     
-  tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      907/sshd        
-  tcp        0      0 0.0.0.0:7901            0.0.0.0:*               LISTEN      25511/coind     
-  tcp        0      0 127.0.0.1:32000         0.0.0.0:*               LISTEN      1688/java       
-  tcp        0      0 172.18.219.68:7901      47.104.240.30:49308     ESTABLISHED 25511/coind     
-  tcp        0      0 172.18.219.68:7901      39.104.158.97:54688     ESTABLISHED 25511/coind     
-  tcp        0      0 172.18.219.68:7901      47.99.132.207:56138     ESTABLISHED 25511/coind     
-  tcp        0      0 172.18.219.68:22        219.133.101.96:42080    ESTABLISHED 9831/0          
-  tcp        0      0 172.18.219.68:58788     47.104.240.30:7901      ESTABLISHED 25511/coind     
-  tcp        0      0 172.18.219.68:58600     47.99.132.207:7901      ESTABLISHED 25511/coind     
-  tcp        0      0 172.18.219.68:7901      39.106.164.24:59070     ESTABLISHED 25511/coind     
-  tcp        0      0 172.18.219.68:58122     106.11.248.209:80       ESTABLISHED 1287/AliYunDun  
-  tcp       32      0 172.18.219.68:43932     100.100.0.13:3128       CLOSE_WAIT  1688/java       
-  tcp        0      0 172.18.219.68:7901      47.104.229.53:46200     ESTABLISHED 25511/coind     
-  tcp        0      0 127.0.0.1:32000         127.0.0.1:31000         ESTABLISHED 1686/wrapper    
-  tcp        0      0 172.18.219.68:7901      116.62.67.116:59758     ESTABLISHED 25511/coind     
-  tcp        0      0 172.18.219.68:58226     106.14.112.174:7901     ESTABLISHED 25511/coind 
-  ```
+
+```bash
+# 查看网络统计信息
+root@:~# netstat -s|grep -E "rejects|overflowed|timeout|dropped"
+    6 dropped because of missing route
+    479629 times the listen queue of a socket overflowed
+    482420 SYNs to LISTEN sockets dropped
+    5 timeouts after SACK recovery
+    2 timeouts in loss state
+    12200 other TCP timeouts
+    582 connections aborted due to timeout
+
+# 查看网络连接信息
+root@:~# netstat -nap
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 0.0.0.0:4501            0.0.0.0:*               LISTEN      25511/coind     
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      907/sshd        
+tcp        0      0 0.0.0.0:7901            0.0.0.0:*               LISTEN      25511/coind     
+tcp        0      0 127.0.0.1:32000         0.0.0.0:*               LISTEN      1688/java       
+tcp        0      0 172.18.219.68:7901      47.104.240.30:49308     ESTABLISHED 25511/coind     
+tcp        0      0 172.18.219.68:7901      39.104.158.97:54688     ESTABLISHED 25511/coind     
+tcp        0      0 172.18.219.68:7901      47.99.132.207:56138     ESTABLISHED 25511/coind     
+tcp        0      0 172.18.219.68:22        219.133.101.96:42080    ESTABLISHED 9831/0          
+tcp        0      0 172.18.219.68:58788     47.104.240.30:7901      ESTABLISHED 25511/coind     
+tcp        0      0 172.18.219.68:58600     47.99.132.207:7901      ESTABLISHED 25511/coind     
+tcp        0      0 172.18.219.68:7901      39.106.164.24:59070     ESTABLISHED 25511/coind     
+tcp        0      0 172.18.219.68:58122     106.11.248.209:80       ESTABLISHED 1287/AliYunDun  
+tcp       32      0 172.18.219.68:43932     100.100.0.13:3128       CLOSE_WAIT  1688/java       
+tcp        0      0 172.18.219.68:7901      47.104.229.53:46200     ESTABLISHED 25511/coind     
+tcp        0      0 127.0.0.1:32000         127.0.0.1:31000         ESTABLISHED 1686/wrapper    
+tcp        0      0 172.18.219.68:7901      116.62.67.116:59758     ESTABLISHED 25511/coind     
+tcp        0      0 172.18.219.68:58226     106.14.112.174:7901     ESTABLISHED 25511/coind 
+```
 
 - 利用 `ifstat` 查看系统网络流量是否异常
 
@@ -96,57 +98,60 @@ dmesg | grep a.out
 
 - 查看进程堆栈信息（2388 为进程号）
 
-  ```bash
-  [root@www ~]# cat /proc/2388/stack
-  [<ffffffff811f2bb5>] poll_schedule_timeout+0x55/0xb0
-  [<ffffffff811f413d>] do_sys_poll+0x4cd/0x580
-  [<ffffffff811f42f4>] SyS_poll+0x74/0x110
-  [<ffffffff81645909>] system_call_fastpath+0x16/0x1b
-  [<ffffffffffffffff>] 0xffffffffffffffff
-  ```
+
+```bash
+[root@www ~]# cat /proc/2388/stack
+[<ffffffff811f2bb5>] poll_schedule_timeout+0x55/0xb0
+[<ffffffff811f413d>] do_sys_poll+0x4cd/0x580
+[<ffffffff811f42f4>] SyS_poll+0x74/0x110
+[<ffffffff81645909>] system_call_fastpath+0x16/0x1b
+[<ffffffffffffffff>] 0xffffffffffffffff
+```
 
 - `strace` 查看系统调用和信号
 
-  ```bash
-  [root@www ~]#  strace -s 99 -ffp 3363
-  Process 3363 attached with 2 threads
-  [pid  3365] restart_syscall(<... resuming interrupted call ...> <unfinished ...>
-  [pid  3363] select(18, [13 16 17], NULL, NULL, {29, 702368}) = 1 (in [16], left {23, 709762})
-  [pid  3363] fcntl(16, F_GETFL)          = 0x802 (flags O_RDWR|O_NONBLOCK)
-  [pid  3363] accept4(16, 0, NULL, SOCK_CLOEXEC) = -1 EAGAIN (Resource temporarily unavailable)
-  Process 3365 detached
-  ```
+
+```bash
+[root@www ~]#  strace -s 99 -ffp 3363
+Process 3363 attached with 2 threads
+[pid  3365] restart_syscall(<... resuming interrupted call ...> <unfinished ...>
+[pid  3363] select(18, [13 16 17], NULL, NULL, {29, 702368}) = 1 (in [16], left {23, 709762})
+[pid  3363] fcntl(16, F_GETFL)          = 0x802 (flags O_RDWR|O_NONBLOCK)
+[pid  3363] accept4(16, 0, NULL, SOCK_CLOEXEC) = -1 EAGAIN (Resource temporarily unavailable)
+Process 3365 detached
+```
 
 - `gdb attach` 进程并获取堆栈信息
 
-  ```bash
-  [root@www ~]# gdb attach 2388
-  GNU gdb (GDB) Red Hat Enterprise Linux 7.6.1-80.el7
-  Copyright (C) 2013 Free Software Foundation, Inc.
-  License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
-  This is free software: you are free to change and redistribute it.
-  There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
-  and "show warranty" for details.
-  This GDB was configured as "x86_64-redhat-linux-gnu".
-  For bug reporting instructions, please see:
-  <http://www.gnu.org/software/gdb/bugs/>...
-  Attaching to process 2388
-  Reading symbols from /home/mysql/bin/mysqld...
-  done.
-  Reading symbols from /usr/lib64/libpthread.so.0...Reading symbols from /usr/lib/debug/usr/lib64/libpthread-2.17.so.debug...done.
-  done.
-  
-  (gdb) 
-  (gdb) bt
-  #0  0x00007f88e3f4669d in poll () at ../sysdeps/unix/syscall-template.S:81
-  #1  0x0000000000d2ae9d in Mysqld_socket_listener::listen_for_connection_event (this=0x5933700)
-      at /root/lnmp1.3-full/src/mysql-5.7.11/sql/conn_handler/socket_connection.cc:848
-  #2  0x000000000077e069 in connection_event_loop (this=0x59a6050) at /root/lnmp1.3-full/src/mysql-5.7.11/sql/conn_handler/connection_acceptor.h:66
-  #3  mysqld_main (argc=45, argv=0x3b56bd8) at /root/lnmp1.3-full/src/mysql-5.7.11/sql/mysqld.cc:4941
-  #4  0x00007f88e3e7bb15 in __libc_start_main (main=0x756100 <main(int, char**)>, argc=10, ubp_av=0x7ffe5ab6c418, init=<optimized out>, fini=<optimized out>, 
-      rtld_fini=<optimized out>, stack_end=0x7ffe5ab6c408) at libc-start.c:274
-  #5  0x00000000007734dd in _start ()
-  ```
+
+``` bash
+[root@www ~]# gdb attach 2388
+GNU gdb (GDB) Red Hat Enterprise Linux 7.6.1-80.el7
+Copyright (C) 2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-redhat-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Attaching to process 2388
+Reading symbols from /home/mysql/bin/mysqld...
+done.
+Reading symbols from /usr/lib64/libpthread.so.0...Reading symbols from /usr/lib/debug/usr/lib64/libpthread-2.17.so.debug...done.
+done.
+
+(gdb) 
+(gdb) bt
+#0  0x00007f88e3f4669d in poll () at ../sysdeps/unix/syscall-template.S:81
+#1  0x0000000000d2ae9d in Mysqld_socket_listener::listen_for_connection_event (this=0x5933700)
+    at /root/lnmp1.3-full/src/mysql-5.7.11/sql/conn_handler/socket_connection.cc:848
+#2  0x000000000077e069 in connection_event_loop (this=0x59a6050) at /root/lnmp1.3-full/src/mysql-5.7.11/sql/conn_handler/connection_acceptor.h:66
+#3  mysqld_main (argc=45, argv=0x3b56bd8) at /root/lnmp1.3-full/src/mysql-5.7.11/sql/mysqld.cc:4941
+#4  0x00007f88e3e7bb15 in __libc_start_main (main=0x756100 <main(int, char**)>, argc=10, ubp_av=0x7ffe5ab6c418, init=<optimized out>, fini=<optimized out>, 
+    rtld_fini=<optimized out>, stack_end=0x7ffe5ab6c408) at libc-start.c:274
+#5  0x00000000007734dd in _start ()
+```
 
 - java 程序，可以借助 `jstack`、`jstat`、`jmap`、`jinfo` 等查看进程的运行信息
 

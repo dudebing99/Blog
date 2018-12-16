@@ -4034,6 +4034,85 @@ if __name__ == '__main__':
         sys.exit()
 ```
 
+## [Python] IP 定位
+
+> 对于客户端使用代理，按照代理 IP 进行处理。服务端获取客户端 IP，使用 `www.ip.cn` 提供的 IP 定位服务获取客户端接入的位置信息。
+
+```python
+# -*- coding:utf-8 -*-
+from flask_restful import Resource
+from flask import request
+from common.common import logger
+import common.db_utility as db_utility
+import json
+from bs4 import BeautifulSoup
+import requests
+
+
+def get_ip_info(ip):
+    url = 'http://www.ip.cn/index.php?ip={0}'.format(ip)
+    headers = {
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Encoding': 'gzip, deflate, sdch',
+        'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36',
+        'Referer': 'http://www.ip.cn/',
+        'Connection': 'keep-alive',
+        'Host': 'www.ip.cn',
+    }
+    data = {}
+    try:
+        r = requests.get(url, headers=headers, timeout=30)
+        soup = BeautifulSoup(r.content, "html.parser")
+        s = soup.find(name='div', attrs={"id": "result"})
+        data['errorcode'] = 0
+        data['errormsg'] = 'acquire location info success'
+        data['ip'] = s.find_all(name="code")[0].get_text()
+        data['location'] = s.find_all(name="code")[1].get_text()
+    except Exception as e:
+        logger.error(e)
+        data['errorcode'] = 0
+        data['errormsg'] = 'acquire location info failed'
+    logger.debug("client location info: %s", data)
+    return data
+
+
+class TestView(Resource):
+    def post(self):
+        ip = request.headers.getlist(
+            "X-Forwarded-For")[0] if request.headers.getlist("X-Forwarded-For") else request.remote.addr
+        logger.debug("client address: %s, visit: %s", ip, request.base_url)
+        return get_ip_info(ip)
+
+    def get(self):
+        ip = request.headers.getlist(
+            "X-Forwarded-For")[0] if request.headers.getlist("X-Forwarded-For") else request.remote.addr
+        logger.debug("client address: %s, visit: %s", ip, request.base_url)
+        return get_ip_info(ip)
+```
+
+**输出**
+
+```bash
+{
+    "errorcode": 0,
+    "errormsg": "acquire location info success",
+    "location": "广东省深圳市 联通",
+    "ip": "163.125.210.209"
+}
+```
+
+如果使用美国代理，输出如下
+
+```bash
+{
+    "errorcode": 0,
+    "errormsg": "acquire location info success",
+    "location": "美国 ",
+    "ip": "45.62.102.71"
+}
+```
+
 ## [Lua] 求最大值
 
 ```lua
@@ -4056,7 +4135,7 @@ print(maximum({12, 99, 28, 49, 92, 5}))
 
 **输出**
 
-```ba
+```bash
 2       99
 ```
 

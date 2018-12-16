@@ -1167,6 +1167,59 @@ int main()
 hello world
 ```
 
+## [CPP] find sub vector
+
+> **源码路径：**[find_sub_vector.cpp](https://dudebing99.github.io/blog/archives/code_snippet/find_sub_vector.cpp)
+
+```cpp
+#include <iostream>  // std::cout
+#include <algorithm> // std::find_end
+#include <vector>    // std::vector
+
+bool myfunction(int i, int j)
+{
+    return (i == j);
+}
+
+int main()
+{
+    int myints[] = {1, 2, 3, 4, 5, 1, 2, 3, 4, 5};
+    std::vector<int> haystack(myints, myints + 10);
+
+    int needle1[] = {1, 2, 3};
+
+    // using default comparison:
+    std::vector<int>::iterator it;
+    it = std::find_end(haystack.begin(), haystack.end(), needle1, needle1 + 3);
+
+    if (it != haystack.end())
+        std::cout << "needle1 last found at position " << (it - haystack.begin()) << '\n';
+
+    int needle2[] = {4, 5, 1};
+
+    // using predicate comparison:
+    it = std::find_end(haystack.begin(), haystack.end(), needle2, needle2 + 3, myfunction);
+
+    if (it != haystack.end())
+        std::cout << "needle2 last found at position " << (it - haystack.begin()) << '\n';
+
+    std::vector<int> needle3{3, 4, 5};
+    it = std::search(haystack.begin(), haystack.end(), needle3.begin(), needle3.end());
+    if (it != haystack.end())
+        std::cout << "needle3 first found at position " << (it - haystack.begin()) << '\n';
+
+    return 0;
+}
+```
+
+**输出**
+
+```basic
+needle1 last found at position 5
+needle2 last found at position 3
+needle3 first found at position 2
+```
+
 ## [CPP] 排序算法/快速排序
 
 > **源码路径：**[quick_sort.cpp](https://dudebing99.github.io/blog/archives/code_snippet/quick_sort.cpp)

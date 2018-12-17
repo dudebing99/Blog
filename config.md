@@ -1902,6 +1902,12 @@ make -j4 && make install
 pip install flask flask-restful
 ```
 
+## CentOS 安装 telnet
+
+```bash
+yum install -y telnet
+```
+
 ## CentOS 配置 Nginx 用户认证
 
 1. 利用 htpasswd 生成密码文件

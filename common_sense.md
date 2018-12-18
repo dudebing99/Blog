@@ -175,6 +175,95 @@ SELECT * FROM user WHERE username='myuser' or 'foo' = 'foo' --'' AND password='x
 
 在 SQL 里面 `--` 是注释标记，所以查询语句会在此中断。这就让攻击者在不知道任何合法用户名和密码的情况下成功登录了。
 
+### 微信小程序审核发布回退
+
+#### 环境与分支说明
+
+假设小程序开发分支、生产分支、提交审核（待发布）分支分别为 fat2、v1、v2，通过 Nginx 匹配 URL 实现开发、生产、审核环境的隔离。
+
+| 环境     | git 分支 | URL 匹配前缀  | 后台服务监听端口 |
+| -------- | -------- | ------------- | ---------------- |
+| 开发环境 | fat2     | /boardgame    | 10000            |
+| 生产环境 | v1       | /boardgame/v1 | 10001            |
+| 审核版本 | v2       | /boardgame/v2 | 10002            |
+
+#### Nginx 配置
+
+```bash
+    upstream boardgame_server {
+        server 127.0.0.1:10000;
+    }
+
+    upstream boardgame_server_v1 {
+        server 127.0.0.1:10001;
+    }
+
+    upstream boardgame_server_v2 {
+        server 127.0.0.1:10002;
+    }
+
+    server {
+        listen       443;
+        listen       [::]:443;
+        server_name  api.bigsillybear.com;
+        root         /usr/share/nginx/html;
+
+        ssl_certificate         "/etc/letsencrypt/live/api.bigsillybear.com/fullchain.pem";
+        ssl_certificate_key     "/etc/letsencrypt/live/api.bigsillybear.com/privkey.pem";
+        ssl_session_cache shared:SSL:1m;
+        ssl_session_timeout  10m;
+        ssl_ciphers HIGH:!aNULL:!MD5;
+        ssl_prefer_server_ciphers on;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+        location /boardgame/v1/ {
+                proxy_redirect          off;
+                proxy_set_header        Host            $host;
+                proxy_set_header        X-Real-IP       $remote_addr;
+                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_pass              http://boardgame_server_v1;
+        }
+
+        location /boardgame/v2 {
+                proxy_redirect          off;
+                proxy_set_header        Host            $host;
+                proxy_set_header        X-Real-IP       $remote_addr;
+                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_pass              http://boardgame_server_v2;
+        }
+
+        location /boardgame/ {
+                proxy_redirect          off;
+                proxy_set_header        Host            $host;
+                proxy_set_header        X-Real-IP       $remote_addr;
+                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_pass              http://boardgame_server;
+        }
+
+        error_page 404 /404.html;
+            location = /40x.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+        }
+    }
+}
+```
+
+#### 审核、发布、回退流程
+
+- 审核通过之后，将生产环境升级为 v2（如果涉及到数据库结构变更，需要先对数据库结构及其数据备份，然后升级）
+- 升级到 v2 之后，如果存在重大 bug，需要对 v2 进行回滚，即，将生产环境回滚到 v1
+
+![](pic/commonsense/wechat_review_publish_rollback.png)
+
+#### 版本迭代原则
+
+假设 V(n) 成为生产环境版本，提交审核版本为 V(n+1)，此时，V(n)、V(n+1) 即对应上图中的 v1、v2
+
 ## 计算机组成原理
 
 ### 原码、反码、补码

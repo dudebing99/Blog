@@ -7,6 +7,7 @@
 - [More C++ Idioms](https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms)
 - [More C++ Idioms 中文翻译](https://github.com/HorkyChen/MoreCPlusPlusIdioms)
 - [字节对齐](https://en.wikipedia.org/wiki/Data_structure_alignment)
+- [warning operation on 'i' may be undefined wsequence-point](https://www.linuxquestions.org/questions/programming-9/warning-operation-on-%27i%27-may-be-undefined-%5B-wsequence-point%5D-4175483778/)
 
 ## 运行时间测量
 

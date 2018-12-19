@@ -2,13 +2,11 @@
 
 ------
 
-> **说明：**C/C++ 编程时用到的一些小技巧。
->
-> **参考资料：**
->
-> - [More C++ Idioms](https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms)
-> - [More C++ Idioms 中文翻译](https://github.com/HorkyChen/MoreCPlusPlusIdioms)
-> - [字节对齐](https://en.wikipedia.org/wiki/Data_structure_alignment)
+## 参考资料
+
+- [More C++ Idioms](https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms)
+- [More C++ Idioms 中文翻译](https://github.com/HorkyChen/MoreCPlusPlusIdioms)
+- [字节对齐](https://en.wikipedia.org/wiki/Data_structure_alignment)
 
 ## 运行时间测量
 

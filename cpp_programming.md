@@ -174,7 +174,7 @@ Length: 5
 ## 字节对齐
 
 > **详细内容请参考：**[字节对齐与填充规则](https://en.wikipedia.org/wiki/Data_structure_alignment)
->
+
 > **备注：**根据实际情况打开（存取速度优先）、关闭（节省内存空间）字节对齐。
 
 **目的：**为了加快 CPU 访问数据的速度，将数据在内存中按照一定规律做字节对齐。
@@ -462,6 +462,24 @@ int main()
     return 0;
 }
 ```
+
+## warning: operation on 'i' may be undefined [-Wsequence-point]
+
+在如下表达式中 `j = ++ i % 10`，根据操作符优先级，可以正确处理先自增，再求余，但编译器仍会提示如下错误
+
+```bash
+warning: operation on 'i' may be undefined [-Wsequence-point]
+```
+
+对于表达式 `j = ++ i % 10`，编译器将进行分解
+
+1. Load variable i to register α.
+2. Increment value in α.
+3. Save reminder of dividing α by 10 to register β.
+4. Save β to j.
+5. Save α to i.
+
+**问题在于，**编译器可能按照另外一种分解方式，将第四步与第五步进行交换。即，你所使用的编译器实际采用哪种分解方式是不确定的。虽然交换第四步与第五步，不会影响最终 `j` 的结果，但是，更普遍地说，如果表达式变为 `i = ++ i % 10`，编译器同样存在上述两种分解方式，此时不同的分解方式将导致最终 `i` 的结果不同。
 
 
 

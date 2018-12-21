@@ -175,6 +175,13 @@ SELECT * FROM user WHERE username='myuser' or 'foo' = 'foo' --'' AND password='x
 
 在 SQL 里面 `--` 是注释标记，所以查询语句会在此中断。这就让攻击者在不知道任何合法用户名和密码的情况下成功登录了。
 
+### curl
+
+#### --data 与 --data-binary 选项
+
+- 参数内容从标准输入读取，无差别
+- 参数从文件读取，`--data` 会将回车换行符去掉，`--data-binary` 反之
+
 ### 微信小程序审核发布回退
 
 #### 环境与分支说明

@@ -5268,6 +5268,29 @@ onShow:function(e){
 }
 ```
 
+## [微信小程序] 获取屏幕宽高
+
+- 利用微信小程序接口
+
+```javascript
+onLoad: function () {
+   this.setData({
+     height: wx.getSystemInfoSync().windowHeight,
+     width: wx.getSystemInfoSync().windowWidth
+   })
+ }
+```
+
+- 利用 css3 特性
+
+```css
+.body {
+   height: 100vh; /*view height*/
+   width: 100vw; /*view width*/
+   background-color: greenyellow;
+}
+```
+
 ## [js] 判断字符串为空
 
 ```javascript

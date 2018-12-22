@@ -5291,6 +5291,19 @@ onLoad: function () {
 }
 ```
 
+## [微信小程序] 模态对话框换行
+
+```javascript
+wx.showModal({
+    title: '提示',
+    content: '前置条件:用户当前余额为零\r\n\r\n确定要删除[' + e.target.dataset.phone + ']吗?',
+    success: function(sm) {
+    }
+})
+```
+
+使用 `\r\n` 即可实现换行。目前，在微信开发者工具上显示不换行，但是真实环境可换行。
+
 ## [js] 判断字符串为空
 
 ```javascript

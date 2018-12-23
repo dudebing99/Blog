@@ -5304,6 +5304,33 @@ wx.showModal({
 
 使用 `\r\n` 即可实现换行。目前，在微信开发者工具上显示不换行，但是真实环境可换行。
 
+## [微信小程序] 长按复制
+
+```javascript
+  /**
+   * 长按复制
+   */
+  copy: function(e) {
+    var that = this;
+    // console.log(e.target.dataset.phone);
+    wx.setClipboardData({
+      data: e.target.dataset.phone,
+      success: function(res) {
+        wx.showToast({
+          title: '复制成功',
+          duration: 1000
+        });
+      }
+    });
+  }
+```
+
+需要添加长按复制功能的元素绑定该函数即可
+
+```xml
+<text bindlongpress='copy' data-phone='{{phone}}'>{{phone}}</text>
+```
+
 ## [js] 判断字符串为空
 
 ```javascript

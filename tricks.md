@@ -555,6 +555,9 @@ git branch -r
 # 查看远程仓库地址
 git remote -v
 
+# 以远程分支或 tag 创建本地分支
+git checkout -b <local branch> <remote branch OR tag>
+
 # 以某个分支强制覆盖本地分支并推送
 git reset --hard <remote_branch>
 git push -f

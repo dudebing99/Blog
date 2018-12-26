@@ -1023,6 +1023,28 @@ select CREATE_TIME from INFORMATION_SCHEMA.TABLES where TABLE_NAME='latest_activ
 select name,if(sex=0,'女','男') as sex from student;
 ```
 
+### between ... and ...
+
+SQL 中使用 `between ... and ...`，查询条件是闭区间，且上下限调换不等价，如下所示
+
+`between a and b => x ∈ [a, b] => x ≥ a && x ≤ b`
+
+`where id between a and b => where id >= a and id <= b`
+
+- 查询 id ≥ 1 且 id ≤ 3 的记录
+
+```sql
+select * from tbl where id between 1 and 3;
+```
+
+- 查询 id ≥ 3 且 id ≤ 1 的记录
+
+```sql
+select * from tbl where id between 3 and 1;
+```
+
+所以，在处理起始终止范围查询业务逻辑时，SQL 中使用 `between ... and ...` 一定需要处理好上下限。即，前端、后端都应该确保上下限 `a ≤ b`。
+
 ## NGINX 性能优化
 
 > nginx 默认的配置 `/etc/nginx/nginx.conf`，当然，一般 `nginx.conf` 会引用其他目录的配置文件，例如目录 `conf.d`，如下讨论主要基于 `nginx.conf` 全局配置。

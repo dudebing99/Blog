@@ -6900,6 +6900,32 @@ OP_RETURN 常为一个金额为 0 的比特币输出， 因为任何与该输出
 
 ![](pic/blockchain/eth_record.png)
 
+## 比特币 Bitcoind 源码
+
+> **源码版本：**基于 v0.9.5
+
+### 最大连接限制
+
+`MAX_OUTBOUND_CONNECTIONS` 默认值为 8
+
+```cpp
+static const int MAX_OUTBOUND_CONNECTIONS = 8;
+```
+
+`nMaxConnections` 默认值为 125
+
+```cpp
+int nMaxConnections = 125;
+```
+
+同时，可以自定义参数覆盖 `nMaxConnections`，如下所示
+
+![](pic/blockchain/max_connection2.png)
+
+最大连接数取值 `min(MAX_OUTBOUND_CONNECTIONS, nMaxConnections)` 
+
+![](pic/blockchain/max_connection.png)
+
 ## 以太坊 geth 源码
 
 > **源码版本：**基于 release 1.8 分支

@@ -161,7 +161,6 @@ imap jj <ESC>
     "files.autoSave": "afterDelay",
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
-    "window.zoomLevel": 2,
     "explorer.confirmDelete": true,
     "editor.detectIndentation": true,
     "team.showWelcomeMessage": false,
@@ -178,8 +177,28 @@ imap jj <ESC>
 - 跳转到指定行：`Alt G`
 - 查找：`Ctrl F`
 - 替换：`Ctrl H`
-
 - 放大/缩小：`Ctrl +`/`Ctrl -`
+
+## VS Code 插件
+
+###  EditorConfig for Visual Studio Code
+
+> 设置文件编码、换行、取出行末空白、Tab 等
+
+1. 安装插件
+2. 项目文件夹根目录创建这个文件 `.editorconfig`，内容如下
+
+```bash
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 4
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+```
 
 ## Typora Han 主题配置
 

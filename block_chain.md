@@ -2937,6 +2937,36 @@ root@ubuntu:~/WaykiChain/node/node0# ./coind -datadir=. getconnectioncount
 root@ubuntu:~/WaykiChain/node2# ./coind -datadir=. addnode "127.0.0.1:7901" add
 ```
 
+#### 综合
+
+- 生成转账原始交易
+
+```bash
+root@ubuntu:~/WaykiChain/test/node1# ./node1 -datadir=. sendtoaddressraw 100 10000 0-1 wcSECPcKdCxLkuwobZqEeEJsDk9Shp8JDe 95
+{
+    "rawtx" : "03015f020001025a0164cd10004630440220664de5ec373f44d2756a23d5267ab25f22af6162d166b1cca6c76631701cbeb5022041959ff75f7c7dd39c1f9f6ef9a237a6ea467d02d2d2c3db62a1addaa8009ccd"
+}
+```
+
+- 解码交易
+
+```bash
+root@ubuntu:~/WaykiChain/test/node1# ./node1 -datadir=. decodetransaction 03015f020001025a0164cd10004630440220664de5ec373f44d2756a23d5267ab25f22af6162d166b1cca6c76631701cbeb5022041959ff75f7c7dd39c1f9f6ef9a237a6ea467d02d2d2c3db62a1addaa8009ccd
+{
+    "hash" : "d9454477c28f07376e1911ad58bc82102bf7780549ff8f2d833c2bbb0c88083a",
+    "txtype" : "COMMON_TX",
+    "ver" : 1,
+    "regid" : "0-1",
+    "addr" : "wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4",
+    "desregid" : "90-1",
+    "desaddr" : "wcSECPcKdCxLkuwobZqEeEJsDk9Shp8JDe",
+    "money" : 10000,
+    "fees" : 100,
+    "height" : 95,
+    "contract" : ""
+}
+```
+
 ### 以太坊初步探索
 
 > Ubuntu 14.04.5 LTS/geth v1.8.13-unstable/solc v0.4.24+commit.e67f0147.Linux.g++/golang v1.10.3

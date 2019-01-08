@@ -6295,7 +6295,7 @@ UTXO 在 UTXO 集（UTXOset）中被每一个全节点比特币客户端追踪�
 
 `OP_DUP OP_HASH160 <Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG`
 
-脚本中的 Cafe Public Key Hash 即为咖啡馆的比特币地址，但该地址不是基于 Base58Check 编码。事实上，大多数比特币地址的公钥哈希值都显示为十六进制码，而不是大家所熟知的以1开头的基于 Bsase58Check 编码的比特币地址。
+脚本中的 `Cafe Public Key Hash` 即为咖啡馆的比特币地址，但该地址不是基于 `Base58Check` 编码。事实上，大多数比特币地址的公钥哈希值都显示为十六进制码，而不是大家所熟知的以1开头的基于 `Bsase58Check` 编码的比特币地址。
 
 上述锁定脚本相应的解锁脚本是：
 

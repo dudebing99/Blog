@@ -5331,6 +5331,114 @@ wx.showModal({
 <text bindlongpress='copy' data-phone='{{phone}}'>{{phone}}</text>
 ```
 
+## [微信小程序] 分页加载
+
+分页加载是常见的优化技巧，也是提升用户体验的一方面。既减轻服务端的业务压力，又提升了用户体验。一般地，需要前后端配合实现。
+
+- 前端动态加载（通过多次拉取数据，更新）
+- 后端接口支持分页查询
+
+```xml
+<view class="table">
+  <view class="noResult" hidden="{{!noResult}}">对不起，您查询的结果为空！</view>
+  <view wx:if="{{list.length > 0}}">
+    <view class="th">
+      <view class='td-title' style='width:30%'>手机号码</view>
+      <view class='td-title' style='width:15%'>用户名</view>
+      <view class='td-title' style='width:15%'>余额</view>
+      <view class='td-title' style='width:40%'>操作</view>
+    </view>
+    <view class="tr bg-g" />
+    <scroll-view scroll-y="true">
+      <view>
+        <block wx:for="{{list}}" wx:key="{{phone}}">
+          <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+            <view class='td-content' style='width:30%'>
+              <text bindlongpress='copy' data-phone='{{item.phone}}'>{{item.phone}}</text>
+            </view>
+            <view class='td-content' style='width:15%'>{{item.nickname}}</view>
+            <view class='td-content' style='width:15%'>{{item.balance}}</view>
+            <view class='td-content' style='width:40%'>
+              <view>
+                <navigator class='link' url='../userdetail/userdetail?phone={{item.phone}}'>用户详情</navigator>|
+                <navigator class='link' url='../operation/operation?phone={{item.phone}}&nickname={{item.nickname}}'>用户编辑</navigator>
+              </view>
+              <view>
+                <text class='link' bindtap='deleteUser' data-phone='{{item.phone}}' data-index='{{index}}'>用户删除</text>|
+                <text class='link' bindtap='consumeManager' data-phone='{{item.phone}}' data-index='{{index}}'>消费管理</text>
+              </view>
+            </view>
+          </view>
+          <view class="tr bg-w" wx:else>
+            <view class='td-content' style='width:30%'>
+              <text bindlongpress='copy' data-phone='{{item.phone}}'>{{item.phone}}</text>
+            </view>
+            <view class='td-content' style='width:15%'>{{item.nickname}}</view>
+            <view class='td-content' style='width:15%'>{{item.balance}}</view>
+            <view class='td-content' style='width:40%'>
+              <view>
+                <navigator class='link' url='../userdetail/userdetail?phone={{item.phone}}'>用户详情</navigator>|
+                <navigator class='link' url='../operation/operation?phone={{item.phone}}&nickname={{item.nickname}}'>用户编辑</navigator>
+              </view>
+              <view>
+                <text class='link' bindtap='deleteUser' data-phone='{{item.phone}}' data-index='{{index}}'>用户删除</text>|
+                <text class='link' bindtap='consumeManager' data-phone='{{item.phone}}' data-index='{{index}}'>消费管理</text>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+      <view class="tr" hidden="{{!listLoading}}" bindtap="listMore">点击加载更多...</view>
+      <view class="tr" hidden="{{!listLoadingComplete}}">已加载全部</view>
+    </scroll-view>
+  </view>
+</view>
+```
+
+长按绑定 `listMore`，长按触发从后台重新拉取数据，然后更新 `list: that.data.list.concat(list)`
+
+```javascript
+ fetchList: function() {
+    var that = this;
+    wx.request({
+      url: app.globalData.URL + '/usermanage/user/list',
+      data: {
+        "id": that.data.id,
+        "count": gCount
+      },
+      method: 'POST',
+      success: function(res) {
+        if (res.data.errorcode == 0) {
+          var list = res.data.data;
+          var length = list.length;
+          that.setData({
+            listLoading: length != gCount ? false : true,
+            listLoadingComplete: length != gCount ? true : false,
+            id: list[length - 1].id,
+            list: that.data.list.concat(list),
+          });
+        } else {
+          that.setData({
+            listLoading: false,
+            listLoadingComplete: true,
+            noResult: that.data.list.length == 0 ? true : false
+          });
+        }
+      }
+    })
+  },
+  //点击加载更多
+  listMore: function() {
+    let that = this;
+    console.log(that.data.listLoading, that.data.listLoadingComplete);
+    if (that.data.listLoading && !that.data.listLoadingComplete) {
+      that.fetchList();
+    }
+  },
+```
+
+后台接口 `/usermanage/user/list` 包含两个参数，一个起始 ID，一个指定一次性拉取记录条数。
+
 ## [js] 判断字符串为空
 
 ```javascript

@@ -107,6 +107,16 @@ As such, they're not stored explicitly anywhere: they're the effects of running 
 
 因为挖空块不去打包交易，本质是为了避免打包了已经被上一个区块打包的交易导致区块无效，从而造成更大的经济损失。因此，通过精心构造一些不可能出现在上一个区块的交易即可。例如，自己找一些零散的 UTXO 来整合，和交易所合作，交易所使用端到端独家提供一些交易，这些交易不被广播，只可能出现在挖空块的矿池里，这样空块就不会“空”了。
 
+#### Stopping Hash field in GetBlocks Message
+
+- Node1 announces block B3, using an `inv` message with B3's gash.
+- Node2 does not know about B3, or its parent B2, but does know the grandparent B1. It sends a `getblocks` message, starting from B1, but stopping at B3.
+- Node1 replies with an `inv` for B2, but not with B3 or any potential successor B4 thay may have appeared.
+
+The purpose is just avoiding sending too many hashes in case the sender already knows some successor.
+
+> Note that since Bitcoin Core 0.10.0, getblocks is no longer used. getheaders has similar logic though.
+
 ### Ethereum
 
 #### Can I Speed Up My Transaction?

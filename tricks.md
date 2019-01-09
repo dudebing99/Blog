@@ -724,6 +724,31 @@ timedatectl set-timezone Asia/Shanghai
 rdate -t 30 -s time.nist.gov && hwclock -w 
 ```
 
+## 网络测速
+
+1. 安装 speedtest
+
+```bash
+pip install speedtest-cli
+```
+
+2. 测速
+
+> 使用 speedtest 或者 speedtest-cli 命令测试，更精确测速，可以选择指定服务器
+
+```bash
+root@iZwz978rorvlg75nct99l1Z:~# speedtest-cli
+Retrieving speedtest.net configuration...
+Testing from Aliyun Computing Co. (120.79.48.91)...
+Retrieving speedtest.net server list...
+Selecting best server based on ping...
+Hosted by China Telecom Xiangyang Branch (XiangYang) [340.23 km]: 24.964 ms
+Testing download speed................................................................................
+Download: 494.36 Mbit/s
+Testing upload speed................................................................................................
+Upload: 201.21 Mbit/s
+```
+
 ## SSH 机器互信（免密登陆）
 
 **目标：**client 被 server 信任，即，client 可以通过免密 ssh 登陆 server。

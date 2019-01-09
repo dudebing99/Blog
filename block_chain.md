@@ -2937,6 +2937,36 @@ root@ubuntu:~/WaykiChain/node/node0# ./coind -datadir=. getconnectioncount
 root@ubuntu:~/WaykiChain/node2# ./coind -datadir=. addnode "127.0.0.1:7901" add
 ```
 
+#### 综合
+
+- 生成转账原始交易
+
+```bash
+root@ubuntu:~/WaykiChain/test/node1# ./node1 -datadir=. sendtoaddressraw 100 10000 0-1 wcSECPcKdCxLkuwobZqEeEJsDk9Shp8JDe 95
+{
+    "rawtx" : "03015f020001025a0164cd10004630440220664de5ec373f44d2756a23d5267ab25f22af6162d166b1cca6c76631701cbeb5022041959ff75f7c7dd39c1f9f6ef9a237a6ea467d02d2d2c3db62a1addaa8009ccd"
+}
+```
+
+- 解码交易
+
+```bash
+root@ubuntu:~/WaykiChain/test/node1# ./node1 -datadir=. decodetransaction 03015f020001025a0164cd10004630440220664de5ec373f44d2756a23d5267ab25f22af6162d166b1cca6c76631701cbeb5022041959ff75f7c7dd39c1f9f6ef9a237a6ea467d02d2d2c3db62a1addaa8009ccd
+{
+    "hash" : "d9454477c28f07376e1911ad58bc82102bf7780549ff8f2d833c2bbb0c88083a",
+    "txtype" : "COMMON_TX",
+    "ver" : 1,
+    "regid" : "0-1",
+    "addr" : "wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4",
+    "desregid" : "90-1",
+    "desaddr" : "wcSECPcKdCxLkuwobZqEeEJsDk9Shp8JDe",
+    "money" : 10000,
+    "fees" : 100,
+    "height" : 95,
+    "contract" : ""
+}
+```
+
 ### 以太坊初步探索
 
 > Ubuntu 14.04.5 LTS/geth v1.8.13-unstable/solc v0.4.24+commit.e67f0147.Linux.g++/golang v1.10.3
@@ -6265,7 +6295,7 @@ UTXO 在 UTXO 集（UTXOset）中被每一个全节点比特币客户端追踪�
 
 `OP_DUP OP_HASH160 <Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG`
 
-脚本中的 Cafe Public Key Hash 即为咖啡馆的比特币地址，但该地址不是基于 Base58Check 编码。事实上，大多数比特币地址的公钥哈希值都显示为十六进制码，而不是大家所熟知的以1开头的基于 Bsase58Check 编码的比特币地址。
+脚本中的 `Cafe Public Key Hash` 即为咖啡馆的比特币地址，但该地址不是基于 `Base58Check` 编码。事实上，大多数比特币地址的公钥哈希值都显示为十六进制码，而不是大家所熟知的以1开头的基于 `Bsase58Check` 编码的比特币地址。
 
 上述锁定脚本相应的解锁脚本是：
 
@@ -6899,6 +6929,32 @@ OP_RETURN 常为一个金额为 0 的比特币输出， 因为任何与该输出
 以太坊在交易中数据字段中添加待记录的数据，[如下所示](https://etherscan.io/tx/0xb1ed364e4333aae1da4a901d5231244ba6a35f9421d4607f7cb90d60bf45578a)
 
 ![](pic/blockchain/eth_record.png)
+
+## 比特币 Bitcoind 源码
+
+> **源码版本：**基于 v0.9.5
+
+### 最大连接限制
+
+`MAX_OUTBOUND_CONNECTIONS` 默认值为 8
+
+```cpp
+static const int MAX_OUTBOUND_CONNECTIONS = 8;
+```
+
+`nMaxConnections` 默认值为 125
+
+```cpp
+int nMaxConnections = 125;
+```
+
+同时，可以自定义参数覆盖 `nMaxConnections`，如下所示
+
+![](pic/blockchain/max_connection2.png)
+
+最大连接数取值 `min(MAX_OUTBOUND_CONNECTIONS, nMaxConnections)` 
+
+![](pic/blockchain/max_connection.png)
 
 ## 以太坊 geth 源码
 

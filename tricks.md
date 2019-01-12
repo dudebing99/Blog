@@ -690,13 +690,13 @@ git push
 
 > 一般地，为每一个 `PR` 创建一个分支
 
-1. 将远程分支（待提交 `PR` 的目标仓库的目标分支）检出作为本地分支 `fix_pr`
+1. 将远程分支（待提交 `PR` 的目标仓库的目标分支）检出作为本地分支 `<local branch>`
 
 ```bash
-git checkout -b fix_pr upstream/master
+git checkout -b <local branch> upstream/master
 ```
 
-2. 将某次（或多次）提交 `cherry-pick` 到本地分支 `fix_pr`
+2. 将某次（或多次）提交 `cherry-pick` 到本地分支 `<local branch>`
 
 ```bash
 # 一次提交
@@ -709,10 +709,10 @@ git cherry-pick <commit from>..<commit to>
 3. 将本地分支推到自己的远程仓库
 
 ```bash
-git push origin fix_pr
+git push origin <remote branch>
 ```
 
-4. 在 `github` 上面基于 `fix_pr` 与 `upstream/master` 提交 `PR`
+4. 在 `github` 上面基于 `<remote branch>` 与 `upstream/master` 提交 `PR`
 
 ## 同步机器时间、硬件时钟
 

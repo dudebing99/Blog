@@ -568,19 +568,21 @@ git remote set-head origin <target_branch>
 
 ### git stash
 
-> - [x] 默认情况下，git stash 缓存文件的策略如下：
->
->
-> 1. **会缓存下列文件**
->
-> - 添加到暂存区的修改（staged changes）
-> - Git 跟踪的但并未添加到暂存区的修改（unstaged changes）
-> 2. **不会缓存以下文件**
-> - 在工作目录中新的文件（untracked files）
-> - 被忽略的文件（ignored files）
->
-> - [x] 使用 -u 或者 --include-untracked 可以 stash untracked 的文件
-> - [x] 使用 -a 或者 --all 命令可以  stash 当前目录下的所有修改
+默认情况下，git stash 缓存文件的策略如下：
+
+**会缓存下列文件**
+
+- 添加到暂存区的修改（`staged changes`）
+- Git 跟踪的但并未添加到暂存区的修改（`unstaged changes`）
+
+**不会缓存以下文件**
+
+- 在工作目录中新的文件（`untracked files`）
+- 被忽略的文件（`ignored files`）
+
+> 使用 -u 或者 --include-untracked 可以 stash untracked 的文件
+
+> 使用 -a 或者 --all 命令可以  stash 当前目录下的所有修改
 
 ```bash
 # 保存未提交的变更(建议通过 sava "fix(xxx): xxx)" 备注变更说明）

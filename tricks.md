@@ -678,6 +678,8 @@ git fetch upstream
 
 3. 同远程原始仓库同步
 
+> `git pull` 与 `git pull upstream master` 的区别，前者表示拉取自己远程仓库（默认为 `master` 分支），后者表示拉取外部的上游分支
+
 ```bash
 git pull upstream master
 ```

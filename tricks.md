@@ -658,6 +658,20 @@ git blame <filename>
 git push --mirror git@github.com:dudebing99/project2.git
 ```
 
+### 合并多次提交
+
+1. 将头部指针指向要合并的第一个提交的前一个提交
+
+```bash
+git reset --soft <commit id>
+```
+
+2. 重新提交
+
+```bash
+git commit -m "New Commit Message"
+```
+
 ### github 同步 fork 仓库
 
 > 以同步 `master` 分支为例，其他分支同理

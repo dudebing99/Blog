@@ -1613,3 +1613,38 @@ std::exception::what: unable to find plugin: eosio::wallet_api_plugin
 
 新版本 `nodeos` 已经将钱包插件移除，因此将该配置项从 `config.ini` 移除即可
 
+## [bash] 运行脚本报错 terminated
+
+**系统环境**
+
+Ubuntu 14.04
+
+**问题描述**
+
+脚本文件 `xxx.sh`，脚本内容如下
+
+```bash
+#!/bin/bash
+
+pkill xxx
+
+file="xxx"`date +%Y%M%d_%H%M%S`".log"
+echo $file
+```
+
+运行脚本，报错如下
+
+```bash
+root@ubuntu:~/WaykiChain/tps/node2# ./xxx.sh 
+已终止
+```
+
+**原因分析**
+
+`pkill` 根据进程名模糊匹配，不仅会匹配目标进程 `xxx`，同时会匹配到脚本自身，相当于把自身杀掉了，所以脚本运行被终止。
+
+**解决方式**
+
+- 简单处理，脚本名不要为 `xxx.sh` 即可（不包含 `xxx`，例如，`a.sh`）
+- 完善处理，换个实现方案，精确匹配要杀掉的进程，且不要杀掉自身即可
+

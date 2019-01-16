@@ -3055,6 +3055,20 @@ root@ubuntu:~/eos# ./eosio_install.sh
 
 ![](pic/config/install_eos.png)
 
+## Ubuntu 安装 fio
+
+> FIO 是测试 IOPS 的非常好的工具，用来对硬件进行压力测试和验证。
+
+```bash
+apt-get install  libaio-dev
+wget http://brick.kernel.dk/snaps/fio-2.0.7.tar.gz 
+yum install libaio-devel 
+tar -zxvf fio-2.0.7.tar.gz 
+cd fio-2.0.7 
+make 
+make install
+```
+
 ## Shell 终端提示符设置
 
 ```bash

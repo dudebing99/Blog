@@ -1927,6 +1927,18 @@ pip install flask flask-restful
 yum install -y telnet
 ```
 
+## CentOS 安装 fio
+
+```bash
+yum install libaio-devel
+wget http://brick.kernel.dk/snaps/fio-2.0.7.tar.gz 
+yum install libaio-devel 
+tar -zxvf fio-2.0.7.tar.gz 
+cd fio-2.0.7 
+make 
+make install
+```
+
 ## CentOS 配置 Nginx 用户认证
 
 1. 利用 htpasswd 生成密码文件

@@ -3072,7 +3072,7 @@ root@ubuntu:~/eos# ./eosio_install.sh
 > FIO 是测试 IOPS 的非常好的工具，用来对硬件进行压力测试和验证。
 
 ```bash
-apt-get install  libaio-dev
+apt-get install libaio-dev
 wget http://brick.kernel.dk/snaps/fio-2.0.7.tar.gz 
 yum install libaio-devel 
 tar -zxvf fio-2.0.7.tar.gz 

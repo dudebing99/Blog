@@ -1648,3 +1648,23 @@ root@ubuntu:~/WaykiChain/tps/node2# ./xxx.sh
 - 简单处理，脚本名不要为 `xxx.sh` 即可（不包含 `xxx`，例如，`a.sh`）
 - 完善处理，换个实现方案，精确匹配要杀掉的进程，且不要杀掉自身即可
 
+## [vim] can not open file for writing
+
+**系统环境**
+
+Ubuntu 14.04/vim 7.4
+
+**问题描述**
+
+vim 打开了一个需要 root 权限才能修改的文件，保存时提示如上错误
+
+**解决方式**
+
+vim 输入命令行
+
+```bash
+:w !sudo tee % > /dev/null
+```
+
+然后，输入用户密码即可
+

@@ -1652,7 +1652,7 @@ root@ubuntu:~/WaykiChain/tps/node2# ./xxx.sh
 
 **系统环境**
 
-Ubuntu 14.04/vim 7.4
+CentOS 7.4/vim 7.4
 
 **问题描述**
 

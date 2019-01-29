@@ -5,14 +5,8 @@
 ## API 设计准则
 
 > An API is to the programmer what a GUI is to the end-user. The 'P' in API stands for "Programmer", not "Program", to highlight the fact that APIs are used by programmers, who are humans.
->
+
 > We believe APIs should be minimal and complete, have clear and simple semantics, be intuitive, be easy to memorize, and lead to readable code.
->
-> **References:**
->
-> [Six Characteristics of Good APIs](https://doc.qt.io/archives/qq/qq13-apis.html#sixcharacteristicsofgoodapis)
->
-> [API Design](https://people.mpi-inf.mpg.de/~jblanche/api-design.pdf)
 
 - **Be minimal:** A minimal API is one that has as few public members per class and as few classes as possible. This makes it easier to understand, remember, debug, and change the API.
 - **Be complete:** A complete API means the expected functionality should be there. This can conflict with keeping it minimal. Also, if a member function is in the wrong class, many potential users of the function won't find it.

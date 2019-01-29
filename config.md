@@ -2352,6 +2352,118 @@ x-xss-protection:1; mode=block
 x-content-type-options:nosniff
 ```
 
+## Nginx 配置静态资源
+
+### 使用 alias 重定义路径
+
+静态资源如下所示
+
+```bash
+[kevin@iZwz9cynwitmm46uagetmvZ opt]$ tree -L 3 static*
+static1
+└── json
+    └── dummy.json
+static2
+└── index.html
+
+1 directory, 2 files
+```
+
+Nginx 配置如下
+
+```bash
+server {
+	listen       443 ssl http2 default_server;
+	listen       [::]:443 ssl http2 default_server;
+	server_name  bigsillybear.com;
+	ssl_certificate /etc/letsencrypt/live/api.bigsillybear.com/fullchain.pem; # managed by Certbot
+	ssl_certificate_key /etc/letsencrypt/live/api.bigsillybear.com/privkey.pem; # managed by Certbot
+	ssl_session_cache shared:SSL:1m;
+	ssl_session_timeout  10m;
+	ssl_ciphers HIGH:!aNULL:!MD5;
+	ssl_prefer_server_ciphers on;
+	
+	# Load configuration files for the default server block.
+	include /etc/nginx/default.d/*.conf;
+	
+	# 使用正则表达式
+	location ~  ^/hello1/(\w+).(\w+)$ {
+	   alias /opt/static1/$2/$1.$2;
+	}
+	
+	# 不使用正则表达式
+	location /hello2/ {
+	    alias /opt/static2/;
+	    index  index.html index.htm;
+	}
+}
+```
+
+测试结果
+
+```bash
+[kevin@iZwz9cynwitmm46uagetmvZ opt]$ curl https://bigsillybear.com/hello1/dummy.json
+{
+    "id": 99,
+    "msg": "hello world"
+}
+[kevin@iZwz9cynwitmm46uagetmvZ opt]$ curl https://bigsillybear.com/hello2/
+<html>
+    <body>
+        <h1>Hello World</h1>
+        <p>Hello World</p>
+    </body>
+</html>
+```
+
+### 使用 root 指定前缀
+
+静态资源如下所示
+
+```bash
+[kevin@iZwz9cynwitmm46uagetmvZ opt]$ tree -L 3 static3/
+static3/
+└── index.html
+
+0 directories, 1 file
+```
+
+Nginx 配置如下
+
+```bash
+server {
+	listen       443 ssl http2 default_server;
+	listen       [::]:443 ssl http2 default_server;
+	server_name  bigsillybear.com;
+	ssl_certificate /etc/letsencrypt/live/api.bigsillybear.com/fullchain.pem; # managed by Certbot
+	ssl_certificate_key /etc/letsencrypt/live/api.bigsillybear.com/privkey.pem; # managed by Certbot
+	ssl_session_cache shared:SSL:1m;
+	ssl_session_timeout  10m;
+	ssl_ciphers HIGH:!aNULL:!MD5;
+	ssl_prefer_server_ciphers on;
+	
+	# Load configuration files for the default server block.
+	include /etc/nginx/default.d/*.conf;
+	
+	location /static3/ {
+    	root  /opt;
+    	index  index.html index.htm;
+    }
+}
+```
+
+测试结果
+
+```bash
+[kevin@iZwz9cynwitmm46uagetmvZ opt]$ curl https://bigsillybear.com/static3/
+<html>
+    <body>
+        <h1>Hello World</h1>
+        <p>Hello World</p>
+    </body>
+</html>
+```
+
 ## Mail 发送邮件
 
 1. 配置 /etc/mail.rc

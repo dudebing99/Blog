@@ -206,7 +206,7 @@ trim_trailing_whitespace = true
 
 ![](pic/config/han_css.png)
 
-```css
+```scss
 @charset "utf-8";
 
 :root {

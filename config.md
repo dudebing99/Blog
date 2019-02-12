@@ -202,7 +202,7 @@ trim_trailing_whitespace = true
 
 ## Typora Han 主题配置
 
-在 Typora 主题配置目录新建 `Han`，将如下内容保存为 `Han.css`，[点此下载](https://dudebing99.github.io/blog/archives/config/han.css)，目录如下所示
+在 Typora 主题配置目录新建 `han`，将如下内容保存为 `han.css`，[点此下载](https://dudebing99.github.io/blog/archives/config/han.css)，目录如下所示
 
 ![](pic/config/han_css.png)
 

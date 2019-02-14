@@ -1088,6 +1088,120 @@ select * from tbl where id between 3 and 1;
 
 所以，在处理起始终止范围查询业务逻辑时，SQL 中使用 `between ... and ...` 一定需要处理好上下限。即，前端、后端都应该确保上下限 `a ≤ b`。
 
+## NGINX 基础配置
+
+### 配置静态资源
+
+- 使用 alias 重定义路径
+
+静态资源如下所示
+
+```bash
+[kevin@iZwz9cynwitmm46uagetmvZ opt]$ tree -L 3 static*
+static1
+└── json
+    └── dummy.json
+static2
+└── index.html
+
+1 directory, 2 files
+```
+
+Nginx 配置如下
+
+```bash
+server {
+	listen       443 ssl http2 default_server;
+	listen       [::]:443 ssl http2 default_server;
+	server_name  bigsillybear.com;
+	ssl_certificate /etc/letsencrypt/live/api.bigsillybear.com/fullchain.pem; # managed by Certbot
+	ssl_certificate_key /etc/letsencrypt/live/api.bigsillybear.com/privkey.pem; # managed by Certbot
+	ssl_session_cache shared:SSL:1m;
+	ssl_session_timeout  10m;
+	ssl_ciphers HIGH:!aNULL:!MD5;
+	ssl_prefer_server_ciphers on;
+	
+	# Load configuration files for the default server block.
+	include /etc/nginx/default.d/*.conf;
+	
+	# 使用正则表达式
+	location ~  ^/hello1/(\w+).(\w+)$ {
+	   alias /opt/static1/$2/$1.$2;
+	}
+	
+	# 不使用正则表达式
+	location /hello2/ {
+	    alias /opt/static2/;
+	    index  index.html index.htm;
+	}
+}
+```
+
+测试结果
+
+```bash
+[kevin@iZwz9cynwitmm46uagetmvZ opt]$ curl https://bigsillybear.com/hello1/dummy.json
+{
+    "id": 99,
+    "msg": "hello world"
+}
+[kevin@iZwz9cynwitmm46uagetmvZ opt]$ curl https://bigsillybear.com/hello2/
+<html>
+    <body>
+        <h1>Hello World</h1>
+        <p>Hello World</p>
+    </body>
+</html>
+```
+
+- 使用 root 指定前缀
+
+静态资源如下所示
+
+```bash
+[kevin@iZwz9cynwitmm46uagetmvZ opt]$ tree -L 3 static3/
+static3/
+└── index.html
+
+0 directories, 1 file
+```
+
+Nginx 配置如下
+
+```bash
+server {
+	listen       443 ssl http2 default_server;
+	listen       [::]:443 ssl http2 default_server;
+	server_name  bigsillybear.com;
+	ssl_certificate /etc/letsencrypt/live/api.bigsillybear.com/fullchain.pem; # managed by Certbot
+	ssl_certificate_key /etc/letsencrypt/live/api.bigsillybear.com/privkey.pem; # managed by Certbot
+	ssl_session_cache shared:SSL:1m;
+	ssl_session_timeout  10m;
+	ssl_ciphers HIGH:!aNULL:!MD5;
+	ssl_prefer_server_ciphers on;
+	
+	# Load configuration files for the default server block.
+	include /etc/nginx/default.d/*.conf;
+	
+	location /static3/ {
+    	root  /opt;
+    	index  index.html index.htm;
+    }
+}
+```
+
+测试结果
+
+```bash
+[kevin@iZwz9cynwitmm46uagetmvZ opt]$ curl https://bigsillybear.com/static3/
+<html>
+    <body>
+        <h1>Hello World</h1>
+        <p>Hello World</p>
+    </body>
+</html>
+```
+
 ## NGINX 性能优化
 
 > nginx 默认的配置 `/etc/nginx/nginx.conf`，当然，一般 `nginx.conf` 会引用其他目录的配置文件，例如目录 `conf.d`，如下讨论主要基于 `nginx.conf` 全局配置。

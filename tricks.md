@@ -1127,9 +1127,9 @@ events {
 
 > 工作进程同时打开的连接数限制也由系统的可用 socket 连接数限制，所以设置不切实际的高没什么好处。
 
-- `multi_accept` 设置 nginx 收到一个新连接通知后接受尽可能多的链接
+- `multi_accept` 设置 nginx 收到一个新连接通知后接受尽可能多的连接
 
-  ```bash
+  ```basic
   Syntax:	multi_accept on | off;
   Default:	
   multi_accept off;

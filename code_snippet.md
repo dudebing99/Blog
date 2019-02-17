@@ -1220,6 +1220,31 @@ needle2 last found at position 3
 needle3 first found at position 2
 ```
 
+### [CPP] 实现 strcpy
+
+```c
+char *strcpy(char *dst, const char *src) {
+    assert(dst && src);
+
+    char *ret = dst;
+    int len = strlen(src);
+
+    if (dst >= src && dst <= src + len) {
+        dst += len;
+        src += len;
+        while (len -- >= 0) {
+            *dst -- = *src --;
+        } 
+    } else {
+        while (len -- >= 0) {
+            *dst ++ = *src ++;
+        }
+    }
+  
+    return ret;
+}
+```
+
 ## [CPP] 排序算法/快速排序
 
 > **源码路径：**[quick_sort.cpp](https://dudebing99.github.io/blog/archives/code_snippet/quick_sort.cpp)
@@ -1269,7 +1294,7 @@ int main()
 
 **输出**
 
-```basic
+```bash
 4 6 9 13 21 21 51 
 ```
 

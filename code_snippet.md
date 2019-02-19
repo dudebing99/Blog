@@ -1220,7 +1220,7 @@ needle2 last found at position 3
 needle3 first found at position 2
 ```
 
-### [CPP] 实现 strcpy
+## [CPP] 实现 strcpy
 
 ```c
 char *strcpy(char *dst, const char *src) {

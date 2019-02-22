@@ -200,6 +200,17 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 ```
 
+### Clang-Format
+
+1. 安装插件
+2. 设置编码风格（以谷歌编码风格为例，可以个性化调整）
+
+在 `setting.json` 中添加如下配置项即可
+
+```bash
+"C_Cpp.clang_format_fallbackStyle": "{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0 , AlignConsecutiveAssignments: true}",
+```
+
 ## Typora Han 主题配置
 
 在 Typora 主题配置目录新建 `han`，将如下内容保存为 `han.css`，[点此下载](https://dudebing99.github.io/blog/archives/config/han.css)，目录如下所示

@@ -183,7 +183,7 @@ imap jj <ESC>
 
 ###  EditorConfig for Visual Studio Code
 
-> 设置文件编码、换行、取出行末空白、Tab 等
+> 设置文件编码、换行、去除行末空白、Tab 等
 
 1. 安装插件
 2. 项目文件夹根目录创建这个文件 `.editorconfig`，内容如下

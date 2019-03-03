@@ -2607,11 +2607,8 @@ make install
 ## Windows 安装 bitcoin
 
 > **环境：**Windows 7 Ultimate x64
->
-> **参考文档：**
->
-> - [中文](http://blog.sina.com.cn/s/blog_5922b3960101s5j9.html)
-> - [英文](https://bitcointalk.org/index.php?topic=149479.0)
+
+> **参考文档：**[中文](http://blog.sina.com.cn/s/blog_5922b3960101s5j9.html)/[英文](https://bitcointalk.org/index.php?topic=149479.0)
 
 ### 准备编译环境
 

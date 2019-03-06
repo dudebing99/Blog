@@ -344,6 +344,14 @@ SELECT * FROM user WHERE username='myuser' or 'foo' = 'foo' --'' AND password='x
 
 对于负数，补码表示方式也是人脑无法直观看出其数值的。通常也需要转换成原码再计算其数值。
 
+### LRU Cache
+
+`LRU` 是 Latest Recently Used 的缩写，即，最近最少使用，它是一种 Cache 替换算法。
+
+狭义的 Cache 指的是位于 CPU 和主存间的快速 RAM， 通常它不像系统主存那样使用 DRAM 技术，而使用昂贵但较快速的SRAM 技术。 广义上的 Cache 指的是位于速度相差较大的两种硬件之间， 用于协调两者数据传输速度差异的结构。除了CPU 与主存之间有 Cache， 内存与硬盘之间也有 Cache，乃至在硬盘与网络之间也有某种意义上的 Cache —— Internet 临时文件夹或网络内容缓存等。
+
+Cache 的容量有限，因此当 Cache 的容量用完后，而又有新的内容需要添加进来时， 就需要挑选并舍弃原有的部分内容，从而腾出空间来放新内容。LRU Cache 的替换原则就是将最近最少使用的内容替换掉，即，每次替换掉的就是一段时间内最久没有使用过的内容。
+
 ## 计算机网络
 
 ###  `MSL`
@@ -362,16 +370,16 @@ SELECT * FROM user WHERE username='myuser' or 'foo' = 'foo' --'' AND password='x
 
 现在让我们假设某个应用程序发出了一个请求，希望发送小块数据。我们可以选择立即发送数据或者等待产生更多的数据然后再一次发送两种策略。如果我们马上发送数据，那么交互性的以及客户/服务器型的应用程序将极大地受益。如果请求立即发出那么响应时间也会快一些。以上操作可以通过设置套接字的 `TCP_NODELAY` 选项来完成，这样就禁用了 `Nagle` 算法。
 
-> - 在 C++ 中，可以通过 `setsockopt` 启用 `TCP_NODELAY`
->
-> ```cpp
-> static void _set_tcp_nodelay(int fd) {
-> 	int enable = 1;
-> 	setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, (void*)&enable, sizeof(enable));
-> }
-> ```
->
-> - 在 Java 中，Socket 对象上有一个 `setTcpNoDelay` 的方法，直接设置成 true 即可
+> 在 C++ 中，可以通过 `setsockopt` 启用 `TCP_NODELAY`
+
+```cpp
+static void _set_tcp_nodelay(int fd) {
+	int enable = 1;
+	setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, (void*)&enable, sizeof(enable));
+}
+```
+
+> 在 Java 中，Socket 对象上有一个 `setTcpNoDelay` 的方法，直接设置成 true 即可
 
 ## 数据通信
 

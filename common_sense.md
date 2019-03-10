@@ -381,6 +381,24 @@ static void _set_tcp_nodelay(int fd) {
 
 > 在 Java 中，Socket 对象上有一个 `setTcpNoDelay` 的方法，直接设置成 true 即可
 
+### HTTP Error Code
+
+#### 50x 错误码
+
+> 参考资料：[https://www.section.io/blog/504-503-errors-difference/](https://www.section.io/blog/504-503-errors-difference/)
+
+- 502 Bad GateWay
+
+服务器作为反向代理从业务服务器收到了无效的（无法解析的）响应
+
+- 503 Service Unavailable
+
+业务服务器服务实例活着，但是服务不可用（如负载过高，且通常负载降低后能够恢复）
+
+- 504 Gateway Timeout
+
+服务器作为反向代理，在超时之前未收到业务服务器的响应
+
 ## 数据通信
 
 ### 单工、半双工、全双工

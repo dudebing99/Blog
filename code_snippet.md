@@ -1443,6 +1443,50 @@ All cached elements:
 2 ==> two
 ```
 
+## [CPP] SHA256
+
+```cpp
+#include <iostream>
+#include <iomanip>
+#include <sstream>
+#include <string>
+
+using namespace std;
+
+#include <openssl/sha.h>
+
+string sha256(const string str)
+{
+    unsigned char hash[SHA256_DIGEST_LENGTH];
+    SHA256_CTX sha256;
+    SHA256_Init(&sha256);
+    SHA256_Update(&sha256, str.c_str(), str.size());
+    SHA256_Final(hash, &sha256);
+    stringstream ss;
+    for(int i = 0; i < SHA256_DIGEST_LENGTH; i++)
+    {
+        ss << hex << setw(2) << setfill('0') << (int)hash[i];
+    }
+    return ss.str();
+}
+
+int main(int argc, char **argv) {
+    cout << sha256(argc == 1 ? "hello world" : argv[1]) << endl;
+
+    return 0;
+}
+```
+
+**输出**
+
+```bash
+root@ubuntu:~# g++ a.cpp  -lcrypto
+root@ubuntu:~# ./a.out            
+b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9
+root@ubuntu:~# ./a.out abc
+ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
+```
+
 ## [CPP] 设计模式/代理模式
 
 ![](pic/designpattern/proxy.jpg)

@@ -90,6 +90,30 @@ tcp        0      0 172.18.219.68:58226     106.14.112.174:7901     ESTABLISHED 
 
 - 利用 `ifstat` 查看系统网络流量是否异常
 
+### 测试 TCP/UDP 端口连通性
+
+- TCP
+
+```bash
+root@ubuntu:~# nc -z -v 192.168.1.175 22
+Connection to 192.168.1.175 22 port [tcp/ssh] succeeded!
+```
+
+```bash
+root@ubuntu:~# telnet 192.168.1.175 22
+Trying 192.168.1.175...
+Connected to 192.168.1.175.
+Escape character is '^]'.
+SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.10
+```
+
+- UDP
+
+```bash
+# nc -z -v -u 192.168.10.12 123
+Connection to 192.118.20.95 123 port [udp/ntp] succeeded!
+```
+
 ### 查看进程级别是否运行异常
 
 - `top`/`htop` 查看进程资源使用是否正常（特别注意，内存是否一致在增加）

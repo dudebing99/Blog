@@ -6944,6 +6944,63 @@ OP_RETURN 常为一个金额为 0 的比特币输出， 因为任何与该输出
 
 ![](pic/blockchain/eth_record.png)
 
+##  维基链 WaykiChain 源码
+
+###  文件功能描述
+
+| 目录/源码          | 简单功能说明                                                 |
+| ------------------ | ------------------------------------------------------------ |
+| json               | JSON和对象互转处理                                           |
+| leveldb            | Level DB 数据库交互                                          |
+| rpc                | 节点RPC交互接口实现                                          |
+| vm                 | Lua虚拟机执行核心逻辑和智能合约交互接口实现                  |
+| wallet             | 管理地址公私钥，创建原始交易，管理未确认交易                 |
+| addrman.cpp        | 地址管理器，确保防止地址广播产生的女巫攻击和对硬盘、内存的滥用 |
+| alert.cpp          | 提供版本兼容性警告信息                                       |
+| allocators.cpp     | 多线程处理内存分配                                           |
+| arith_uint256.cpp  | uint256 类型实现                                             |
+| base58.cpp         | base58编码实现                                               |
+| bignum.h           | 大整型数字实现                                               |
+| bloom.cpp          | Bloom过滤算法实现                                            |
+| chainparams.cpp    | 公链参数设置                                                 |
+| checkqueue.h       |                                                              |
+| clientversion.h    | 版本信息设置                                                 |
+| coind-cli.cpp      | 客户端程序入口                                               |
+| coind.cpp          | 服务器后台程序和客户端程序交换入口                           |
+| configuration.cpp  | 配置信息                                                     |
+| core.cpp           | 基础类：块头部信息，块信息                                   |
+| crypter.cpp        | 钱包加密                                                     |
+| cuiserver.cpp      | coind程序的字符界面处理                                      |
+| database.cpp       | 状态数据库的交换部分（ORM）：账号和合约数据、交易数据类存储  |
+| hash.cpp           | sha256两次hash                                               |
+| init.cpp           | coind的启动和关闭处理                                        |
+| key.cpp            | 公私钥生成、签名、验证                                       |
+| keystore.cpp       | 统一账户（含普通账户和矿工）的公私钥对，已经密钥存储文件     |
+| leveldbwrapper.cpp | LevelDB的访问封装类                                          |
+| limitedmap.h       | 前N个最大值元素的映射表类                                    |
+| main.cpp           | 区块链数据交换协议实现主要程序                               |
+| miner.cpp          | DPoS协议实现和挖矿实现                                       |
+| mruset.h           | MRU集合类实现                                                |
+| net.cpp            | 网络节点发现和连接和数据传送                                 |
+| netbase.cpp        | 网络处理基础类                                               |
+| noui.cpp           | 无界面消息处理                                               |
+| protocol.cpp       | P2P数据交换协议                                              |
+| random.cpp         | 伪随机实现                                                   |
+| SafeInt3.hpp       | 安全整型                                                     |
+| serialize.h        | 序列化和反序列化处理                                         |
+| sync.cpp           | 多线程同步处理                                               |
+| syncdata.cpp       | checkpoint数据签名和验签                                     |
+| syncdatadb.cpp     | checkpoint数据的存储和加载                                   |
+| threadsafety.h     | 线程安全的一些宏定义                                         |
+| tinyformat.h       | 类型安全的格式打印函数                                       |
+| tx.cpp             | 交易类型，账户类、各种交易类、投票                           |
+| txdb.cpp           | 交易和合约数据存储                                           |
+| txmempool.cpp      | 交易内存池管理                                               |
+| ui_interface.h     | 界面信号处理                                                 |
+| uint256.cpp        | 哈希ID类型                                                   |
+| util.cpp           | 基础工具类                                                   |
+| version.cpp        | 版本                                                         |
+
 ## 比特币 Bitcoind 源码
 
 > **源码版本：**基于 v0.9.5

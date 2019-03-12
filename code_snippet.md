@@ -1487,6 +1487,81 @@ root@ubuntu:~# ./a.out abc
 ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
 ```
 
+## [CPP] 自定义结构体排序
+
+自定义比较函数遵循”严格弱序“即可，可通过如下两种方式实现。
+
+```cpp
+#include <string>
+#include <set>
+#include <iostream>
+
+using namespace std;
+
+// template<class Key, class Compare = std::less<Key>, class Allocator = std::allocator<Key> > class set;
+
+struct Object {
+    string id;
+    int age;
+};
+
+struct ObjectComparator {
+    bool operator()(const Object &a, const Object &b) {
+        return a.age < b.age;
+    } 
+};
+
+struct Object2 {
+    string id;
+    int age;
+
+    bool operator<(const Object2 &b) const {
+        return age < b.age;
+    }
+};
+
+
+int main() {
+    Object o1 = {"hello", 22};
+    Object o2 = {"world", 33};
+    Object o3 = {"x", 22};
+
+    set<Object, ObjectComparator> obj;
+    obj.insert(o1);
+    obj.insert(o2);
+    obj.insert(o3); // insert failed
+
+    for (auto o : obj) {
+        cout << o.id << ", " << o.age << endl;
+    }
+
+    Object2 o4 = {"hello", 22};
+    Object2 o5 = {"world", 33};
+    Object2 o6 = {"x", 22}; // insert failed
+
+    set<Object2> obj2;
+    obj2.insert(o4);
+    obj2.insert(o5);
+    obj2.insert(o6);
+
+    for (auto o : obj2) {
+        cout << o.id << ", " << o.age << endl;
+    }
+
+    return 0;
+}
+```
+
+**输出**
+
+```bash
+root@ubuntu:~/WaykiChain# ./a.out   
+hello, 22
+world, 33
+hello, 22
+world, 33
+```
+
 ## [CPP] 设计模式/代理模式
 
 ![](pic/designpattern/proxy.jpg)

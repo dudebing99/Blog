@@ -49,6 +49,7 @@
 - [比特阁：区块链行业消息](https://www.btege.com/)
 - [比特币全球中继网络](http://bitcoinfibre.org/public-network.html)
 - [DPoS 机制理解](https://zhuanlan.zhihu.com/p/36076852)
+- [DPoS + pbft](https://github.com/sqfasd/dpos-pbft)
 
 ## 缩略词
 

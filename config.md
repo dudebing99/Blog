@@ -1441,8 +1441,9 @@ export PATH=$PATH:$ICE_HOME/bin
 
 ## CentOS 配置 MySQL
 
-> - 主要包括**配置防火墙**、**修改初始密码**、**允许远程访问**三部分
-> - MySQL 配置文件位置： /etc/my.cnf
+> 主要包括**配置防火墙**、**修改初始密码**、**允许远程访问**三部分
+
+> MySQL 配置文件位置： /etc/my.cnf
 
 1. 开启 3306 端口
 ```bash

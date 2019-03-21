@@ -208,7 +208,7 @@ trim_trailing_whitespace = true
 在 `setting.json` 中添加如下配置项即可
 
 ```bash
-"C_Cpp.clang_format_fallbackStyle": "{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0 , AlignConsecutiveAssignments: true}",
+"C_Cpp.clang_format_fallbackStyle": "{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 100 , AlignConsecutiveAssignments: true, AccessModifierOffset: -4}",
 ```
 
 ## Typora Han 主题配置

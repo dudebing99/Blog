@@ -3268,7 +3268,7 @@ $ git config commit.gpgsign true
 > 也可以每次提交时，指定使用 GPG 签名 `git commit -S -m "your commit message"`
 
 ```bash
-kevin@kevin-PC MINGW64 /d/blog (master)
+kevin@kevin-PC MINGW64 /d/Blog (master)
 $ git commit -m "config: Windows 配置 GPG 签名 commit" -S
 
 You need a passphrase to unlock the secret key for

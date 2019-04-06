@@ -90,7 +90,7 @@ debug
 
 > **VIM 配置文件位置：**~/.vimrc
 >
-> **点此下载：**[vimrc](https://dudebing99.github.io/blog/archives/config/vimrc)（下载后重命名为 .vimrc）
+> **点此下载：**[vimrc](https://dudebing99.github.io/Blog/archives/config/vimrc)（下载后重命名为 .vimrc）
 
 ```bash
 set nocompatible
@@ -213,7 +213,7 @@ trim_trailing_whitespace = true
 
 ## Typora Han 主题配置
 
-在 Typora 主题配置目录新建 `han`，将如下内容保存为 `han.css`，[点此下载](https://dudebing99.github.io/blog/archives/config/han.css)，目录如下所示
+在 Typora 主题配置目录新建 `han`，将如下内容保存为 `han.css`，[点此下载](https://dudebing99.github.io/Blog/archives/config/han.css)，目录如下所示
 
 ![](pic/config/han_css.png)
 
@@ -3170,7 +3170,7 @@ root:fabric#
 $ gpg --list-secret-keys --keyid-format LONG
 gpg: /c/Users/kevin/.gnupg/trustdb.gpg: trustdb created
 
-kevin@kevin-PC MINGW64 /d/blog (master)
+kevin@kevin-PC MINGW64 /d/Blog (master)
 $ gpg --gen-key
 gpg (GnuPG) 1.4.22; Copyright (C) 2015 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.

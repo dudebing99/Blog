@@ -12,7 +12,7 @@
 
 **功能：**向控制台打印 Hello World
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/hello_world/hello_world.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/hello_world/hello_world.go)
 
 ```go
 package main
@@ -34,7 +34,7 @@ Hello World
 
 **功能：**输出九九乘法口诀表
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/recycle/for.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/recycle/for.go)
 
 ```go
 package main
@@ -67,7 +67,7 @@ func main() {
 
 **功能：**实现 while 逻辑（Golang 中无 while 循环，可借助 for 实现）
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/recycle/while.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/recycle/while.go)
 
 ```go
 package main
@@ -110,7 +110,7 @@ Go to loop
 
 **功能：**switch 多分支的使用
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/switch.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/basic/switch.go)
 
 ```go
 package main
@@ -210,7 +210,7 @@ I'm a string
 
 **功能：**字符串的基础使用
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/string.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/basic/string.go)
 
 ```go
 package main
@@ -282,7 +282,7 @@ hello
 
 **功能：**时间相关的基础使用
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/time.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/basic/time.go)
 
 ```go
 package main
@@ -334,7 +334,7 @@ func main() {
 
 **功能：**array 数组基础使用
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/array.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/basic/array.go)
 
 ```go
 package main
@@ -387,7 +387,7 @@ array[x, y]: [[0 1 2] [1 2 3]]
 
 **功能：** map 基础使用
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/map_without_init.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/basic/map_without_init.go)
 
 ```go
 package main
@@ -436,7 +436,7 @@ assignment to entry in nil map
 2 world
 ```
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/map.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/basic/map.go)
 
 ```go
 package main
@@ -530,7 +530,7 @@ key: 3 , value: C
 
 **功能：**slice 基础使用
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/slice.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/basic/slice.go)
 
 ```go
 package main
@@ -598,7 +598,7 @@ index:  8 , value:  8
 
 **功能：**传递指针改变原对象，传对象类似于传值，不改变原对象。
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/pointer_or_object.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/basic/pointer_or_object.go)
 
 ```go
 package main
@@ -729,7 +729,7 @@ value of k before function call is 58
 
 **功能：**struct 的定义、实例化、使用
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/struct.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/basic/struct.go)
 
 ```go
 package main
@@ -832,7 +832,7 @@ jiakong is 22
 
 **功能：**自定义结构体 slice 对象，对其进行升序、降序排序
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/sort/slice_sort.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/sort/slice_sort.go)
 
 ```go
 package main
@@ -903,7 +903,7 @@ Conent ID: 100, Score: 12.340000
 
 **功能：**借助 slice，实现 map 的按序输出
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/sort/map_sort.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/sort/map_sort.go)
 
 ```go
 package main
@@ -981,7 +981,7 @@ Key: unix , Value: 0
 
 **功能：**通用单链表，包含统计链表长度，头部插入、尾部插入
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/sort/single_linked_list.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/sort/single_linked_list.go)
 
 ```go
 package main
@@ -1085,7 +1085,7 @@ Contains 10 element(s)
 
 **功能：**单继承、多继承
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/sort/inherit.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/sort/inherit.go)
 
 ```go
 package main
@@ -1149,7 +1149,7 @@ Hello, I am little silly B
 
 **功能：**使用 json
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/json/json.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/json/json.go)
 
 ```go
 package main
@@ -1232,7 +1232,7 @@ func main() {
 - `-` 修饰一个字段时，序列化会忽略该字段
 - `string` 修改一个字段时，序列化时该字段被转换成 string 类型
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/json/struct_tag_json.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/json/struct_tag_json.go)
 
 ```go
 package main
@@ -1306,7 +1306,7 @@ func main() {
 
 **功能：**使用 protobuf
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/protobuf/1.tar.gz)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/protobuf/1.tar.gz)
 
 1. 定义 proto 文件
 
@@ -1324,7 +1324,7 @@ func main() {
 2. 利用 protoc 编译 proto 文件，生成对应的 Golang 文件，命令如下（根据实际情况替换目录）
 
 ```bash
-protoc.exe --proto_path=/d/blog/archives/go/protobuf/1/proto --go_out=/d/blog/archives/go/protobuf/1/proto hello.proto
+protoc.exe --proto_path=/d/Blog/archives/go/protobuf/1/proto --go_out=/d/Blog/archives/go/protobuf/1/proto hello.proto
 ```
 
 3. 使用 protobuf 示例
@@ -1383,7 +1383,7 @@ Message:  hello world
 
 **功能：**使用 protobuf
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/protobuf/2.tar.gz)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/protobuf/2.tar.gz)
 
 1. 定义 proto 文件
 
@@ -1505,7 +1505,7 @@ Extra:  [protobuf example]
 
 **功能：**连接 redis 集群，进行存取操作
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/redis/redis_cluster.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/redis/redis_cluster.go)
 
 ```go
 package main
@@ -1579,7 +1579,7 @@ key3 not existed ,  <nil>
 
 **功能：**连接 redis server，进行存取操作
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/redis/redis.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/redis/redis.go)
 
 ```go
 package main
@@ -1661,7 +1661,7 @@ key3 not existed ,  <nil>
 
 ### 基础 HTTP 服务器
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/server1.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/http/server1.go)
 
 ```go
 package main
@@ -1715,7 +1715,7 @@ Transfer/sec:      6.22MB
 
 ### gin 基础 HTTP 服务器
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/server2.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/http/server2.go)
 
 ```go
 package main
@@ -1770,7 +1770,7 @@ Hello World
   | `GET` `POST` | `/api/version` | 获取版本信息 |
   | `POST`       | `/debug/ping`  | PING         |
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/server_multirouter.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/http/server_multirouter.go)
 
 ```go
 package main
@@ -1852,7 +1852,7 @@ $ curl http://localhost:12306/ -X POST -s
 
 **功能：**HTTP 客户端，请求 http://localhost:12306/api/version
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/http/client.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/http/client.go)
 
 ```go
 package main
@@ -1903,7 +1903,7 @@ Code:  200 , Body:  {"code":0,"version":"v1.0.1.0"}
 - 程序捕获信号，执行清理动作之后，优雅地退出
 - 一般地，捕获 SIGINT 信号（`Ctrl + C` 产生）、SIGTERM 信号（`kill PID`）即可
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/signal/signal.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/signal/signal.go)
 
 ```go
 package main
@@ -1955,7 +1955,7 @@ exiting
 
 **功能：**介绍匿名函数的使用
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/anonymous_func.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/basic/anonymous_func.go)
 
 ```go
 package main
@@ -1986,7 +1986,7 @@ x * y = 32
 
 **功能：**介绍函数闭包的使用
 
-**点击下载：**[源码](https://dudebing99.github.io/blog/archives/go/basic/closure.go)
+**点击下载：**[源码](https://dudebing99.github.io/Blog/archives/go/basic/closure.go)
 
 ```go
 package main

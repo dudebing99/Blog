@@ -632,11 +632,11 @@ du -h --max-depth=1
 lsof +d /tmp
 
 # 示例
-> lsof +d ~/blog/
+> lsof +d ~/Blog/
 COMMAND   PID  USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME
-bash     6936 kevin  cwd    DIR  253,2     4096 3675368 /home/kevin/blog
-vim     24969 kevin  cwd    DIR  253,2     4096 3675368 /home/kevin/blog
-vim     24969 kevin    4u   REG  253,2    20480 3675605 /home/kevin/blog/.SHELL.md.swp
+bash     6936 kevin  cwd    DIR  253,2     4096 3675368 /home/kevin/Blog
+vim     24969 kevin  cwd    DIR  253,2     4096 3675368 /home/kevin/Blog
+vim     24969 kevin    4u   REG  253,2    20480 3675605 /home/kevin/Blog/.SHELL.md.swp
 ```
 ### 删除文件（少量）
 ```bash
@@ -962,7 +962,7 @@ exit $?
 
 ## openssl 自签证书
 
-> **download:** [自签证书](https://dudebing99.github.io/blog/archives/script/ca.tar.gz)
+> **download:** [自签证书](https://dudebing99.github.io/Blog/archives/script/ca.tar.gz)
 
 ### 初始化 CA
 
@@ -1415,8 +1415,8 @@ expect eof
 >
 > **download：**
 >
-> 1. install_zk_kafka.tar.gz: [安装](https://dudebing99.github.io/blog/archives/script/install_zk_kafka.tar.gz)
-> 2. zk_kafka_deploy.tar.gz: [一键部署](https://dudebing99.github.io/blog/archives/script/zk_kafka_deploy.tar.gz)
+> 1. install_zk_kafka.tar.gz: [安装](https://dudebing99.github.io/Blog/archives/script/install_zk_kafka.tar.gz)
+> 2. zk_kafka_deploy.tar.gz: [一键部署](https://dudebing99.github.io/Blog/archives/script/zk_kafka_deploy.tar.gz)
 
 ### 部署
 

@@ -372,7 +372,7 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-font-smoothing: initial;
   font-weight: 100;
   color: var(--text-color);
-  line-height: 1.35; 
+  line-height: 1.35;
   font-variant-numeric: lining-nums;
   margin-bottom: 1em;
 }
@@ -1643,7 +1643,7 @@ make install
 ## CentOS 配置静态 IP
 
 ```bash
-[root@localhost ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0 
+[root@localhost ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
 DEVICE="eth0"
 NAME="eth0"
 BOOTPROTO="static"
@@ -1943,11 +1943,11 @@ yum install -y telnet
 
 ```bash
 yum install libaio-devel
-wget http://brick.kernel.dk/snaps/fio-2.0.7.tar.gz 
-yum install libaio-devel 
-tar -zxvf fio-2.0.7.tar.gz 
-cd fio-2.0.7 
-make 
+wget http://brick.kernel.dk/snaps/fio-2.0.7.tar.gz
+yum install libaio-devel
+tar -zxvf fio-2.0.7.tar.gz
+cd fio-2.0.7
+make
 make install
 ```
 
@@ -2233,7 +2233,7 @@ Connection: keep-alive
 ETag: "5a9e5ebd-e74"
 Accept-Ranges: bytes
 
-root@iZwz978rorvlg75nct99l1Z:~# curl http://bigsillybear.com:11111 -I 
+root@iZwz978rorvlg75nct99l1Z:~# curl http://bigsillybear.com:11111 -I
 HTTP/1.1 302 Moved Temporarily
 Server: nginx/1.12.2
 Date: Wed, 14 Nov 2018 09:00:04 GMT
@@ -2246,12 +2246,12 @@ Location: https://bigsillybear.com:443/
 ```bash
 root@iZwz978rorvlg75nct99l1Z:~# curl http://bigsillybear.com:10000/
 {
-    "id": 0, 
+    "id": 0,
     "message": "hello world"
 }
 root@iZwz978rorvlg75nct99l1Z:~# curl https://api.bigsillybear.com/
 {
-    "id": 0, 
+    "id": 0,
     "message": "hello world"
 }
 ```
@@ -2898,7 +2898,7 @@ echo "registry = https://registry.npm.taobao.org" >> ~/.npmrc
 
 6. 安装 web3
 
-> **备注：**以太坊 [官方 wiki](https://github.com/ethereum/wiki/wiki/JavaScript-API) 的 API，基于 web3 的版本是 0.2x.x。如果直接用 `npm install web3` ，安装的版本为 1.0.0-beta.35，API 使用差异巨大，如果采用此方法安装，参考实际版本的 [web3.js](http://web3js.readthedocs.io/en/1.0/web3.html#version)。 
+> **备注：**以太坊 [官方 wiki](https://github.com/ethereum/wiki/wiki/JavaScript-API) 的 API，基于 web3 的版本是 0.2x.x。如果直接用 `npm install web3` ，安装的版本为 1.0.0-beta.35，API 使用差异巨大，如果采用此方法安装，参考实际版本的 [web3.js](http://web3js.readthedocs.io/en/1.0/web3.html#version)。
 
 ```bash
 # npm init
@@ -3010,15 +3010,15 @@ root@ubuntu:~# cat /etc/network/interfaces
 # interfaces(5) file used by ifup(8) and ifdown(8)
 auto lo
 iface lo inet loopback
- 
+
 auto eth0
 iface eth0 inet static
- 
-address 192.168.2.100 
+
+address 192.168.2.100
 netmask 255.255.255.0
 gateway 192.168.2.254
 
-root@ubuntu:~# cat /etc/resolvconf/resolv.conf.d/base 
+root@ubuntu:~# cat /etc/resolvconf/resolv.conf.d/base
 nameserver 114.114.114.114
 nameserver 8.8.8.8
 ```
@@ -3057,7 +3057,7 @@ cd /root/eos/build; make test
 3. 安装 eos
 
 ```bash
-root@ubuntu:~/eos# ./eosio_install.sh 
+root@ubuntu:~/eos# ./eosio_install.sh
 ```
 
 ![](pic/config/install_eos.png)
@@ -3068,11 +3068,11 @@ root@ubuntu:~/eos# ./eosio_install.sh
 
 ```bash
 apt-get install libaio-dev
-wget http://brick.kernel.dk/snaps/fio-2.0.7.tar.gz 
-yum install libaio-devel 
-tar -zxvf fio-2.0.7.tar.gz 
-cd fio-2.0.7 
-make 
+wget http://brick.kernel.dk/snaps/fio-2.0.7.tar.gz
+yum install libaio-devel
+tar -zxvf fio-2.0.7.tar.gz
+cd fio-2.0.7
+make
 make install
 ```
 
@@ -3434,11 +3434,11 @@ user: "Kevin (wupolifa1) <c.r2009@163.com>"
      ```bash
      set INCLUDE=C:\deps\libpng-1.6.16;C:\deps\openssl-1.0.1l\include
      set LIB=C:\deps\libpng-1.6.16\.libs;C:\deps\openssl-1.0.1l
-     
+
      cd C:\Qt\5.3.2
      configure.bat -release -opensource -confirm-license -static -make libs -no-sql-sqlite -no-opengl -system-zlib -qt-pcre -no-icu -no-gif -system-libpng -no-libjpeg -no-freetype -no-angle -no-vcproj -openssl -no-dbus -no-audio-backend -no-wmf-backend -no-qml-debug
      mingw32-make -j4
-     
+
      set PATH=%PATH%;C:\Qt\5.3.2\bin
      cd C:\Qt\qttools-opensource-src-5.3.2
      qmake qttools.pro
@@ -3455,9 +3455,9 @@ user: "Kevin (wupolifa1) <c.r2009@163.com>"
 
    ```bash
    cd /c/bitcoin-0.9.4
-   
+
    ./autogen.sh
-   
+
    CPPFLAGS="-I/c/deps/db-4.8.30.NC/build_unix \
    -I/c/deps/openssl-1.0.1l/include \
    -I/c/deps \
@@ -3479,9 +3479,9 @@ user: "Kevin (wupolifa1) <c.r2009@163.com>"
    --with-qt-plugindir=/c/Qt/5.3.2/plugins \
    --with-qt-bindir=/c/Qt/5.3.2/bin \
    --with-protoc-bindir=/c/deps/protobuf-2.6.1/src
-   
+
    make
-   
+
    strip src/bitcoin-cli.exe
    strip src/bitcoind.exe
    strip src/qt/bitcoin-qt.exe

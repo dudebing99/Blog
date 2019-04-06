@@ -72,7 +72,7 @@ Ubuntu 14.04.5 LTS/VMware® Workstation 12 Pro
 
 > 扩展前，`/dev/sda1` 实际 40G，使用将近 40G。首先，将 `/dev/sda1` 之外的分区（虚拟机安装 Ubuntu 系统时默认处理，所以关键分区是 sda1，此分区不能删除）全部删除；然后，扩展`/dev/sda1` 分区，并重新建立交换分区。
 
-![](E:\blog\pic\troubleshooting\gparted.png)
+![](pic/troubleshooting/gparted.png)
 
 ## [MySQL] 插入关键字导致 SQL 执行失败
 
@@ -112,10 +112,10 @@ SQL 中利用 `\` 转义即可，如下两种方式均可
 
 ```sql
 -- 单引号转义
-insert into blog_info_tbl (title, url) values ('kevin\'s blog', 'https://dudebing99.github.io/blog/');
+insert into blog_info_tbl (title, url) values ('kevin\'s blog', 'https://dudebing99.github.io/Blog/');
 
 -- 双引号转义
-insert into blog_info_tbl (title, url) values ('\"kevin\" blog', 'https://dudebing99.github.io/blog/');
+insert into blog_info_tbl (title, url) values ('\"kevin\" blog', 'https://dudebing99.github.io/Blog/');
 ```
 
 ## [MySQL] 重置密码

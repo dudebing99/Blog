@@ -142,7 +142,7 @@ you
 
 ### 利用 strtok/strtok_r 实现
 
-> **源码路径：**[split.c](https://dudebing99.github.io/blog/archives/code_snippet/split.c)
+> **源码路径：**[split.c](https://dudebing99.github.io/Blog/archives/code_snippet/split.c)
 >
 > **是否线程安全：**strtok 在提取字符串时使用了静态缓冲区，非线程安全；strtok_r 线程安全
 
@@ -416,8 +416,8 @@ int main(int argc, char **argv)
 
 > **源码路径：**
 >
-> 1. [openssl_client.c](https://dudebing99.github.io/blog/archives/code_snippet/openssl_client.c)
-> 2. [boost_ssl_client.cpp](https://dudebing99.github.io/blog/archives/code_snippet/boost_ssl_client.cpp)
+> 1. [openssl_client.c](https://dudebing99.github.io/Blog/archives/code_snippet/openssl_client.c)
+> 2. [boost_ssl_client.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/boost_ssl_client.cpp)
 
 ```c
 #include <stdio.h>
@@ -762,7 +762,7 @@ int main(int argc, char* argv[])
 
 ## [CPP] SSL/TLS 服务器端
 
-> **源码路径：**[boost_ssl_server.cpp](https://dudebing99.github.io/blog/archives/code_snippet/boost_ssl_server.cpp)
+> **源码路径：**[boost_ssl_server.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/boost_ssl_server.cpp)
 
 ```cpp
 #include <cstdlib>
@@ -949,7 +949,7 @@ int main(int argc, char* argv[])
 ```
 ## [CPP] protobuf 反射
 
-> **源码路径：**[protobuf_reflection.cpp](https://dudebing99.github.io/blog/archives/code_snippet/protobuf_reflection.cpp)
+> **源码路径：**[protobuf_reflection.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/protobuf_reflection.cpp)
 >
 > **参考资料：**https://github.com/chenshuo/recipes
 
@@ -1098,7 +1098,7 @@ int main()
 
 ## [CPP] 字符串十六进制转换
 
-> **源码路径：**[hex_str.cpp](https://dudebing99.github.io/blog/archives/code_snippet/hex_str.cpp)
+> **源码路径：**[hex_str.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/hex_str.cpp)
 
 ```cpp
 #include <iostream>
@@ -1169,7 +1169,7 @@ hello world
 
 ## [CPP] find sub vector
 
-> **源码路径：**[find_sub_vector.cpp](https://dudebing99.github.io/blog/archives/code_snippet/find_sub_vector.cpp)
+> **源码路径：**[find_sub_vector.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/find_sub_vector.cpp)
 
 ```cpp
 #include <iostream>  // std::cout
@@ -1247,7 +1247,7 @@ char *strcpy(char *dst, const char *src) {
 
 ## [CPP] 排序算法/快速排序
 
-> **源码路径：**[quick_sort.cpp](https://dudebing99.github.io/blog/archives/code_snippet/quick_sort.cpp)
+> **源码路径：**[quick_sort.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/quick_sort.cpp)
 
 ```cpp
 #include <iostream>
@@ -1300,7 +1300,7 @@ int main()
 
 ## [CPP] LRU Cache
 
-> **源码路径：**[lru_cache.cpp](https://dudebing99.github.io/blog/archives/code_snippet/lru_cache.cpp)
+> **源码路径：**[lru_cache.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/lru_cache.cpp)
 
 ```cpp
 #include <iostream>
@@ -1566,7 +1566,7 @@ world, 33
 
 ![](pic/designpattern/proxy.jpg)
 
-> **源码路径：**[proxy.cpp](https://dudebing99.github.io/blog/archives/code_snippet/proxy.cpp)
+> **源码路径：**[proxy.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/proxy.cpp)
 
 ```cpp
 #include <string>
@@ -1644,7 +1644,7 @@ Done in ConcreteSubject
 
 ![img](pic/designpattern/strategy.jpg) 
 
-> **源码路径：**[strategy.cpp](https://dudebing99.github.io/blog/archives/code_snippet/strategy.cpp)
+> **源码路径：**[strategy.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/strategy.cpp)
 
 ```cpp
 #include <string>
@@ -1737,7 +1737,7 @@ ConcreteStategyA::AlgrithmInterface()
 
 ### 饿汉式
 
-> **源码路径：**[hungry_singleton.cpp](https://dudebing99.github.io/blog/archives/code_snippet/hungry_singleton.cpp)
+> **源码路径：**[hungry_singleton.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/hungry_singleton.cpp)
 
 ```cpp
 #include <iostream>
@@ -1787,7 +1787,7 @@ Got the same instance
 
 ### 饱汉式
 
-> **源码路径：**[full_singleton.cpp](https://dudebing99.github.io/blog/archives/code_snippet/full_singleton.cpp)
+> **源码路径：**[full_singleton.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/full_singleton.cpp)
 
 ```cpp
 #include <iostream>
@@ -1853,7 +1853,7 @@ Got the same instance
 
 ### 双重检测（线程安全）
 
-> **源码路径：**[double_check_singleton.cpp](https://dudebing99.github.io/blog/archives/code_snippet/double_check_singleton.cpp)
+> **源码路径：**[double_check_singleton.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/double_check_singleton.cpp)
 
 ```cpp
 #include <iostream>
@@ -1932,7 +1932,7 @@ Got the same instance
 
 ### 模板
 
-> **源码路径：**[template_singleton.cpp](https://dudebing99.github.io/blog/archives/code_snippet/template_singleton.cpp)
+> **源码路径：**[template_singleton.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/template_singleton.cpp)
 
 ```cpp
 #include <iostream>
@@ -2014,7 +2014,7 @@ hello world
 
 ![img](pic/designpattern/class_adapter.jpg) 
 
-> **源码路径：**[class_adapter.cpp](https://dudebing99.github.io/blog/archives/code_snippet/class_adapter.cpp)
+> **源码路径：**[class_adapter.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/class_adapter.cpp)
 
 ```cpp
 #include <iostream>
@@ -2085,7 +2085,7 @@ Finally, Request
 
 ![](pic/designpattern/object_adapter.jpg)
 
-> **源码路径：**[object_adapter.cpp](https://dudebing99.github.io/blog/archives/code_snippet/object_adapter.cpp)
+> **源码路径：**[object_adapter.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/object_adapter.cpp)
 
 ```cpp
 #include <iostream>
@@ -2158,7 +2158,7 @@ Finally, Request
 
 ![img](pic/designpattern/bridge.jpg) 
 
-> **源码路径：**[bridge.cpp](https://dudebing99.github.io/blog/archives/code_snippet/bridge.cpp)
+> **源码路径：**[bridge.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/bridge.cpp)
 
 ```cpp
 #include <iostream>
@@ -2263,7 +2263,7 @@ Transfer by USB 3.0, faster
 
 ![img](pic/designpattern/observer.jpg) 
 
-> **源码路径：**[observer.cpp](https://dudebing99.github.io/blog/archives/code_snippet/observer.cpp)
+> **源码路径：**[observer.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/observer.cpp)
 
 ```cpp
 #include <iostream>
@@ -2383,7 +2383,7 @@ The target subject is changing status: 99
 
 ![img](pic/designpattern/decorator.jpg) 
 
-> **源码路径：**[decorator.cpp](https://dudebing99.github.io/blog/archives/code_snippet/decorator.cpp)
+> **源码路径：**[decorator.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/decorator.cpp)
 
 ```c++
 #include <iostream>
@@ -2528,7 +2528,7 @@ Decorator: Duel Camera
 
 ![img](pic/designpattern/chain_of_responsibility.jpg) 
 
-> **源码路径：**[chain_of_responsibility.cpp](https://dudebing99.github.io/blog/archives/code_snippet/chain_of_responsibility.cpp)
+> **源码路径：**[chain_of_responsibility.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/chain_of_responsibility.cpp)
 
 ```cpp
 #include <iostream>
@@ -2627,7 +2627,7 @@ B: I can do it, done
 
 ![](pic/designpattern/template_function.jpg)
 
-> **源码路径：**[template_function.cpp](https://dudebing99.github.io/blog/archives/code_snippet/template_function.cpp)
+> **源码路径：**[template_function.cpp](https://dudebing99.github.io/Blog/archives/code_snippet/template_function.cpp)
 
 ```cpp
 #include <iostream>
@@ -3005,7 +3005,7 @@ Difficulty: 256 (8 bits)
 
 > **环境：**Python 2.7.14 
 >
-> **源码：**[点此下载](https://dudebing99.github.io/blog/archives/code_snippet/hex_str.py)
+> **源码：**[点此下载](https://dudebing99.github.io/Blog/archives/code_snippet/hex_str.py)
 
 ````python
 #!/usr/bin/env python
@@ -3194,7 +3194,7 @@ set2: set([8, 2, 3, 4, 5])
 set1: set([1, 3, 5, 6, 7, 9])
 set1: set([1, 3, 5, 6, 7, 9, 10, 11])
 Traceback (most recent call last):
-  File "d:\blog\archives\debug\debug.py", line 26, in <module>
+  File "d:\Blog\archives\debug\debug.py", line 26, in <module>
     set1.remove(99)
 KeyError: 99
 
@@ -3435,7 +3435,7 @@ print add_3(5)
 
 > **安装 redis：**pip install redis *redis*-py-cluster
 
-> **源码：**[点此下载](https://dudebing99.github.io/blog/archives/code_snippet/redis_helper.py)
+> **源码：**[点此下载](https://dudebing99.github.io/Blog/archives/code_snippet/redis_helper.py)
 
 ```python
 # -*- coding:utf-8 -*-
@@ -3500,7 +3500,7 @@ kevin
 
 > **环境：**Python 2.7.14 
 
-> **源码：**[点此下载](https://dudebing99.github.io/blog/archives/code_snippet/mysql_helper.py)
+> **源码：**[点此下载](https://dudebing99.github.io/Blog/archives/code_snippet/mysql_helper.py)
 
 > **Tag：**查询、批量插入、truncate
 
@@ -3741,7 +3741,7 @@ if __name__ == '__main__':
 
 > **环境：**Python 2.7.14/kafka-python 1.4.2
 
-> **源码：**[kafka_consumer.py](https://dudebing99.github.io/blog/archives/code_snippet/kafka_consumer.py)、[kafka_producer.py](https://dudebing99.github.io/blog/archives/code_snippet/kafka_producer.py)
+> **源码：**[kafka_consumer.py](https://dudebing99.github.io/Blog/archives/code_snippet/kafka_consumer.py)、[kafka_producer.py](https://dudebing99.github.io/Blog/archives/code_snippet/kafka_producer.py)
 >
 
 > **Tag：**kafka 生产者、消费者
@@ -4105,7 +4105,7 @@ if __name__ == '__main__':
 
 > **环境：**Python 2.7.4
 
-> **源码：**[点此下载](https://dudebing99.github.io/blog/archives/code_snippet/wsgi_server.py)
+> **源码：**[点此下载](https://dudebing99.github.io/Blog/archives/code_snippet/wsgi_server.py)
 
 ```python
 from wsgiref.simple_server import make_server
@@ -4177,7 +4177,7 @@ Not Found!
 
 > **环境：**Python 2.7.14
 
-> **源码：**[点此下载](https://dudebing99.github.io/blog/archives/code_snippet/wechat_alarm.py)
+> **源码：**[点此下载](https://dudebing99.github.io/Blog/archives/code_snippet/wechat_alarm.py)
 
 > **功能：**将服务异常信息通过微信企业号 api 发送给运维员工企业微信
 
@@ -4479,7 +4479,7 @@ hello, dudebing99
 
 ## [Solidity] 以太坊合约示例：hello world
 
-Solidity 合约脚本如下，[点此下载](https://dudebing99.github.io/blog/archives/solidity/hello_world.sol)
+Solidity 合约脚本如下，[点此下载](https://dudebing99.github.io/Blog/archives/solidity/hello_world.sol)
 
 ```basic
 pragma solidity ^0.4.11;
@@ -4529,7 +4529,7 @@ Contract JSON ABI
 [{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_newgreeting","type":"string"}],"name":"setGreeting","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"greet","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_greeting","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
 ```
 
-调用合约的 js 脚本【同步】，[点此下载](https://dudebing99.github.io/blog/archives/solidity/hello_world.js)
+调用合约的 js 脚本【同步】，[点此下载](https://dudebing99.github.io/Blog/archives/solidity/hello_world.js)
 
 ```js
 let Web3 = require('web3');
@@ -4568,7 +4568,7 @@ console.log(contract_.greet.call());
 process.exit(0);
 ```
 
-调用合约的 js 脚本【异步】，[点此下载](https://dudebing99.github.io/blog/archives/solidity/hello_world2.js)
+调用合约的 js 脚本【异步】，[点此下载](https://dudebing99.github.io/Blog/archives/solidity/hello_world2.js)
 
 ```javascript
 let Web3 = require('web3');
@@ -4616,7 +4616,7 @@ hello world
 
 ## [Solidity] 以太坊合约示例：存储
 
-Solidity 合约脚本如下，[点此下载](https://dudebing99.github.io/blog/archives/solidity/sample.sol)
+Solidity 合约脚本如下，[点此下载](https://dudebing99.github.io/Blog/archives/solidity/sample.sol)
 
 ```basic
 pragma solidity ^0.4.11;
@@ -4651,7 +4651,7 @@ Contract JSON ABI
 [{"constant":true,"inputs":[],"name":"value","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"v","type":"uint256"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"v","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]
 ```
 
-调用合约的 js 脚本，[点此下载](https://dudebing99.github.io/blog/archives/solidity/sample.js)
+调用合约的 js 脚本，[点此下载](https://dudebing99.github.io/Blog/archives/solidity/sample.js)
 
 ```javascript
 let Web3 = require('web3');
@@ -4703,7 +4703,7 @@ BigNumber { s: 1, e: 3, c: [ 1001 ] }
 > - 可以调用 kill() 实现合约销毁，并将余额返回给铸币者
 > - 调用 watch() 监听事件，用来辅助调试、完成上层业务或记录日志
 
-Solidity 合约脚本如下，[点此下载](https://dudebing99.github.io/blog/archives/solidity/subcurrency.sol)
+Solidity 合约脚本如下，[点此下载](https://dudebing99.github.io/Blog/archives/solidity/subcurrency.sol)
 
 ```basic
 pragma solidity ^0.4.21;
@@ -4753,7 +4753,7 @@ Contract JSON ABI
 [{"constant":true,"inputs":[],"name":"minter","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balances","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"receiver","type":"address"},{"name":"amount","type":"uint256"}],"name":"mint","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"receiver","type":"address"},{"name":"amount","type":"uint256"}],"name":"send","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"from","type":"address"},{"indexed":false,"name":"to","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"Sent","type":"event"}]
 ```
 
-调用合约的 js 脚本，[点此下载](https://dudebing99.github.io/blog/archives/solidity/subcurrency.js)
+调用合约的 js 脚本，[点此下载](https://dudebing99.github.io/Blog/archives/solidity/subcurrency.js)
 
 > **功能：**铸币、转账
 
@@ -4822,7 +4822,7 @@ Coin transfer: 99 coins were sent from 0x2f3efd9475fb969eecfdade75a1dae02dbd92e2
 Sender: 567, Receiver: 99
 ```
 
-调用合约的 js 脚本，[点此下载](https://dudebing99.github.io/blog/archives/solidity/subcurrency2.js)
+调用合约的 js 脚本，[点此下载](https://dudebing99.github.io/Blog/archives/solidity/subcurrency2.js)
 
 > **功能：**铸币、转账、销毁合约
 
@@ -4901,7 +4901,7 @@ receiver's balance:  BigNumber { s: 1, e: 0, c: [ 0 ] }
 
 > **参考资料：**https://etherscan.io/address/0xB8c77482e45F1F44dE1745F52C74426C631bDD52#code
 
-Solidity 合约脚本如下，[点此下载](https://dudebing99.github.io/blog/archives/solidity/binance_token.sol)
+Solidity 合约脚本如下，[点此下载](https://dudebing99.github.io/Blog/archives/solidity/binance_token.sol)
 
 ```javascript
 pragma solidity ^0.4.8;
@@ -5080,7 +5080,7 @@ contract supportPay{
 
 ## [Solidity] 以太坊合约示例：使用非结构化存储实现可升级合约
 
-Solidity 合约脚本如下，[点此下载](https://dudebing99.github.io/blog/archives/solidity/owned_upgradeability_proxy.sol)
+Solidity 合约脚本如下，[点此下载](https://dudebing99.github.io/Blog/archives/solidity/owned_upgradeability_proxy.sol)
 
 ```javascript
 pragma solidity ^0.4.24;
@@ -5277,7 +5277,7 @@ hello world
 
 > - 函数形参可以显示指定类型，也可缺省
 > - 函数可以有多个返回值
-> - [点此下载](https://dudebing99.github.io/blog/archives/code_snippet/math.jl)
+> - [点此下载](https://dudebing99.github.io/Blog/archives/code_snippet/math.jl)
 
 1. 计算圆柱体的体积
 
@@ -5330,7 +5330,7 @@ result 2: -2.0
 
 ## [Julia] 字符、字符串基础用法
 
-> 包含字符串的大小写、截取、拼接等基础用法，[点此下载](https://dudebing99.github.io/blog/archives/code_snippet/string.jl)
+> 包含字符串的大小写、截取、拼接等基础用法，[点此下载](https://dudebing99.github.io/Blog/archives/code_snippet/string.jl)
 
 ```julia
 # Julia 1.0.0
@@ -5390,7 +5390,7 @@ sb + jiakong
 
 ## [Julia] 循环、Map
 
-> 包含循环、Map 的基础用法，[点此下载](https://dudebing99.github.io/blog/archives/code_snippet/loops_map.jl)
+> 包含循环、Map 的基础用法，[点此下载](https://dudebing99.github.io/Blog/archives/code_snippet/loops_map.jl)
 
 ```julia
 for i in 1:5

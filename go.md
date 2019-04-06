@@ -1413,7 +1413,7 @@ message MessageBox {
 2. 利用 protoc 编译 proto 文件，生成对应的 Golang 文件，命令如下（根据实际情况替换目录）
 
 ```bash
-protoc.exe --proto_path=/d/blog/archives/go/protobuf/2/proto --go_out=/d/blog/archives/go/protobuf/2/proto hello.proto
+protoc.exe --proto_path=/d/Blog/archives/go/protobuf/2/proto --go_out=/d/Blog/archives/go/protobuf/2/proto hello.proto
 ```
 
 3. 使用 protobuf 示例

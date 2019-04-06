@@ -44,7 +44,7 @@
 - [coin market cap](https://coinmarketcap.com/)
 - [truffle framework tutorials](https://truffleframework.com/tutorials)
 - [infura docs](https://infura.io/docs)
-- [为什么比特币硬分叉不会分裂成两个币？](https://bitcointalk.org/index.php?topic=1837147.0;imode) 
+- [为什么比特币硬分叉不会分裂成两个币？](https://bitcointalk.org/index.php?topic=1837147.0;imode)
 - [first steps in eos blockchain development](https://medium.com/infinitexlabs/first-steps-in-eos-blockchain-development-56824502c799)
 - [比特阁：区块链行业消息](https://www.btege.com/)
 - [比特币全球中继网络](http://bitcoinfibre.org/public-network.html)
@@ -318,7 +318,7 @@ root@ubuntu:~# bitcoin-cli -testnet listunspent
 > 使用未花费输出 `8e176938a3b43a27879b2d5362f546fbd8964ca7dd2b1d86f6bb612add5d8527` 给地址 `2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ` 转账 `0.528` 比特币，其中，`fee = 0.529 - 0.528 = 0.001`
 
 ```bash
-root@ubuntu:~# bitcoin-cli -testnet createrawtransaction "[{\"txid\":\"8e176938a3b43a27879b2d5362f546fbd8964ca7dd2b1d86f6bb612add5d8527\",\"vout\":1}]" "[{\"2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ\":0.528}]" 
+root@ubuntu:~# bitcoin-cli -testnet createrawtransaction "[{\"txid\":\"8e176938a3b43a27879b2d5362f546fbd8964ca7dd2b1d86f6bb612add5d8527\",\"vout\":1}]" "[{\"2N833q6qKVtqYQGeCkoxkhSqVBiLFfPNTvZ\":0.528}]"
 020000000127855ddd2a61bbf6861d2bdda74c96d8fb46f562532d9b87273ab4a33869178e0100000000ffffffff0100aa25030000000017a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff8700000000
 ```
 
@@ -901,7 +901,7 @@ cQ8EFAecj5BN1ASKPrQQamCtLTQUnvw9TYUCV32KVZPTiaG1be8x
 用私钥给原始交易签名
 
 ```bash
-root@ubuntu:~# bitcoin-cli -testnet signrawtransactionwithkey 0200000001a7a3cfe8ebd4d648c5c766f85682ad9f78471c23e6b7b193cc67a8d96f24f0280000000000ffffffff02e00f97000000000017a9148e2d74cb762bf6220ec014c4f56db8263e197eac8700000000000000000d6a0b68656c6c6f20776f726c6400000000 [\"cQ8EFAecj5BN1ASKPrQQamCtLTQUnvw9TYUCV32KVZPTiaG1be8x\"] 
+root@ubuntu:~# bitcoin-cli -testnet signrawtransactionwithkey 0200000001a7a3cfe8ebd4d648c5c766f85682ad9f78471c23e6b7b193cc67a8d96f24f0280000000000ffffffff02e00f97000000000017a9148e2d74cb762bf6220ec014c4f56db8263e197eac8700000000000000000d6a0b68656c6c6f20776f726c6400000000 [\"cQ8EFAecj5BN1ASKPrQQamCtLTQUnvw9TYUCV32KVZPTiaG1be8x\"]
 {
   "hex": "02000000000101a7a3cfe8ebd4d648c5c766f85682ad9f78471c23e6b7b193cc67a8d96f24f028000000001716001488ea91fb46dbf96d9d3a7e70bd1124f768ed9638ffffffff02e00f97000000000017a9148e2d74cb762bf6220ec014c4f56db8263e197eac8700000000000000000d6a0b68656c6c6f20776f726c64024830450221008064e3767209b2eb6753f2cf91ef0dc860e7ccd1d9812b5b8edd7efd94f476d20220301ef08bf7bf005e41e64f9f7eb4f507999d3900f4581983685b5367f8a95019012103dafede81c5886651093472c74e53a9caeb859577a435909a5f42a418366f81a400000000",
   "complete": true
@@ -1108,7 +1108,7 @@ root@ubuntu:~# bitcoin-cli -testnet listunspent
 查询未花费输出
 
 ```bash
-root@ubuntu:~# bitcoin-cli -testnet listunspent 
+root@ubuntu:~# bitcoin-cli -testnet listunspent
 [
   {
     "txid": "60a4df6595762a5118f3b4f2d22f6d9b83edf35df0a2bd2001e99fd396cf9c67",
@@ -1145,7 +1145,7 @@ root@ubuntu:~# bitcoin-cli -testnet getnewaddress
 2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz
 root@ubuntu:~# bitcoin-cli -testnet dumpprivkey 2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz
 cPegPf2xaeaqYB9kqqM2gzVPPXnAmwCME2KjsAQG6gkVnbxZpTKo
-root@ubuntu:~# bitcoin-cli -testnet getaddressinfo 2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz 
+root@ubuntu:~# bitcoin-cli -testnet getaddressinfo 2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz
 {
   "address": "2Mv3bjnJv2XtDjAvjYfKjwXBHCmojCiu3mz",
   "scriptPubKey": "a9141eb58ab1463c6f851ad61a5fab8c76582b3cecc187",
@@ -1911,7 +1911,7 @@ root@ubuntu:~/wikichain/tmp/node1# ./node1 -datadir=. getbalance whmD4M8Q8qbEx6R
 
 ##### 智能合约脚本
 
-> 智能合约脚本实际为 lua 脚本，[点此下载](https://dudebing99.github.io/blog/archives/code_snippet/test.lua)
+> 智能合约脚本实际为 lua 脚本，[点此下载](https://dudebing99.github.io/Blog/archives/code_snippet/test.lua)
 
 ```lua
 mylib = require "mylib"
@@ -2761,7 +2761,7 @@ root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=. createdelegatetx "wgd6Fs7
 > `createdelegatetxraw` `->` `sigstr` `->` `submittx`
 
 ```bash
-root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=./ createdelegatetxraw wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4 
+root@ubuntu:~/chaincode/node/node1# ./node1 -datadir=./ createdelegatetxraw wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4
 "[{\"delegate\":\"wVTUdfEaeAAVSuXKrmMyqQXH5j5Z9oGmTt\", \"votes\":1000000000}]" 1000
 "[{\"delegate\":\"wNDue1jHcgRSioSDL4o1AzXz3D72gCMkP6\", \"votes\":100000000}]" 1000
 
@@ -4021,7 +4021,7 @@ root@iZwz978rorvlg75nct99l1Z:~# curl https://api.infura.io/v1/jsonrpc/mainnet/et
 发送 API 请求时可以携带账户中的 Token，结合统计面板查看 API 调用情况，如下所示
 
 ```bash
-root@iZwz978rorvlg75nct99l1Z:~# curl https://api.infura.io/v1/jsonrpc/mainnet/eth_blockNumber?token=9a29276938d14f8e98fc6054ce013ca 
+root@iZwz978rorvlg75nct99l1Z:~# curl https://api.infura.io/v1/jsonrpc/mainnet/eth_blockNumber?token=9a29276938d14f8e98fc6054ce013ca
 {"jsonrpc":"2.0","id":0,"result":"0x65a365"}
 ```
 
@@ -4115,7 +4115,7 @@ root@iZwz978rorvlg75nct99l1Z:~# curl https://api.infura.io/v1/jsonrpc/mainnet/et
 
 ### 以太坊智能合约： ERC20 Token
 
-![](pic/blockchain/erc20.png) 
+![](pic/blockchain/erc20.png)
 
 #### 编写合约
 
@@ -4135,7 +4135,7 @@ root@iZwz978rorvlg75nct99l1Z:~# curl https://api.infura.io/v1/jsonrpc/mainnet/et
 - event Transfer() Token 的转账事件
 - event Approval() 允许事件
 
-> SafeMath 定义了安全的加减乘除操作；ERC20 定义了符合 ERC20 的合约接口；StandardToken 合约继承自 ERC20，是 ERC20 的具体实现，[点击下载](https://dudebing99.github.io/blog/archives/solidity/erc20_token.sol)
+> SafeMath 定义了安全的加减乘除操作；ERC20 定义了符合 ERC20 的合约接口；StandardToken 合约继承自 ERC20，是 ERC20 的具体实现，[点击下载](https://dudebing99.github.io/Blog/archives/solidity/erc20_token.sol)
 
 ```javascript
 pragma solidity ^0.4.24;
@@ -4463,7 +4463,7 @@ Contract mined! address: 0x7f224de3c7276312ac8cca8b822ca2d1579d2197 transactionH
 - 本地运行测试网络全节点 `./geth --datadir=./testnet --testnet --cache=2048 --rpc console`，开启 rpc 服务（监听 8545 端口）
 - 本地运行代理服务 `node erc20_deploy.js`，监听 12306 端口，支持客户端 `POST` 请求一键发币
 
-代理服务脚本 [点击下载](https://dudebing99.github.io/blog/archives/solidity/erc20_deploy.js)，主要解析请求的代币初始化参数，发布合约成功后，返回合约地址、交易 hash
+代理服务脚本 [点击下载](https://dudebing99.github.io/Blog/archives/solidity/erc20_deploy.js)，主要解析请求的代币初始化参数，发布合约成功后，返回合约地址、交易 hash
 
 ```javascript
 // init http server
@@ -5099,21 +5099,21 @@ contract Demo {
         returns(bytes32, uint256) {
         return(MSFun.checkMsgData(msData, _whatFunction), MSFun.checkCount(msData, _whatFunction));
     }
-    function checkSignersByAddress(bytes32 _whatFunction, uint256 _signerA, uint256 _signerB, uint256 _signerC) public view onlyDevs() 
+    function checkSignersByAddress(bytes32 _whatFunction, uint256 _signerA, uint256 _signerB, uint256 _signerC) public view onlyDevs()
         returns(address, address, address) {
         return(
-            MSFun.checkSigner(msData, _whatFunction, _signerA), 
-            MSFun.checkSigner(msData, _whatFunction, _signerB), 
+            MSFun.checkSigner(msData, _whatFunction, _signerA),
+            MSFun.checkSigner(msData, _whatFunction, _signerB),
             MSFun.checkSigner(msData, _whatFunction, _signerC));
     }
-    function checkSignersByName(bytes32 _whatFunction, uint256 _signerA, uint256 _signerB, uint256 _signerC)public view onlyDevs() 
+    function checkSignersByName(bytes32 _whatFunction, uint256 _signerA, uint256 _signerB, uint256 _signerC)public view onlyDevs()
         returns(string, string, string) {
         return (auth_.adminName(MSFun.checkSigner(msData, _whatFunction, _signerA)),
-            auth_.adminName(MSFun.checkSigner(msData, _whatFunction, _signerB)), 
+            auth_.adminName(MSFun.checkSigner(msData, _whatFunction, _signerB)),
             auth_.adminName(MSFun.checkSigner(msData, _whatFunction, _signerC)));
     }
 
-    modifier onlyDevs() 
+    modifier onlyDevs()
     {
         require(auth_.isDev(msg.sender) == true, "msg sender is not a dev");
         _;
@@ -5124,7 +5124,7 @@ contract Demo {
         auth_ = Auth(_auth);
     }
 
-    function modify(uint256 _value) public 
+    function modify(uint256 _value) public
         onlyDevs() {
         if (multiSigDev("modify") == true)
         {
@@ -5250,7 +5250,7 @@ pragma solidity ^0.4.24;
 
 contract Dummy {
     address public owner;
-    
+
     constructor () public {
         owner = msg.sender;
     }
@@ -5267,7 +5267,7 @@ contract Dummy {
 
 - 当外部账户或其他合约调用了该合约一个**不存在**的函数时
 
-> **备注：**一个没有定义 fallback 函数的合约，直接接收以太币（没有函数调用，即，使用 `send` 或 `transfer` 发送以太币）会抛出一个异常， 并返还以太币（在 Solidity v0.4.0 之前行为会有所不同）。所以如果你想让你的合约接收以太币，必须实现 fallback 函数。 
+> **备注：**一个没有定义 fallback 函数的合约，直接接收以太币（没有函数调用，即，使用 `send` 或 `transfer` 发送以太币）会抛出一个异常， 并返还以太币（在 Solidity v0.4.0 之前行为会有所不同）。所以如果你想让你的合约接收以太币，必须实现 fallback 函数。
 
 #### 攻击合约
 
@@ -5310,9 +5310,9 @@ contract Attack {
 
     // deposit Ether to IDMoney deployed
     function step1(uint256 amount) ownerOnly payable {
-        
+
         depositLog(this.balance, amount);
-        
+
         if (this.balance > amount) {
             victim.call.value(amount)(bytes4(keccak256("deposit()")));
         }
@@ -5349,7 +5349,7 @@ contract Attack {
 1. `call.value()()` 提供了足够的  gas
 2. 资产的修改在转币之后
 
-![](pic/blockchain/reentrancy_attack.png) 
+![](pic/blockchain/reentrancy_attack.png)
 
 1. 攻击者部署 `Attack` 合约
 2. `Attack` 合约调用 `IDMoney` 合约的 `deposit()` 存入接口
@@ -5420,7 +5420,7 @@ contract Attack {
 
 ![1533927494535](pic/blockchain/start_attack3.png)
 
-调用 `stopAttack()` 停止攻击，销毁 `Attack` 合约，并将合约余额退回到外部账户`0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db` 
+调用 `stopAttack()` 停止攻击，销毁 `Attack` 合约，并将合约余额退回到外部账户`0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db`
 
 ![](pic/blockchain/stop_attack.png)
 
@@ -5483,19 +5483,19 @@ function withdraw(address to, uint256 amount) {
 
 由于 Solidity 有两种函数调用（内部调用不会产生实际的 EVM 调用或称为“消息调用”，而外部调用则会产生一个 EVM 调用）， 函数和状态变量有四种可见性类型。 函数可以指定为 `external`，`public` ，`internal` 或者 `private`，默认情况下函数类型为 `public`。 对于状态变量，不能设置为 `external` ，默认是 `internal` 。
 
-- `external` 
+- `external`
 
   外部函数作为合约接口的一部分，意味着我们可以从其他合约和交易中调用。 一个外部函数 `f` 不能从内部调用（即 `f` 不起作用，但 `this.f()` 可以）。 当收到大量数据的时候，外部函数有时候会更有效率
 
-- `public` 
+- `public`
 
   public 函数是合约接口的一部分，可以在内部或通过消息调用。对于公共状态变量， 会自动生成一个 getter 函数
 
-- `internal` 
+- `internal`
 
   这些函数和状态变量只能是内部访问（即从当前合约内部或从它派生的合约访问），不使用 `this` 调用
 
-- `private` 
+- `private`
 
   private 函数和状态变量仅在当前定义它们的合约中使用，并且不能被派生合约使用
 
@@ -5535,7 +5535,7 @@ function withdraw(address to, uint256 amount) {
 contract A {
     address public owner;
     uint256 public value;
-    
+
     constructor () public {
         owner = msg.sender;
         value = 99;
@@ -5559,7 +5559,7 @@ pragma solidity ^0.4.24;
 contract A {
     address public owner;
     uint256 public value;
-    
+
     constructor () public {
         owner = msg.sender;
         value = 99;
@@ -5573,7 +5573,7 @@ contract A {
 contract B {
     address public owner;
     uint256 public value;
-    
+
     constructor () public {
         owner = msg.sender;
         value = 101;
@@ -5635,7 +5635,7 @@ pragma solidity ^0.4.24;
 
 contract Token {
     mapping (address => uint256) balances;
-        
+
     function balanceOf(address _user) public view returns (uint256) { return balances[_user]; }
     function deposit() public payable { balances[msg.sender] += msg.value; }
     function withdraw(uint256 _amount) public {
@@ -5697,10 +5697,10 @@ contract OwnerWallet {
         owner = _owner;
     }
 
-    function () payable public {} 
+    function () payable public {}
 
     function withdraw() public {
-        require(msg.sender == owner); 
+        require(msg.sender == owner);
         msg.sender.transfer(address(this).balance);
     }
 }
@@ -5712,7 +5712,7 @@ contract OwnerWallet {
 
 #### 预防措施
 
-在 Solidity 0.4.22 版本的编译器中已经基本得到了解决。该版本引入了一个关键词 `constructor` 来指定构造函数，而不是要求函数的名称与合约名称匹配。建议使用这个关键词来指定构造函数，以防止上面显示的命名问题。 
+在 Solidity 0.4.22 版本的编译器中已经基本得到了解决。该版本引入了一个关键词 `constructor` 来指定构造函数，而不是要求函数的名称与合约名称匹配。建议使用这个关键词来指定构造函数，以防止上面显示的命名问题。
 
 #### 真实世界的例子：Rubixi
 
@@ -5810,11 +5810,11 @@ contract Lotto {
     bool public payedOut = false;
     address public winner;
     uint256 public winAmount;
-    
+
     constructor() public payable {
         //
     }
-    
+
     // 辅助函数，此处用来设置中奖者地址
     function setWinner(address _winner) public payable {
         winner = _winner;
@@ -5843,7 +5843,7 @@ contract Test {
     function test() public payable {
         target_.sendToWinner();
     }
-    
+
     function () public payable {
         revert();
     }
@@ -5856,7 +5856,7 @@ contract Test {
 
 使用账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 部署合约 `Lotto`
 
-![](pic/blockchain/deploy_lotto.png) 
+![](pic/blockchain/deploy_lotto.png)
 
 - 使用账户 `0xca35b7d915458ef540ade6068dfe2f44e8fa733c` 部署合约 `Test`
 
@@ -5959,7 +5959,7 @@ root@ubuntu:~# tree .local/share/eosio/nodeos/
 
 ```bash
 root@ubuntu:~# netstat -ntlp|grep nodeos
-tcp        0      0 0.0.0.0:9876            0.0.0.0:*               LISTEN      25100/nodeos        
+tcp        0      0 0.0.0.0:9876            0.0.0.0:*               LISTEN      25100/nodeos
 tcp        0      0 127.0.0.1:8888          0.0.0.0:*               LISTEN      25100/nodeos
 ```
 
@@ -6063,20 +6063,20 @@ signature-provider = EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV=KEY:5
 
 因此，需要将此密钥对导入钱包，然后才可以利用账户 `eos` 授权创建新账户，否则报错，如下所示
 
-`Error 3090003: Provided keys, permissions, and delays do not satisfy declared authorizations Ensure that you have the related private keys inside your wallet and your wallet is unlocked.` 
+`Error 3090003: Provided keys, permissions, and delays do not satisfy declared authorizations Ensure that you have the related private keys inside your wallet and your wallet is unlocked.`
 
 #### 查看账户
 
 ```bash
 root@ubuntu:~# cleos get account token
 created: 2018-11-19T09:54:39.500
-permissions: 
+permissions:
      owner     1:    1 EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
         active     1:    1 EOS7aUXGRgL2oyWerZ7fkfeMp5WH7tDa6UWpiaazswN56odYmvYNe
-memory: 
-     quota:       unlimited  used:      2.66 KiB  
+memory:
+     quota:       unlimited  used:      2.66 KiB
 
-net bandwidth: 
+net bandwidth:
      used:               unlimited
      available:          unlimited
      limit:              unlimited
@@ -6123,11 +6123,11 @@ cpu bandwidth:
 第六步，取上一步结果，计算 SHA-256 哈希值
 445C7A8007A93D8733188288BB320A8FE2DEBD2AE1B47F0F50BC10BAE845C094
 第七步，取上一步结果，再计算一下 SHA-256 哈希值
-D61967F63C7DD183914A4AE452C9F6AD5D462CE3D277798075B107615C1A8A30 
+D61967F63C7DD183914A4AE452C9F6AD5D462CE3D277798075B107615C1A8A30
 第八步，取上一步结果的前 4 个字节（8 位十六进制）
 D61967F6
 第九步，把这 4 个字节加在第五步的结果后面，作为校验（这就是比特币钱包地址的十六进制形态）
-00010966776006953D5567439E5E39F86A0D273BEED61967F6 
+00010966776006953D5567439E5E39F86A0D273BEED61967F6
 第十步，用 base58 表示法变换一下地址（这就是最常见的比特币钱包地址形态）
 1M8DPUBQXsVUNnNiXw5oFdRciguXctWpUD
 
@@ -6309,13 +6309,13 @@ UTXO 在 UTXO 集（UTXOset）中被每一个全节点比特币客户端追踪�
 `<Cafe Signature> <Cafe Public Key> OP_DUP OP_HASH160`
 `<Cafe Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG`
 
-只有当解锁版脚本与锁定版脚本的设定条件相匹配时，执行组合有效脚本时才会显示结果为真（True）。即只有当解锁脚本得到了咖啡馆的有效签名，交易执行结果才会被通过（结果为真），该有效签名是从与公钥哈希相匹配的咖啡馆的私钥中所获取的。 
+只有当解锁版脚本与锁定版脚本的设定条件相匹配时，执行组合有效脚本时才会显示结果为真（True）。即只有当解锁脚本得到了咖啡馆的有效签名，交易执行结果才会被通过（结果为真），该有效签名是从与公钥哈希相匹配的咖啡馆的私钥中所获取的。
 
 ![](pic/blockchain/p2pkh_1.png)
 
 ![](pic/blockchain/p2pkh_2.png)
 
-主要验证两项，第一是 Public Key 是否能够转换成正确的地址，第二是 Signature 是否正确，也就是证明你是否是这个Public Key 的主人。 
+主要验证两项，第一是 Public Key 是否能够转换成正确的地址，第二是 Signature 是否正确，也就是证明你是否是这个Public Key 的主人。
 
 ##### P2PK（Pay-to-Public-Key）
 
@@ -6335,17 +6335,17 @@ P2PK 锁定版脚本形式如下：
 
 该脚本只是 CHECKSIG 操作符的简单调用，该操作主要是为了验证签名是否正确，如果正确，则返回为真（True）。
 
-> 根据上方的规则去运行就可以发现，此规则比 P2PKH 要简单的多，只有一步验证，少了上方的地址验证。其实，P2PKH 被创建主要目的一方面为使比特币地址更简短，使之更方便使用，核心内容还是 P2PK 的。 
+> 根据上方的规则去运行就可以发现，此规则比 P2PKH 要简单的多，只有一步验证，少了上方的地址验证。其实，P2PKH 被创建主要目的一方面为使比特币地址更简短，使之更方便使用，核心内容还是 P2PK 的。
 
 ##### MS（Multiple Signatures）
 
 多重签名脚本设置了这样一个条件，假如记录在脚本中的公钥个数为 N，则至少需提供其中的 M 个公钥才可以解锁。这也被称为 M-N 组合，其中，N 是记录在脚本中的公钥总个数，M 是使得多重签名生效的公钥数阀值（最少数目）。例如，对于一个 2-3 多重签名组合而言，存档公钥数为 3 个，至少同时使用其中 2 个或者 2 个以上的公钥时，才能生成激活交易的签名，通过验证后才可使用这笔资金。最初，标准多重签名脚本的最大存档公钥数被限定为 15 个，这意味着可采用 1-1 乃至15-15 的任意多重签名组合，或者组合的组合来激活交易。
 
-通用的 M-N 多重签名锁定脚本形式为： 
+通用的 M-N 多重签名锁定脚本形式为：
 
 `M <Public Key 1> <Public Key 2> ... <Public Key N> N OP_CHECKMULTISIG`
 
-其中，N 是存档公钥总数，M 是要求激活交易的最少公钥数。 
+其中，N 是存档公钥总数，M 是要求激活交易的最少公钥数。
 
 2-3 多重签名条件：
 
@@ -6363,7 +6363,7 @@ P2PK 锁定版脚本形式如下：
 
 `OP_0 <Signature B> <Signature C> 2 <Public Key A> <Public Key B> <Public Key C> 3 OP_CHECKMULTISIG`
 
-当执行时，只有当未解锁版脚本与解锁脚本设置条件相匹配时，组合脚本才显示得到结果为真（True）。上述例子中相应的设置条件即为未解锁脚本是否含有与 3 个公钥中的任意 2 个相一致的私钥的有效签名。 
+当执行时，只有当未解锁版脚本与解锁脚本设置条件相匹配时，组合脚本才显示得到结果为真（True）。上述例子中相应的设置条件即为未解锁脚本是否含有与 3 个公钥中的任意 2 个相一致的私钥的有效签名。
 
 ##### OP_RETURN
 
@@ -6406,15 +6406,15 @@ P2SH 是 MS 多重签名的简化版本，如果使用 P2SH 进行和上方相�
 
 对锁定脚本，首先采用 SHA256 哈希算法，随后对其运用 RIPEMD160 算法，变成类似于 `8ac1d7a2fa204a16dc984fa81cfdf86a2a4e1731` 形式的 20 字节的脚本：
 
-`<lock scriptHash>` 
+`<lock scriptHash>`
 
-于是锁定脚本变为： 
+于是锁定脚本变为：
 
 `OP_HASH160 <lock scriptHash> OP_EQUAL`
 
-此锁定脚本要比原先使用 MS 的锁定脚本要简短的多，当接收方要使用此交易中的 UTXO 时，需要提交解锁脚本（这里又可称为赎回脚本）： 
+此锁定脚本要比原先使用 MS 的锁定脚本要简短的多，当接收方要使用此交易中的 UTXO 时，需要提交解锁脚本（这里又可称为赎回脚本）：
 
-`<Sig1> <Sig2> <2 PK1 PK2 PK3 3 OP_CHECKMULTISIG>` 
+`<Sig1> <Sig2> <2 PK1 PK2 PK3 3 OP_CHECKMULTISIG>`
 
 两个脚本经由两步实现组合。首先，将赎回脚本与锁定脚本比对以确认其与哈希是否匹配：
 
@@ -7054,7 +7054,7 @@ int nMaxConnections = 125;
 
 ![](pic/blockchain/max_connection2.png)
 
-最大连接数取值 `min(MAX_OUTBOUND_CONNECTIONS, nMaxConnections)` 
+最大连接数取值 `min(MAX_OUTBOUND_CONNECTIONS, nMaxConnections)`
 
 ![](pic/blockchain/max_connection.png)
 

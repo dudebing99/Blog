@@ -247,6 +247,19 @@ sed -i 's/hello/world/g'
 find . -name env.conf | xargs sed -i 's/debug/release/g'
 ```
 
+## 求和、求平均值
+
+```bash
+root@0c1d475c709b:/# for((i=1;i<=3;++i)) do echo $i; done
+1
+2
+3
+root@0c1d475c709b:/# for((i=1;i<=3;++i)) do echo $i; done|awk '{sum+=$1} END {print "Sum = ", sum}'
+Sum =  6
+root@0c1d475c709b:/# for((i=1;i<=3;++i)) do echo $i; done|awk '{sum+=$1} END {print "Average = ", sum/NR}'
+Average =  2
+```
+
 ## 过滤空白行
 
 ```bash

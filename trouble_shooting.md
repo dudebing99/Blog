@@ -897,6 +897,31 @@ Processing triggers for bamfdaemon (0.5.3~bzr0+16.04.20180209-0ubuntu1) ...
 Rebuilding /usr/share/applications/bamf-2.index...
 ```
 
+## [Ubuntu] shell 命令无法自动补全
+
+**系统环境**
+
+Ubuntu 14.04
+
+**问题描述**
+
+用户登录 shell，无法利用 tab 进行命令补全
+
+**原因分析**
+
+创建用户时未指定用户默认 shell
+
+```bash
+$ cat /etc/passwd|grep kevin
+kevin:x:1005:1005::/home/kevin
+```
+
+因此，shell 默认成了 dash。另外，可以通过命令 `which sh` 进行确认。默认的 dash 无法进行命令补全。
+
+**解决方式**
+
+指定用户的默认 shell 为 bash（或其他，如 zsh），登出再登录即可生效。
+
 ## [Golang] package xxx: cannot download, $GOPATH not set. For more details see: go help gopath
 
 **系统环境**

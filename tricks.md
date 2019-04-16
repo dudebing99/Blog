@@ -588,6 +588,9 @@ git push -f
 
 # 切换 HEAD 指向的默认分支
 git remote set-head origin <target_branch>
+
+# 设置当前分支的默认远程分支，git push 即可缺省推到远程分支
+git push --set-upstream origin <target_branch>
 ```
 
 ### git stash

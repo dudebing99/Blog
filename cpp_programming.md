@@ -578,7 +578,7 @@ warning: operation on 'i' may be undefined [-Wsequence-point]
 
 1. Load variable i to register α.
 2. Increment value in α.
-3. Save reminder of dividing α by 10 to register β.
+3. Save remainder of dividing α by 10 to register β.
 4. Save β to j.
 5. Save α to i.
 

@@ -320,6 +320,38 @@ lvextend -L +300G /dev/mapper/VolGroup-lv_root
 resize2fs -p /dev/mapper/VolGroup-lv_root
 ```
 
+## [CentOS] Centos warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+
+**系统环境**
+
+CentOS 7.6
+
+**问题描述**
+
+shell 登陆系统，弹出如下警告信息
+
+```bash
+Last login: Sun Apr 21 15:52:04 2019 from 223.104.63.174
+
+Welcome to Alibaba Cloud Elastic Compute Service !
+
+-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+```
+
+**原因分析**
+
+语言环境设置错误
+
+**解决方式**
+
+设置语言环境变量，内容如下
+
+```bash
+[root@wwhs-i-deer ~]# cat /etc/environment
+LANG=en_US.utf-8
+LC_ALL=en_US.utf-8
+```
+
 ## [Ubuntu] 图形、命令行模式切换
 
 **系统环境**
@@ -424,38 +456,6 @@ nameserver 8.8.8.8
 root@ubuntu:~# cat /etc/resolvconf/resolv.conf.d/base 
 nameserver 114.114.114.114
 nameserver 8.8.8.8
-```
-
-## [Ubuntu] Centos warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
-
-**系统环境**
-
-CentOS 7.6
-
-**问题描述**
-
-shell 登陆系统，弹出如下警告信息
-
-```bash
-Last login: Sun Apr 21 15:52:04 2019 from 223.104.63.174
-
-Welcome to Alibaba Cloud Elastic Compute Service !
-
--bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
-```
-
-**原因分析**
-
-语言环境设置错误
-
-**解决方式**
-
-设置语言环境变量，内容如下
-
-```bash
-[root@wwhs-i-deer ~]# cat /etc/environment
-LANG=en_US.utf-8
-LC_ALL=en_US.utf-8
 ```
 
 ## [IceGrid] 应用进程权限
@@ -953,6 +953,38 @@ kevin:x:1005:1005::/home/kevin
 **解决方式**
 
 指定用户的默认 shell 为 bash（或其他，如 zsh），登出再登录即可生效。
+
+## [Ubuntu] "No package 'libffi' found"
+
+**系统环境**
+
+Ubuntu 14.04
+
+**问题描述**
+
+执行 pip install 时，报如上错误。
+
+**解决方式**
+
+```bash
+apt-get install yum install libffi-devel
+```
+
+## [Ubuntu] RuntimeError: cryptography requires setuptools 18.5 or newer
+
+**系统环境**
+
+Ubuntu 14.04
+
+**问题描述**
+
+略。
+
+**解决方式**
+
+```bash
+pip install virtualenv --upgrade
+```
 
 ## [Golang] package xxx: cannot download, $GOPATH not set. For more details see: go help gopath
 

@@ -815,6 +815,485 @@ client: db.o dbi.o client.o
 clean:
 	rm -f *.o $(TARGETS)
 ```
+## Lets Encrypt 证书制作、使用
+
+### 证书制作
+
+1. 获取 certbot 客户端
+
+```bash
+wget https://dl.eff.org/certbot-auto
+chmod a+x certbot-auto
+```
+
+2. 生成证书
+
+```bash
+/opt/certbot-auto certonly --webroot -w /usr/share/nginx/html --agree-tos --email xuchao@danbay.cn -d api.danbay.cn
+```
+
+![生成证书](pic/certbot/certbot.jpg)
+
+3. 查看证书文件
+
+```bash
+tree /etc/letsencrypt/live/
+```
+
+![证书文件](pic/certbot/cert.jpg)
+
+### 证书更新
+
+```bash
+# 证书默认 90 有效，更新不能太频繁，同一域名一周之内最多只能更新5次
+/opt/certbot-auto renew
+```
+
+### 综合使用
+
+**基础环境：**Nginx 1.12.2/CentOS 7.4
+
+**域名解析：**bigsillybear.com/api.bigsillybear.com
+
+**证书：**bigsillybear.com/api.bigsillybear.com
+
+**目标：**
+
+- `Nginx` 监听 80、443、11111 端口，且反向代理 10000 端口
+- 支持 `http://bigsillybear.com` 与 `https://bigsillybear.com`
+- 只支持 `https://bigsllybear.com:11111`
+- 支持 `https://api.bigsillybear.com`
+
+```bash
+# For more information on configuration, see:
+#   * Official English Documentation: http://nginx.org/en/docs/
+#   * Official Russian Documentation: http://nginx.org/ru/docs/
+
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+
+# Load dynamic modules. See /usr/share/nginx/README.dynamic.
+include /usr/share/nginx/modules/*.conf;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile            on;
+    tcp_nopush          on;
+    tcp_nodelay         on;
+    keepalive_timeout   65;
+    types_hash_max_size 2048;
+
+    include             /etc/nginx/mime.types;
+    default_type        application/octet-stream;
+
+    # Load modular configuration files from the /etc/nginx/conf.d directory.
+    # See http://nginx.org/en/docs/ngx_core_module.html#include
+    # for more information.
+    include /etc/nginx/conf.d/*.conf;
+
+    server {
+        listen       80 default_server;
+        listen       [::]:80 default_server;
+        server_name  _;
+        root         /usr/share/nginx/html;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+        }
+
+        error_page 404 /404.html;
+            location = /40x.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+        }
+    }
+
+    # Settings for a TLS enabled server.
+    server {
+        listen       443 ssl http2 default_server;
+        listen       [::]:443 ssl http2 default_server;
+        server_name  bigsillybear.com;
+        root         /usr/share/nginx/html;
+
+        ssl_certificate         "/etc/letsencrypt/live/bigsillybear.com/fullchain.pem";
+        ssl_certificate_key     "/etc/letsencrypt/live/bigsillybear.com/privkey.pem";
+        ssl_session_cache shared:SSL:1m;
+        ssl_session_timeout  10m;
+        ssl_ciphers HIGH:!aNULL:!MD5;
+        ssl_prefer_server_ciphers on;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+        }
+
+        error_page 404 /404.html;
+            location = /40x.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+        }
+    }
+
+    server {
+        listen       11111;
+        listen       [::]:11111;
+        server_name  bigsillybear.com;
+        root         /usr/share/nginx/html;
+
+        ssl                     on;
+        error_page 497          https://$host:443$uri;
+        #error_page 497         https://$host:443$request_uri?$args;
+        ssl_certificate         "/etc/letsencrypt/live/bigsillybear.com/fullchain.pem";
+        ssl_certificate_key     "/etc/letsencrypt/live/bigsillybear.com/privkey.pem";
+        ssl_session_cache shared:SSL:1m;
+        ssl_session_timeout  10m;
+        ssl_ciphers HIGH:!aNULL:!MD5;
+        ssl_prefer_server_ciphers on;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+        }
+
+        error_page 404 /404.html;
+            location = /40x.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+        }
+    }
+
+    upstream api_server {
+        server 127.0.0.1:10000;
+    }
+
+    server {
+        listen       443;
+        listen       [::]:443;
+        server_name  api.bigsillybear.com;
+        root         /usr/share/nginx/html;
+
+        ssl_certificate         "/etc/letsencrypt/live/api.bigsillybear.com/fullchain.pem";
+        ssl_certificate_key     "/etc/letsencrypt/live/api.bigsillybear.com/privkey.pem";
+        ssl_session_cache shared:SSL:1m;
+        ssl_session_timeout  10m;
+        ssl_ciphers HIGH:!aNULL:!MD5;
+        ssl_prefer_server_ciphers on;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+                proxy_redirect          off;
+                proxy_set_header        Host            $host;
+                proxy_set_header        X-Real-IP       $remote_addr;
+                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_pass              http://api_server;
+        }
+
+        error_page 404 /404.html;
+            location = /40x.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+        }
+    }
+
+}
+```
+
+**验证结果**
+
+```bash
+root@iZwz978rorvlg75nct99l1Z:~# curl -I http://bigsillybear.com
+HTTP/1.1 200 OK
+Server: nginx/1.12.2
+Date: Wed, 14 Nov 2018 09:16:03 GMT
+Content-Type: text/html
+Content-Length: 3700
+Last-Modified: Tue, 06 Mar 2018 09:26:21 GMT
+Connection: keep-alive
+ETag: "5a9e5ebd-e74"
+Accept-Ranges: bytes
+
+root@iZwz978rorvlg75nct99l1Z:~# curl -I https://bigsillybear.com
+HTTP/1.1 200 OK
+Server: nginx/1.12.2
+Date: Wed, 14 Nov 2018 09:16:06 GMT
+Content-Type: text/html
+Content-Length: 3700
+Last-Modified: Tue, 06 Mar 2018 09:26:21 GMT
+Connection: keep-alive
+ETag: "5a9e5ebd-e74"
+Accept-Ranges: bytes
+```
+
+```bash
+root@iZwz978rorvlg75nct99l1Z:~# curl https://bigsillybear.com:11111 -I
+HTTP/1.1 200 OK
+Server: nginx/1.12.2
+Date: Wed, 14 Nov 2018 08:59:57 GMT
+Content-Type: text/html
+Content-Length: 3700
+Last-Modified: Tue, 06 Mar 2018 09:26:21 GMT
+Connection: keep-alive
+ETag: "5a9e5ebd-e74"
+Accept-Ranges: bytes
+
+root@iZwz978rorvlg75nct99l1Z:~# curl http://bigsillybear.com:11111 -I
+HTTP/1.1 302 Moved Temporarily
+Server: nginx/1.12.2
+Date: Wed, 14 Nov 2018 09:00:04 GMT
+Content-Type: text/html
+Content-Length: 161
+Connection: close
+Location: https://bigsillybear.com:443/
+```
+
+```bash
+root@iZwz978rorvlg75nct99l1Z:~# curl http://bigsillybear.com:10000/
+{
+    "id": 0,
+    "message": "hello world"
+}
+root@iZwz978rorvlg75nct99l1Z:~# curl https://api.bigsillybear.com/
+{
+    "id": 0,
+    "message": "hello world"
+}
+```
+
+> 由于 `api.bigsillybear.com` 只针对 443 端口（未针对 80 端口）配置了规则，相当于只配置了客户端访问`https://api.bigsillybear.com` 的规则而未配置 `http://api.bigsillybear.com` 的规则，使用 `curl https://api.bigsillybear.com/` 将自动匹配到 `http://bigsillybear.com`
+
+使用谷歌浏览器，查看证书信息如下
+
+![](pic/config/cert1.png)
+
+![](pic/config/cert2.png)
+
+## 安装配置 CURL 支持 http2
+
+###基础环境
+
+- CentOS 6.8
+- Python 2.6.6
+- CURL 7.19.7
+
+### 安装依赖库
+
+```bash
+yum install -y readline-devel sqlite-devel lz4 lz4-devel gdbm gdbm-devel bzip2 openssl openssl-devel libdbi-devel ncurses-libs zlib-devel _bsddb bz2 dl
+```
+
+### 安装 Python 2.7.3
+
+> nghttp2 依赖 Python 2.7.x
+
+```bash
+# 下载、安装 Python 2.7.3
+wget http://python.org/ftp/python/2.7.3/Python-2.7.3.tar.bz2
+tar -jxvf Python-2.7.3.tar.bz2
+cd Python-2.7.3
+./configure
+make -j4 all
+make install
+
+# 修复其他服务（如，YUM）对旧版本 Python 2.6.6 的依赖
+mv /usr/bin/python /usr/bin/python-2.6.6
+ln -sf /usr/local/bin/python2.7 /usr/bin/python
+sed -i "s/#\!\/usr\/bin\/python/#\!\/usr\/bin\/python-2.6.6/" /usr/bin/yum
+```
+
+### 安装 nghttp2 v1.14.x
+
+> CURL 依赖 nghttp2 提供对 http2 的支持，因此，需要先安装 nghttp2
+
+```bash
+git clone https://github.com/tatsuhiro-t/nghttp2.git
+cd nghttp2
+
+# 默认 master 分支，切换到特定的分支，例如 v1.14.x
+git checkout -b v1.14.x origin/v1.14.x
+
+autoreconf -i
+automake
+autoconf
+./configure
+make -j4
+make install
+echo '/usr/local/lib' > /etc/ld.so.conf.d/local.conf
+ldconfig
+
+# 查看 nghttp2
+[root@localhost curl-7.46.0]# whereis libnghttp2
+libnghttp2: /usr/local/lib/libnghttp2.a /usr/local/lib/libnghttp2.la /usr/local/lib/libnghttp2.so
+```
+
+### 安装 CURL 7.46.0
+
+```bash
+# 安装 CURL 7.46.0
+wget http://curl.haxx.se/download/curl-7.46.0.tar.bz2
+tar -xvjf curl-7.46.0.tar.bz2
+cd curl-7.46.0
+./configure --with-nghttp2=/usr/local --with-ssl
+make -j4
+make install
+
+# 替换旧版本
+ln -sf /usr/local/bin/curl /usr/bin/curl
+```
+
+### 确认 CURL 版本以及是否支持 http2
+
+```bash
+# 查看 CURL 版本以及所有支持的协议、特性
+[root@localhost curl-7.46.0]# curl --version
+curl 7.46.0 (x86_64-pc-linux-gnu) libcurl/7.46.0 OpenSSL/1.0.1e zlib/1.2.3 nghttp2/1.14.1
+Protocols: dict file ftp ftps gopher http https imap imaps pop3 pop3s rtsp smb smbs smtp smtps telnet tftp
+Features: IPv6 Largefile NTLM NTLM_WB SSL libz HTTP2 UnixSockets
+
+# 如下提示则表明此版本 CURL 支持 http2
+[root@localhost curl-7.46.0]# curl --http2 -I https://nghttp2.org/
+HTTP/2.0 200
+date:Thu, 12 Apr 2018 16:31:22 GMT
+content-type:text/html
+last-modified:Thu, 12 Apr 2018 15:17:17 GMT
+etag:"5acf787d-19d8"
+accept-ranges:bytes
+content-length:6616
+x-backend-header-rtt:0.001775
+strict-transport-security:max-age=31536000
+server:nghttpx
+via:2 nghttpx
+x-frame-options:SAMEORIGIN
+x-xss-protection:1; mode=block
+x-content-type-options:nosniff
+```
+
+## Mail 发送邮件
+
+1. 配置 /etc/mail.rc
+
+```bash
+set from=xuchao@bigsillybear.com smtp="smtp.bigsillybear.com"
+set smtp-auth-user="xuchao@bigsillybear.com" smtp-auth-password="HiBigsillybear"
+set smtp-auth=login
+```
+
+2. 发送邮件
+
+```bash
+# 发送主题为 test，邮件正文为 ca.pem 文件内容，包含附件 ca.pem 的邮件到 cloud_dev@bigsillybear.com
+mail -s "test" -a ca.pem cloud_dev@bigsillybear.com < ca.pem
+
+# 发送主题为 test，邮件正文为 hello world 的邮件到 cloud_dev@bigsillybear.com
+echo "hello world"|mail -s "test" cloud_dev@bigsillybear.com
+```
+
+## Visual Studio Code 配置 GoLang 开发环境
+
+1. 官网下载 GoLang 安装包，安装之后 go version 查看版本
+
+```bash
+$ go version
+go version go1.10.1 windows/amd64
+```
+
+> **安装时勾选添加环境变量，不需要单独添加环境变量；否则，需要新添加环境变量，如下：**
+>
+> ```
+> 计算机（右键）-> 属性 -> 高级系统设置 -> 高级 -> 环境变量 -> 系统变量
+> ```
+>
+> - 添加 变量名 GOROOT，值为安装目录，如  C:\app\Go\
+> - 变量名 Path，追加值  C:\app\Go\bin;
+
+2. 设置环境变量 GOPATH，具体操作如步骤 1 所示，值为后续你存放源码的目录，如 D:\go
+3. 打开 Git Bash，依次安装如下依赖项
+
+```bash
+go get -u -v github.com/nsf/gocode
+go get -u -v github.com/rogpeppe/godef
+go get -u -v github.com/golang/lint/golint
+go get -u -v github.com/lukehoban/go-outline
+go get -u -v sourcegraph.com/sqs/goreturns
+go get -u -v golang.org/x/tools/cmd/gorename
+go get -u -v github.com/tpng/gopkgs
+go get -u -v github.com/newhook/go-symbols
+go get -u -v golang.org/x/tools/cmd/guru
+
+# 可选择性下载
+# protobuf 相关，需要安装 protoc
+go get -u -v github.com/golang/protobuf/protoc-gen-go
+go get -u -v github.com/golang/protobuf/proto
+# grpc
+go get -u -v google.golang.org/grpc
+```
+
+> **请注意大坑：**步骤  3 需要墙外操作，F**K
+
+4. 安装 VS Code
+5. 安装 VS Code 各种插件，打开 VS Code，按 Ctrl+Shift+P，输入 install ext，输入 go，选中安装即可
+
+> VS Code 支持各种语法，同理，安装对应的插件即可，如，需要支持 C++，安装 C++ 插件即可
+
+## Shell 终端提示符设置
+
+```bash
+PS1 是 linux 里头的一个默认的环境变量，用来设置命令提示符的环境变量。
+    \d ：代表日期，格式为 weekday month date，例如："Mon Aug 1"
+    \H ：完整的主机名称。例如：我的机器名称为：fc4.linux，则这个名称就是 fc4.linux
+    \h ：仅取主机的第一个名字，如上例，则为 fc4，.linux 则被省略
+    \t ：显示时间为 24 小时格式，如：HH：MM：SS
+    \T ：显示时间为 12 小时格式
+    \A ：显示时间为 24 小时格式：HH：MM
+    \u ：当前用户的账号名称
+    \v ：BASH 的版本信息
+    \w ：完整的工作目录名称。家目录会以 ~ 代替
+    \W ：利用 basename 取得工作目录名称，所以只会列出最后一个目录
+    \# ：下达的第几个命令
+    \$ ：提示字符，如果是 root 时，提示符为：# ，普通用户则为：$
+```
+
+**目标：**让 shell 只显示最后一个目录名而不显示完整的路径，并且不显示主机名
+
+1. 编辑 ~/.bashrc，将所有的 PS1 中的 \w 替换为 \W，并去掉 @\h
+2. 重新打开终端即可生效
+
+**修改前**
+
+```bash
+root@ibc-VirtualBox:~/chaincode/tmp#
+```
+
+**修改后**
+
+```bash
+root:fabric#
+```
+
 ## CentOS 安装配置 vsftpd
 
 ### 授权用户访问模式
@@ -1986,447 +2465,6 @@ server {
 /usr/local/nginx/sbin/nginx -s reload
 ```
 
-## Lets Encrypt 证书制作、使用
-
-### 证书制作
-
-1. 获取 certbot 客户端
-
-```bash
-wget https://dl.eff.org/certbot-auto
-chmod a+x certbot-auto
-```
-
-2. 生成证书
-
-```bash
-/opt/certbot-auto certonly --webroot -w /usr/share/nginx/html --agree-tos --email xuchao@danbay.cn -d api.danbay.cn
-```
-
-![生成证书](pic/certbot/certbot.jpg)
-
-3. 查看证书文件
-
-```bash
-tree /etc/letsencrypt/live/
-```
-
-![证书文件](pic/certbot/cert.jpg)
-
-### 证书更新
-
-```bash
-# 证书默认 90 有效，更新不能太频繁，同一域名一周之内最多只能更新5次
-/opt/certbot-auto renew
-```
-
-### 综合使用
-
-**基础环境：**Nginx 1.12.2/CentOS 7.4
-
-**域名解析：**bigsillybear.com/api.bigsillybear.com
-
-**证书：**bigsillybear.com/api.bigsillybear.com
-
-**目标：**
-
-- `Nginx` 监听 80、443、11111 端口，且反向代理 10000 端口
-
-- 支持 `http://bigsillybear.com` 与 `https://bigsillybear.com`
-- 只支持 `https://bigsllybear.com:11111`
-- 支持 `https://api.bigsillybear.com`
-
-```bash
-# For more information on configuration, see:
-#   * Official English Documentation: http://nginx.org/en/docs/
-#   * Official Russian Documentation: http://nginx.org/ru/docs/
-
-user nginx;
-worker_processes auto;
-error_log /var/log/nginx/error.log;
-pid /run/nginx.pid;
-
-# Load dynamic modules. See /usr/share/nginx/README.dynamic.
-include /usr/share/nginx/modules/*.conf;
-
-events {
-    worker_connections 1024;
-}
-
-http {
-    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                      '$status $body_bytes_sent "$http_referer" '
-                      '"$http_user_agent" "$http_x_forwarded_for"';
-
-    access_log  /var/log/nginx/access.log  main;
-
-    sendfile            on;
-    tcp_nopush          on;
-    tcp_nodelay         on;
-    keepalive_timeout   65;
-    types_hash_max_size 2048;
-
-    include             /etc/nginx/mime.types;
-    default_type        application/octet-stream;
-
-    # Load modular configuration files from the /etc/nginx/conf.d directory.
-    # See http://nginx.org/en/docs/ngx_core_module.html#include
-    # for more information.
-    include /etc/nginx/conf.d/*.conf;
-
-    server {
-        listen       80 default_server;
-        listen       [::]:80 default_server;
-        server_name  _;
-        root         /usr/share/nginx/html;
-
-        # Load configuration files for the default server block.
-        include /etc/nginx/default.d/*.conf;
-
-        location / {
-        }
-
-        error_page 404 /404.html;
-            location = /40x.html {
-        }
-
-        error_page 500 502 503 504 /50x.html;
-            location = /50x.html {
-        }
-    }
-
-    # Settings for a TLS enabled server.
-    server {
-        listen       443 ssl http2 default_server;
-        listen       [::]:443 ssl http2 default_server;
-        server_name  bigsillybear.com;
-        root         /usr/share/nginx/html;
-
-        ssl_certificate         "/etc/letsencrypt/live/bigsillybear.com/fullchain.pem";
-        ssl_certificate_key     "/etc/letsencrypt/live/bigsillybear.com/privkey.pem";
-        ssl_session_cache shared:SSL:1m;
-        ssl_session_timeout  10m;
-        ssl_ciphers HIGH:!aNULL:!MD5;
-        ssl_prefer_server_ciphers on;
-
-        # Load configuration files for the default server block.
-        include /etc/nginx/default.d/*.conf;
-
-        location / {
-        }
-
-        error_page 404 /404.html;
-            location = /40x.html {
-        }
-
-        error_page 500 502 503 504 /50x.html;
-            location = /50x.html {
-        }
-    }
-
-    server {
-        listen       11111;
-        listen       [::]:11111;
-        server_name  bigsillybear.com;
-        root         /usr/share/nginx/html;
-
-        ssl                     on;
-        error_page 497          https://$host:443$uri;
-        #error_page 497         https://$host:443$request_uri?$args;
-        ssl_certificate         "/etc/letsencrypt/live/bigsillybear.com/fullchain.pem";
-        ssl_certificate_key     "/etc/letsencrypt/live/bigsillybear.com/privkey.pem";
-        ssl_session_cache shared:SSL:1m;
-        ssl_session_timeout  10m;
-        ssl_ciphers HIGH:!aNULL:!MD5;
-        ssl_prefer_server_ciphers on;
-
-        # Load configuration files for the default server block.
-        include /etc/nginx/default.d/*.conf;
-
-        location / {
-        }
-
-        error_page 404 /404.html;
-            location = /40x.html {
-        }
-
-        error_page 500 502 503 504 /50x.html;
-            location = /50x.html {
-        }
-    }
-
-    upstream api_server {
-        server 127.0.0.1:10000;
-    }
-
-    server {
-        listen       443;
-        listen       [::]:443;
-        server_name  api.bigsillybear.com;
-        root         /usr/share/nginx/html;
-
-        ssl_certificate         "/etc/letsencrypt/live/api.bigsillybear.com/fullchain.pem";
-        ssl_certificate_key     "/etc/letsencrypt/live/api.bigsillybear.com/privkey.pem";
-        ssl_session_cache shared:SSL:1m;
-        ssl_session_timeout  10m;
-        ssl_ciphers HIGH:!aNULL:!MD5;
-        ssl_prefer_server_ciphers on;
-
-        # Load configuration files for the default server block.
-        include /etc/nginx/default.d/*.conf;
-
-        location / {
-                proxy_redirect          off;
-                proxy_set_header        Host            $host;
-                proxy_set_header        X-Real-IP       $remote_addr;
-                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_pass              http://api_server;
-        }
-
-        error_page 404 /404.html;
-            location = /40x.html {
-        }
-
-        error_page 500 502 503 504 /50x.html;
-            location = /50x.html {
-        }
-    }
-
-}
-```
-
-**验证结果**
-
-```bash
-root@iZwz978rorvlg75nct99l1Z:~# curl -I http://bigsillybear.com
-HTTP/1.1 200 OK
-Server: nginx/1.12.2
-Date: Wed, 14 Nov 2018 09:16:03 GMT
-Content-Type: text/html
-Content-Length: 3700
-Last-Modified: Tue, 06 Mar 2018 09:26:21 GMT
-Connection: keep-alive
-ETag: "5a9e5ebd-e74"
-Accept-Ranges: bytes
-
-root@iZwz978rorvlg75nct99l1Z:~# curl -I https://bigsillybear.com
-HTTP/1.1 200 OK
-Server: nginx/1.12.2
-Date: Wed, 14 Nov 2018 09:16:06 GMT
-Content-Type: text/html
-Content-Length: 3700
-Last-Modified: Tue, 06 Mar 2018 09:26:21 GMT
-Connection: keep-alive
-ETag: "5a9e5ebd-e74"
-Accept-Ranges: bytes
-```
-
-```bash
-root@iZwz978rorvlg75nct99l1Z:~# curl https://bigsillybear.com:11111 -I
-HTTP/1.1 200 OK
-Server: nginx/1.12.2
-Date: Wed, 14 Nov 2018 08:59:57 GMT
-Content-Type: text/html
-Content-Length: 3700
-Last-Modified: Tue, 06 Mar 2018 09:26:21 GMT
-Connection: keep-alive
-ETag: "5a9e5ebd-e74"
-Accept-Ranges: bytes
-
-root@iZwz978rorvlg75nct99l1Z:~# curl http://bigsillybear.com:11111 -I
-HTTP/1.1 302 Moved Temporarily
-Server: nginx/1.12.2
-Date: Wed, 14 Nov 2018 09:00:04 GMT
-Content-Type: text/html
-Content-Length: 161
-Connection: close
-Location: https://bigsillybear.com:443/
-```
-
-```bash
-root@iZwz978rorvlg75nct99l1Z:~# curl http://bigsillybear.com:10000/
-{
-    "id": 0,
-    "message": "hello world"
-}
-root@iZwz978rorvlg75nct99l1Z:~# curl https://api.bigsillybear.com/
-{
-    "id": 0,
-    "message": "hello world"
-}
-```
-
-> 由于 `api.bigsillybear.com` 只针对 443 端口（未针对 80 端口）配置了规则，相当于只配置了客户端访问`https://api.bigsillybear.com` 的规则而未配置 `http://api.bigsillybear.com` 的规则，使用 `curl https://api.bigsillybear.com/` 将自动匹配到 `http://bigsillybear.com`
-
-使用谷歌浏览器，查看证书信息如下
-
-![](pic/config/cert1.png)
-
-![](pic/config/cert2.png)
-
-## 安装配置 CURL 支持 http2
-
-###基础环境
-
-- CentOS 6.8
-- Python 2.6.6
-- CURL 7.19.7
-
-### 安装依赖库
-
-```bash
-yum install -y readline-devel sqlite-devel lz4 lz4-devel gdbm gdbm-devel bzip2 openssl openssl-devel libdbi-devel ncurses-libs zlib-devel _bsddb bz2 dl
-```
-
-### 安装 Python 2.7.3
-
-> nghttp2 依赖 Python 2.7.x
-
-```bash
-# 下载、安装 Python 2.7.3
-wget http://python.org/ftp/python/2.7.3/Python-2.7.3.tar.bz2
-tar -jxvf Python-2.7.3.tar.bz2
-cd Python-2.7.3
-./configure
-make -j4 all
-make install
-
-# 修复其他服务（如，YUM）对旧版本 Python 2.6.6 的依赖
-mv /usr/bin/python /usr/bin/python-2.6.6
-ln -sf /usr/local/bin/python2.7 /usr/bin/python
-sed -i "s/#\!\/usr\/bin\/python/#\!\/usr\/bin\/python-2.6.6/" /usr/bin/yum
-```
-
-### 安装 nghttp2 v1.14.x
-
-> CURL 依赖 nghttp2 提供对 http2 的支持，因此，需要先安装 nghttp2
-
-```bash
-git clone https://github.com/tatsuhiro-t/nghttp2.git
-cd nghttp2
-
-# 默认 master 分支，切换到特定的分支，例如 v1.14.x
-git checkout -b v1.14.x origin/v1.14.x
-
-autoreconf -i
-automake
-autoconf
-./configure
-make -j4
-make install
-echo '/usr/local/lib' > /etc/ld.so.conf.d/local.conf
-ldconfig
-
-# 查看 nghttp2
-[root@localhost curl-7.46.0]# whereis libnghttp2
-libnghttp2: /usr/local/lib/libnghttp2.a /usr/local/lib/libnghttp2.la /usr/local/lib/libnghttp2.so
-```
-
-### 安装 CURL 7.46.0
-
-```bash
-# 安装 CURL 7.46.0
-wget http://curl.haxx.se/download/curl-7.46.0.tar.bz2
-tar -xvjf curl-7.46.0.tar.bz2
-cd curl-7.46.0
-./configure --with-nghttp2=/usr/local --with-ssl
-make -j4
-make install
-
-# 替换旧版本
-ln -sf /usr/local/bin/curl /usr/bin/curl
-```
-
-### 确认 CURL 版本以及是否支持 http2
-
-```bash
-# 查看 CURL 版本以及所有支持的协议、特性
-[root@localhost curl-7.46.0]# curl --version
-curl 7.46.0 (x86_64-pc-linux-gnu) libcurl/7.46.0 OpenSSL/1.0.1e zlib/1.2.3 nghttp2/1.14.1
-Protocols: dict file ftp ftps gopher http https imap imaps pop3 pop3s rtsp smb smbs smtp smtps telnet tftp
-Features: IPv6 Largefile NTLM NTLM_WB SSL libz HTTP2 UnixSockets
-
-# 如下提示则表明此版本 CURL 支持 http2
-[root@localhost curl-7.46.0]# curl --http2 -I https://nghttp2.org/
-HTTP/2.0 200
-date:Thu, 12 Apr 2018 16:31:22 GMT
-content-type:text/html
-last-modified:Thu, 12 Apr 2018 15:17:17 GMT
-etag:"5acf787d-19d8"
-accept-ranges:bytes
-content-length:6616
-x-backend-header-rtt:0.001775
-strict-transport-security:max-age=31536000
-server:nghttpx
-via:2 nghttpx
-x-frame-options:SAMEORIGIN
-x-xss-protection:1; mode=block
-x-content-type-options:nosniff
-```
-
-## Mail 发送邮件
-
-1. 配置 /etc/mail.rc
-```bash
-set from=xuchao@bigsillybear.com smtp="smtp.bigsillybear.com"
-set smtp-auth-user="xuchao@bigsillybear.com" smtp-auth-password="HiBigsillybear"
-set smtp-auth=login
-```
-
-2. 发送邮件
-
-```bash
-# 发送主题为 test，邮件正文为 ca.pem 文件内容，包含附件 ca.pem 的邮件到 cloud_dev@bigsillybear.com
-mail -s "test" -a ca.pem cloud_dev@bigsillybear.com < ca.pem
-
-# 发送主题为 test，邮件正文为 hello world 的邮件到 cloud_dev@bigsillybear.com
-echo "hello world"|mail -s "test" cloud_dev@bigsillybear.com
-```
-## Visual Studio Code 配置 GoLang 开发环境
-
-1. 官网下载 GoLang 安装包，安装之后 go version 查看版本
-
-```bash
-$ go version
-go version go1.10.1 windows/amd64
-```
-
-> **安装时勾选添加环境变量，不需要单独添加环境变量；否则，需要新添加环境变量，如下：**
->
-> 	计算机（右键）-> 属性 -> 高级系统设置 -> 高级 -> 环境变量 -> 系统变量
->
-> - 添加 变量名 GOROOT，值为安装目录，如  C:\app\Go\
-> - 变量名 Path，追加值  C:\app\Go\bin;
-
-2. 设置环境变量 GOPATH，具体操作如步骤 1 所示，值为后续你存放源码的目录，如 D:\go
-3. 打开 Git Bash，依次安装如下依赖项
-
-```bash
-go get -u -v github.com/nsf/gocode
-go get -u -v github.com/rogpeppe/godef
-go get -u -v github.com/golang/lint/golint
-go get -u -v github.com/lukehoban/go-outline
-go get -u -v sourcegraph.com/sqs/goreturns
-go get -u -v golang.org/x/tools/cmd/gorename
-go get -u -v github.com/tpng/gopkgs
-go get -u -v github.com/newhook/go-symbols
-go get -u -v golang.org/x/tools/cmd/guru
-
-# 可选择性下载
-# protobuf 相关，需要安装 protoc
-go get -u -v github.com/golang/protobuf/protoc-gen-go
-go get -u -v github.com/golang/protobuf/proto
-# grpc
-go get -u -v google.golang.org/grpc
-```
-
-> **请注意大坑：**步骤  3 需要墙外操作，F**K
-
-4. 安装 VS Code
-5. 安装 VS Code 各种插件，打开 VS Code，按 Ctrl+Shift+P，输入 install ext，输入 go，选中安装即可
-
-> VS Code 支持各种语法，同理，安装对应的插件即可，如，需要支持 C++，安装 C++ 插件即可
-
 ## Ubuntu 替换源
 
 > **环境：**Ubuntu 14.04.5 LTS
@@ -3074,41 +3112,6 @@ tar -zxvf fio-2.0.7.tar.gz
 cd fio-2.0.7
 make
 make install
-```
-
-## Shell 终端提示符设置
-
-```bash
-PS1 是 linux 里头的一个默认的环境变量，用来设置命令提示符的环境变量。
-    \d ：代表日期，格式为 weekday month date，例如："Mon Aug 1"
-    \H ：完整的主机名称。例如：我的机器名称为：fc4.linux，则这个名称就是 fc4.linux
-    \h ：仅取主机的第一个名字，如上例，则为 fc4，.linux 则被省略
-    \t ：显示时间为 24 小时格式，如：HH：MM：SS
-    \T ：显示时间为 12 小时格式
-    \A ：显示时间为 24 小时格式：HH：MM
-    \u ：当前用户的账号名称
-    \v ：BASH 的版本信息
-    \w ：完整的工作目录名称。家目录会以 ~ 代替
-    \W ：利用 basename 取得工作目录名称，所以只会列出最后一个目录
-    \# ：下达的第几个命令
-    \$ ：提示字符，如果是 root 时，提示符为：# ，普通用户则为：$
-```
-
-**目标：**让 shell 只显示最后一个目录名而不显示完整的路径，并且不显示主机名
-
-1. 编辑 ~/.bashrc，将所有的 PS1 中的 \w 替换为 \W，并去掉 @\h
-2. 重新打开终端即可生效
-
-**修改前**
-
-```bash
-root@ibc-VirtualBox:~/chaincode/tmp#
-```
-
-**修改后**
-
-```bash
-root:fabric#
 ```
 
 ## Windows 安装 remix-ide

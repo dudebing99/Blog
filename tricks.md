@@ -977,13 +977,13 @@ mysql> select * from multi_app_user_tbl order by rand() limit 3;
 db=""
 case $1 in
 "log")
-    db="mysql -uroot -p123456 -h log.topnews.com -Dlog"
+    db="mysql -uroot -p123456 -h log.lsb.com -Dlog"
     ;;
 "reclog")
-    db="mysql -uroot -p123456 -h 10.99.0.133 -Dreclog"
+    db="mysql -uroot -p123456 -h 10.10.10.10 -Dreclog"
     ;;
 "push")
-    db="mysql -uroot -p123456 -h 10.99.0.56 -Dpush"
+    db="mysql -uroot -p123456 -h 10.10.10.10 -Dpush"
     ;;
 *)
     echo "no param set"
@@ -995,7 +995,7 @@ $db
 
 2. chmod +x xdb.sh
 
-3. 使用 `./xdb.sh log` 即可快捷登陆 log.topnews.com 的数据库 log
+3. 使用 `./xdb.sh log` 即可快捷登陆 log.lsb.com 的数据库 log
 
 
 ### 条件插入

@@ -3114,6 +3114,53 @@ make
 make install
 ```
 
+## Ubuntu 安装 Nebulas
+
+> **环境：**Ubuntu 16.04，**版本：**master 分支，`215ea2c9a2c7305541902e7626034ab14f043c04`
+
+1. 安装 golang
+
+```bash]
+wget https://dl.google.com/go/go1.9.3.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.9.3.linux-amd64.tar.gz
+```
+
+```bash
+# 环境变量写入 ~/.bashrc
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=/opt/workspace
+
+source ~/.bashrc
+```
+
+2. 编译 nebulas
+
+```bash
+mkdir -p $GOPATH/src
+cd $GOPATH/src
+go get -u -v github.com/nebulasio/go-nebulas
+```
+
+```bash
+cd github.com/nebulasio/go-nebulas
+git checkout master
+```
+
+```bash
+cd github.com/nebulasio/go-nebulas
+source install-native-libs.sh
+source install-rocksdb.sh
+```
+
+```bash
+wget http://develop-center.oss-cn-zhangjiakou.aliyuncs.com/setup/vendor/vendor.tar.gz
+tar -xvzf vendor.tar.gz
+```
+
+```bash
+make build
+```
+
 ## Windows 安装 remix-ide
 
 1. 安装 npm

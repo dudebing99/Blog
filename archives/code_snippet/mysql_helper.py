@@ -10,47 +10,47 @@ logger = logging.getLogger("latest_active_user")
 logger.setLevel(logging.DEBUG)
 
 # user_tbl
-vntopnews_user = {
-    "host": "10.99.0.120",
+user_tbl = {
+    "host": "10.10.10.10",
     "port": 3306,
-    "user": "topnews",
-    "passwd": "topnews2016",
-    "db": "vntopnews_user"
+    "user": "lsb",
+    "passwd": "lsb",
+    "db": "db"
 }
 
-vntopnews_latest_active_user = {
-    "host": "10.99.0.120",
+latest_active_user = {
+    "host": "10.10.10.10",
     "port": 3306,
-    "user": "topnews",
-    "passwd": "topnews2016",
-    "db": "vntopnews_user"
+    "user": "lsb",
+    "passwd": "lsb",
+    "db": "db"
 }
 
 # push_stat_{}
-vntopnews_push_stat = {
-    "host": "10.99.0.166",
+push_stat = {
+    "host": "10.10.10.10",
     "port": 4000,
-    "user": "root",
-    "passwd": "",
-    "db": "vntopnews_log"
+    "user": "lsb",
+    "passwd": "lsb",
+    "db": "db"
 }
 
 # user_register_{}
-vntopnews_user_register = {
-    "host": "10.99.0.112",
+user_register = {
+    "host": "10.10.10.10",
     "port": 3306,
-    "user": "topnews",
-    "passwd": "topnews2016",
-    "db": "vntopnews_ureg"
+    "user": "lsb",
+    "passwd": "lsb",
+    "db": "db"
 }
 
 # user_action_log_{}
-vntopnews_user_action_log = {
-    "host": "10.99.0.26",
+user_action_log = {
+    "host": "10.10.10.10",
     "port": 3306,
-    "user": "topnews",
-    "passwd": "topnews2016",
-    "db": "vntopnews_uact"
+    "user": "lsb",
+    "passwd": "lsb",
+    "db": "db"
 }
 
 user_id_set = set()
@@ -84,9 +84,9 @@ def get_db_conn(mysql_config):
 
 
 def truncate_table_helper():
-    sql = "truncate table `vntopnews_user`.`latest_active_user_tbl`"
-    logger.debug("database: %s, sql: %s", vntopnews_latest_active_user, sql)
-    db, cursor = get_db_conn(vntopnews_latest_active_user)
+    sql = "truncate table `db`.`latest_active_user_tbl`"
+    logger.debug("database: %s, sql: %s", latest_active_user_tbl, sql)
+    db, cursor = get_db_conn(latest_active_user)
     cursor.execute(sql)
     db.commit()
     cursor.close()
@@ -111,7 +111,7 @@ def batch_insert_helper(user_id_set):
     total = 0
     try:
 
-        db, cursor = get_db_conn(vntopnews_latest_active_user)
+        db, cursor = get_db_conn(latest_active_user)
         batch = 100000
         values = []
 
@@ -122,7 +122,7 @@ def batch_insert_helper(user_id_set):
                 total += batch
                 logger.info("batch insert, count: %d", len(values))
                 cursor.executemany(
-                    'INSERT INTO `vntopnews_user`.`latest_active_user_tbl` (user_id) VALUES (%s)', values)
+                    'INSERT INTO `db`.`latest_active_user_tbl` (user_id) VALUES (%s)', values)
                 db.commit()
                 values = []
 
@@ -130,7 +130,7 @@ def batch_insert_helper(user_id_set):
             total += len(values)
             logger.info("final batch insert, count: %d", len(values))
             cursor.executemany(
-                'INSERT INTO `vntopnews_user`.`latest_active_user_tbl` (user_id) VALUES (%s)', values)
+                'INSERT INTO `db`.`latest_active_user_tbl` (user_id) VALUES (%s)', values)
             db.commit()
             values = []
 
@@ -144,16 +144,16 @@ def batch_insert_helper(user_id_set):
 
 def from_push_stat():
     sql = """
-    select distinct(user_id) from `vntopnews_log`.`push_stat_{}`
-    union select distinct(user_id) from `vntopnews_log`.`push_stat_{}`
-    union select distinct(user_id) from `vntopnews_log`.`push_stat_{}`
-    union select distinct(user_id) from `vntopnews_log`.`push_stat_{}`
-    union select distinct(user_id) from `vntopnews_log`.`push_stat_{}`
-    union select distinct(user_id) from `vntopnews_log`.`push_stat_{}`
-    union select distinct(user_id) from `vntopnews_log`.`push_stat_{}`
+    select distinct(user_id) from `db`.`push_stat_{}`
+    union select distinct(user_id) from `db`.`push_stat_{}`
+    union select distinct(user_id) from `db`.`push_stat_{}`
+    union select distinct(user_id) from `db`.`push_stat_{}`
+    union select distinct(user_id) from `db`.`push_stat_{}`
+    union select distinct(user_id) from `db`.`push_stat_{}`
+    union select distinct(user_id) from `db`.`push_stat_{}`
     """.format(format_date(-1), format_date(-2), format_date(-3), format_date(-4),
                format_date(-5), format_date(-6), format_date(-7))
-    users = fetch_helper(vntopnews_push_stat, sql)
+    users = fetch_helper(push_stat, sql)
     if not users:
         logger.info("call fetch_helper(), no record")
     else:
@@ -164,10 +164,10 @@ def from_push_stat():
 
 def from_user():
     sql = """
-    select id from `vntopnews_user`.`user_tbl`
+    select id from `db`.`user_tbl`
     where create_time > date_add(now(), interval - 7 day)
     """
-    users = fetch_helper(vntopnews_user, sql)
+    users = fetch_helper(user, sql)
     if not users:
         logger.info("call fetch_helper(), no record")
     else:
@@ -178,11 +178,11 @@ def from_user():
 
 def from_user_register():
     sql = """
-    select distinct(user_id) from `vntopnews_ureg`.`user_register_{}`
-    union select distinct(user_id) from `vntopnews_ureg`.`user_register_{}`
-    union select distinct(user_id) from `vntopnews_ureg`.`user_register_{}`
+    select distinct(user_id) from `db`.`user_register_{}`
+    union select distinct(user_id) from `db`.`user_register_{}`
+    union select distinct(user_id) from `db`.`user_register_{}`
     """.format(format_date(-1), format_date(-2), format_date(-3))
-    users = fetch_helper(vntopnews_user_register, sql)
+    users = fetch_helper(user_register, sql)
     if not users:
         logger.info("call fetch_helper(), no record")
     else:
@@ -193,11 +193,11 @@ def from_user_register():
 
 def from_user_action_log():
     sql = """
-    select distinct(user_id) from `vntopnews_uact`.`user_action_log_{}`
-    union select distinct(user_id) from `vntopnews_uact`.`user_action_log_{}`
-    union select distinct(user_id) from `vntopnews_uact`.`user_action_log_{}`
+    select distinct(user_id) from `db`.`user_action_log_{}`
+    union select distinct(user_id) from `db`.`user_action_log_{}`
+    union select distinct(user_id) from `db`.`user_action_log_{}`
     """.format(format_date(-1), format_date(-2), format_date(-3))
-    users = fetch_helper(vntopnews_user_action_log, sql)
+    users = fetch_helper(user_action_log, sql)
     if not users:
         logger.info("call fetch_helper(), no record")
     else:

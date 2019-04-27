@@ -986,6 +986,24 @@ Ubuntu 14.04
 pip install virtualenv --upgrade
 ```
 
+## [Ubuntu] /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.21' not found 
+
+**系统环境**
+
+Ubuntu 14.04
+
+**问题描述**
+
+可执行程序无法运行，ldd 查看可执行程序，依赖的 libstdc++ 库版本过低。默认的 gcc 4.8（包含的 libstdc++）版本过低，需要升级到 gcc 4.9
+
+**解决方式**
+
+```bash
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install g++-4.9
+```
+
 ## [Golang] package xxx: cannot download, $GOPATH not set. For more details see: go help gopath
 
 **系统环境**

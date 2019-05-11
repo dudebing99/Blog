@@ -1490,3 +1490,34 @@ net.ipv4.tcp_max_syn_backlog = 819200
 net.core.somaxconn = 65536
 ```
 
+## Bash 共享屏幕/录制屏幕
+
+### 共享终端
+
+- 借助管道实现，共享者在终端进行如下操作
+
+```bash
+$ mkfifo share.fifo
+$ script -f share.fifo
+```
+
+- 观看者在终端进行如下操作
+
+```bash
+$ cat share.fifo
+```
+
+### 录制屏幕与回放
+
+- 录制
+
+```bash
+$ script -t 2> timing.log -a output.session
+```
+
+- 回放(单纯回放，不会有实际操作)
+
+```bash
+$ scriptreplay timing.log output.session
+```
+

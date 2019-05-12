@@ -181,6 +181,30 @@ mysql> set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERR
 sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
 ```
 
+## [MySQL] Specified key was too long; max key length is 767 bytes
+
+**系统环境**
+
+CentOS 7.6/MySQL 5.5.60
+
+**问题描述**
+
+MySQL 建表 SQL 中，表中某些字段属性为 `varchar(256)`，并且，该列上建立了索引，执行 SQL 时报错，如上所示
+
+**问题原因**
+
+767 bytes is the stated prefix limitation for InnoDB tables in MySQL version 5.6 (and prior versions). It's 1,000 bytes long for MyISAM tables. In MySQL version 5.7 and upwards this limit has been increased to 3072 bytes.
+
+5.6 及其之前版本，InnoDB 引擎限制索引前缀长度为 767 字节，例如，utf8 编码下，一个 `varchar` 编码占用 3 个字节
+
+- INNODB `utf8` `VARCHAR(255)`
+- INNODB `utf8mb4` `VARCHAR(191)`
+
+**解决方式**
+
+- 升级 MySQL 到 5.7 版本及其以上
+- 修改列长度 `varchar(256) -> varchar(255)`
+
 ## [SecureFX] 中文文件名乱码
 
 **系统环境**

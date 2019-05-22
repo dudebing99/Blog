@@ -10,6 +10,7 @@
 - [Learning-Bitcoin-from-the-Command-Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line)
 - [调试 BTC 脚本](https://github.com/kallewoof/btcdeb)
 - [比特币编解码小工具](http://learnmeabitcoin.com/tools/)
+- [比特币节点样例配置文件](https://en.bitcoin.it/wiki/Running_Bitcoin#Sample_Bitcoin.conf)
 - [python-OP_RETURN](https://github.com/coinspark/python-OP_RETURN)
 - [bitcoin-api](http://chainquery.com/bitcoin-api)
 - [developer-examples](https://bitcoin.org/en/developer-examples)

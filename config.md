@@ -846,7 +846,7 @@ tree /etc/letsencrypt/live/
 
 ```bash
 # 证书默认 90 有效，更新不能太频繁，同一域名一周之内最多只能更新5次
-/opt/certbot-auto renew
+/opt/certbot-auto renew --quiet --no-self-upgrade
 ```
 
 ### 综合使用

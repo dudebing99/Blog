@@ -1816,3 +1816,33 @@ git 拉取 github 仓库特别慢（无法正常拉取）
 
 > 第 2 步中也可以写入系统 hosts 文件，但是推荐写入 git 即可，不影响系统 DNS 解析；第 2 步选择的记录效果如果不理想，可以选择另外一条记录重试
 
+## [swagger] 使用 NGINX 做反向代理调试 swagger，出现端口丢失
+
+**系统环境**
+
+Nginx 1.12.1/CentOS 7
+
+**问题描述**
+
+使用 NGINX 做反向代理调整 swagger，出现端口丢失，请求自动跳转到默认 80 端口，从而导致请求无响应。
+
+**解决方式**
+
+NGINX 配置中添加转发端口，`proxy_set_header Host $host:$server_port;`
+
+```bash
+    server {  
+        listen       8081;         
+        server_name  localhost;  
+        location / {
+            include uwsgi_params;
+            proxy_pass http://192.168.99.100:8080;
+            proxy_set_header Host $host:$server_port;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header REMOTE-HOST $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            client_max_body_size    2000m;
+        }
+    }
+```
+

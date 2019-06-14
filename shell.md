@@ -1972,3 +1972,26 @@ root@iZwz9b1eyn1aqqy0s3qbadZ:~/paychain# md5sum -c coind.md5
 coind: OK
 ```
 
+## 获取子脚本的返回值
+
+```bash
+# cat ./a.sh
+#!/bin/bash
+
+i=99
+exit $i
+```
+
+```bash
+# cat ./a.sh
+#!/bin/bash
+
+i=99
+exit $i
+```
+
+```bash
+# ./b.sh
+ret: 99
+```
+

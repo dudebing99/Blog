@@ -1296,7 +1296,10 @@ echo -e "\e[1;33m[INFO] Congratulations! Everything is done.\e[0m"
 ```
 ## sudo 保存 vim 打开的文件
 ```bash
-:w !sudo sh -c "cat >'%'" or :w !sudo tee "%"
+# 方法一
+:w !sudo sh -c "cat >'%'"
+# 方法二
+:w !sudo tee "%"
 ```
 
 ## 拷贝并忽略特定的文件

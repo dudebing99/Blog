@@ -1969,13 +1969,3 @@ root@iZwz9b1eyn1aqqy0s3qbadZ:~/paychain# md5sum -c coind.md5
 coind: OK
 ```
 
-## nginx 配置文件错误检查
-
-> 使用 `-t` 检测配置文件无误，然后重启服务即可 `nginx -s reload`
-
-```bash
-[kevin@iZwz9cynwitmm46uagetmvZ opt]$ sudo nginx -t
-nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-nginx: configuration file /etc/nginx/nginx.conf test is successful
-```
-

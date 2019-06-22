@@ -1487,6 +1487,74 @@ root@ubuntu:~# ./a.out abc
 ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
 ```
 
+## [CPP] 获取系统信息
+
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <sys/utsname.h>
+#include <sys/statvfs.h>
+#include <sys/sysinfo.h>
+
+#include <iostream>
+#include <sstream>
+#include <thread>
+
+using namespace std;
+
+int main(void) {
+    struct sysinfo info;
+    sysinfo(&info);
+
+    struct statvfs fsinfo;
+    statvfs("/", &fsinfo);
+
+    struct utsname utsName;
+    uname(&utsName);
+
+    string cpu           = std::to_string(std::thread::hardware_concurrency());
+    string memory        = std::to_string(info.totalram * info.mem_unit / 1024 / 1024);      // Unit: MB
+    string totalHDD      = std::to_string(fsinfo.f_frsize * fsinfo.f_blocks / 1024 / 1024);  // Unit: MB
+    string freeHDD       = std::to_string(fsinfo.f_bsize * fsinfo.f_bfree / 1024 / 1024);    // Unit: MB
+    string systemName    = string(utsName.sysname);
+    string systemRelease = string(utsName.release);
+
+    string json;
+    json += "{";
+    json += "\"coreCount\":" + cpu + ",";
+    // TODO:
+    json += "\"fingerprint\": \"xxx\",";
+    json += "\"memoryCapability\":" + memory + ",";
+    json += "\"totalHDD\":" + totalHDD + ",";
+    json += "\"freeHDD\":" + freeHDD + ",";
+    json += "\"osType\":\"" + systemName + "\",";
+    json += "\"osVersion\":\"" + systemRelease + "\"";
+    json += "}";
+
+    cout << json << endl;
+
+    string reportIp = "10.0.0.4:48022/ip/report";
+    auto pos = reportIp.find("/");
+    string host = reportIp.substr(0, pos);
+    string uri = reportIp.substr(pos);
+    cout << "host: " << host << endl;
+    cout << "uri: " << uri << endl;
+
+
+    return 0;
+}
+```
+
+**输出**
+
+```bash
+[root@wwhs ~]# ./a.out
+{"coreCount":1,"fingerprint": "xxx","memoryCapability":991,"totalHDD":20029,"freeHDD":15650,"osType":"Linux","osVersion":"3.10.0-957.12.1.el7.x86_64"}
+host: 10.0.0.4:48022
+uri: /ip/report
+```
+
 ## [CPP] 自定义结构体排序
 
 自定义比较函数遵循”严格弱序“即可，可通过如下两种方式实现。

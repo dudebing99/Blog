@@ -1555,9 +1555,9 @@ host: 10.0.0.4:48022
 uri: /ip/report
 ```
 
-## [CPP] 自定义结构体排序
+## [CPP] 自定义类型排序
 
-自定义比较函数遵循”严格弱序“即可，可通过如下两种方式实现。
+自定义类型比较函数遵循”严格弱序“即可，可通过如下两种方式实现。
 
 ```cpp
 #include <string>
@@ -1628,6 +1628,77 @@ hello, 22
 world, 33
 hello, 22
 world, 33
+```
+
+## [CPP] 自定义类型比较
+
+```cpp
+#include <iostream>
+#include <map>
+#include <cstdint>
+#include <string>
+
+using namespace std;
+
+class CoinType {
+public:
+    uint32_t coinType;
+    uint32_t priceType;
+
+public:
+    CoinType(uint32_t coinTypeIn, uint32_t priceTypeIn)
+        : coinType(coinTypeIn), priceType(priceTypeIn) {}
+
+    ~CoinType() {}
+
+public:
+    bool operator<(const CoinType &rhs) const {
+        if (this->priceType == rhs.priceType)
+            return this->coinType < rhs.coinType;
+        else {
+            return this->priceType < rhs.priceType;
+        }
+    }
+
+    bool operator==(const CoinType &rhs) const {
+        return (this->coinType == rhs.coinType && this->priceType == rhs.priceType);
+    }
+};
+
+int main() {
+    map<CoinType, uint64_t> m1;
+    m1.emplace(CoinType(1, 1), 22);
+    m1.emplace(CoinType(2, 2), 22);
+    m1.emplace(CoinType(1, 3), 22);
+
+    map<CoinType, uint64_t> m2 = m1;
+
+    for (const auto &item : m1)
+        cout << item.first.coinType << ", " << item.first.priceType << ", " << item.second << endl;
+
+    cout << "m1 == m2 ? " << (m1 == m2) << endl;
+
+    m1[CoinType(2, 2)] = 11;
+    for (const auto &item : m1)
+        cout << item.first.coinType << ", " << item.first.priceType << ", " << item.second << endl;
+
+    cout << "m1 == m2 ? " << (m1 == m2) << endl;
+
+    return 0;
+}
+```
+
+**输出**
+
+```bash
+1, 1, 22
+2, 2, 22
+1, 3, 22
+m1 == m2 ? 1
+1, 1, 22
+2, 2, 11
+1, 3, 22
+m1 == m2 ? 0
 ```
 
 ## [CPP] 设计模式/代理模式

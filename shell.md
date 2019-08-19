@@ -392,6 +392,43 @@ do
 done
 ```
 
+## shell 文件属性获取
+
+```bash
+-e (equal)
+-e filename, 判断文件是否存在
+ 
+-d (directory)
+-d filename，判断文件是否为目录
+ 
+-f (file)
+-f filename，判断文件是否为常规文件
+ 
+-L (link)
+-L filename，判断文件是否问链接文件
+ 
+-r (read)
+-r filename，判断文件是否可读
+ 
+-w (write)
+-w filename，判断文件是否可写
+ 
+-x (exec)
+-x filename,判断文件是否可执行
+ 
+-s (size)
+-s filename，判断文件长度是否为0
+ 
+-h (hard link)
+-h filename,判断文件是否为硬链接文件
+ 
+-nt (newer than)
+filename1 -nt filename2，判断文件1是否比文件2新
+ 
+-ot (older than)
+filename1 -ot filename2，判断文件1是否比文件2旧
+```
+
 ## 分割、合并大文件
 
 ```bash

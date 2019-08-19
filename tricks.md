@@ -468,6 +468,11 @@ set variable <var>=<value>
 
 # 打印所有线程堆栈
 thread apply all bt
+
+# 打印堆栈(backtrace)
+bt
+# 可以通过 'frame' 命令中明确指定号码，或者使用 'up' 命令在堆栈中上移以及 'down' 命令在堆栈中下移来切换帧。要获取有关帧的进一步信息，如它的地址和程序语言，可以使用命令 'info frame'
+frame
 ```
 
 - 调整堆栈层级

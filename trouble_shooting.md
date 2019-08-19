@@ -1831,18 +1831,18 @@ Nginx 1.12.1/CentOS 7
 NGINX 配置中添加转发端口，`proxy_set_header Host $host:$server_port;`
 
 ```bash
-    server {  
-        listen       8081;         
-        server_name  localhost;  
-        location / {
-            include uwsgi_params;
-            proxy_pass http://192.168.99.100:8080;
-            proxy_set_header Host $host:$server_port;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header REMOTE-HOST $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            client_max_body_size    2000m;
-        }
-    }
+server {  
+	listen       8081;         
+	server_name  localhost;  
+	location / {
+		include uwsgi_params;
+		proxy_pass http://192.168.99.100:8080;
+		proxy_set_header Host $host:$server_port;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header REMOTE-HOST $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		client_max_body_size    2000m;
+	}
+}
 ```
 

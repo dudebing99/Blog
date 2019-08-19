@@ -1846,3 +1846,16 @@ server {
 }
 ```
 
+## [gcc] passing const this argument discards qualifiers [-fpermissive]
+
+**系统环境**
+
+GCC 4.8.4/Ubuntu 14.04
+
+**问题描述**
+
+略。
+
+**解决方式**
+
+原来是编译器认为成员函数可能会修改被 `const` 限定的变量，把成员函数也用 `const` 限定一下即可。

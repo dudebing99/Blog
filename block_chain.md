@@ -51,6 +51,7 @@
 - [比特币全球中继网络](http://bitcoinfibre.org/public-network.html)
 - [DPoS 机制理解](https://zhuanlan.zhihu.com/p/36076852)
 - [DPoS + pbft](https://github.com/sqfasd/dpos-pbft)
+- [Why ethereum block mining time is set up to 15 seconds](https://ethereum.stackexchange.com/questions/22894/why-ethereum-block-mining-time-is-set-up-to-15-seconds)
 
 ## 缩略词
 

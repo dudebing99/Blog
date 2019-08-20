@@ -7025,7 +7025,6 @@ OP_RETURN 常为一个金额为 0 的比特币输出， 因为任何与该输出
 | bignum.h           | 大整型数字实现                                               |
 | bloom.cpp          | Bloom过滤算法实现                                            |
 | chainparams.cpp    | 公链参数设置                                                 |
-| checkqueue.h       |                                                              |
 | clientversion.h    | 版本信息设置                                                 |
 | coind-cli.cpp      | 客户端程序入口                                               |
 | coind.cpp          | 服务器后台程序和客户端程序交换入口                           |
@@ -7039,10 +7038,10 @@ OP_RETURN 常为一个金额为 0 的比特币输出， 因为任何与该输出
 | key.cpp            | 公私钥生成、签名、验证                                       |
 | keystore.cpp       | 统一账户（含普通账户和矿工）的公私钥对，已经密钥存储文件     |
 | leveldbwrapper.cpp | LevelDB的访问封装类                                          |
-| limitedmap.h       | 前N个最大值元素的映射表类                                    |
+| limitedmap.h       | 前 N 个最大值元素的映射表类                                  |
 | main.cpp           | 区块链数据交换协议实现主要程序                               |
-| miner.cpp          | DPoS协议实现和挖矿实现                                       |
-| mruset.h           | MRU集合类实现                                                |
+| miner.cpp          | DPoS 协议实现和挖矿实现                                      |
+| mruset.h           | MRU 集合类实现                                               |
 | net.cpp            | 网络节点发现和连接和数据传送                                 |
 | netbase.cpp        | 网络处理基础类                                               |
 | noui.cpp           | 无界面消息处理                                               |
@@ -7062,6 +7061,18 @@ OP_RETURN 常为一个金额为 0 的比特币输出， 因为任何与该输出
 | uint256.cpp        | 哈希ID类型                                                   |
 | util.cpp           | 基础工具类                                                   |
 | version.cpp        | 版本                                                         |
+
+### 交易执行
+
+> 提交交易 -> 添加到内存池 -> 矿工打包交易 -> 广播块 -> 收到新块并验证
+
+1. 在第 N 块提交交易，添加到内存池，执行一次
+
+2. 出第 N+1 块之后，rescan 内存池，重新执行内存池未确认的交易
+
+3. 出块 N+2，将交易打包，执行一次
+
+4. 将块 N+2 连接到最长链，执行一次
 
 ## 比特币 Bitcoind 源码
 

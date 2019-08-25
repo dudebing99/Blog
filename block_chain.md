@@ -284,6 +284,8 @@ root@ubuntu:~# bitcoin-cli -testnet getbalance
 
 ##### 未花费输出
 
+- 查询所有的未花费输出
+
 ```bash
 root@ubuntu:~# bitcoin-cli -testnet listunspent
 [
@@ -308,6 +310,36 @@ root@ubuntu:~# bitcoin-cli -testnet listunspent
     "scriptPubKey": "a914a23c6a5cacf99a19b5a1c0da422e4df60bc391ff87",
     "amount": 1.10000000,
     "confirmations": 31194,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  }
+]
+```
+
+- 查询指定的未花费输出
+
+```bash
+[root@wwhs bitcoin]# ./bitcoin-cli -regtest -conf=/opt/bitcoin/bitcoin.conf listunspent 1 999999 "[\"mhoXhKwwAnrP1uuGsej1mS2zEgBts4soKj\", \"mxVvtaSUx6ofXrC1yN2DhQ5377BAjdYFR6\"]"
+[
+  {
+    "txid": "01f3bfb94c345f4cd439d1c24e564fe7f85348cf6373c7dbbaaaf67363aaa8a0",
+    "vout": 0,
+    "address": "mxVvtaSUx6ofXrC1yN2DhQ5377BAjdYFR6",
+    "scriptPubKey": "210290655bd41048b90e51d8ec537d4fd94787a21b5177b50f9bd0abfea7e2c5ba2cac",
+    "amount": 0.00000037,
+    "confirmations": 13308,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  },
+  {
+    "txid": "9574a3823cfadedd2d2fba0b0e2bb9fc9d119136adc9904cf347ff4c7217d1a0",
+    "vout": 0,
+    "address": "mhoXhKwwAnrP1uuGsej1mS2zEgBts4soKj",
+    "scriptPubKey": "2102562e8455732c52d8d03035b0ae23bb3cedf8b6eff4495b9ae8005819ece89978ac",
+    "amount": 0.00000000,
+    "confirmations": 8348,
     "spendable": true,
     "solvable": true,
     "safe": true

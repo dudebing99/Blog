@@ -249,7 +249,7 @@ $ ./bitcoin-cli.exe -testnet getblockcount
 1325482
 ```
 
-##### 按地址收款列表
+##### 按地址查询收款交易列表
 
 ```bash
 root@ubuntu:~# bitcoin-cli -testnet listreceivedbyaddress

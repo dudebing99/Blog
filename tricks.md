@@ -1120,6 +1120,21 @@ select * from tbl where id between 3 and 1;
 
 所以，在处理起始终止范围查询业务逻辑时，SQL 中使用 `between ... and ...` 一定需要处理好上下限。即，前端、后端都应该确保上下限 `a ≤ b`。
 
+### 条件更新
+
+```sql
+CREATE TABLE `test` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增 ID',
+  `updatetime` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+INSERT INTO test VALUES ('1', '2018-12-13 21:45:38');
+
+UPDATE test SET updatetime=CASE WHEN updatetime < '2018-12-13 22:23:23' THEN '2018-12-13 22:23:23' ELSE updatetime END where id = 1;
+```
+
 ## NGINX 基础配置
 
 ### 配置静态资源

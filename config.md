@@ -2861,9 +2861,9 @@ fi
 ## Ubuntu 安装 ethereum
 
 > **环境：**Ubuntu 14.04.5 LTS
->
+
 > **GCC：**gcc (Ubuntu 4.8.4-2ubuntu1~14.04.4) 4.8.4
->
+
 > **Golang：**go version go1.10.3 linux/amd64 （**注意：低版本 Golang 编译器存在 bug**）
 
 1. 下载

@@ -1859,3 +1859,29 @@ GCC 4.8.4/Ubuntu 14.04
 **解决方式**
 
 原来是编译器认为成员函数可能会修改被 `const` 限定的变量，把成员函数也用 `const` 限定一下即可。
+
+## [gcc] internal compiler error: Killed (program cc1plus)
+
+**系统环境**
+
+GCC 4.8.4/Ubuntu 14.04
+
+**问题描述**
+
+在云服务器（无交换分区）使用 GCC 编译，内存消耗完导致 OOM，从而 GCC 被杀掉
+
+**解决方式**
+
+创建交换分区，解决内存不足导致 OOM，如下所示
+
+Run these
+
+- `sudo dd if=/dev/zero of=/swapfile bs=64M count=16`
+- `sudo mkswap /swapfile`
+- `sudo swapon /swapfile`
+
+That should let you compile your code. **But** make sure you then revert the `swapon` after compilation, with these:
+
+- `sudo swapoff /swapfile`
+- `sudo rm /swapfile`
+

@@ -1701,6 +1701,31 @@ m1 == m2 ? 1
 m1 == m2 ? 0
 ```
 
+## [CPP] std::tuple/std::tie
+
+```cpp
+#include <iostream>
+#include <string>
+#include <tuple>
+
+int main() {
+    int32_t i;
+    double d;
+    string s;
+
+    std::tuple<int32_t, double, string> t = {1, 2.0, "3"};
+
+    std::tie(i, d, s)      = t;
+    std::tie(i, ignore, s) = t;
+
+    std::pair<int32_t, string> p           = std::make_pair(i, s);
+    std::tuple<int32_t, string> t2         = std::tie(i, s);
+    std::tuple<int32_t, double, string> t3 = std::tie(i, d, s);
+
+    return 0;
+}
+```
+
 ## [CPP] 设计模式/代理模式
 
 ![](pic/designpattern/proxy.jpg)

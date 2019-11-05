@@ -208,7 +208,30 @@ trim_trailing_whitespace = true
 在 `setting.json` 中添加如下配置项即可
 
 ```bash
-"C_Cpp.clang_format_fallbackStyle": "{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 100 , AlignConsecutiveAssignments: true, AccessModifierOffset: -4}",
+"C_Cpp.clang_format_fallbackStyle": "{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 150, AlignConsecutiveAssignments: true, AccessModifierOffset: -4}",
+```
+
+### VS Code C/C++ 开发环境简易配置
+
+```bash
+{
+    "explorer.confirmDelete": false,
+    "editor.formatOnPaste": false,
+    "files.trimTrailingWhitespace": true,
+    "editor.formatOnSave": false,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 100,
+    "files.eol": "\n",
+    "editor.fontSize": 16,
+    "C_Cpp.clang_format_style": "{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 150 , AlignConsecutiveAssignments: true, AccessModifierOffset: -4}",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "C_Cpp.updateChannel": "Insiders",
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "files.trimFinalNewlines": true
+}
 ```
 
 ## Typora Han 主题配置

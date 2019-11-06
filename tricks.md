@@ -704,6 +704,22 @@ git reset --soft <commit id>
 git commit -m "New Commit Message"
 ```
 
+### 设置代理
+
+1. 设置代理
+
+```bash
+git config --global http.proxy http://127.0.0.1:1080
+git config --global https.proxy http://127.0.0.1:1080
+```
+
+2. 取消代理
+
+```bash
+git config --global unset http.proxy
+git config --global unset https.proxy
+```
+
 ### github 同步 fork 仓库
 
 > 以同步 `master` 分支为例，其他分支同理

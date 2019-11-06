@@ -52,6 +52,7 @@
 - [DPoS 机制理解](https://zhuanlan.zhihu.com/p/36076852)
 - [DPoS + pbft](https://github.com/sqfasd/dpos-pbft)
 - [Why ethereum block mining time is set up to 15 seconds](https://ethereum.stackexchange.com/questions/22894/why-ethereum-block-mining-time-is-set-up-to-15-seconds)
+- [分布式一致性协议 paxos 与 raft](https://www.cnblogs.com/zhang-qc/p/8688258.html)
 
 ## 缩略词
 

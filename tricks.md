@@ -664,8 +664,11 @@ git push origin master
 # 查看所有提交日志
 git log
 
-# 查看某次 commit 的修改内容
+# 查看某次 commit 涉及的修改内容
 git show <commit-id>
+
+# 查看某次 commit 涉及的修改文件
+git show <commit-id> --stat
 
 # 查看某个文件的所有的修改内容
 git log -p <filename>

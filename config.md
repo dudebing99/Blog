@@ -2067,6 +2067,114 @@ OK
 "kevin"
 127.0.0.1:6379> exit
 ```
+## CentOS 安装 RabbitMQ
+
+1. 运行环境：CentOS 7.2
+2. 安装依赖
+
+```bash
+yum install ncurses ncurses-base ncurses-devel ncurses-libs ncurses-static ncurses-term ocaml-curses ocaml-curses-devel openssl-devel zlib-devel make ncurses-devel gcc gcc-c++ unixODBC unixODBC-devel openssl openssl-devel perl socat -y
+```
+
+3. 安装 erlang
+
+```bash
+cd /usr/local/
+wget http://erlang.org/download/otp_src_20.0.tar.gz
+tar -zxvf otp_src_20.0.tar.gz
+cd otp_src_20.0
+./configure --prefix=/usr/local/erlang --with-ssl -enable-threads -enable-smmp-support -enable-kernel-poll --enable-hipe --without-javac
+make && make install
+```
+
+> 在 /etc/profile 添加环境变量：export PATH=$PATH:/usr/local/erlang/bin
+
+> source /etc/profile 使环境变量生效
+
+3. 安装 RabbitMQ
+
+```bash
+rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+cd /usr/local
+wget -O rabbitmq-server-3.6.10-1.el7.noarch.rpm https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.10/rabbitmq-server-3.6.10-1.el7.noarch.rpm
+yum install rabbitmq-server-3.6.10-1.el7.noarch.rpm -y
+```
+
+4. 新建空的配置文 /etc/rabbitmq/rabbitmq.config
+
+```bash
+###注意方括号后面有一个英文的小点
+[].
+```
+
+5. 设置服务自启动、并启动服务
+
+```bash
+systemctl enable rabbitmq-server
+systemctl start rabbitmq-server
+```
+
+6. 启用RabbitMQ的管理插件、并重启服务
+
+```bash
+rabbitmq-plugins enable rabbitmq_management
+systemctl restart rabbitmq-server
+```
+
+> 此时，使用 http://<ip>:15672 即可访问
+
+7. 配置 RabbitMQ 默认数据库和日志路径
+
+```bash
+mkdir /usr/local/rabbitmq_dir
+chown rabbitmq:rabbitmq /usr/local/rabbitmq_dir
+chmod 777 /usr/local/rabbitmq_dir
+```
+
+8. 创建 /etc/rabbitmq/rabbitmq-env.conf
+
+```bash
+RABBITMQ_MNESIA_BASE=/usr/local/rabbitmq_dir
+RABBITMQ_LOG_BASE=/usr/local/rabbitmq_dir
+```
+
+9. 重启服务
+
+```bash
+systemctl restart rabbitmq-server
+```
+
+10. 添加 RabbitMQ 用户，并设置其角色和权限
+
+```bash
+#添加用户，用户名和密码均为"admin"
+rabbitmqctl add_user admin admin
+
+#设置用户角色为administrator
+rabbitmqctl set_user_tags admin administrator
+
+#为admin分配vhost "/"的权限
+rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
+```
+
+> 此时，使用该账户即可登陆 http://<ip>:15672
+
+11. RabbitMQ 其他常用命令
+
+```bash
+#列出所有用户
+rabbitmqctl list_users
+
+#删除用户
+rabbitmqctl delete_user xxx(用户名)
+#清除用户权限
+rabbitmqctl clear_permissions -p vhostpath xxxx(用户名)
+#列出用户权限
+rabbitmqctl list_user_permissions xxx（用户名）
+#修改密码
+rabbitmqctl change_password xxx(用户名) newpassword
+```
+
 ## CentOS 安装 Siege
 
 > **Siege** 是 linux 下的一个 web 系统的压力测试工具，支持多链接，支持 get 和 post 请求，可以对 web 系统进行多并发下持续请求的压力测试。

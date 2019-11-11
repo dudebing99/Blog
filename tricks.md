@@ -735,6 +735,8 @@ git clone git@github.com:YOUR-USERNAME/YOUR-FORKED-REPO.git
 
 2. 添加远程原始仓库
 
+> 查看远程仓库信息 `git remote -v`
+
 ```bash
 cd into/cloned/fork-repo
 git remote add upstream git://github.com/ORIGINAL-DEV-USERNAME/REPO-YOU-FORKED-FROM.git

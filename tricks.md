@@ -1156,6 +1156,16 @@ INSERT INTO test VALUES ('1', '2018-12-13 21:45:38');
 UPDATE test SET updatetime=CASE WHEN updatetime < '2018-12-13 22:23:23' THEN '2018-12-13 22:23:23' ELSE updatetime END where id = 1;
 ```
 
+### 数据备份与恢复
+
+```sql
+# 备份操作
+mysqldump -uroot -p'123456' mytest > mytest.sql
+# 恢复操作（先创建数据库 mytest2）
+mysql -uroot -p'123456' -e "create database mytest2 CHARSET=UTF8;"
+mysql -uroot -p'123456' mytest2 < mysql.sql 
+```
+
 ## NGINX 基础配置
 
 ### 配置静态资源

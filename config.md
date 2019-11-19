@@ -2576,8 +2576,8 @@ server {
         listen       80;
         server_name  push4.vnay.vn;
         auth_basic "Restricted";
-        auth_basic_user_file /usr/local/nginx/conf/push4.passwd.20180531;
-        root /usr/local/vntop/server/push_server/static;
+        auth_basic_user_file /usr/local/nginx/conf/user.conf;
+        root /opt/push_server;
         index index.html;
         location /pushserver
         {

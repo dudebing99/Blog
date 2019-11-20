@@ -50,7 +50,7 @@
 - [比特阁：区块链行业消息](https://www.btege.com/)
 - [比特币全球中继网络](http://bitcoinfibre.org/public-network.html)
 - [DPoS 机制理解](https://zhuanlan.zhihu.com/p/36076852)
-- [DPoS + pbft](https://github.com/sqfasd/dpos-pbft)
+- [DPoS + pBFT](https://github.com/sqfasd/dpos-pBFT)
 - [Why ethereum block mining time is set up to 15 seconds](https://ethereum.stackexchange.com/questions/22894/why-ethereum-block-mining-time-is-set-up-to-15-seconds)
 - [分布式一致性协议 paxos 与 raft](https://www.cnblogs.com/zhang-qc/p/8688258.html)
 
@@ -6976,9 +6976,9 @@ for round i //分成很多个round，round无限持续
 
 对于第一个问题，`DPoS` 没有很好的应对方案，只能寄希望于委托人拥有良好的服务器运维经验，如果他们稍微粗心，就会出现卡块、分叉的危险。 第二个问题，`DPoS` 主要采取的应对方案是对委托人随机排序和最长链同步的方法。
 
-#### DPoS + PBFT
+#### DPoS + pBFT
 
-加入 `PBFT` 后，`DPoS` 算法的前半部分不变，即委托人名单的确定方式和排序算法不变。
+加入 `pBFT` 后，`DPoS` 算法的前半部分不变，即委托人名单的确定方式和排序算法不变。
 
 变化的是后半部分，即区块的验证和持久化。 区块的验证，不再采用单一的签名验证，而是全节点投票的方式，每当新区块创造出来时，忠诚的节点并不会立即将其写入区块链，而是等待其他节点的投票。 当这个票数超过一定数量后，才进入执行阶段。
 
@@ -6995,7 +6995,7 @@ for round i //分成很多个round，round无限持续
 4. 每个节点收到超过 `2f + 1` 个不同节点的 `commit` 消息后，就认为该区块已经达成一致，进入 `committed` 状态，并将其持久化到区块链数据库中
 5. 系统在在收到第一个高度为 `h` 的 `block` 时，启动一个定时器，当定时到期后，如果还没达成一致，就放弃本次共识。
 
-需要说明的是，本算法与 `PBFT` 论文中的算法有所不同。一个是取消了 `commit-local` 的状态，另一个是没有视图变化的过程。因为 `PBFT` 最初提出来主要是面向的一般的 `C-S` 架构的服务系统，服务器对与客户端的每一个请求都要有所响应，但是在区块链系统中，区块的生成是可以延迟到下一个时间片的，而且这种延迟很常见，这跟视图变化本质上是一样的，每一个时间片相当于一个视图，`slot = time_offset / interval`，这个 `slot` 就相当于视图编号。
+需要说明的是，本算法与 `pBFT` 论文中的算法有所不同。一个是取消了 `commit-local` 的状态，另一个是没有视图变化的过程。因为 `pBFT` 最初提出来主要是面向的一般的 `C-S` 架构的服务系统，服务器对与客户端的每一个请求都要有所响应，但是在区块链系统中，区块的生成是可以延迟到下一个时间片的，而且这种延迟很常见，这跟视图变化本质上是一样的，每一个时间片相当于一个视图，`slot = time_offset / interval`，这个 `slot` 就相当于视图编号。
 
 由于取消了视图变化，达成一次共识的性能也大幅度提升。假设系统中总共有 `N` 个节点，包括委托人节点和普通节点。系统的消息传播使用的 `gossip` 算法，一次广播需要传递的消息上限是 `N^2`，对应的时间开销为 `O(logN)`。假如普通节点只接收不转发，那么 `N` 可以降为委托人的节点总数 `n`，因为系统中委托人数量一定时期内保持不变，可以认为一次广播的时间开销为常数 `t`。确认一个 `block` 需要 `3`  轮广播，也就是总时间为 `3t`。 `block` 消息大小设为 `B`，`prepare` 和 `commit` 的消息大小设为 `b`，那么总共的带宽消耗为 `(B+2b)N^2`。
 

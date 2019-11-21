@@ -6122,7 +6122,7 @@ cpu bandwidth:
      limit:              unlimited
 ```
 
-## 比特币
+## BTC
 
 ![](pic/blockchain/bitcoin.png)
 
@@ -6554,7 +6554,7 @@ Merkle 树是一种哈希二叉树，它是一种用作快速归纳和校验大�
 
 ### 挖矿与共识
 
-## 以太坊
+## ETH
 
 ![](pic/blockchain/ethereum.png)
 
@@ -6789,6 +6789,86 @@ Worker Proposal 这部分的奖励，现在已经开始累积，但是没有发�
 - 如果某个节点是前 21 个节点之一，那么，其奖励分为：出块奖励部分 + 得票奖励部分；
 - 如果某个节点是备用节点，那么，它可能得到的收益属于得票奖励之中的一部分，比如总共投票权重为 100，该节点所得到的投票权重为 5，则可以分到得票奖励的 5%。
 - 如果某个备用节点的得票奖励不足 100 个 EOS，则无法得到奖励。
+
+## FileCoin
+
+#### 存储证明算法
+
+在分布式存储系统中，由于用户数据多存储在零散的存储商上，为了保证数据的完整性与可用性，都需要某种可靠的数据**存储证明算法**，而存储证明过程首先需要面临以下两个问题：
+
+- 谁来发起存储的验证(verify)
+- 验证(verify)过程必需具有不对称性，即verify过程应该比下载整个数据分片要简单高效得多。
+
+原来的分布式存储验证算法主要有`Provable Data Possession (PDP)` 与`Proof-of-Retrievability (PoR)`，第一个主要保证存储商确实存储了用户的数据；第二个在前者的基础上还保证了用户数据可以被完整取回（不会出现存储商挟持数据不归还的情况）。
+
+这两个证明算法的verify过程通常都需要由用户发起，这就需要用户程序经常保持在线；或者由一个可信的第三方机构来发起（如在Storj的方案中发起verify的角色由satellite来完成），这就造成对中心化机构的依赖；而且使用PDP与PoR的分布式网络存储方案还存在以下三个未解决的问题：
+
+-  `Sybil Attacks` - 女巫攻击，示例：用户本来花费对数据D进行n份冗余存储，但存储商(Storage miner)通过Sybil Attacks伪装了n个不同存储身份，使实际存储数据小于n份
+-  `Outsourcing Attacks` - 数据外包攻击，示例：存储商(Storage miner)并没有实际存储用户提交的数据D，而当收到Verifier的challenge验证时，快速从网络上其它存储商获取数据D并生成相应proof信息（或直接从其它存储商拿到proof信息），从而假装一直存储了数据D。
+-  `Generation Attacks` - 数据生成攻击，示例：如果存储商(Storage miner)能选择数据D的存储形式，那么他就可以选择一种可以方便重新生成数据D的算法，然后并不实际存储数据D，而是当收到Verifier的challenge验证时，才根据这种数据生成算法从网络上生成数据D，从而假装一直存储了数据D。
+
+为解决以上三个问题，Filecoin提出了新的存储证明算法`Proof-of-Replication (PoRep)`与`Proof-of-Spacetime (PoSt)`，其中PoSt是在PoRep的基础上扩展的。以下简单描述下关键操作步骤：
+
+- PoRep.Setup() - Setup操作中的重点在于通过一个**Seal操作(slow sequential computation)**生成一个原始数据D的乱序复本R
+- PoRep.Prove() - Prove操作由用户提供的初始challenge值c和R生成一个证明(proof)
+- PoRep.Verify() - 验证者(verifier)通过初始challenge值c和由存储商在上一步Prove操作中生成的证明(proof)，进行验证
+
+#### 关键操作Seal
+
+Seal操作是保证整个PoRep算法安全性的关键，也是解决以上三个问题的关键；Seal操作使用伪随机排列PRP (pseudo-random permutation) 算法生成原始数据D的一个唯一乱序复本R，每次存储商存储的都是一份唯一的R而不是原始数据D，这就解决了第一个问题`Sybil Attacks`；而且Seal操作专门设计成非常费时的顺序计算(sequential operation)，这个过程要比verify过程中的challenge-response通信要费时很多，通常在10x-100x倍率（可以调整时间难度系数τ ），使得Seal操作必须放在PoRep.Setup()中，而无法放在PoRep.Prove()操作中，如果存储商没有实际存储数据R而在PoRep.Prove()中使用Seal操作生成R，就会因为证明生成时间太长而很容易被验证为超时失败，这也同时解决了第二问题`Outsourcing Attacks`和第三个问题`Generation Attacks`。
+
+#### Proof-of-Spacetime (PoSt)
+
+Proof-of-Spacetime(PoSt)在PoRep的基本上进行了扩展，用到了proof-chain的概念，proof-chain将多个时间间隔内PoRep.Prove操作生成的proof串联起来，每个proof都依赖于上一个proof的hash，从而保证整个链条不可被篡改。而Proof-of-Spacetime (PoSt)的时间证明还是依靠Seal操作的固有费时序列计算(slow sequential computation)特性；如果存储商没有实际存储数据，那在生成proof-chain的其中任何环节都会因为超时而被验证失败，使得已生成的proof-chain可以被认为是实际存储了相应的时间，而且只验证proof-chain可以使验证操作的频率大大降低；存储商可以使用PoSt生成一段时间的存储证明(proof-chain)，而由Filecoin区块链的出块矿工在出块时对proof-chain进行验证操作，这样用户也无需进行验证操作。具体生成proof-chain证明的流程如下图：
+
+![](pic/blockchain/PoSt) 
+
+#### DSN网络(Decentralized Storage Network)
+
+所有运行Filecoin全节点的Storage Miner组成了整个DSN网络，并且共同管理着网络中所有空闲可用的存储空间，对存储证明proof进行验证和修复失效的存储。所有这些信息都记录在基于区块链的存储账本(Ledger)中。
+
+#### 网络参与角色
+
+- 用户 - 普通用户，付费进行数据的存储与读取
+- 数据存储商(Storage Miners) - 为用户提供数据存储服务
+- 数据读取商(Retrieval Miners) - 为用户提供数据读取服务
+
+#### 去中心化交易市场
+
+整个网络中的所有存储需求与供给的汇合形成了两个去中心化自由交易市场，数据存储市场(Storage Market)和数据读取市场(Retrieval Market)。
+
+#### 存储账本(Ledger)的数据结构
+
+- 数据分片(Pieces) - 存储到DSN网络的用户数据最小分片
+- 存储块(Sectors) - 存储商提供的存储空间单位
+- **分配表(AllocationTable) - 主要用来追踪记录整个DSN网络存储空间的分配情况，相当于整个DSN网络的世界状态；网络中产出的每个新区块都会记录分配表(AllocationTable)的MerkleRoot，方便在Proof验证时做快速查询。**
+- 委托单(Orders) - 存储交易市场的交易委托单
+- 委托单账本(Orderbooks) - 存储交易市场的交易委托单集合
+- 担保(Pledge) - 存储商提交的对可用存储空间的担保（以filecoin衡量）
+
+![](pic/blockchain/Ledger) 
+
+#### DSN网络的运行流程
+
+ <img src="pic/blockchain/DSN" style="zoom: 67%;" /> 
+
+- Put - 数据存储服务协议，定义了所有数据存储相关操作
+- Get - 数据读取服务协议，定义了所有数据读取相关操作
+- Manage - DSN网络的管理协议
+
+值得注意的是在各个数据存储与读取的交互流程中存在着很多AddOrders操作，而每个AddOrders操作都需要向区块链发送Transaction来使委托单(Order)被记录到委托单账本(Orderbooks) 中，另外包括存储商提交担保PledgeSector和提交证明ProveSector也涉及发送Transaction来记账，这样的去中心化交易效率有待考证。
+
+#### DSN网络提供的特性
+
+- 数据完整性与内容寻址(content-addressing)
+- 数据安全性（不丢失，可取回）
+- 公开与可验证性：依靠proof而无需原始数据进行简单高效的验证（不对称性）
+- 激励机制
+- 数据隐私性：用户需要自行加密数据
+
+#### 共识机制
+
+Filecoin提出Useful Work Consensus的概念，即重新利用存储商(Storage Miner)原先用于计算存储证明(proof)而消耗掉的计算量来作为整个DSN网络共识的算力基础；并提出一个选举记账Miner的共识机制EC (Expected Consensus)，存储商(Storage Miner)的投票权分配由AllocTable中的PoSt条目数量占总数的比例来决定，所以共识机制的安全来源于PoSt算法的安全性。
 
 ## 区块链技术
 

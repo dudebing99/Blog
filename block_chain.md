@@ -53,6 +53,8 @@
 - [DPoS + pBFT](https://github.com/sqfasd/dpos-pBFT)
 - [Why ethereum block mining time is set up to 15 seconds](https://ethereum.stackexchange.com/questions/22894/why-ethereum-block-mining-time-is-set-up-to-15-seconds)
 - [分布式一致性协议 paxos 与 raft](https://www.cnblogs.com/zhang-qc/p/8688258.html)
+-  [Filecoin白皮书分析](https://www.jianshu.com/p/745d5d9be2d3 ) 
+- [解读Filecoin抵押机制]( https://www.8btc.com/article/422466 )
 
 ## 缩略词
 

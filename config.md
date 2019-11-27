@@ -1945,15 +1945,45 @@ export PATH=$PATH:$ICE_HOME/bin
 
 > 主要包括**配置防火墙**、**修改初始密码**、**允许远程访问**三部分
 
-> MySQL 配置文件位置： /etc/my.cnf
+> MySQL 配置文件目录： /etc/my.cnf，默认数据目录： /var/lib/mysql 
 
-1. 开启 3306 端口
+1. 安装 MySQL 5.7
+
+```bash
+#!/bin/bash
+
+echo "remove mariadb if exists"
+yum -y remove mariadb*
+
+echo "download mysql rpm"
+wget http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+
+echo "install mysql rpm"
+rpm -ivh mysql57-community-release-el7-11.noarch.rpm
+
+echo "install mysql server"
+yum install -y mysql-community-server
+
+echo "enable mysql"
+systemctl enable mysqld
+
+echo "delete mysql rpm"
+rm -rf mysql57-community-release-el7-11.noarch.rpm
+
+echo "start mysql"
+systemctl start mysqld
+
+echo "done"
+```
+
+2. 开启 3306 端口
+
 ```bash
 /sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
 /etc/rc.d/init.d/iptables save
 ```
 
-2. 修改初始密码
+3. 修改初始密码
 
 ```bash
 mysql -uroot -p123456（初始密码为空）
@@ -1961,7 +1991,7 @@ mysql -uroot -p123456（初始密码为空）
 > update user set password=password('123456') where user='root';
 > flush privileges;
 ```
-3. 允许远程访问
+4. 允许远程访问
 
 ```bash
 > grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;

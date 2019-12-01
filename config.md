@@ -2659,15 +2659,13 @@ EOF
 apt-get update
 ```
 
-## Ubuntu 安装 golang 1.10.3
-
-> **注意：**golang 编译器存在较多 bug，在编译 golang 库时，可能因为编译器本身的 bug 导致编译失败，例如，以太坊源码编译。
+## Ubuntu 安装 golang
 
 1. 下载安装（[官方下载源](https://golang.org/dl/)）
 
 ```bash
-wget https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz
-tar -xzvf go1.10.3.linux-amd64.tar.gz
+wget https://dl.google.com/go/go1.13.4.linux-amd64.tar.gz
+tar -xzvf go1.13.4.linux-amd64.tar.gz
 mv go /usr/local
 ```
 

@@ -559,7 +559,16 @@ Ctrl+w h/j/k/l
 
 ```bash
 # 克隆远程仓库到本地
-git clone ssh://kevin@192.168.5.32:29418/dummy.git
+git clone https://github.com/dudebing99/Blog.git
+# 指定分支
+git clone -b master https://github.com/dudebing99/Blog.git
+# 只克隆最近一次提交，用于快速克隆（网络不好、仓库太大等）
+git clone --depth -1 https://github.com/dudebing99/Blog.git
+
+# 查看配置
+git config --list
+# 禁用 ssl 认证
+git config --global http.sslVerify false
 
 # 查看本地变更信息
 git status

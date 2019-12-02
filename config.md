@@ -1317,6 +1317,63 @@ root@ibc-VirtualBox:~/chaincode/tmp#
 root:fabric#
 ```
 
+## 阿里云挂载磁盘
+
+1. 查看系统分件格式
+
+```bash
+[root@ ~]# df -h -T
+/dev/vda1      ext4       40G  4.6G   33G  13% /
+devtmpfs       devtmpfs  7.5G     0  7.5G   0% /dev
+tmpfs          tmpfs     7.6G     0  7.6G   0% /dev/shm
+tmpfs          tmpfs     7.6G  344K  7.6G   1% /run
+tmpfs          tmpfs     7.6G     0  7.6G   0% /sys/fs/cgroup
+tmpfs          tmpfs     1.6G     0  1.6G   0% /run/user/0
+```
+
+2. 查看未挂载磁盘
+
+```bash
+[root@ ~]# fdisk -l
+
+Disk /dev/vda: 42.9 GB, 42949672960 bytes, 83886080 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x000d2717
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/vda1   *        2048    83884031    41940992   83  Linux
+
+Disk /dev/vdb: 1099.5 GB, 1099511627776 bytes, 2147483648 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+```
+
+3. 挂载磁盘
+
+```bash
+[root@ ~]# mount /dev/vdb /data
+```
+
+4. 确认已挂载
+
+> 卸载磁盘 `umount /data` 即可
+
+```bash
+[root@ ~]# df -h -T
+Filesystem     Type      Size  Used Avail Use% Mounted on
+/dev/vda1      ext4       40G  4.6G   33G  13% /
+devtmpfs       devtmpfs  7.5G     0  7.5G   0% /dev
+tmpfs          tmpfs     7.6G     0  7.6G   0% /dev/shm
+tmpfs          tmpfs     7.6G  344K  7.6G   1% /run
+tmpfs          tmpfs     7.6G     0  7.6G   0% /sys/fs/cgroup
+tmpfs          tmpfs     1.6G     0  1.6G   0% /run/user/0
+/dev/vdb       ext4     1008G   40G  918G   5% /data
+```
+
 ## CentOS 安装配置 vsftpd
 
 ### 授权用户访问模式

@@ -211,7 +211,7 @@ trim_trailing_whitespace = true
 "C_Cpp.clang_format_fallbackStyle": "{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 150, AlignConsecutiveAssignments: true, AccessModifierOffset: -4}",
 ```
 
-### VS Code C/C++ 开发环境简易配置
+### C/C++ 开发环境简易配置
 
 ```bash
 {

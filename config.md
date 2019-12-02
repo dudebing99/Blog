@@ -1985,10 +1985,12 @@ echo "done"
 
 3. 修改初始密码
 
+>  低版本 MySQL， authentication_string 字段为 password
+
 ```bash
 mysql -uroot -p123456（初始密码为空）
 > use mysql;
-> update user set password=password('123456') where user='root';
+> update user set authentication_string=password('123456') where user='root';
 > flush privileges;
 ```
 4. 允许远程访问

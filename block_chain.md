@@ -9,6 +9,7 @@
 - [精通比特币第二版](http://book.8btc.com/books/6/masterbitcoin2cn/_book/)
 - [Learning-Bitcoin-from-the-Command-Line](https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line)
 - [调试 BTC 脚本](https://github.com/kallewoof/btcdeb)
+- [比特币模板配置文件](https://github.com/bitcoin/bitcoin/blob/master/share/examples/bitcoin.conf)
 - [比特币编解码小工具](http://learnmeabitcoin.com/tools/)
 - [比特币节点样例配置文件](https://en.bitcoin.it/wiki/Running_Bitcoin#Sample_Bitcoin.conf)
 - [python-OP_RETURN](https://github.com/coinspark/python-OP_RETURN)

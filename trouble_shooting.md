@@ -207,6 +207,30 @@ MySQL 建表 SQL 中，表中某些字段属性为 `varchar(256)`，并且，该
 - 升级 MySQL 到 5.7 版本及其以上
 - 修改列长度 `varchar(256) -> varchar(255)`
 
+## [MySQL] Table performance_schema.session_variables doesn’t exist
+
+**系统环境**
+
+CentOS 7.2/MySQL 5.7
+
+**问题描述**
+
+MySQL 由 5.6 升级到 5.7 之后，执行 SQL 报错，信息如上。
+
+**问题原因**
+
+略。
+
+**解决方式**
+
+```bash
+mysql_upgrade -u root -p --force
+```
+
+```bash
+systemctl restart mysqld
+```
+
 ## [SecureFX] 中文文件名乱码
 
 **系统环境**

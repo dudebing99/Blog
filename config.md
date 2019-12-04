@@ -2047,6 +2047,7 @@ echo "done"
 ```bash
 mysql -uroot -p123456（初始密码为空）
 > use mysql;
+> update user set plugin='mysql_native_password' where user='root';
 > update user set authentication_string=password('123456') where user='root';
 > flush privileges;
 ```

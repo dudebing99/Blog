@@ -1911,3 +1911,45 @@ That should let you compile your code. **But** make sure you then revert the `sw
 - `sudo swapoff /swapfile`
 - `sudo rm /swapfile`
 
+## [gin] logged twice each request
+
+**系统环境**
+
+go version go1.13.4 linux/amd64
+
+**问题描述**
+
+gin 服务器运行在 debug 模式时，每个请求生成了两条日志，如下所示：
+
+```bash
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:   export GIN_MODE=release
+ - using code:  gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /api/util/guid            --> istp_scan/pkg/api.(*GUIDController).guid-fm (3 handlers)
+[GIN-debug] GET    /version                  --> main.version (3 handlers)
+[GIN-debug] Listening and serving HTTP on :8080
+[GIN] 2019/12/06 - 06:20:38 | 200 |     114.435µs | 119.139.198.142 | GET      /api/util/guid
+[GIN] 2019/12/06 - 06:20:38 | 200 |     131.284µs | 119.139.198.142 | GET      /api/util/guid
+```
+
+对应的 gin 初始化代码如下所示：
+
+```go
+r := gin.Default()
+r.Use(gin.Logger())
+r.Use(gin.Recovery())
+```
+
+**解决方式**
+
+因为 `gin.Default()` 已经包含 `r.Use(gin.Logger())` 和 `r.Use(gin.Recovery())`
+
+所以直接使用 `gin.Default()` 或者使用如下方式即可
+
+```go
+r := gin.New()
+r.Use(gin.Logger())
+r.Use(gin.Recovery())
+```
+

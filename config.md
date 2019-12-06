@@ -1244,17 +1244,22 @@ $ go version
 go version go1.10.1 windows/amd64
 ```
 
-> **安装时勾选添加环境变量，不需要单独添加环境变量；否则，需要新添加环境变量，如下：**
->
-> ```
-> 计算机（右键）-> 属性 -> 高级系统设置 -> 高级 -> 环境变量 -> 系统变量
-> ```
->
-> - 添加 变量名 GOROOT，值为安装目录，如  C:\app\Go\
-> - 变量名 Path，追加值  C:\app\Go\bin;
+**安装时勾选添加环境变量，不需要单独添加环境变量；否则，需要新添加环境变量，如下：**
 
-2. 设置环境变量 GOPATH，具体操作如步骤 1 所示，值为后续你存放源码的目录，如 D:\go
-3. 打开 Git Bash，依次安装如下依赖项
+`计算机（右键）-> 属性 -> 高级系统设置 -> 高级 -> 环境变量 -> 系统变量`
+
+- 添加 变量名 `GOROOT`，值为安装目录，如  `C:\app\Go\`
+- 变量名 `Path`，追加值  `C:\app\Go\bin;`
+
+2. 设置环境变量 `GOPATH`，具体操作如步骤 1 所示，值为后续你存放源码的目录，如 `D:\go`
+3. 打开 `Git Bash`，设置 `Go Module` 全局代理，依次安装如下依赖项
+
+```bash
+# Enable the go modules feature
+export GO111MODULE=on
+# Set the GOPROXY environment variable
+export GOPROXY=https://goproxy.io
+```
 
 ```bash
 go get -u -v github.com/nsf/gocode
@@ -1274,8 +1279,6 @@ go get -u -v github.com/golang/protobuf/proto
 # grpc
 go get -u -v google.golang.org/grpc
 ```
-
-> **请注意大坑：**步骤  3 需要墙外操作，F**K
 
 4. 安装 VS Code
 5. 安装 VS Code 各种插件，打开 VS Code，按 Ctrl+Shift+P，输入 install ext，输入 go，选中安装即可

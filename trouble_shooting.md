@@ -147,6 +147,43 @@ pkill mysqld_safe
 service mysql start
 ```
 
+## [MySQL]  Your password does not satisfy the current policy requirements 
+
+**系统环境**
+
+CentOS 7.2/mysql  Ver 14.14 Distrib 5.7.28, for Linux (x86_64) using  EditLine wrapper
+
+**问题描述**
+
+MySQL 修改密码提示如上错误
+
+**原因分析**
+
+密码强度不满足默认级别，需要增加密码强度或者降低密码级别
+
+**解决方式**
+
+1. 查看默认密码策略
+
+```sql
+SHOW VARIABLES LIKE 'validate_password%'; 
+```
+
+2. 如果降低密码级别
+
+> 可以降低级别，可以设置密码长度
+
+```sql
+set global validate_password_policy=LOW;
+set global validate_password_length=6; 
+```
+
+3. 修改密码
+
+```sql
+ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';
+```
+
 ## [MySQL] ORDER BY clause is not in GROUP BY clause
 
 **系统环境**

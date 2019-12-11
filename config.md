@@ -2248,6 +2248,8 @@ rabbitmqctl set_user_tags admin administrator
 
 #为admin分配vhost "/"的权限
 rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
+
+systemctl restart rabbitmq-server
 ```
 
 > 此时，使用该账户即可登陆 http://<ip>:15672

@@ -2195,9 +2195,26 @@ yum install rabbitmq-server-3.6.10-1.el7.noarch.rpm -y
 
 4. 新建空的配置文 /etc/rabbitmq/rabbitmq.config
 
+> tcp 默认监听端口 5672，此处修改为 15671
+
 ```bash
-###注意方括号后面有一个英文的小点
-[].
+[{
+                rabbit,
+                [{
+                        tcp_listeners,
+                        [{"0.0.0.0",15671}]
+                }]
+}, {
+                        rabbitmq_management,
+                        [{
+                                listener,
+                                [
+                                        {port,15672},
+                                        {ip,"0.0.0.0"},
+                                        {ssl,false}
+                                ]
+                        }]
+}].
 ```
 
 5. 设置服务自启动、并启动服务

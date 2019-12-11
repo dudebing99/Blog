@@ -130,7 +130,7 @@ MySQL 用户密码丢失，重置用户密码
 
 **解决方式**
 
-> 高版本 MySQL 中没有 mysqld_safe，可以在配置文件 my.conf 添加 `skip-grant-tables  达到同样效果
+> 高版本 MySQL 中没有 mysqld_safe，可以在配置文件 my.conf 添加 `skip-grant-tables`  达到同样效果
 
 ```bash
 service mysqld stop

@@ -4566,6 +4566,29 @@ class TestView(Resource):
 }
 ```
 
+## [Python] 发送邮件
+
+```python
+import smtplib
+from email.mime.text import MIMEText
+
+subject = "Test"
+content = "hello world"
+sender = "service@i-deer.com"
+password = '123456'
+receivers = ["c.r2009@163.com"]
+for receiver in receivers:
+    message = MIMEText(content, "html", "utf-8")
+    message["From"] = sender
+    message["To"] = receiver
+    message["Subject"] = subject
+
+    smtp = smtplib.SMTP_SSL('smtp.i-deer.com', 465)
+    smtp.login(sender, password)
+    smtp.sendmail(sender, [receiver], message.as_string())
+    smtp.close()
+```
+
 ## [Lua] 求最大值
 
 ```lua

@@ -74,6 +74,20 @@ Ubuntu 14.04.5 LTS/VMware® Workstation 12 Pro
 
 ![](pic/troubleshooting/gparted.png)
 
+## [VMWare] output error file to the following location A:\GHOSTERR.TXT
+
+**系统环境**
+
+宿主机 Windows 7/虚拟机 Windows XP
+
+**问题描述**
+
+VMWare 安装 Windows XP 虚拟机时报错，错误信息如下：output error file to the following location A:\GHOSTERR.TXT
+
+**解决方式**
+
+因为虚拟机磁盘没有分区，所以Ghost版系统找不到安装系统的主分区。先执行自带的分区工具对磁盘进行分区，然后安装操作系统即可。
+
 ## [MySQL] 插入关键字导致 SQL 执行失败
 
 **系统环境**

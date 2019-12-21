@@ -4610,6 +4610,34 @@ curl http://localhost:12306 -d '{"initialSupply":1000,"tokenName":"Hello World T
 {"erro": 0, "address": "0x4aa8abdc9361040689154f28e9fbf6229862d6ca", "hash": "0xd32d279af7b4d4b9f47167caeca0b0c2e8db0698a367aadc6868050251a20e1c"}
 ```
 
+#### 通过 geth 发送 erc20
+
+```javascript
+> personal.unlockAccount("0xa131eb803e7db7fc7d6d754641ed92065846a639", "123456", 1000);
+true
+
+var erc20Abi = [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_subtractedValue","type":"uint256"}],"name":"decreaseApproval","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_addedValue","type":"uint256"}],"name":"increaseApproval","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_initialSupply","type":"uint256"},{"name":"_tokenName","type":"string"},{"name":"_decimalUnits","type":"uint8"},{"name":"_tokenSymbol","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"}]
+undefined
+
+> var erc20Contract = web3.eth.contract(erc20Abi).at("0x64a64fc389121B8e04F032222B6a257F44880b80");
+undefined
+
+> web3.fromWei(erc20Contract.balanceOf("0xa131eb803e7db7fc7d6d754641ed92065846a639"),"ether");
+0.000001
+
+> eth.accounts.forEach(function(e,i){console.log("eth.accounts["+i+"]: " + "\tbalance:" + web3.fromWei(erc20Contract.balanceOf(eth.accounts[i]),"ether") + " IDEER")})
+eth.accounts[0]:        balance:0 IDEER
+eth.accounts[1]:        balance:0.000001 IDEER
+eth.accounts[2]:        balance:0 IDEER
+undefined
+
+> erc20Contract.transfer("0x88495c86ab294ae315de864b913e69156916cd71", 2, {from:"0xa131eb803e7db7fc7d6d754641ed92065846a639", gasPrice:10000000000});
+"0x5db5a04bd86e9029a2aca4bfc914110c39590e34153530feb9ef92e8fe6ee91a"
+
+> erc20Contract.balanceOf("0xa131eb803e7db7fc7d6d754641ed92065846a639");
+> erc20Contract.balanceOf("0x88495c86ab294ae315de864b913e69156916cd71");
+```
+
 ### 以太坊智能合约安全：函数多签
 
 借助于 `MSFun` 提供的函数多签基础库，封装成权限控制合约 `Auth`，在应用合约 `Demo` 使用权限控制合约 `Auth`

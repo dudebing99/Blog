@@ -1314,6 +1314,20 @@ root@iZwz978rorvlg75nct99l1Z:~/eth# geth removedb
 Remove local database? [y/N] 
 ```
 
+## [geth] account unlock with HTTP access is forbidden
+
+**系统环境**
+
+CentOS 7.2/geth 1.9.8
+
+**问题描述**
+
+通过 RPC 解锁账户报错，如上所示。
+
+**解决方式**
+
+出于安全考虑，默认禁止了HTTP通道解锁账户，如果了解此风险，可以强制打开，运行加入选项 `--allow-insecure-unlock` 即可。
+
 ## [NPM] sh: 1: node: not found npm WARN This failure might be due to the use of legacy binary 
 
 **系统环境**

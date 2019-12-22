@@ -1907,6 +1907,22 @@ git 拉取 github 仓库特别慢（无法正常拉取）
 
 > 第 2 步中也可以写入系统 hosts 文件，但是推荐写入 git 即可，不影响系统 DNS 解析；第 2 步选择的记录效果如果不理想，可以选择另外一条记录重试
 
+## [git] gpg failed to sign the data fatal: failed to write commit object
+
+**系统环境**
+
+Windows 7/git 2.20.1.windows.1
+
+**问题描述**
+
+git 提交报错，如上所示。
+
+**解决方式**
+
+由于本地 git 设置了启用 gpg 签名，但本地 gpg 软件已经删除了原来设置的 gpg 签名对应的公私钥，导致报错。可以重新设置 gpg 签名信息，或者禁用 gpg 签名即可。禁用 gpg 签名设置如下：
+
+`git config commit.gpgsign false`
+
 ## [swagger] 使用 NGINX 做反向代理调试 swagger，出现端口丢失
 
 **系统环境**
@@ -2018,3 +2034,21 @@ r.Use(gin.Logger())
 r.Use(gin.Recovery())
 ```
 
+## [python] SyntaxError: Non-ASCII character '\xe8' in file
+
+**系统环境**
+
+macOS 10.15.2/python 2.7
+
+**问题描述**
+
+Python 文件中包含中文，运行时报错，如上所示。
+
+**解决方式**
+
+Python 默认的是 ASCII 编码方式，如果出现中文会出现问题，所以需要显示的声明编码方式，如下所示：
+
+```python
+#!/usr/bin/python
+# -*- coding:utf-8 -*-
+```

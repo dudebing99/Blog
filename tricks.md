@@ -1165,6 +1165,31 @@ INSERT INTO test VALUES ('1', '2018-12-13 21:45:38');
 UPDATE test SET updatetime=CASE WHEN updatetime < '2018-12-13 22:23:23' THEN '2018-12-13 22:23:23' ELSE updatetime END where id = 1;
 ```
 
+### 删除重复记录
+
+> 删除重复记录，且只保留 ID 最小的那条记录
+
+```sql
+DELETE 
+FROM
+ project_info 
+WHERE
+ id IN (
+SELECT
+ tmp_result.id 
+FROM
+ (
+SELECT
+ id 
+FROM
+ project_info 
+WHERE
+ project_name IN ( SELECT project_name FROM project_info GROUP BY project_name HAVING count( project_name ) > 1 ) 
+ AND id NOT IN ( SELECT min( id ) FROM project_info GROUP BY project_name HAVING count( project_name ) > 1 ) 
+ ) AS tmp_result 
+ )
+```
+
 ### 数据备份与恢复
 
 ```sql

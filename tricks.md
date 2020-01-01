@@ -943,6 +943,34 @@ Starting zmodem transfer.  Press Ctrl+C to cancel.
 
 ## MySQL 小技巧
 
+### MySQL 命令行模式显示查询记录
+
+```sql
+mysql> select * from project_info limit 1\G
+*************************** 1. row ***************************
+               id: 12
+          user_id: 12345
+     project_name: 西安百花村项目塔楼公寓
+    project_image: https://abc/2019/11/23/_compress0f4f63ff85ac4e6385abcbbd288e4c7b.JPG
+      business_id: 9
+    business_name: 房产
+ project_province: 陕西省
+     project_city: 西安市 未央区
+project_longitude: 0.0000
+ project_property: 8112000000.00000000
+      cancle_time: 2020-11-25 08:00:00
+        task_desc: 西安百花村项目塔楼公寓均价按每平方米2万计，共132000平方米，合计26.4亿
+   must_condition: 凡具备完全民事行为能力的自然人、法人和其他组织均可参加竞买。
+  other_condition: 无
+           status: 0
+     is_recommend: 0
+      create_time: 2019-11-23 15:23:39
+      update_time: 2019-12-27 22:27:26
+  project_latitud: 0
+  publish_contact: NULL
+1 row in set (0.00 sec)
+```
+
 ### MySQL 清理控制台
 
 ```sql

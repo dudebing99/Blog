@@ -6,6 +6,8 @@
 
 ```bash
 # 执行方式：命令行执行即可
+# 支持 utf-8 编码，显示中文文件名
+git config --global core.quotepath false
 # 提交/检出 不转换
 git config --global core.autocrlf false
 # 拒绝提交包含混合换行符的文件

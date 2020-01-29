@@ -1379,6 +1379,53 @@ tmpfs          tmpfs     1.6G     0  1.6G   0% /run/user/0
 /dev/vdb       ext4     1008G   40G  918G   5% /data
 ```
 
+## DockerHub 上传镜像
+
+1. https://hub.docker.com/ 注册账户，并创建镜像仓库
+
+![](pic/config/dockerhub_repo.png)
+
+2. 基于已有容器创建镜像
+
+> 镜像仓库为 `dudebing99/u18`，镜像 tag 为 `v1`
+
+![](pic/config/docker_ps.png)
+
+```bash
+➜  ~ docker commit 512411c00fb4 dudebing99/u18:v1
+sha256:a51369e90faf0ff8be95942e6999613ba8e3081f9ad66e7e1ae092a75b46aa29
+```
+
+3. 查看本地镜像
+
+```bash
+➜  ~ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+dudebing99/u18      v1                  a51369e90faf        43 seconds ago      745MB
+ubuntu              16.04               56bab49eef2e        2 months ago        123MB
+ubuntu              18.04               775349758637        2 months ago        64.2MB
+centos              latest              0f3e07c0138f        3 months ago        220MB
+ubuntu              14.04               2c5e00d77a67        8 months ago        188MB
+mysql               5.7.21              5195076672a7        22 months ago       371MB
+```
+
+3. 上传镜像到 DockerHub
+
+```bash
+➜  ~ docker push dudebing99/u18:v1
+The push refers to repository [docker.io/dudebing99/u18]
+ec2f7e3800b2: Pushed
+v1: digest: sha256:6643590adf8bd4301008e6fc72ad0443c1a1cc21510e050ba8ec5445a15a9ef1 size: 1365
+```
+
+4. 查看镜像
+
+![](pic/config/dockerhub_image.png)
+
+查看镜像详情，拉取镜像命令 `docker pull dudebing99/u18:v1`
+
+![](pic/config/dockerhub_image_detail.png)
+
 ## CentOS 安装配置 vsftpd
 
 ### 授权用户访问模式

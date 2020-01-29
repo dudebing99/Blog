@@ -1411,6 +1411,8 @@ mysql               5.7.21              5195076672a7        22 months ago       
 
 3. 上传镜像到 DockerHub
 
+> 命令格式：`docker push <hub-user>/<repo-name>:<tag>`
+
 ```bash
 ➜  ~ docker push dudebing99/u18:v1
 The push refers to repository [docker.io/dudebing99/u18]
@@ -1425,6 +1427,28 @@ v1: digest: sha256:6643590adf8bd4301008e6fc72ad0443c1a1cc21510e050ba8ec5445a15a9
 查看镜像详情，拉取镜像命令 `docker pull dudebing99/u18:v1`
 
 ![](pic/config/dockerhub_image_detail.png)
+
+5. 从 DockerHub 拉取镜像
+
+```bash
+root@ubuntu:~# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+root@ubuntu:~# docker pull dudebing99/u18:v1
+v1: Pulling from dudebing99/u18
+7ddbc47eeb70: Pull complete 
+c1bbdc448b72: Pull complete 
+8c3b70e39044: Pull complete 
+45d437916d57: Pull complete 
+97b648407d44: Pull complete 
+Digest: sha256:6643590adf8bd4301008e6fc72ad0443c1a1cc21510e050ba8ec5445a15a9ef1
+Status: Downloaded newer image for dudebing99/u18:v1
+root@ubuntu:~# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+dudebing99/u18      v1                  a51369e90faf        5 hours ago         745MB
+root@ubuntu:~# docker search dudebing99
+NAME                DESCRIPTION         STARS               OFFICIAL            AUTOMATED
+dudebing99/u18      Ubuntu 18 Dev       0 
+```
 
 ## CentOS 安装配置 vsftpd
 

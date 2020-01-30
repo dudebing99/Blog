@@ -514,44 +514,24 @@ gdb xxx -c xxx.core
 
 ## VIM 小技巧
 
-```bash
-# VIM 替换时带确认，即，对于任何一个匹配项，需要确认是否替换
-:%s/a/b/gc
-
-# 上下(垂直）分割当前打开的文件
-Ctrl+w s
-
-# 左右（水平）分割当前打开的文件
-Ctrl+w v
-
-# 关闭当前窗口，对应 :close 
-# 注意：最后一个窗口不能使用 close 关闭，使用 close 只是暂时关闭窗口，其内容还在缓存中。
-Ctrl+w c
-# 关闭当前窗口，对应 :q
-Ctrl+w q
-
-# 横向切割窗口
-:new 文件名
-:split 文件名 或简写为 :sp 文件名
-
-# 纵向切割窗口
-:vsplit 文件名 或简写为 :vsp 文件名
-
-# 关闭当前窗口，对应 :close，使用 close 只是暂时关闭窗口，其内容还在缓存中。
-Ctrl+w c
-# 关闭当前窗口，对应 :q，与 close 不同之处在于永久关闭窗口，因此可关闭最后一个打开的窗口。
-Ctrl+w q
-
-# 切换窗口：连续两次 Ctrl+w 依次切换打开的窗口
-Ctrl+w Ctrl+w
-# 切换窗口：Ctrl+w 配合h/j/k/l 或者 上下左右方向键
-Ctrl+w h/j/k/l
-
-# 显示空格、TAB
-# TAB 键显示为 ^I，$ 显示在每行的结尾，表示换行；空格仍然显示为空格。
-:set list		进入 List Mode
-:set nolist		退出 List Mode
-```
+| 快捷键（命令）    | 功能                                                         |
+| ----------------- | ------------------------------------------------------------ |
+| :%s/foo/bar/gc    | 全文替换时带确认，即，对于任何一个匹配项，需要确认是否替换   |
+| :%s/foo/bar/g     | 全文替换时（不待确认）                                       |
+| :s/foo/bar/g      | 当前行替换（不带确认）                                       |
+| :'<,'>s/foo/bar/g | 选定范围内替换（不带确认），在 Visual 模式下选择区域后输入 `:`，Vim 即可自动补全为 `:'<,'>`。例如，`:2,10/foo/bar/g` 替换第 2~10 行所有匹配项 |
+| :.,+2s/foo/bar/g  | 当前行和接下来的 2 行替换（不带确认）                        |
+| ctrl+w s          | 上下（垂直）分割当前打开的文件                               |
+| ctrl+w v          | 左右（水平）分割当前打开的文件                               |
+| ctrl+w c          | 关闭当前窗口，对应 `:close`。最后一个窗口不能使用 close 关闭，使用 close 只是暂时关闭窗口，其内容还在缓存中 |
+| ctrl+w q          | 关闭当前窗口，对应 `:quit`。与 close 不同之处在于永久关闭窗口，因此可关闭最后一个打开的窗口 |
+| ctrl+w ctrl+w     | 连续两次 `ctrl+w`，切换窗口                                  |
+| ctrl+w h/j/k/l    | `ctrl+w` 配合 `h/j/k/l` 或者上下左右方向键切换窗口           |
+| :new filename     | 横向切割窗口                                                 |
+| :split filename   | 横向切割窗口，可简写 `:sp filename`                          |
+| :vsplit filename  | 纵向切割窗口，可简写为 `:vsp filename`                       |
+| :set list         | 进入 List Mode，显示 tab、空格。TAB 键显示为 ^I，$ 显示在每行的结尾，表示换行；空格仍然显示为空格 |
+| :set nolist       | 退出 List Mode                                               |
 
 ## Git 小技巧
 

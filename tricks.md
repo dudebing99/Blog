@@ -790,7 +790,85 @@ git push origin <remote branch>
 
 4. 在 `github` 上面基于 `<remote branch>` 与 `upstream/master` 提交 `PR`
 
-## 同步机器时间、硬件时钟
+## Docker 小技巧
+
+- 镜像
+
+```bash
+# 查看镜像
+docker images
+# 删除镜像
+docker rmi <image-id>
+# 查找镜像
+docker search <TERM>
+```
+
+- 容器
+
+```bash
+# 查看正在运行的容器
+docker ps
+# 查看所有容器（包括已停止的）
+docker ps -a
+# 删除容器
+docker rm <docker-id>
+```
+
+- 标签
+
+```bash
+# 打标签（tag 不指定默认为 latest）
+docker tag <existing-image> <hub-user>/<repo-name>[:<tag>]
+# 修改标签
+docker tag <image-id> <repo-name>:<tag>
+```
+
+- 由 Dockerfile 构建镜像
+
+```bash
+➜  docker cat Dockerfile
+FROM centos
+MAINTAINER Kevin c.r2009@163.com
+CMD echo "hello world"
+➜  docker docker build -t dudebing99/helloworld:v1 .
+Sending build context to Docker daemon  2.048kB
+Step 1/3 : FROM centos
+ ---> 0f3e07c0138f
+Step 2/3 : MAINTAINER Kevin c.r2009@163.com
+ ---> Running in ea81ae3c56ca
+Removing intermediate container ea81ae3c56ca
+ ---> c18b5478dad1
+Step 3/3 : CMD echo "hello world"
+ ---> Running in e46edded6cae
+Removing intermediate container e46edded6cae
+ ---> 37f31a68491b
+Successfully built 37f31a68491b
+Successfully tagged dudebing99/helloworld:v1
+➜  docker docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+dudebing99/helloworld   v1                  37f31a68491b        10 seconds ago      220MB
+dudebing99/u18          v1                  a51369e90faf        42 hours ago        745MB
+ubuntu                  16.04               56bab49eef2e        2 months ago        123MB
+ubuntu                  18.04               775349758637        3 months ago        64.2MB
+centos                  latest              0f3e07c0138f        4 months ago        220MB
+ubuntu                  14.04               2c5e00d77a67        8 months ago        188MB
+mysql                   5.7.21              5195076672a7        22 months ago       371MB
+```
+
+- 由容器构建镜像
+
+```bash
+➜  ~ docker commit 512411c00fb4 dudebing99/u18:v1
+sha256:a51369e90faf0ff8be95942e6999613ba8e3081f9ad66e7e1ae092a75b46aa29
+```
+
+- 将镜像推送到 DockerHub
+
+```bash
+docker push <hub-user>/<repo-name>:<tag>
+```
+
+## 机器时间、硬件时钟
 
 ```bash
 yum install rdate -y

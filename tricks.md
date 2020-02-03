@@ -792,7 +792,7 @@ git push origin <remote branch>
 
 ## Docker 小技巧
 
-- 镜像
+### 镜像
 
 ```bash
 # 查看镜像
@@ -803,7 +803,7 @@ docker rmi <image-id>
 docker search <TERM>
 ```
 
-- 容器
+### 容器
 
 ```bash
 # 查看正在运行的容器
@@ -814,7 +814,7 @@ docker ps -a
 docker rm <docker-id>
 ```
 
-- 标签
+### 标签
 
 ```bash
 # 打标签（tag 不指定默认为 latest）
@@ -823,7 +823,7 @@ docker tag <existing-image> <hub-user>/<repo-name>[:<tag>]
 docker tag <image-id> <repo-name>:<tag>
 ```
 
-- 由 Dockerfile 构建镜像
+### 由 Dockerfile 构建镜像
 
 ```bash
 ➜  docker cat Dockerfile
@@ -855,14 +855,14 @@ ubuntu                  14.04               2c5e00d77a67        8 months ago    
 mysql                   5.7.21              5195076672a7        22 months ago       371MB
 ```
 
-- 由容器构建镜像
+### 由容器构建镜像
 
 ```bash
 ➜  ~ docker commit 512411c00fb4 dudebing99/u18:v1
 sha256:a51369e90faf0ff8be95942e6999613ba8e3081f9ad66e7e1ae092a75b46aa29
 ```
 
-- 将镜像推送到 DockerHub
+### 将镜像推送到 DockerHub
 
 ```bash
 docker push <hub-user>/<repo-name>:<tag>

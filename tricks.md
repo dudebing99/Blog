@@ -868,6 +868,29 @@ sha256:a51369e90faf0ff8be95942e6999613ba8e3081f9ad66e7e1ae092a75b46aa29
 docker push <hub-user>/<repo-name>:<tag>
 ```
 
+### 端口映射
+
+- 查看端口映射
+
+```bash
+docker port <container-id>
+```
+
+- 外部访问容器
+
+`-P` 随机映射一个端口到内部容器开放的端口
+
+```bash
+docker run -it -d -P centos
+```
+
+`-p` 使用 `IP:HostPort:ContainerPort` 格式指定映射使用一个特定的地址
+
+```bash
+docker run -it -d -p 127.0.0.1:2000:2000 centos
+docker run -it -d -p 3000:4000 centos
+```
+
 ## 机器时间、硬件时钟
 
 ```bash

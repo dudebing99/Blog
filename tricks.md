@@ -895,6 +895,34 @@ docker run -it -d -p 127.0.0.1:2000:2000 centos
 docker run -it -d -p 3000:4000 centos
 ```
 
+### 挂载目录
+
+> 格式：`-v <host-dir>:<container-dir>`
+
+```bash
+docker run -it -v /test:/soft centos /bin/bash
+```
+
+> 容器目录必须使用绝对路径，目录不存在则自动创建
+
+> 宿主机目录建议使用绝对路径，相对路径并非相对当前目录而言，而是相对 `/var/lib/docker/volumes/`
+
+```bash
+➜  Blog git:(master) ✗ docker run -it -v relative_dir:/opt centos bash
+➜  Blog git:(master) ✗ docker inspect 1c|grep -i -A 10 mounts
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "relative_dir",
+                "Source": "/var/lib/docker/volumes/relative_dir/_data",
+                "Destination": "/opt",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            }
+```
+
 ## 机器时间、硬件时钟
 
 ```bash

@@ -803,17 +803,6 @@ docker rmi <image-id>
 docker search <TERM>
 ```
 
-### 容器
-
-```bash
-# 查看正在运行的容器
-docker ps
-# 查看所有容器（包括已停止的）
-docker ps -a
-# 删除容器
-docker rm <docker-id>
-```
-
 ### 标签
 
 ```bash
@@ -853,6 +842,17 @@ ubuntu                  18.04               775349758637        3 months ago    
 centos                  latest              0f3e07c0138f        4 months ago        220MB
 ubuntu                  14.04               2c5e00d77a67        8 months ago        188MB
 mysql                   5.7.21              5195076672a7        22 months ago       371MB
+```
+
+### 容器
+
+```bash
+# 查看正在运行的容器
+docker ps
+# 查看所有容器（包括已停止的）
+docker ps -a
+# 删除容器
+docker rm <docker-id>
 ```
 
 ### 由容器构建镜像

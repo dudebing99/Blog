@@ -846,13 +846,17 @@ mysql                   5.7.21              5195076672a7        22 months ago   
 
 ### 容器
 
+> 通过 `inspect` 查看容器挂载目录、启动命令等
+
 ```bash
 # 查看正在运行的容器
 docker ps
 # 查看所有容器（包括已停止的）
 docker ps -a
 # 删除容器
-docker rm <docker-id>
+docker rm <container-id>
+# 查看容器详细信息
+docker inspect <container-id>
 ```
 
 ### 由容器构建镜像

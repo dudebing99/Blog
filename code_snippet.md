@@ -1726,6 +1726,48 @@ int main() {
 }
 ```
 
+## [CPP] 异步任务
+
+```cpp
+#include <chrono>
+#include <future>
+#include <iostream>
+#include <ctime>
+
+int main() {
+    std::future<int> future = std::async(std::launch::async, []() {
+        std::this_thread::sleep_for(std::chrono::seconds(3));
+        std::srand(std::time(nullptr)); // use current time as seed for random generator
+        return std::rand();
+    });
+
+    std::cout << "waiting...";
+    std::future_status status;
+    do {
+        status = future.wait_for(std::chrono::milliseconds(20));
+        if (status == std::future_status::deferred) {
+            std::cout << "deferred\n";
+        } else if (status == std::future_status::timeout) {
+            std::cout << "." << std::flush;
+        } else if (status == std::future_status::ready) {
+            std::cout << "ready!\n";
+        }
+    } while (status != std::future_status::ready);
+
+    std::cout << "result from future is " << future.get() << '\n';
+
+    return 0;
+}
+```
+
+**输出**
+
+```bash
+➜  exercise ./a.out
+waiting......................................................................................................................................ready!
+result from future is 1377911112
+```
+
 ## [CPP] 设计模式/代理模式
 
 ![](pic/designpattern/proxy.jpg)

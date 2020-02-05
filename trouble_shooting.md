@@ -1992,6 +1992,20 @@ That should let you compile your code. **But** make sure you then revert the `sw
 - `sudo swapoff /swapfile`
 - `sudo rm /swapfile`
 
+## [gcc] undefined reference to `pthread_create'
+
+**系统环境**
+
+GCC 4.8.4/Ubuntu 14.04
+
+**问题描述**
+
+程序链接时报错，如上所示
+
+**解决方式**
+
+程序中使用 <thread>，依赖 `pthread`，所以链接加入 `-lpthread` 即可
+
 ## [gin] logged twice each request
 
 **系统环境**

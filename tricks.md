@@ -1106,26 +1106,31 @@ project_longitude: 0.0000
 system clear
 ```
 
-### MySQL 查看表结构
+### MySQL 查看库、表结构
 
 ```sql
-show create table multi_app_user_tbl;
-```
+mysql> show create database scan;
++----------+------------------------------------------------------------------+
+| Database | Create Database                                                  |
++----------+------------------------------------------------------------------+
+| scan     | CREATE DATABASE `scan` /*!40100 DEFAULT CHARACTER SET utf8mb4 */ |
++----------+------------------------------------------------------------------+
+1 row in set (0.00 sec)
 
-**输出**
-
-```basic
-mysql> show create table multi_app_user_tbl\G
+mysql> show create table account_tbl\G
 *************************** 1. row ***************************
-       Table: multi_app_user_tbl
-Create Table: CREATE TABLE `multi_app_user_tbl` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增 ID',
-  `uniq_user_id` varchar(64) NOT NULL COMMENT '用户唯一 ID',
-  `org_user_id` int(11) NOT NULL COMMENT '用户 ID',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_org_user_id` (`org_user_id`),
-  KEY `idx_uniq_user_id_user_id` (`uniq_user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4662 DEFAULT CHARSET=utf8
+       Table: account_tbl
+Create Table: CREATE TABLE `account_tbl` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增 ID',
+  `addr` varbinary(34) DEFAULT NULL COMMENT '地址',
+  `balance` bigint(20) DEFAULT NULL COMMENT '余额',
+  `vote` bigint(20) DEFAULT NULL COMMENT '票数',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `id_idx` (`id`) USING BTREE COMMENT '自增ID索引',
+  UNIQUE KEY `addr_idx` (`addr`) USING BTREE COMMENT '地址索引',
+  KEY `balance_idx` (`balance`) USING BTREE COMMENT '余额索引',
+  KEY `vote_idx` (`vote`) USING BTREE COMMENT '票数索引'
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC
 1 row in set (0.00 sec)
 ```
 
@@ -1133,30 +1138,6 @@ Create Table: CREATE TABLE `multi_app_user_tbl` (
 
 ```sql
 select * from multi_app_user_tbl order by rand() limit 3;
-```
-
-**输出**
-
-```basic
-mysql> select * from multi_app_user_tbl order by rand() limit 3;
-+------+--------------------------------------------+-------------+
-| id   | uniq_user_id                               | org_user_id |
-+------+--------------------------------------------+-------------+
-| 1576 | advid:2b3f4008-9d2c-4410-8ff0-fb1a37021831 |      309614 |
-| 2545 | advid:629e3632-83fc-41f6-b7a7-507d07da323a |      220043 |
-| 2984 | advid:5a21e37d-8472-4b4b-aaad-c3828ab3a6fa |      190268 |
-+------+--------------------------------------------+-------------+
-3 rows in set (0.01 sec)
-
-mysql> select * from multi_app_user_tbl order by rand() limit 3;
-+------+--------------------------------------------+-------------+
-| id   | uniq_user_id                               | org_user_id |
-+------+--------------------------------------------+-------------+
-| 1615 | advid:eca90566-6048-4ff5-a1e3-c979d467221f |      307227 |
-| 2646 | advid:a383d2fc-22e5-4ccc-b5d7-de80cc8f8eed |      283161 |
-| 1913 | advid:fb082377-24a0-4936-a189-50563515c5cd |      281130 |
-+------+--------------------------------------------+-------------+
-3 rows in set (0.00 sec)
 ```
 
 ### 快捷选择 MySQL 实例

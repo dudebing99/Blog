@@ -1075,29 +1075,8 @@ Starting zmodem transfer.  Press Ctrl+C to cancel.
 ### MySQL 命令行模式显示查询记录
 
 ```sql
-mysql> select * from project_info limit 1\G
-*************************** 1. row ***************************
-               id: 12
-          user_id: 12345
-     project_name: 西安百花村项目塔楼公寓
-    project_image: https://abc/2019/11/23/_compress0f4f63ff85ac4e6385abcbbd288e4c7b.JPG
-      business_id: 9
-    business_name: 房产
- project_province: 陕西省
-     project_city: 西安市 未央区
-project_longitude: 0.0000
- project_property: 8112000000.00000000
-      cancle_time: 2020-11-25 08:00:00
-        task_desc: 西安百花村项目塔楼公寓均价按每平方米2万计，共132000平方米，合计26.4亿
-   must_condition: 凡具备完全民事行为能力的自然人、法人和其他组织均可参加竞买。
-  other_condition: 无
-           status: 0
-     is_recommend: 0
-      create_time: 2019-11-23 15:23:39
-      update_time: 2019-12-27 22:27:26
-  project_latitud: 0
-  publish_contact: NULL
-1 row in set (0.00 sec)
+mysql> select * from tbl limit 1\G
+mysql> select * from tbl limit 10\G
 ```
 
 ### MySQL 清理控制台
@@ -1109,35 +1088,14 @@ system clear
 ### MySQL 查看库、表结构
 
 ```sql
-mysql> show create database scan;
-+----------+------------------------------------------------------------------+
-| Database | Create Database                                                  |
-+----------+------------------------------------------------------------------+
-| scan     | CREATE DATABASE `scan` /*!40100 DEFAULT CHARACTER SET utf8mb4 */ |
-+----------+------------------------------------------------------------------+
-1 row in set (0.00 sec)
-
-mysql> show create table account_tbl\G
-*************************** 1. row ***************************
-       Table: account_tbl
-Create Table: CREATE TABLE `account_tbl` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增 ID',
-  `addr` varbinary(34) DEFAULT NULL COMMENT '地址',
-  `balance` bigint(20) DEFAULT NULL COMMENT '余额',
-  `vote` bigint(20) DEFAULT NULL COMMENT '票数',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `id_idx` (`id`) USING BTREE COMMENT '自增ID索引',
-  UNIQUE KEY `addr_idx` (`addr`) USING BTREE COMMENT '地址索引',
-  KEY `balance_idx` (`balance`) USING BTREE COMMENT '余额索引',
-  KEY `vote_idx` (`vote`) USING BTREE COMMENT '票数索引'
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC
-1 row in set (0.00 sec)
+mysql> show create database db;
+mysql> show create table tbl\G
 ```
 
 ### MySQL 随机排序
 
 ```sql
-select * from multi_app_user_tbl order by rand() limit 3;
+select * from tbl order by rand() limit 3;
 ```
 
 ### 快捷选择 MySQL 实例
@@ -1153,7 +1111,7 @@ case $1 in
     db="mysql -uroot -p123456 -h log.lsb.com -Dlog"
     ;;
 "reclog")
-    db="mysql -uroot -p123456 -h 10.10.10.10 -Dreclog"
+    db="mysql -uroot -p123456 -h 10.10.10.10 -Dservice"
     ;;
 "push")
     db="mysql -uroot -p123456 -h 10.10.10.10 -Dpush"
@@ -1178,7 +1136,7 @@ $db
 **语法：**insert into table(column1, column2, ..., columnN) select value1, value2, value3, ..., valueN from dual where not exists (condition clause)
 
    ```sql
-insert into push_log_tbl(guid, origin_url, new_url, beg_ts) select '1111', '', '', sysdate() from dual where not exists (select guid from push_log_tbl where guid='1111');
+insert into tbl(guid, origin_url, new_url, beg_ts) select '1111', '', '', sysdate() from dual where not exists (select guid from tbl where guid='1111');
    ```
 
 ### timestamp 字段查询
@@ -1186,13 +1144,13 @@ insert into push_log_tbl(guid, origin_url, new_url, beg_ts) select '1111', '', '
 **场景一：**查询某个时间范围的数据
 
 ```sql
-SELECT `id`, `create_time` FROM `record` WHERE (create_time >= '2011-05-27 11:27:00') ORDER BY id DESC LIMIT 0, 20
+SELECT `id`, `create_time` FROM `tbl` WHERE (create_time >= '2011-05-27 11:27:00') ORDER BY id DESC LIMIT 0, 20
 ```
 
 **场景二：**查询某一天数据
 
 ```sql
-select guid, content_id, title, long_text, new_url, ttl, icon, picture, push_enum from vntopnews_push.push_content_tbl where date_format(create_time,'%Y-%m-%d')='2011-05-27' order by create_time asc
+select guid, content_id, title, long_text, new_url, ttl, icon, picture, push_enum from tbl where date_format(create_time,'%Y-%m-%d')='2011-05-27' order by create_time asc
 ```
 
 ### 时间相关函数
@@ -1242,7 +1200,7 @@ mysql> select date_add(now(), interval -1 day) as t1, date_add(now(), interval 8
 ### INSERT INTO SELECT 语句
 
 ```sql
-INSERT INTO table2 SELECT * FROM table1;
+INSERT INTO tbl2 SELECT * FROM tbl;
 ```
 
 ```sql
@@ -1257,7 +1215,7 @@ show table status
 ```
 
 ```sql
-select CREATE_TIME from INFORMATION_SCHEMA.TABLES where TABLE_NAME='latest_active_user_tbl';
+select CREATE_TIME from INFORMATION_SCHEMA.TABLES where TABLE_NAME='tbl';
 ```
 
 ### 三目表达式

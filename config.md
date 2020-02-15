@@ -3935,3 +3935,93 @@ $ protoc --version
 libprotoc 3.5.1
 ```
 
+## Mac 安装 libra
+
+1. 下载源码
+
+```bash
+git clone https://github.com/libra/libra.git
+```
+
+2. 检出测试网分支代码
+
+```bash
+git checkout testnet
+```
+
+3. 安装依赖项，主要包含 Rust、CMake、Golang、Protobuf 的依赖环境的安装
+
+```bash
+cd libra
+./scripts/dev_setup.sh
+```
+
+顺利完成安装，有如下提示
+
+```bash
+➜  libra git:(testnet) ./scripts/dev_setup.sh
+Welcome to Libra!
+
+This script will download and install the necessary dependencies needed to
+build Libra Core. This includes:
+	* Rust (and the necessary components, e.g. rust-fmt, clippy)
+	* CMake
+
+If you'd prefer to install these dependencies yourself, please exit this script
+now with Ctrl-C.
+
+Proceed with installing necessary dependencies? (y/N) > y
+Installing Rust......
+Rust is already installed
+info: syncing channel updates for 'stable-x86_64-apple-darwin'
+info: checking for self-updates
+
+  stable-x86_64-apple-darwin unchanged - rustc 1.41.0 (5e1a79984 2020-01-27)
+
+info: cleaning up downloads & tmp directories
+info: component 'rustfmt' for target 'x86_64-apple-darwin' is up to date
+info: component 'clippy' for target 'x86_64-apple-darwin' is up to date
+Installing CMake......
+CMake is already installed
+
+Finished installing all dependencies.
+
+You should now be able to build the project by running:
+	source /Users/kevin/.cargo/env
+	cargo build
+```
+
+4. 编译客户端并连接到测试网
+
+```bash
+./scripts/cli/start_cli_testnet.sh
+```
+
+正确运行客户端并连接到测试网，信息如下：
+
+```bash
+   Compiling cli v0.1.0 (/Users/kevin/libra/client/cli)
+    Finished dev [unoptimized + debuginfo] target(s) in 5m 17s
+     Running `target/debug/cli --host ac.testnet.libra.org --port 8000`
+I0215 11:19:24.212584 4626128320 client/cli/src/grpc_client.rs:135] Trusted epoch change to :EpochInfo [epoch: 1, validator: ValidatorSet: [02b9e566: 1, 076f0329: 1, 77e3cd65: 1, 79fba303: 1, d208c6f0: 1, e0e838c4: 1, ]]
+Connected to validator at: ac.testnet.libra.org:8000, latest version = 24614297, timestamp = 2020-02-15 03:19:21.733802 UTC
+usage: <command> <args>
+
+Use the following commands:
+
+account | a
+	Account operations
+query | q
+	Query operations
+transfer | transferb | t | tb
+	<sender_account_address>|<sender_account_ref_id> <receiver_account_address>|<receiver_account_ref_id> <number_of_coins> [gas_unit_price_in_micro_libras (default=0)] [max_gas_amount_in_micro_libras (default 140000)] Suffix 'b' is for blocking.
+	Transfer coins (in libra) from account to another.
+help | h
+	Prints this help
+quit | q!
+	Exit this client
+
+
+Please, input commands:
+```
+

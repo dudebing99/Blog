@@ -3016,7 +3016,7 @@ root@ubuntu:~/WaykiChain/test/node1# ./node1 -datadir=. decodetransaction 03015f
 
 **以太坊主网**
 
-> 默认主网，添加启动项 `--testnet`：测试网；`--dev`：开发者网络（预置账户，初学者可以使用此模式）
+> 默认主网，添加启动项 `--testnet`：测试网；`--dev`：开发者网络（初学者可以使用此模式）
 
 ```bash
 ./geth --syncmode fast --datadir="./testnet" --cache=1024 --rpc --rpcaddr=0.0.0.0 --rpcport=30001 --port=30002 --rpccorsdomain * --rpcapi eth,net,web3,admin,personal --allow-insecure-unlock console
@@ -3731,11 +3731,11 @@ Contract JSON ABI
 
 > `web3.js` 可以与任何暴露了 RPC 接口的以太坊节点连接。 `web3` 中提供了 `eth` 对象 `web3.eth` 来与以太坊区块链进行交互
 
+> web3 不同版本接口不兼容，根据需要安装对应版本
+
 ```bash
 npm install -g web3@0.20.1
 ```
-
-> web3 不同版本接口不兼容，根据需要安装对应版本
 
 #### testrpc
 

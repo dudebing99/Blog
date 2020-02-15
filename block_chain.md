@@ -6100,6 +6100,153 @@ cpu bandwidth:
      limit:              unlimited
 ```
 
+### Libra 入门
+
+#### 创建交易
+
+运行客户端并连接到测试网
+
+```bash
+./scripts/cli/start_cli_testnet.sh
+Connected to validator at: ac.testnet.libra.org:8000, latest version = 26277933, timestamp = 2020-02-15 08:17:19.406030 UTC
+usage: <command> <args>
+
+Use the following commands:
+
+account | a
+	Account operations
+query | q
+	Query operations
+transfer | transferb | t | tb
+	<sender_account_address>|<sender_account_ref_id> <receiver_account_address>|<receiver_account_ref_id> <number_of_coins> [gas_unit_price_in_micro_libras (default=0)] [max_gas_amount_in_micro_libras (default 140000)] Suffix 'b' is for blocking.
+	Transfer coins (in libra) from account to another.
+help | h
+	Prints this help
+quit | q!
+	Exit this client
+
+
+Please, input commands:
+```
+
+创建两个账户
+
+```bash
+libra% account create
+>> Creating/retrieving next account from wallet
+Created/retrieved account #0 address c5438cc53f9660d215113cf2bf3bbfcf946d7c82371a5f57ee0bbb9e7cdeef30
+libra% account create
+>> Creating/retrieving next account from wallet
+Created/retrieved account #1 address 6c825a59013ae5895d20544fe355e9a9362240cd727a645645577aed00f284f3
+```
+
+查看账户列表
+
+```bash
+libra% account list
+User account index: 0, address: c5438cc53f9660d215113cf2bf3bbfcf946d7c82371a5f57ee0bbb9e7cdeef30, sequence number: 0, status: Local
+User account index: 1, address: 6c825a59013ae5895d20544fe355e9a9362240cd727a645645577aed00f284f3, sequence number: 0, status: Local
+```
+
+挖矿并将奖励发放到相应账户（#0 表示第一个账户）
+
+```bash
+libra% account mint 0 222
+>> Minting coins
+Mint request submitted 
+libra% account mint 1 111
+>> Minting coins
+Mint request submitted
+```
+
+查询账户余额
+
+```bash
+libra% query balance 0
+Balance is: 222.000000
+libra% query balance 1
+Balance is: 111.000000
+```
+
+查询账户序列号
+
+```bash
+libra% query sequence 0
+>> Getting current sequence number
+Sequence number is: 0
+libra% query sequence 1
+>> Getting current sequence number
+Sequence number is: 0
+```
+
+账户之间转账（#0 转账 10 Libra 到 #1）
+
+```bash
+libra% transfer 0 1 10
+>> Transferring
+Transaction submitted to validator
+To query for transaction status, run: query txn_acc_seq 0 1 <fetch_events=true|false>
+```
+
+查询交易记录
+
+```bash
+libra% query txn_acc_seq 0 0 true
+>> Getting committed transaction by account and sequence number
+Committed transaction: SignedTransaction {
+ raw_txn: RawTransaction {
+	sender: c5438cc53f9660d215113cf2bf3bbfcf946d7c82371a5f57ee0bbb9e7cdeef30,
+	sequence_number: 0,
+	payload: {,
+		transaction: peer_to_peer_transaction,
+		args: [
+			{ADDRESS: 6c825a59013ae5895d20544fe355e9a9362240cd727a645645577aed00f284f3},
+			{U64: 10000000},
+		]
+	},
+	max_gas_amount: 140000,
+	gas_unit_price: 0,
+	expiration_time: 1581756642s,
+},
+ public_key: Ed25519PublicKey(528c9910e590f4d2b894f1cc0b5bc5c913ae032cb854a51229c1c39814822093),
+ signature: Ed25519Signature(
+    Signature( R: CompressedEdwardsY: [53, 79, 126, 107, 48, 186, 131, 158, 41, 149, 11, 241, 251, 52, 121, 227, 200, 68, 160, 39, 124, 89, 231, 215, 36, 129, 201, 149, 234, 223, 49, 16], s: Scalar{
+    	bytes: [85, 53, 158, 152, 42, 73, 44, 132, 50, 253, 154, 252, 165, 12, 80, 248, 49, 130, 25, 6, 199, 8, 110, 118, 200, 114, 249, 176, 162, 245, 103, 8],
+    } ),
+),
+ }
+Events:
+ContractEvent { key: 0100000000000000c5438cc53f9660d215113cf2bf3bbfcf946d7c82371a5f57ee0bbb9e7cdeef30, index: 0, type: Struct(StructTag { address: 0000000000000000000000000000000000000000000000000000000000000000, module: Identifier("LibraAccount"), name: Identifier("SentPaymentEvent"), type_params: [] }), event_data: SentPaymentEvent { amount: 10000000, receiver: 6c825a59013ae5895d20544fe355e9a9362240cd727a645645577aed00f284f3, metadata: [] } }
+ContractEvent { key: 00000000000000006c825a59013ae5895d20544fe355e9a9362240cd727a645645577aed00f284f3, index: 1, type: Struct(StructTag { address: 0000000000000000000000000000000000000000000000000000000000000000, module: Identifier("LibraAccount"), name: Identifier("ReceivedPaymentEvent"), type_params: [] }), event_data: ReceivedPaymentEvent { amount: 10000000, sender: c5438cc53f9660d215113cf2bf3bbfcf946d7c82371a5f57ee0bbb9e7cdeef30, metadata: [] } }
+```
+
+上述转账需要异步查询，可以使用同步转账接口（交易提交成功才返回）
+
+```bash
+libra% transferb 0 1 10
+>> Transferring
+waiting for c5438cc53f9660d215113cf2bf3bbfcf946d7c82371a5f57ee0bbb9e7cdeef30 with sequence number 3
+Response with error: grpc-status: DeadlineExceeded, grpc-message: ""
+transaction is stored!
+Finished transaction!
+To query for transaction status, run: query txn_acc_seq 0 2 <fetch_events=true|false>
+```
+
+可以再次查询账户余额验证转账是否成功
+
+#### 私有网络
+
+> 运行一个本地验证器节点，构成由单节点组成的私有网络
+
+> `-p libra-swarm` - causes cargo to run the libra-swarm package, which starts a local blockchain consisting of one node.
+
+> `-s` option starts a local client to connect to the local blockchain.
+
+```bash
+$ cd ~/libra
+$ cargo run -p libra-swarm -- -s
+```
+
 ## BTC
 
 ![](pic/blockchain/bitcoin.png)

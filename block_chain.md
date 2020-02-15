@@ -3014,37 +3014,13 @@ root@ubuntu:~/WaykiChain/test/node1# ./node1 -datadir=. decodetransaction 03015f
 
 #### 启动 geth
 
-**开发者网络**
+**以太坊主网**
 
-`./geth --datadir="./devdata" --dev --rpc --rpccorsdomain "*" console`
-
-> 上述命令即启动了一个节点服务，同时启动了一个控制台。`console` 参数开启了一个 `javascript` 的控制台，这个控制台注入了 `web3.js` 这个库，以使我们可以通过 `web3` 对象与以太坊节点做交互。实际上，可以独立启动节点服务，即，`./geth --datadir="./devdata" --dev --rpc --rpccorsdomain "*"`
-
-> 需要启动控制台的时候，执行 `./geth attach http://localhost:8545` 或 `./geth attach ./testnet/geth.ipc`
+> 默认主网，添加启动项 `--testnet`：测试网；`--dev`：开发者网络（预置账户，初学者可以使用此模式）
 
 ```bash
-root@~/eth# ./geth attach ./testnet/geth.ipc
-Welcome to the Geth JavaScript console!
-
-instance: Geth/v1.8.13-unstable-040dd5bd/linux-amd64/go1.10.3
-coinbase: 0x96d81d81149a3a8501eb99fb8aca1cff5cc19d7c
-at block: 4245054 (Tue, 16 Oct 2018 11:54:45 CST)
- datadir: /root/eth/testnet
- modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
-
-> eth.getBalance(eth.accounts[0])
-146513139948307702333
-> exit
-root@~/eth#
+./geth --syncmode fast --datadir="./testnet" --cache=1024 --rpc --rpcaddr=0.0.0.0 --rpcport=30001 --port=30002 --rpccorsdomain * --rpcapi eth,net,web3,admin,personal --allow-insecure-unlock console
 ```
-
-**以太坊正式网络**
-
-`./geth --syncmode "fast" --cache=512 --datadir="./data" --rpc --rpccorsdomain "*" console`
-
-**以太坊测试网络**
-
-`./geth --syncmode "fast" --datadir="./testnet" --testnet  --mine --minerthreads=2 --cache=1024 --rpc --rpccorsdomain "*" console`
 
 **以太坊私有网络**
 
@@ -3084,42 +3060,13 @@ root@~/eth#
 | extraData  | 附加信息，随便填，可以填你的个性信息                         |
 | gasLimit   | 该值设置对 gas 的消耗总量限制，用来限制区块能包含的交易信息总和，因为我们是私有链，所以填最大。 |
 
-1. 初始化 `./geth --datadir="./pridata" init genesis.json console`
-2. 启动 `./geth --datadir="./pridata" --rpccorsdomain "*" --rpc console`
-
-> **备注：**可以使用开发者模式进行入门学习
+初始化并启动私有网络
 
 ```bash
-$ ./geth --datadir "./devdata" --dev console
-INFO [08-27|22:56:17.394] Maximum peer count                       ETH=25 LES=0 total=25
-INFO [08-27|22:56:19.329] Using developer account                  address=0xd3A5A203f58fBe2Eb850C856407Bf7bdFc589965
-INFO [08-27|22:56:19.331] Starting peer-to-peer node               instance=Geth/v1.8.13-unstable/windows-amd64/go1.10.1
-INFO [08-27|22:56:19.331] Allocated cache and file handles         database=D:\\app\\geth\\devdata\\geth\\chaindata cache=768 handles=1024
-INFO [08-27|22:56:19.363] Writing custom genesis block
-INFO [08-27|22:56:19.364] Persisted trie from memory database      nodes=11 size=1.71kB time=1ms gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
-INFO [08-27|22:56:19.364] Initialised chain configuration          config="{ChainID: 1337 Homestead: 0 DAO: <nil> DAOSupport: false EIP150: 0 EIP155: 0 EIP158: 0 Byzantium: 0 Constantinople: <nil> Engine: clique}"
-INFO [08-27|22:56:19.364] Initialising Ethereum protocol           versions="[63 62]" network=1337
-INFO [08-27|22:56:19.364] Loaded most recent local header          number=0 hash=8216e1…04a7e0 td=1
-INFO [08-27|22:56:19.364] Loaded most recent local full block      number=0 hash=8216e1…04a7e0 td=1
-INFO [08-27|22:56:19.364] Loaded most recent local fast block      number=0 hash=8216e1…04a7e0 td=1
-INFO [08-27|22:56:19.372] Regenerated local transaction journal    transactions=0 accounts=0
-INFO [08-27|22:56:19.373] Starting P2P networking
-INFO [08-27|22:56:19.377] started whisper v.6.0
-INFO [08-27|22:56:19.378] IPC endpoint opened                      url=\\\\.\\pipe\\geth.ipc
-INFO [08-27|22:56:19.378] Transaction pool price threshold updated price=18000000000
-INFO [08-27|22:56:19.378] Etherbase automatically configured       address=0xd3A5A203f58fBe2Eb850C856407Bf7bdFc589965
-INFO [08-27|22:56:19.378] RLPx listener up                         self="enode://46c65720fd7c7a1c933bf27377356f11322613d58953115dceb2e956e121d511a0264b0dbccaaf46e5c7e90bd49e962ceb226b1329e6bbdc06384abec6fb0f1b@[::]:51502?discport=0"
-INFO [08-27|22:56:19.379] Starting mining operation
-INFO [08-27|22:56:19.381] Commit new mining work                   number=1 txs=0 uncles=0 elapsed=2.000ms
-WARN [08-27|22:56:19.381] Block sealing failed                     err="waiting for transactions"
-INFO [08-27|22:56:19.403] Mapped network port                      proto=tcp extport=51502 intport=51502 interface=NAT-PMP(192.168.0.1)
-Welcome to the Geth JavaScript console!
-
-instance: Geth/v1.8.13-unstable/windows-amd64/go1.10.1
-coinbase: 0xd3a5a203f58fbe2eb850c856407bf7bdfc589965
-at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)
- datadir: D:\app\geth\devdata
- modules: admin:1.0 clique:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 shh:1.0 txpool:1.0 web3:1.0
+# 初始化
+./geth --datadir="./pridata" init genesis.json console
+# 启动
+./geth --datadir="./pridata" --rpccorsdomain "*" --rpc console
 ```
 
 #### 查看系统变量

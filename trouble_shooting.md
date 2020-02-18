@@ -234,6 +234,22 @@ mysql> set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERR
 sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
 ```
 
+## [MySQL] ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.
+
+**系统环境**
+
+CentOS 7.6/MySQL 5.7.29
+
+**问题描述**
+
+略
+
+**解决方式**
+
+```mysql
+mysql> alter user 'root'@'localhost' identified by '123456';
+```
+
 ## [MySQL] Specified key was too long; max key length is 767 bytes
 
 **系统环境**

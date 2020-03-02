@@ -1117,9 +1117,9 @@ root@iZwz978rorvlg75nct99l1Z:~# curl https://api.bigsillybear.com/
 
 ![](pic/config/cert2.png)
 
-## 安装配置 CURL 支持 http2
+## 安装 CURL 支持 http2
 
-###基础环境
+### 基础环境
 
 - CentOS 6.8
 - Python 2.6.6
@@ -1450,119 +1450,101 @@ NAME                DESCRIPTION         STARS               OFFICIAL            
 dudebing99/u18      Ubuntu 18 Dev       0 
 ```
 
-## CentOS 安装配置 vsftpd
+## CentOS 安装 vsftpd
 
-### 授权用户访问模式
+> CentOS 7.6/vsftpd 3.0.2
+
+1. 按照 vsftpd
 
 ```bash
-0. 运行环境：Cent OS 6.8/vsftpd 2.2.2
-
-1. 安装配置vsftpd
 yum install vsftpd ftp -y
-chkconfig vsftpd on
+```
 
 2. 添加用户
-> useradd -d /home/ftp -g ftp -s /sbin/nologin XXXftp -p XXX123!
-> passwd XXXftp
 
-3. 修改配置 /etc/vsftpd/vsftpd.conf
+```bash
+useradd -d /home/ftp -g ftp -s /sbin/nologin kevin -p 123456
+passwd kevin
+```
+
+3. 配置 vsftpd
+
+```bash
+[root@wwhs ~]# cat /etc/vsftpd/vsftpd.conf 
 anonymous_enable=NO
+anon_root=/var/ftp/pub
 local_enable=YES
+local_root=/var/ftp/pub
 write_enable=YES
 local_umask=022
 dirmessage_enable=YES
 xferlog_enable=YES
-connect_from_port_20=YES
 xferlog_std_format=YES
+xferlog_file=/var/log/vsftpd.log
 ftpd_banner=Welcome to FTP service.
 listen=YES
 
 pam_service_name=vsftpd
 userlist_enable=YES
 userlist_deny=NO
+userlist_file=/etc/vsftpd/user_list
 tcp_wrappers=YES
 download_enable=YES
+
+connect_from_port_20=YES
+
+pasv_enable=YES
+pasv_promiscuous=YES
+pasv_min_port=10000
+pasv_max_port=20000
+
 # 限速 500KByte
 local_max_rate=500000
+```
 
-4. 修改配置文件 /etc/vsftpd/user_list
+4. 配置 user_list
+
+```bash
+[root@wwhs ~]# cat /etc/vsftpd/user_list 
 # vsftpd userlist
 # If userlist_deny=NO, only allow users in this file
 # If userlist_deny=YES (default), never allow users in this file, and
 # do not even prompt for a password.
 # Note that the default vsftpd pam config also checks /etc/vsftpd/ftpusers
 # for users that are denied.
-#root
-#bin
-#daemon
-#adm
-#lp
-#sync
-#shutdown
-#halt
-#mail
-#news
-#uucp
-#operator
-#games
-#nobody
-XXXftp
-
-5. 防火墙开放 21 端口
-6. 启动服务 service vsftpd start
-7. 验证
-> ftp ftp.xxx.cn
-Connected to ftp.xxx.cn (xxx.xxx.xxx.xxx).
-220 (vsFTPd 2.2.2)
-Name (ftp.xxx.cn:kevin): XXXftp
-331 Please specify the password.
-Password:
-230 Login successful.
-Remote system type is UNIX.
-Using binary mode to transfer files.
+#
+kevin
 ```
-### 匿名用户访问模式
+
+5. 配置 pam
+
 ```bash
-0. 运行环境：Cent OS 6.8/vsftpd 2.2.2
+[root@wwhs ~]# cat /etc/pam.d/vsftpd 
+#%PAM-1.0
+session    optional     pam_keyinit.so    force revoke
+auth       required     pam_listfile.so item=user sense=deny file=/etc/vsftpd/ftpusers onerr=succeed
+#auth       required    pam_shells.so
+auth       include      password-auth
+account    include      password-auth
+session    required     pam_loginuid.so
+session    include      password-auth
+```
 
-1. 安装配置vsftpd
-yum install vsftpd ftp -y
-chkconfig vsftpd on
+6. 防火墙开放 21、20、10000-20000 端口
 
-2. 修改配置文件
-anonymous_enable=YES
-local_enable=YES
-local_umask=022
-write_enable=YES
-dirmessage_enable=YES
-xferlog_enable=YES
-chown_uploads=NO
-xferlog_std_format=YES
-chroot_local_user=NO
-listen=YES
-
-userlist_enable=YES
-anon_umask=022
-anon_upload_enable=YES
-anon_mkdir_write_enable=YES
-anon_other_write_enable=YES
-
-pam_service_name=vsftpd
-
-connect_from_port_20=YES
-tcp_wrappers=YES
-
-pasv_enable=YES
-pasv_min_port=30000
-pasv_max_port=31000
-
-3. 开启防火墙 /etc/sysconfig/iptables
+```bash
 -A INPUT -p tcp -m multiport --dport 20,21  -m state --state NEW -j ACCEPT
 -A INPUT -p tcp -m state --state NEW -m tcp --dport 21 -j ACCEPT
 -A INPUT -p tcp --dport 30000:31000 -j ACCEPT
 ```
 
-## CentOS 安装配置 Apache Tomcat 9，支持 http2
+7. 启动服务
+
+```bash
+service vsftpd start
+```
+
+## CentOS 安装 Apache Tomcat 9，支持 http2
 
 ```bash
 #!/bin/sh
@@ -1909,7 +1891,7 @@ echo "ATTENTION: RUN 'source /etc/profile'"
 echo ""
 ```
 
-## CentOS 配置 VNC
+## CentOS 安装 VNC
 
 1. 安装软件包
 
@@ -2074,7 +2056,7 @@ export PATH=$PATH:$ICE_HOME/bin
 	make install
 ```
 
-## CentOS 配置 MySQL
+## CentOS 安装 MySQL
 
 > 主要包括**配置防火墙**、**修改初始密码**、**允许远程访问**三部分
 

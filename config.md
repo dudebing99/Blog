@@ -3484,6 +3484,97 @@ tar -xvzf vendor.tar.gz
 make build
 ```
 
+## Ubuntu 安装 shadowsocks-libev
+
+> Ubuntu 18.04
+
+1. 安装 shadowsocks-libev
+
+```bash
+apt install shadowsocks-libev -y
+
+# 内核版本 4.9 才支持开启 bbr（通过 uname -a 查看内核版本）
+echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+sysctl -p
+```
+
+2. 添加配置文件
+
+```bash
+# cat /opt/config/manager.json
+{
+  "port_password": {
+    "443": "12345"
+  },
+  "fast_open":true,
+  "reuse_port":true,
+  "no_delay":true,
+  "timeout": 300,
+  "mode":"tcp_and_udp",
+  "method": "aes-256-gcm"
+}
+```
+
+3. 启动服务
+
+```bash
+ss-manager -c /opt/config/manager.json
+```
+
+4. 安装 simple-obfs
+
+> [simple-obfs](https://github.com/shadowsocks/simple-obfs) 是一个简单的混淆插件, 可以伪装成 `http` 流量
+
+```bash
+cd /opt
+apt-get install --no-install-recommends build-essential autoconf libtool libssl-dev libpcre3-dev libev-dev asciidoc xmlto automake -y
+git clone https://github.com/shadowsocks/simple-obfs.git
+cd simple-obfs
+git submodule update --init --recursive
+./autogen.sh
+./configure && make
+sudo make install
+```
+
+5. 启用混淆
+
+```bash
+# cat /opt/config/manager.json
+{
+  "port_password": {
+    "443" : "12345"
+  },
+  "fast_open":true,
+  "reuse_port":true,
+  "no_delay":true,
+  "timeout": 300,
+  "mode":"tcp_and_udp",
+  "method": "aes-256-gcm",
+  "plugin":"obfs-server",
+  "plugin_opts":"obfs=http;failover=apps.bdimg.com"
+}
+```
+
+6. 重启服务
+
+```bash
+systemctl restart shadowsocks-libev
+ss-manager -c /opt/config/manager.json
+```
+
+7. 客户端配置
+
+> 安卓客户端：https://github.com/shadowsocks/simple-obfs-android/releases
+
+下载 windows 客户端插件：https://github.com/shadowsocks/simple-obfs/releases，放在 ss 目录，如下
+
+![](pic/config/simple_obfs.png)
+
+ss 配置如下
+
+![](pic/config/ss.png)
+
 ## Windows 安装 remix-ide
 
 1. 安装 npm

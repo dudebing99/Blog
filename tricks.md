@@ -1569,15 +1569,14 @@ events {
 
 - `multi_accept` 设置 nginx 收到一个新连接通知后接受尽可能多的连接
 
-  ```bash
-  Syntax:	multi_accept on | off;
-  Default:	
-  multi_accept off;
-  Context:	events
-  ```
-
+```bash
+Syntax:	multi_accept on | off;
+Default:	
+multi_accept off;
+Context:	events
+  
   If `multi_accept` is disabled, a worker process will accept one new connection at a time. Otherwise, a worker process will accept all new connections at a time.
-
+  
 - `use` 设置用于复用客户端线程的轮询方法。如果你使用 `Linux 2.6+`，你应该使用 `epoll`。如果你使用 `BSD`，你应该使用 `kqueue`
 
 > 如果你不知道 nginx 该使用哪种轮询方法的话，不配置该选项即可，它会选择一个最适合你操作系统的。
@@ -1606,7 +1605,7 @@ events {
 >
 > There is a hardwired constant, TCP_TIMEWAIT_LEN (defined to 60s), which is used in a number of places.  There is no way to change it without recompilation.   
 
-```bash
+​```bash
 ######################## cat /proc/sys/net/ipv4/tcp_syncookies
 # 默认值：1
 # 作用：是否打开 SYN Cookie 功能，该功能可以防止部分 SYN 攻击
@@ -1671,6 +1670,16 @@ net.ipv4.tcp_max_syn_backlog = 819200
 net.core.somaxconn = 65536
 ```
 
+## NGINX 配置文件错误检查
+
+> 使用 `-t` 检测配置文件无误，然后重启服务即可 `nginx -s reload`
+
+```bash
+[kevin@iZwz9cynwitmm46uagetmvZ opt]$ sudo nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
 ## Bash 共享屏幕/录制屏幕
 
 ### 共享终端
@@ -1700,15 +1709,5 @@ $ script -t 2> timing.log -a output.session
 
 ```bash
 $ scriptreplay timing.log output.session
-```
-
-## nginx 配置文件错误检查
-
-> 使用 `-t` 检测配置文件无误，然后重启服务即可 `nginx -s reload`
-
-```bash
-[kevin@iZwz9cynwitmm46uagetmvZ opt]$ sudo nginx -t
-nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 

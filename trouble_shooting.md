@@ -295,6 +295,50 @@ mysql_upgrade -u root -p --force
 systemctl restart mysqld
 ```
 
+## [MySQL] ERROR! The server quit without updating PID file (/application/mysql-5.7.20/data/localhost.localdomain.pid).
+**系统环境**
+
+CentOS 6.1/MySQL 5.7.20
+
+**问题描述**
+
+启动服务报上述错误
+
+**问题原因**
+
+```bash
+[root@localhost modules]# cat /etc/my.cnf
+[mysqld]
+port=3306
+datadir=/application/mysql-5.7.20/data
+socket=/application/mysql-5.7.20/mysql/tmp/mysql.sock
+log_error=/var/mysql/log/error.log
+basedir=/application/mysql-5.7.20
+```
+
+根据配置文件指定的日志文件，查看日志信息如下
+
+> 实际原因可能是其他，思路都是先查看此日志文件定位错误原因
+
+```bash
+2020-03-06T17:27:51.108248Z 0 [Note] IPv6 is available.
+2020-03-06T17:27:51.108258Z 0 [Note]   - '::' resolves to '::';
+2020-03-06T17:27:51.108269Z 0 [Note] Server socket created on IP: '::'.
+2020-03-06T17:27:51.108296Z 0 [ERROR] Could not create unix socket lock file /application/mysql-5.7.20/mysql/tmp/mysql.sock.lock.
+2020-03-06T17:27:51.108301Z 0 [ERROR] Unable to setup unix socket lock file.
+2020-03-06T17:27:51.108306Z 0 [ERROR] Aborting
+```
+
+关键信息，无法创建锁文件，由于使用用户 mysql 运行 MySQL 服务，而目录 `/application/mysql-5.7.20/mysql/tmp/` 使用 root 创建，所以 mysql 无权限写入锁文件
+
+**解决方案**
+
+由于目录权限问题，加上权限即可
+
+```bash
+[root@localhost data]# chown -R mysql:mysql /application/mysql-5.7.20/
+```
+
 ## [SecureFX] 中文文件名乱码
 
 **系统环境**

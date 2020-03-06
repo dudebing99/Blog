@@ -57,6 +57,8 @@
 - [分布式一致性协议 paxos 与 raft](https://www.cnblogs.com/zhang-qc/p/8688258.html)
 -  [Filecoin 白皮书分析](https://www.jianshu.com/p/745d5d9be2d3 ) 
 - [解读 Filecoin 抵押机制]( https://www.8btc.com/article/422466 )
+- [EOS 可用节点列表获取](https://eosnodes.privex.io/?config=1
+  )
 
 ## 缩略词
 

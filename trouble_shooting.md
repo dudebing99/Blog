@@ -339,6 +339,36 @@ basedir=/application/mysql-5.7.20
 [root@localhost data]# chown -R mysql:mysql /application/mysql-5.7.20/
 ```
 
+## [MySQL] ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock'
+
+**系统环境**
+
+CentOS 6.1/MySQL 5.7.20
+
+**问题描述**
+
+本机使用命令 `mysql -uroot -p` 连接服务端，报如上错误
+
+**问题原因**
+
+默认情况下，MySQL 客户端会认为连接本机，所以会尝试以 socket 文件方式进行连接这时根据配置文件 `/etc/my.cnf` 去查找 socket 文件路径，由于未配置导致错误
+
+**解决方案**
+
+1. 指定 socket 文件路径，如下所示
+
+```bash
+[client]
+default-character-set=utf8
+socket=/application/mysql-5.7.20/mysql/tmp/mysql.sock
+```
+
+2. 不使用 socket 文件通信，使用网络通信
+
+```bash
+[root@localhost ~]# mysql -h 127.0.0.1 -u root -p
+```
+
 ## [SecureFX] 中文文件名乱码
 
 **系统环境**

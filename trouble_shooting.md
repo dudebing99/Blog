@@ -1888,6 +1888,33 @@ info  2020-03-05T09:01:01.430 nodeos    main.cpp:108                  main      
 info  2020-03-05T09:01:01.431 nodeos    controller.cpp:541            startup              ] Starting initialization from snapshot, this may take a significant amount of time
 ````
 
+## [eos] db storage not configured to have enough storage for the provided snapshot, please increase and retry snapshot
+
+**系统环境**
+
+Ubuntu 18.04/nodeos 2.0.3
+
+**问题描述**
+
+使用快照进行同步时出错，如下所示
+
+```bash
+info 2019-07-17T10:01:27.517 nodeos controller.cpp:2255 startup ] Starting initialization from snapshot, this may take a significant amount of time
+error 2019-07-17T10:01:34.968 nodeos controller.cpp:2261 startup ] db storage not configured to have enough storage for the provided snapshot, please increase and retry snapshot
+error 2019-07-17T10:01:36.039 nodeos main.cpp:117 main ] bad alloc
+```
+
+**解决方案**
+
+内存分配失败，根据物理内存增加或调整如下配置项，以 64G 为例
+
+> 配置文件默认位置：`~/.local/share/eosio/nodeos/config/config.ini`
+
+```bash
+chain-state-db-size-mb = 65536
+reversible-blocks-db-size-mb = 65536
+```
+
 ## [bash] 运行脚本报错 terminated
 
 **系统环境**

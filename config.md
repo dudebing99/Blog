@@ -2054,7 +2054,7 @@ export PATH=$PATH:$ICE_HOME/bin
 	make install
 ```
 
-## CentOS 安装 MySQL
+## CentOS 安装 MySQL 5.7
 
 > 主要包括**配置防火墙**、**修改初始密码**、**允许远程访问**三部分
 
@@ -2100,8 +2100,17 @@ echo "done"
 
 >  低版本 MySQL， authentication_string 字段为 password
 
+从错误日志文件查看原始密码
+
 ```bash
-mysql -uroot -p123456（初始密码为空）
+[root@iZwz929qlep1i7nh1ogn0iZ ~]# cat /var/log/mysqld.log |grep password
+2019-12-06T07:20:48.142601Z 1 [Note] A temporary password is generated for root@localhost: 89bwv3O/HGo5
+```
+
+修改密码
+
+```bash
+mysql -h 127.0.0.1 -u root -p'89bwv3O/HGo5';
 > use mysql;
 > update user set plugin='mysql_native_password' where user='root';
 > update user set authentication_string=password('123456') where user='root';

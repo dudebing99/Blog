@@ -292,9 +292,6 @@ MySQL 由 5.6 升级到 5.7 之后，执行 SQL 报错，信息如上。
 
 ```bash
 mysql_upgrade -u root -p --force
-```
-
-```bash
 systemctl restart mysqld
 ```
 

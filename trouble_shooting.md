@@ -1851,6 +1851,43 @@ std::exception::what: unable to find plugin: eosio::wallet_api_plugin
 
 新版本 `nodeos` 已经将钱包插件移除，因此将该配置项从 `config.ini` 移除即可
 
+## [eos] snapshot_exception: Snapshot exception Binary snapshot has unexpected magic number!
+
+**系统环境**
+
+Ubuntu 18.04/nodeos 2.0.3
+
+**问题描述**
+
+使用快照进行同步时出错，信息如上
+
+**解决方式**
+
+1. 删除原有数据目录下所有文件，默认位置 `~/.local/share/eosio/nodeos/data`
+
+```bash
+root@ubuntu:~# rm -rf ~/.local/share/eosio/nodeos/data/blocks/ ~/.local/share/eosio/nodeos/data/state/
+```
+
+2. 将下载好的快照文件拷贝到快照目录，默认位置 `~/.local/share/eosio/nodeos/data/snapshots/`
+
+```bash
+root@ubuntu:~# ls ~/.local/share/eosio/nodeos/data/snapshots/
+snapshot-95585964.bin
+```
+
+3. 利用快照同步
+
+> 快照同步时需要等待一段时间，依机器配置而定
+
+````bash
+root@ubuntu:~# nodeos --delete-all-blocks --snapshot ~/.local/share/eosio/nodeos/data/snapshots/snapshot-95585964.bin 
+info  2020-03-05T09:01:01.430 nodeos    main.cpp:106                  main                 ] nodeos version v2.0.3 v2.0.3-94354d2541e077349a280a3c92dff44df43e8dc6
+info  2020-03-05T09:01:01.430 nodeos    main.cpp:107                  main                 ] nodeos using configuration file /root/.local/share/eosio/nodeos/config/config.ini
+info  2020-03-05T09:01:01.430 nodeos    main.cpp:108                  main                 ] nodeos data directory is /root/.local/share/eosio/nodeos/data
+info  2020-03-05T09:01:01.431 nodeos    controller.cpp:541            startup              ] Starting initialization from snapshot, this may take a significant amount of time
+````
+
 ## [bash] 运行脚本报错 terminated
 
 **系统环境**

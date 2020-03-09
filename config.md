@@ -2740,7 +2740,7 @@ make install
 1. 利用 htpasswd 生成密码文件
 
 ```basic
-htpasswd -cb push4.passwd.20180531 push4 lucky2018
+htpasswd -cb my.passwd myusername mypassword
 ```
 
 2. 配置 Nginx
@@ -2748,12 +2748,12 @@ htpasswd -cb push4.passwd.20180531 push4 lucky2018
 ```bash
 server {
         listen       80;
-        server_name  push4.vnay.vn;
+        server_name  mydomain.com;
         auth_basic "Restricted";
         auth_basic_user_file /usr/local/nginx/conf/user.conf;
-        root /opt/push_server;
+        root /opt/myserver;
         index index.html;
-        location /pushserver
+        location /server
         {
            proxy_set_header X-Real-IP $remote_addr;
            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

@@ -790,6 +790,23 @@ git push origin <remote branch>
 
 4. 在 `github` 上面基于 `<remote branch>` 与 `upstream/master` 提交 `PR`
 
+## YUM 小技巧
+
+### 查询
+
+```bash
+[root@localhost ~]# yum list installed | grep mysql
+mysql.x86_64            5.1.73-8.el6_8 @base                                    
+mysql-devel.x86_64      5.1.73-8.el6_8 @base                                    
+mysql-libs.x86_64       5.1.73-8.el6_8 @anaconda-CentOS-201806291108.x86_64/6.10
+```
+
+### 删除
+
+```bash
+[root@localhost ~]# yum -y remove mysql57-community-release.noarch
+```
+
 ## Docker 小技巧
 
 ### 镜像

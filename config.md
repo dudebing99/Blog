@@ -2735,7 +2735,7 @@ make
 make install
 ```
 
-## CentOS 配置 Nginx 用户认证
+## CentOS 配置 NGINX 用户认证
 
 1. 利用 htpasswd 生成密码文件
 

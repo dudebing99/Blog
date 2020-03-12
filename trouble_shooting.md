@@ -2217,3 +2217,24 @@ Python 默认的是 ASCII 编码方式，如果出现中文会出现问题，所
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 ```
+
+## [eth] 交易被回滚 Dropped & Replaced
+
+**系统环境**
+
+略
+
+**问题描述**
+
+从以太坊区块浏览器查看，交易 `0xb961e974e12b5b3b44a71caf6ee2bca0bf0335c70062d0680969655774d0d33a` 的 nonce 值 9312，被交易 `0xa895b47158122f05066173bb615383711d49795ac59f21efd4dc9e2c6a46d7ce` 替代，即，前者对应的交易被回滚并失效，该 nonce 值被后者对应的交易使用。
+
+![](pic/troubleshooting/tx_dropped_replaced.png)
+
+进一步，确认交易 `0xa895b47158122f05066173bb615383711d49795ac59f21efd4dc9e2c6a46d7ce` 使用的 nonce 值也为 9312
+
+![](pic/troubleshooting/tx_0xa895b47158122f05066173bb615383711d49795ac59f21efd4dc9e2c6a46d7ce.png)
+
+**解决方式**
+
+重新创建交易即可
+

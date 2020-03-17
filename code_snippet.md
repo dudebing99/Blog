@@ -4668,6 +4668,41 @@ if __name__ == "__main__":
     ws.run_forever()
 ```
 
+## [Python] doc 转换为 docx
+
+> 通过 pip 安装依赖：`pip install pywin32`
+
+```python
+import os
+from win32com import client
+
+def doc_to_docx(path):
+    if os.path.splitext(path)[1] == ".doc":
+        word = client.Dispatch('Word.Application')
+        doc = word.Documents.Open(path)
+        doc.SaveAs(os.path.splitext(path)[0]+".docx", 16)
+        doc.Close()
+        word.Quit()
+
+def find_file(path, ext, file_list=[]):
+    dir = os.listdir(path)
+    for i in dir:
+        i = os.path.join(path, i)
+        if os.path.isdir(i):
+            find_file(i, ext, file_list)
+        else:
+            if ext == os.path.splitext(i)[1]:
+                file_list.append(i)
+    return file_list
+
+
+dir_path = "e:/tmp"
+ext = ".doc"
+file_list = find_file(dir_path, ext)
+for file in file_list:
+    doc_to_docx(file)
+```
+
 ## [Lua] 求最大值
 
 ```lua

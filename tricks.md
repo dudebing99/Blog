@@ -1263,6 +1263,15 @@ select * from tbl where id between 3 and 1;
 
 所以，在处理起始终止范围查询业务逻辑时，SQL 中使用 `between ... and ...` 一定需要处理好上下限。即，前端、后端都应该确保上下限 `a ≤ b`。
 
+### IFNULL
+
+IFNULL() 函数用于判断第一个表达式是否为 NULL，如果为 NULL 则返回第二个参数的值，如果不为 NULL 则返回第一个参数的值。
+
+```sql
+select IFNULL(name, "Hello");
+select IFNULL(score, 0);
+```
+
 ### 条件更新
 
 ```sql

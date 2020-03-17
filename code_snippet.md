@@ -4670,6 +4670,8 @@ if __name__ == "__main__":
 
 ## [Python] doc 转换为 docx
 
+- windows
+
 > 通过 pip 安装依赖：`pip install pywin32`
 
 ```python
@@ -4701,6 +4703,36 @@ ext = ".doc"
 file_list = find_file(dir_path, ext)
 for file in file_list:
     doc_to_docx(file)
+```
+
+- linux(centos)
+
+> 通过 yum 安装依赖：` yum install libreoffice -y`
+
+```python
+import subprocess
+import os
+
+def find_file(path, ext, file_list=[]):
+    dir = os.listdir(path)
+    for i in dir:
+        i = os.path.join(path, i)
+        if os.path.isdir(i):
+            find_file(i, ext, file_list)
+        else:
+            if ext == os.path.splitext(i)[1]:
+                file_list.append(i)
+    return file_list
+
+
+dir_path = "/root/tmp"
+ext = ".doc"
+file_list = find_file(dir_path, ext)
+
+for file in file_list:
+        subprocess.check_output(["soffice", "--headless",
+                "--invisible", "--convert-to",
+                "docx", file, "--outdir", "/root/tmp"])
 ```
 
 ## [Lua] 求最大值

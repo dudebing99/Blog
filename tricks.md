@@ -1322,6 +1322,14 @@ mysql -uroot -p'123456' -e "create database mytest2 CHARSET=UTF8;"
 mysql -uroot -p'123456' mytest2 < mysql.sql 
 ```
 
+## Redis 小技巧
+
+### 批量删除 key
+
+```bash
+[root@iZwz929qlep1i7nh1ogn0iZ ~]# redis-cli -h 127.0.0.1 -p 16379 -a 'password' -n 11 KEYS "GAME_SURPLUS_LOCK_NUMBER*" |xargs redis-cli -h 127.0.0.1 -p 16379 -a 'password' -n 11 DEL
+```
+
 ## NGINX 基础配置
 
 ### 配置静态资源

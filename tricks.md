@@ -187,6 +187,29 @@ done.
 - nohup
 - systemd/supervisor
 
+## 查看系统信息
+
+### CPU
+
+```bash
+# 总核数 = 物理 CPU 个数 X 每颗物理 CPU 的核数 
+# 总逻辑 CPU 数 = 物理 CPU 个数 X 每颗物理 CPU 的核数 X 超线程数
+
+# 查看物理 CPU 个数
+cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l
+# 查看每个物理 CPU 中core 的个数（核数）
+cat /proc/cpuinfo| grep "cpu cores"| uniq
+# 查看逻辑 CPU 的个数
+cat /proc/cpuinfo| grep "processor"| wc -l
+# 查看 CPU 信息（型号）
+cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
+
+# 查看 CPU 是否启用超线程。如果 cpu cores == siblings，表示不支持；否则支持
+root@ubuntu:~# cat /proc/cpuinfo | grep -e "cpu cores"  -e "siblings" | sort | uniq
+cpu cores       : 12
+siblings        : 24
+```
+
 ## TCP 协议
 
 ### TCP 连接建立

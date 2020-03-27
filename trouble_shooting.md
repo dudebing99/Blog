@@ -2238,3 +2238,53 @@ Python 默认的是 ASCII 编码方式，如果出现中文会出现问题，所
 
 重新创建交易即可
 
+## [net/http] panic: http: invalid pattern
+
+**系统环境**
+
+Ubuntu 18.04/golang 1.13.4
+
+**问题描述**
+
+net/http 服务器启动时报错，如上所示
+
+**问题原因**
+
+路由模式匹配出错，无效的路由。对应源码如下
+
+```go
+func (mux *ServeMux) Handle(pattern string, handler Handler) {
+    mux.mu.Lock()
+    defer mux.mu.Unlock()
+ 
+    if pattern == "" {
+        panic("http: invalid pattern")
+    }
+    if handler == nil {
+        panic("http: nil handler")
+    }
+    if _, exist := mux.m[pattern]; exist {
+        panic("http: multiple registrations for " + pattern)
+    }
+ 
+    if mux.m == nil {
+        mux.m = make(map[string]muxEntry)
+    }
+    e := muxEntry{h: handler, pattern: pattern}
+    mux.m[pattern] = e
+    if pattern[len(pattern)-1] == '/' {
+        mux.es = appendSorted(mux.es, e)
+    }
+ 
+    if pattern[0] != '/' {
+        mux.hosts = true
+    }
+}
+```
+
+**解决方式**
+
+检查路由模式字符串是否为空，设置不为空即可
+
+
+

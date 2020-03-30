@@ -2286,5 +2286,34 @@ func (mux *ServeMux) Handle(pattern string, handler Handler) {
 
 检查路由模式字符串是否为空，设置不为空即可
 
+## [lets encrypt] This site is not secure
+
+**系统环境**
+
+IE 浏览器
+
+**问题描述**
+
+访问网站时，浏览器提示网站不安全，证书校验错误，导致无法访问，查看详情，如下所示
+
+```bash
+提示错误：该网站的安全证书中的主机名与你正在尝试访问的网站不同。
+错误代码: DLG_FLAGS_SEC_CERT_CN_INVALID
+```
+
+**问题原因**
+
+证书主机名校验错误。实际上，由于证书只配置了不加前缀的域名 `hello.com`，没有同时配置 `www.hello.com`，导致访问 `https://www.hello.com` 出错
+
+**解决方式**
+
+制作证书时，同时支持多个域名（主机名），如下所示
+
+```bash
+/opt/cert/certbot-auto --no-self-upgrade certonly --webroot -w /usr/share/nginx/html --agree-tos --email c.r2009@163.com -d hello.com -d www.hello.com
+```
+
+
+
 
 

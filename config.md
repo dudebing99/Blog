@@ -1379,6 +1379,188 @@ tmpfs          tmpfs     1.6G     0  1.6G   0% /run/user/0
 /dev/vdb       ext4     1008G   40G  918G   5% /data
 ```
 
+## Prometheus+Grafana 监控告警
+
+> 系统：CentOS 7.6
+
+### 安装 prometheus
+
+1. 添加用户和组
+
+```bash
+groupadd prometheus
+mkdir -p /opt/prometheus
+useradd -g prometheus prometheus -d /opt/prometheus
+```
+
+2. 下载并解压 prometheus
+
+```bash
+cd ~
+wget https://github.com/prometheus/prometheus/releases/download/v2.5.0/prometheus-2.5.0.linux-amd64.tar.gz
+tar -xvf prometheus-2.5.0.linux-amd64.tar.gz
+cd prometheus-2.5.0.linux-amd64/
+mv * /opt/prometheus/
+```
+
+3. 创建运行目录
+
+```bash
+cd /opt/prometheus/
+mkdir {data,cfg,logs,bin} -p
+mv prometheus promtool bin/
+mv prometheus.yml cfg/
+```
+
+4. 目录授权
+
+```bash
+chown -R prometheus.prometheus /opt/prometheus
+```
+
+5. 添加环境变量
+
+```bash
+vim /etc/profile
+export PATH=/opt/prometheus/bin:$PATH:$HOME/bin
+source /etc/profile
+```
+
+6. 创建启动服务
+
+```bash
+vim /etc/systemd/system/prometheus.service
+
+[Unit]
+Description=Prometheus
+Documentation=https://prometheus.io/
+After=network.target
+
+[Service]
+Type=simple
+User=prometheus
+ExecStart=/opt/prometheus/bin/prometheus --config.file=/opt/prometheus/cfg/prometheus.yml --storage.tsdb.path=/opt/prometheus/data
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+7. 启动服务
+
+```bash
+systemctl daemon-reload
+systemctl enable prometheus.service
+systemctl start prometheus.service
+```
+
+8. 验证服务
+
+通过 `http://<host>:9090` 可以访问 prometheus，并查看信息
+
+![](pic/config/prometheus.png)
+
+### 安装 grafana
+
+1. 下载并安装
+
+```bash
+wget https://dl.grafana.com/oss/release/grafana-5.4.0-1.x86_64.rpm
+yum localinstall grafana-5.4.0-1.x86_64.rpm
+```
+
+2. 启动服务
+
+```bash
+systemctl daemon-reload
+systemctl enable grafana-server.service
+systemctl start grafana-server.service
+```
+
+3. 验证服务
+
+通过 `http://<host>:3000` 可以访问 grafana，默认账户密码 `admin/admin`，并查看信息
+
+![](pic/config/grafana_login.png)
+
+4. 添加 prometheus 数据源
+
+![](pic/config/grafana_add_data_source.png)
+
+选择 prometheus 数据源
+
+![](pic/config/grafana_add_data_source2.png)
+
+填写 URL，点击测试并保存
+
+![](pic/config/grafana_add_data_source3.png)
+
+![](pic/config/grafana_add_data_source4.png)
+
+### 配置监控面板
+
+添加监控面板有两种方式，其一为新建，其二使用之前面板的配置文件，导入即可。此处，使用导入原配置文件。
+
+![](pic/config/grafana_new_dashboard.png)
+
+可以选择上传本地配置文件或者粘贴配置文件内容
+
+![](pic/config/grafana_new_dashboard_import.png)
+
+选择之前配置好的 prometheus 数据源
+
+![](pic/config/grafana_new_dashboard_import2.png)
+
+将数据可视化效果如下所示
+
+![](pic/config/grafana_dashboard.png)
+
+### 配置告警
+
+![](pic/config/grafana_alerting.png)
+
+点击添加通道
+
+![](pic/config/grafana_alerting2.png)
+
+#### 配置钉钉告警通道
+
+添加钉钉告警通道，可以先测试一次
+
+![](pic/config/grafana_alerting3.png)
+
+测试结果如下所示
+
+![](pic/config/grafana_alerting4.png)
+
+#### 配置邮件告警通道
+
+在 grafana 配置文件 `/etc/grafana/grafana.ini` 配置邮件告警发送邮箱信息
+
+![](pic/config/grafana_alerting5.png)
+
+添加邮件告警，包含告警接收邮箱信息
+
+![](pic/config/grafana_alerting6.png)
+
+#### 查看告警通道列表
+
+![](pic/config/grafana_alerting7.png)
+
+#### 配置告警规则
+
+配置每 5 秒钟检测一次，如果 CPU 使用率超过 30% 就告警的规则
+
+![](pic/config/grafana_alerting_rule.png)
+
+如果检测到状态为健康，如下所示（默认，红色代表不健康）
+
+![](pic/config/grafana_alerting_state.png)
+
+绑定告警通道，可以同时绑定多个通道，触发告警之后多个通道通知
+
+![](pic/config/grafana_alerting_channel.png)
+
 ## DockerHub 上传镜像
 
 1. https://hub.docker.com/ 注册账户，并创建镜像仓库

@@ -245,6 +245,9 @@ sed -i 's/hello/world/g'
 ```bash
 # 将当前目录下所有 env.conf 文件中 debug 替换为 release
 find . -name env.conf | xargs sed -i 's/debug/release/g'
+
+# 将当前目录下所有满足条件的文件中 debug 替换为 release
+ls | xargs sed -i 's/debug/release/g'
 ```
 
 ## 求和、求平均值

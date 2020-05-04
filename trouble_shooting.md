@@ -2313,7 +2313,24 @@ IE 浏览器
 /opt/cert/certbot-auto --no-self-upgrade certonly --webroot -w /usr/share/nginx/html --agree-tos --email c.r2009@163.com -d hello.com -d www.hello.com
 ```
 
+## [https] block:mixed-content
 
+**系统环境**
+
+谷歌浏览器
+
+**问题描述**
+
+启用 https 网站，调用后台接口报错
+
+**问题原因**
+
+在全站启用 https 之后，遇到 http 的请求被浏览器 block 的情况，原因是浏览器不允许在 https 页面里嵌入 http 的请求，现在高版本的浏览器为了用户体验，都不会弹窗报错，只会在控制台上打印一条错误信息。
+
+**解决方式**
+
+1. 网站使用 http（不推荐）
+2. 在全站启用 https 前提下，后台接口也启用 https 即可。
 
 
 

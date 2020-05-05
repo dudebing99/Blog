@@ -841,6 +841,8 @@ docker images
 docker rmi <image-id>
 # 查找镜像
 docker search <TERM>
+# 拉取镜像
+docker pull centos:7.6.1810
 ```
 
 ### 标签

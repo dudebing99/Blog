@@ -1379,6 +1379,74 @@ tmpfs          tmpfs     1.6G     0  1.6G   0% /run/user/0
 /dev/vdb       ext4     1008G   40G  918G   5% /data
 ```
 
+## 阿里云添加 swap 交换分区
+
+阿里云 ECS 服务器的 swap 功能默认没有开启，因为 swap 功能会增加磁盘 IO 的占用率，降低磁盘寿命和性能，另一方面也可以借此让用户购买更大的内存。启用 swap 分区，一定程度上可以降低物理内存的使用压力，但如果云服务器上运行的应用确实需要更多的内存，还是需要购买物理内存。
+
+1. 创建分区文件
+
+```bash
+# 以创建 4G 为例，可自行调整
+[root@ ~]# dd if=/dev/zero of=/mnt/swap bs=4M count=1024
+1024+0 records in
+1024+0 records out
+4294967296 bytes (4.3 GB) copied, 37.8632 s, 113 MB/s
+```
+
+2. 设置交换分区文件
+
+```bash
+[root@ ~]# mkswap /mnt/swap
+```
+
+3. 修改内核参数 /proc/sys/vm/swappiness
+
+> 配置为空闲内存少于 60% 时才使用 swap 分区
+
+```bash
+[root@ ~]# cat /etc/sysctl.conf |grep vm.swap
+vm.swappiness = 60
+```
+
+4. 使内核参数修改生效
+
+```bash
+[root@ ~]# sysctl -p
+```
+
+5. 启用此交换分区的交换功能
+
+```bash
+[root@ ~]# swapon /mnt/swap
+swapon: /mnt/swap: insecure permissions 0644, 0600 suggested.
+[root@ ~]# chmod 0600 /mnt/swap
+```
+
+6. 设置开机时自动启用 swap 分区
+
+```bash
+[root@ ~]# echo "/mnt/swap swap swap defaults 0 0" >> /etc/fstab
+```
+
+7. 确认 swap 分区是否生效
+
+```bash
+[root@ ~]# cat /proc/swaps
+Filename                                Type            Size    Used    Priority
+/mnt/swap                               file            4194300 0       -2
+[root@wwhs-application ~]# 
+[root@ ~]# free -m
+              total        used        free      shared  buff/cache   available
+Mem:           1838        1308          80           0         449         368
+Swap:          4095           0        4095
+```
+
+8. 如果需要关闭 swap 分区，修改 /etc/fstab 文件，删除或注释相关配置，取消 swap 的自动挂载
+
+```bash
+[root@ ~]# swapoff /mnt/swap
+```
+
 ## Prometheus+Grafana 监控告警
 
 > 系统：CentOS 7.6

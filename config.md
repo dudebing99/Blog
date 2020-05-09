@@ -3814,6 +3814,29 @@ ss 配置如下
 
 ![](pic/config/ss.png)
 
+## Ubuntu 安装 nc
+
+1. 安装
+
+```bash
+apt-get -y install netcat-traditional
+```
+
+2. 配置。Ubuntu 上默认安装的是 netcat-openbsd，而不是经典的 netcat-traditional，因此，需要配置一下。
+
+```bash
+root@ubuntu:~# update-alternatives --config nc
+There are 2 choices for the alternative nc (providing /bin/nc).
+
+  Selection    Path                 Priority   Status
+------------------------------------------------------------
+* 0            /bin/nc.openbsd       50        auto mode
+  1            /bin/nc.openbsd       50        manual mode
+  2            /bin/nc.traditional   10        manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 2
+```
+
 ## Windows 安装 remix-ide
 
 1. 安装 npm

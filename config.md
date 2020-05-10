@@ -1399,12 +1399,12 @@ tmpfs          tmpfs     1.6G     0  1.6G   0% /run/user/0
 [root@ ~]# mkswap /mnt/swap
 ```
 
-3. 修改内核参数 /proc/sys/vm/swappiness
+3. 修改内核参数
 
 > 配置为空闲内存少于 60% 时才使用 swap 分区
 
 ```bash
-[root@ ~]# cat /etc/sysctl.conf |grep vm.swap
+[root@ ~]# vim /etc/sysctl.conf
 vm.swappiness = 60
 ```
 

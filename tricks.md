@@ -1789,6 +1789,47 @@ server {
 }
 ```
 
+### 代理 websocket
+
+> 服务端使用 https，则 websocket 使用 wss
+
+``` bash
+upstream websocket {
+    server 127.0.0.1:8001;
+}
+server {
+    listen 80;
+    server_name  www.test.com;
+    location /wss {
+       proxy_pass http://websocket;
+       proxy_http_version 1.1;
+       proxy_set_header Upgrade $http_upgrade;
+       proxy_set_header Connection "upgrade";
+    }
+}
+
+server {
+    listen 443;
+    server_name www.test.com;
+    # ssl related
+
+    location /wss {
+       proxy_pass http://websocket;
+       proxy_http_version 1.1;
+       proxy_set_header Upgrade $http_upgrade;
+       proxy_set_header Connection "upgrade";
+    }
+}
+```
+
+客户端使用 ws 或者 wss 访问即可
+
+```js
+let s1 = new WebSocket('ws://test.com/wss')
+// 或者
+let s2 = new WebSocket('wss://test.com/wss')
+```
+
 ## Bash 共享屏幕/录制屏幕
 
 ### 共享终端

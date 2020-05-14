@@ -1739,6 +1739,56 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
+## NGINX 实战
+
+### 同时代理前端和后台接口
+
+1. `/` 拦截所有请求，首先定位到前端页面，如果前端页面不存在，则跳转至 `@routerback` 路由
+2. `@routerback`  路由反向代理至后台服务接口
+
+> 后台服务监听 8080 端口
+
+```bash
+server {
+    listen       80 default_server;
+    listen       [::]:80 default_server;
+    server_name  _;
+    #root         /usr/share/nginx/html;
+
+    # Load configuration files for the default server block.
+    include /etc/nginx/default.d/*.conf;
+
+    location @routerback {
+        proxy_set_header    host $host;
+        proxy_set_header    X-forwarded-for $proxy_add_x_forwarded_for;
+        proxy_set_header    X-Real-IP $remote_addr;
+        proxy_pass          http://127.0.0.1:8080/$request_uri;
+    }
+
+    location /endpointWisely {
+        proxy_http_version  1.1;
+        proxy_set_header    Upgrade $http_upgrade;
+        proxy_set_header    Connection "Upgrade";
+        proxy_set_header    X-Real-IP $remote_addr;
+        proxy_pass          http://127.0.0.1:8080/endpointWisely;
+    }
+
+    location / {
+        root /opt/exchange_web;
+        index index.htm index.html;
+        try_files $uri $uri/ @routerback;
+    }
+
+    error_page 404 /404.html;
+        location = /40x.html {
+    }
+
+    error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+    }
+}
+```
+
 ## Bash 共享屏幕/录制屏幕
 
 ### 共享终端

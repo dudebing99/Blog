@@ -2084,3 +2084,38 @@ awaiting signal
 interrupt
 exiting
 ```
+## 阿里云 OSS 上传文件
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+    "github.com/aliyun/aliyun-oss-go-sdk/oss"
+)
+
+func main() {
+    // 创建OSSClient实例。
+  client, err := oss.New("your-endpoint(oss-cn-qingdao.aliyuncs.com)", "your-api-key", "your-api-secret")
+    if err != nil {
+        fmt.Println("Error:", err)
+        os.Exit(-1)
+    }
+
+    // 获取存储空间。
+    bucket, err := client.Bucket("your-bucket")
+    if err != nil {
+        fmt.Println("Error:", err)
+        os.Exit(-1)
+    }
+
+    // 上传本地文件。
+    err = bucket.PutObjectFromFile("hello/world/cor.jpeg", "/Users/kevin/Downloads/cor.jpeg")
+    if err != nil {
+        fmt.Println("Error:", err)
+        os.Exit(-1)
+    }
+}
+```
+

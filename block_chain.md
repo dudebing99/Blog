@@ -3072,6 +3072,21 @@ root@ubuntu:~/WaykiChain/test/node1# ./node1 -datadir=. decodetransaction 03015f
 ./geth --datadir="./pridata" --rpccorsdomain "*" --rpc console
 ```
 
+#### 客户端连接
+
+##### RPC
+
+```bash
+[root@~ ]# curl -H 'Content-Type:application/json'  -d '{"jsonrpc":"2.0","method":"eth_accounts","params":[],"id":67}' http://120.79.9.98:11002
+{"jsonrpc":"2.0","id":67,"result":["0x725fefb3ae1071279b13fba016cd2c81e6b9d54d","0xafd6fb7cc094058548ba267b3b8e795c306ee2ec","0x8f3a05195dfeaefd3556da4343bd1fe2efd8d904"]}
+```
+
+##### attach
+
+```bash
+[root@~ ]# ./geth attach http://120.22.11.33:11002
+```
+
 #### 查看系统变量
 
 - eth：包含一些跟操作区块链相关的方法

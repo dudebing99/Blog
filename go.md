@@ -306,6 +306,18 @@ func main() {
 	// 将当前时间以字符串形式输出
 	fmt.Println(time.Now().String())
 	fmt.Println(time.Now().Local())
+    
+    // UTC 时间、本地时间
+    now := time.Now()
+	year, mon, day := now.UTC().Date()
+	hour, min, sec := now.UTC().Clock()
+	zone, _ := now.UTC().Zone()
+    fmt.Printf("UTC: %d-%d-%d %02d:%02d:%02d %s\n", year, mon, day, hour, min, sec, zone)
+
+	year, mon, day = now.Date()
+	hour, min, sec = now.Clock()
+	zone, _ = now.Zone()
+    fmt.Printf("Local: %d-%d-%d %02d:%02d:%02d %s\n", year, mon, day, hour, min, sec, zone)
 
 	// 按照模板指定格式将时间以字符串输出
 	strTime := time.Now().Format("2006-01-02 15:04:05")
@@ -320,14 +332,16 @@ func main() {
 **输出**
 
 ```bash
-1525963539
-1525963539636700900
-2018 May 10 Thursday
-2018-05-10 22:45:39.6717029 +0800 CST m=+0.046002601
-2018-05-10 22:45:39.6717029 +0800 CST
-2018-05-10 22:45:39
-2018/05/10 22
-20180510_2245
+1589854668
+1589854668221668760
+2020 May 19 Tuesday
+2020-05-19 10:17:48.221818757 +0800 CST m=+0.000249605
+2020-05-19 10:17:48.221838231 +0800 CST
+UTC: 2020-5-19 02:17:48 UTC
+Local: 2020-5-19 10:17:48 CST
+2020-05-19 10:17:48
+2020/05/19 10
+20200519_1017
 ```
 
 ## array 数组

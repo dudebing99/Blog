@@ -4617,7 +4617,7 @@ from email.mime.text import MIMEText
 subject = "Test"
 content = "hello world"
 sender = "service@i-deer.com"
-password = '123456'
+password = "123456"
 receivers = ["c.r2009@163.com"]
 for receiver in receivers:
     message = MIMEText(content, "html", "utf-8")

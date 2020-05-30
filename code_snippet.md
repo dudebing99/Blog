@@ -4625,7 +4625,12 @@ for receiver in receivers:
     message["To"] = receiver
     message["Subject"] = subject
 
+    # enale SSL
     smtp = smtplib.SMTP_SSL('smtp.i-deer.com', 465)
+    # disable SSL
+    #smtp = smtplib.SMTP()
+    #smtp.connect('smtp.i-deer.com', 25)
+    
     smtp.login(sender, password)
     smtp.sendmail(sender, [receiver], message.as_string())
     smtp.close()

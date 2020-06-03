@@ -1861,3 +1861,14 @@ $ script -t 2> timing.log -a output.session
 $ scriptreplay timing.log output.session
 ```
 
+## java 反编译
+
+### CFR
+
+> 下载地址：http://www.benf.org/other/cfr/
+
+```bash
+wget https://www.benf.org/other/cfr/cfr-0.150.jar
+java -jar cfr-0.150.jar your-target.jar --outputdir .
+```
+

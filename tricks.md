@@ -1872,3 +1872,11 @@ wget https://www.benf.org/other/cfr/cfr-0.150.jar
 java -jar cfr-0.150.jar your-target.jar --outputdir .
 ```
 
+## brew 安装指定版本的库
+
+```bash
+brew uninstall boost
+brew install boost@1.57
+brew link boost@1.57 --force --overwrite
+```
+

@@ -429,6 +429,16 @@ static void _set_tcp_nodelay(int fd) {
 
 服务器作为反向代理，在超时之前未收到业务服务器的响应
 
+### HTTP 简单请求
+
+简单请求需满足如下两个条件，不满足者为复杂请求
+
+> 复杂请求需要处理跨域安全问题
+
+- get/post/head请求
+
+- content-type 为 text/plain、multipart/form-data、application/x-www-form-urlencoded
+
 ## 数据通信
 
 ### 单工、半双工、全双工

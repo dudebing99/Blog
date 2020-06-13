@@ -2,107 +2,114 @@
 <html>
 <head>
 <meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
-<title>common_sense</title><style type='text/css'>html {overflow-x: initial !important;}#write, body { height: auto; }
-#write, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write ol, #write p, #write ul { position: relative; }
-#write, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
-#write, pre { white-space: pre-wrap; }
-.CodeMirror, .md-fences, table { text-align: left; }
-.md-reset, a:active, a:hover { outline: 0px; }
-.md-reset, .md-toc-item a { text-decoration: none; }
-.MathJax_SVG, .md-reset { float: none; direction: ltr; }
-:root { --bg-color:#ffffff; --text-color:#333333; }
+<title>common_sense</title><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; }
 html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-body { margin: 0px; padding: 0px; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
 a.url { word-break: break-all; }
-.in-text-selection, ::selection { background: rgb(181, 214, 252); text-shadow: none; }
-#write { margin: 0px auto; word-break: normal; word-wrap: break-word; padding-bottom: 70px; overflow-x: visible; }
-.first-line-indent #write p .md-line { text-indent: 0px; }
-.first-line-indent #write li, .first-line-indent #write p, .first-line-indent #write p .md-line:first-child { text-indent: 2em; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
 .for-image #write { padding-left: 8px; padding-right: 8px; }
 body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
 @media screen and (max-width: 500px) {
   body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
   .CodeMirror-sizer { margin-left: 0px !important; }
   .CodeMirror-gutters { display: none !important; }
 }
-#write > blockquote:first-child, #write > div:first-child, #write > ol:first-child, #write > p:first-child, #write > pre:first-child, #write > table:first-child, #write > ul:first-child { margin-top: 30px; }
-#write li > table:first-child { margin-top: -20px; }
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
 img { max-width: 100%; vertical-align: middle; }
-button, input, select, textarea { color: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; }
+button, input, select, textarea { color: inherit; font: inherit; }
 input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
 *, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
 h1 { font-size: 2rem; }
 h2 { font-size: 1.8rem; }
 h3 { font-size: 1.6rem; }
 h4 { font-size: 1.4rem; }
 h5 { font-size: 1.2rem; }
 h6 { font-size: 1rem; }
-p { -webkit-margin-before: 1rem; -webkit-margin-after: 1rem; -webkit-margin-start: 0px; -webkit-margin-end: 0px; }
-.mathjax-block { margin-top: 0px; margin-bottom: 0px; -webkit-margin-before: 0px; -webkit-margin-after: 0px; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
 .hidden { display: none; }
 .md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
 a { cursor: pointer; }
-sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
 #write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
-#write > figure:first-child { margin-top: 16px; }
-figure { overflow-x: auto; margin: -8px 0px 0px -8px; max-width: calc(100% + 16px); padding: 8px; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
 tr { break-inside: avoid; break-after: auto; }
 thead { display: table-header-group; }
-table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; }
-.CodeMirror-line, .md-fences { break-inside: avoid; }
-table.md-table td { min-width: 80px; }
-.CodeMirror-gutters { border-right: 0px; background-color: inherit; margin-right: 4px; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
 .CodeMirror-placeholder { opacity: 0.3; }
 .CodeMirror pre { padding: 0px 4px; }
 .CodeMirror-lines { padding: 0px; }
 div.hr:focus { cursor: none; }
-.md-fences { font-size: 0.9rem; display: block; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
 .md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
-.md-fences .CodeMirror.CodeMirror-wrap { top: -1.6em; margin-bottom: -1.6em; }
-.md-fences.mock-cm { white-space: pre-wrap; }
-.show-fences-line-number .md-fences { padding-left: 0px; }
-.show-fences-line-number .md-fences.mock-cm { padding-left: 40px; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
 .footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
 .footnotes + .footnotes { margin-top: 0px; }
-.md-reset { margin: 0px; padding: 0px; border: 0px; vertical-align: top; background: 0px 0px; text-shadow: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; }
-.md-toc-inner, a img, img a { cursor: pointer; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
 li div { padding-top: 0px; }
 blockquote { margin: 1rem 0px; }
 li .mathjax-block, li p { margin: 0.5rem 0px; }
 li { margin: 0px; position: relative; }
 blockquote > :last-child { margin-bottom: 0px; }
-blockquote > :first-child { margin-top: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
 .footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
 @media print {
-  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; }
-  #write { margin-top: 0px; border-color: transparent !important; }
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
   .typora-export * { -webkit-print-color-adjust: exact; }
-  h1, h2, h3, h4, h5, h6 { break-after: avoid-page; orphans: 2; }
-  p { orphans: 4; }
   html.blink-to-pdf { font-size: 13px; }
-  .typora-export #write { padding-left: 1cm; padding-right: 1cm; padding-bottom: 0px; break-after: avoid; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid; }
   .typora-export #write::after { height: 0px; }
-  @page { margin: 20mm 0px; }
 }
-.footnote-line { white-space: pre-wrap; margin-top: 0.714em; font-size: 0.7em; }
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
 pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
-p > img:only-child { display: block; margin: auto; }
-.md-line > .md-image:only-child, p > .md-image:only-child { display: inline-block; width: 100%; text-align: center; }
-.mathjax-block:not(:empty)::after, .md-toc-content::after, .md-toc::after { display: none; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
 #write .MathJax_Display { margin: 0.8em 0px 0px; }
-.mathjax-block { white-space: pre; overflow: hidden; width: 100%; }
-p + .mathjax-block { margin-top: -1.143rem; }
-[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
 .md-task-list-item { position: relative; list-style-type: none; }
 .task-list-item.md-task-list-item { padding-left: 0px; }
-.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
 .math { font-size: 1rem; }
 .md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
-.MathJax_SVG, .mathjax-block .MathJax_SVG_Display { text-indent: 0px; max-width: none; max-height: none; min-height: 0px; }
 .md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
 .md-toc-item { display: block; color: rgb(65, 131, 196); }
-.md-toc-inner:hover { }
-.md-toc-inner { display: inline-block; }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
 .md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
 .md-toc-h2 .md-toc-inner { margin-left: 2em; }
 .md-toc-h3 .md-toc-inner { margin-left: 4em; }
@@ -119,30 +126,39 @@ a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; 
 .footnote-line a:not(.reversefootnote) { color: inherit; }
 .md-attr { display: none; }
 .md-fn-count::after { content: "."; }
-code, pre, tt { font-family: var(--monospace); }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
 .md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
-code { text-align: left; }
-a.md-print-anchor { border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
 .md-inline-math .MathJax_SVG .noError { display: none !important; }
-.mathjax-block .MathJax_SVG_Display { text-align: center; margin: 1em 0px; position: relative; min-width: 100%; width: auto; display: block !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
 .MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
-.MathJax_SVG .MJX-monospace { font-family: monospace; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
 .MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
-.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; min-width: 0px; border: 0px; padding: 0px; margin: 0px; }
-.MathJax_SVG * { transition: none; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none 0s ease 0s; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
 .os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
-.md-diagram-panel > svg, [lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
 [lang="mermaid"] .node text { font-size: 1rem; }
 table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+svg[id^="mermaidChart"] { line-height: 1em; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
 
 
-.CodeMirror, .CodeMirror-sizer { position: relative; }
+.CodeMirror { height: auto; }
 .CodeMirror.cm-s-inner { background: inherit; }
-.fences-no-line-wrapping .md-fences .CodeMirror { margin-top: -20px; }
-.CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; }
-.CodeMirror-lines { padding: 4px 0px; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
 .CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
-.CodeMirror-scroll, .cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
 .CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
 .cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
 .cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
@@ -156,7 +172,8 @@ table tr th { border-bottom: 0px; }
 .cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
 .cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
 .cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
-.cm-s-inner .cm-meta, .cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
 .cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
 .cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
 .cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
@@ -171,26 +188,29 @@ table tr th { border-bottom: 0px; }
 .cm-del { text-decoration: line-through; }
 .cm-em { font-style: italic; }
 .cm-link { text-decoration: underline; }
-.cm-error, .cm-invalidchar { color: red; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
 .cm-constant { color: rgb(38, 139, 210); }
 .cm-defined { color: rgb(181, 137, 0); }
 div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
 div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
-.CodeMirror { height: auto; overflow: hidden; }
-.CodeMirror-scroll { margin-bottom: -30px; padding-bottom: 30px; height: 100%; outline: 0px; position: relative; box-sizing: content-box; }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
 .CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; }
-.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow-x: hidden; overflow-y: scroll; }
-.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow-y: hidden; overflow-x: scroll; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: hidden; }
 .CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
 .CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
-.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
 .CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
 .CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: none !important; }
 .CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
 .CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
 .CodeMirror-lines { cursor: text; }
-.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; word-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
-.CodeMirror-wrap pre { word-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
 .CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
 .CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
 .CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
@@ -198,166 +218,587 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
 .CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
 .CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
 .CodeMirror-measure pre { position: static; }
-.CodeMirror div.CodeMirror-cursor { position: absolute; border-right: none; width: 0px; visibility: hidden; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
 .CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
-.CodeMirror-selected { background: rgb(217, 217, 217); }
-.CodeMirror-focused .CodeMirror-selected { background: rgb(215, 212, 240); }
 .cm-searching { background: rgba(255, 255, 0, 0.4); }
 @media print {
   .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
 }
-.CodeMirror-lint-markers { width: 16px; }
-.CodeMirror-lint-tooltip { background-color: infobackground; border: 1px solid rgb(0, 0, 0); border-radius: 4px; color: infotext; font-family: var(--monospace); overflow: hidden; padding: 2px 5px; position: fixed; white-space: pre-wrap; z-index: 10000; max-width: 600px; opacity: 0; transition: opacity 0.4s; font-size: 0.8em; }
-.CodeMirror-lint-mark-error, .CodeMirror-lint-mark-warning { background-position: left bottom; background-repeat: repeat-x; }
-.CodeMirror-lint-mark-error { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sJDw4cOCW1/KIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAHElEQVQI12NggIL/DAz/GdA5/xkY/qPKMDAwAADLZwf5rvm+LQAAAABJRU5ErkJggg=="); }
-.CodeMirror-lint-marker-error, .CodeMirror-lint-marker-warning { background-position: center center; background-repeat: no-repeat; cursor: pointer; display: inline-block; height: 16px; width: 16px; vertical-align: middle; position: relative; }
-.CodeMirror-lint-message-error, .CodeMirror-lint-message-warning { padding-left: 18px; background-position: left top; background-repeat: no-repeat; }
-.CodeMirror-lint-marker-error, .CodeMirror-lint-message-error { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAHlBMVEW7AAC7AACxAAC7AAC7AAAAAAC4AAC5AAD///+7AAAUdclpAAAABnRSTlMXnORSiwCK0ZKSAAAATUlEQVR42mWPOQ7AQAgDuQLx/z8csYRmPRIFIwRGnosRrpamvkKi0FTIiMASR3hhKW+hAN6/tIWhu9PDWiTGNEkTtIOucA5Oyr9ckPgAWm0GPBog6v4AAAAASUVORK5CYII="); }
-.CodeMirror-lint-marker-warning, .CodeMirror-lint-message-warning { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAANlBMVEX/uwDvrwD/uwD/uwD/uwD/uwD/uwD/uwD/uwD6twD/uwAAAADurwD2tQD7uAD+ugAAAAD/uwDhmeTRAAAADHRSTlMJ8mN1EYcbmiixgACm7WbuAAAAVklEQVR42n3PUQqAIBBFUU1LLc3u/jdbOJoW1P08DA9Gba8+YWJ6gNJoNYIBzAA2chBth5kLmG9YUoG0NHAUwFXwO9LuBQL1giCQb8gC9Oro2vp5rncCIY8L8uEx5ZkAAAAASUVORK5CYII="); }
-.CodeMirror-lint-marker-multiple { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAMAAADzjKfhAAAACVBMVEUAAAAAAAC/v7914kyHAAAAAXRSTlMAQObYZgAAACNJREFUeNo1ioEJAAAIwmz/H90iFFSGJgFMe3gaLZ0od+9/AQZ0ADosbYraAAAAAElFTkSuQmCC"); background-repeat: no-repeat; background-position: right bottom; width: 100%; height: 100%; }
 
 
-:root { --active-file-bg-color: rgba(32, 43, 51, 0.63); --active-file-text-color: white; --bg-color: #fff; --text-color: #333; --side-bar-bg-color: #f5f5f5; --control-text-color: #666; }
-html { color: rgb(51, 51, 51); background: rgb(255, 255, 255); text-size-adjust: 100%; text-rendering: optimizeLegibility; font-size: 14px; -webkit-font-smoothing: initial; }
-#write { max-width: 960px; padding-top: 2em; padding-left: 60px; padding-right: 60px; min-height: calc(100vh - 6em); -webkit-font-smoothing: antialiased; font-size: 16px; }
-.typora-node #write { min-height: calc(100% - 6em); }
-pre.md-meta-block { background: rgb(245, 245, 245); padding: 1em; border-radius: 3px; font-size: 14px; }
+
+
+:root {
+  --active-file-bg-color: #dadada;
+  --active-file-bg-color: rgba(32, 43, 51, 0.63);
+  --active-file-text-color: white;
+  --bg-color: #fff;
+  --text-color: #333;
+  --side-bar-bg-color: #f5f5f5;
+  --control-text-color: #666;
+}
+
+/* ��ֹ�û��Զ��屳����ɫ����ҳ��Ӱ�죬�������û������Զ������� */
+html {
+  color: #333;
+  background: #fff;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-rendering: optimizelegibility;
+  font-size: 14px;
+  -webkit-font-smoothing: initial;
+}
+
+#write {
+  max-width: 960px;
+  padding-top: 2em;
+  padding-left: 60px;
+  padding-right: 60px;
+  min-height: calc(100vh - 6em);
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+}
+
+.typora-node #write {
+  min-height: calc(100% - 6em);
+}
+
+pre.md-meta-block {
+  background: #f5f5f5;
+  padding: 1em;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
 @media screen and (max-width: 800px) {
-  html { font-size: 14px; }
-  #write { padding-left: 30px; padding-right: 30px; font-size: 14px; }
+    html {
+      font-size: 14px;
+    }
+
+    #write {
+      padding-left: 30px;
+      padding-right: 30px;
+      font-size: 14px;
+    }
 }
+
 @media screen and (min-width: 1100px) {
-  body, #footer-word-count-info { background: rgb(245, 245, 245); }
-  body.pin-outline, .pin-outline #footer-word-count-info, .pin-outline footer { background: rgb(255, 255, 255); }
-  #write { max-width: 1000px; padding: 40px 60px; background: rgb(255, 255, 255); margin: 3em auto; border-style: solid; border-color: rgb(221, 221, 221); border-image: initial; border-width: 0px 1px; }
-  .pin-outline #write { max-width: 1000px; background: rgb(255, 255, 255); margin: 0px; border: 0px; padding-left: 60px; padding-right: 60px; }
-  footer { background-color: transparent; }
+    body, #footer-word-count-info {
+      background: #f5f5f5;
+    }
+
+    body.pin-outline,
+    .pin-outline #footer-word-count-info,
+    .pin-outline footer {
+      background: #fff;
+    }
+
+    #write {
+      max-width: 1000px;
+      padding: 40px 60px;
+      background: #fff;
+      margin: 3em auto 3em;
+      border: 1px solid #ddd;
+      border-width: 0 1px;
+    }
+
+    .pin-outline #write {
+      max-width: 1000px;
+      background: #fff;
+      margin: 0 0 0;
+      border: 0;
+      padding-left: 60px;
+      padding-right: 60px;
+    }
+
+    footer {
+      background-color: transparent;
+    }
 }
+
 @media screen and (min-width: 1300px) {
-  body.pin-outline, .pin-outline #footer-word-count-info, .pin-outline footer { background: rgb(245, 245, 245); }
-  .pin-outline #write { max-width: 1000px; padding: 40px 60px; background: rgb(255, 255, 255); margin: 3em auto; border-style: solid; border-color: rgb(221, 221, 221); border-image: initial; border-width: 0px 1px; }
-  .pin-outline footer { background-color: transparent; }
-  #footer-word-count-info { background: rgb(245, 245, 245); }
+    body.pin-outline,
+    .pin-outline #footer-word-count-info,
+    .pin-outline footer {
+      background: #f5f5f5;
+    }
+
+    .pin-outline  #write {
+      max-width: 1000px;
+      padding: 40px 60px;
+      background: #fff;
+      margin: 3em auto 3em;
+      border: 1px solid #ddd;
+      border-width: 0 1px;
+    }
+
+    .pin-outline footer {
+      background-color: transparent;
+    }
+
+    #footer-word-count-info {
+      background: #f5f5f5;
+    }
 }
-html.borderbox *, html.borderbox ::before, html.borderbox ::after { box-sizing: border-box; }
-body, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, menu, nav, section { margin: 0px; padding: 0px; }
-article, aside, details, figcaption, figure, footer, header, menu, nav, section { display: block; }
-audio, canvas, video { display: inline-block; }
-body, button, input, select, textarea { font-style: normal; font-variant: normal; font-weight: 300; font-stretch: normal; font-size: 1em; line-height: 1.8; font-family: "PingFang SC", "Lantinghei SC", "Microsoft Yahei", "Hiragino Sans GB", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans; }
-body { font-family: "PingFang SC", "Lantinghei SC", "Microsoft Yahei", "Hiragino Sans GB", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans; }
-h1, h2, h3, h4, h5, h6 { font-family: TimesNewRomanPS-ItalicMT, "PingFang SC", "Lantinghei SC", "Microsoft Yahei", "Hiragino Sans GB", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans; -webkit-font-smoothing: initial; font-weight: 100; color: var(--text-color); line-height: 1.35; font-variant-numeric: lining-nums; margin-bottom: 1em; }
-em { font-family: Georgia-Italic, STSongti-SC-Light, serif; }
-strong em, em strong { font-family: Georgia-BoldItalic, STSongti-SC-Regular, serif; }
-table { border-collapse: collapse; border-spacing: 0px; }
-fieldset, img { border: 0px; }
-blockquote { position: relative; color: rgb(153, 153, 153); font-weight: 400; border-left: 1px solid rgb(26, 188, 156); padding-left: 1em; margin: 1em 3em 1em 2em; }
-@media only screen and (max-width: 640px) {
-  blockquote { margin: 1em 0px; }
+
+
+/* ��������Ŀ��֧�� IE9+ | Chrome | Firefox �ȣ��Ƽ��� <html> ������ .borderbox ��� class */
+html.borderbox *, html.borderbox *:before, html.borderbox *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
-acronym, abbr { border-bottom: 1px dotted; font-variant-ligatures: normal; font-variant-caps: normal; }
-abbr { cursor: help; }
-address, caption, cite, code, dfn, th, var { font-style: normal; font-weight: 400; }
-ul, ol { list-style: none; }
-caption, th { text-align: left; }
-q::before, q::after { content: ""; }
-sub, sup { font-size: 75%; line-height: 0; position: relative; }
-:root sub, :root sup { vertical-align: baseline; }
-sup { top: -0.5em; }
-sub { bottom: -0.25em; }
-a { color: rgb(26, 188, 156); }
-a:hover { text-decoration: underline; }
-#write a { border-bottom: 1px solid rgb(26, 188, 156); }
-#write a:hover { border-bottom-color: rgb(85, 85, 85); color: rgb(85, 85, 85); text-decoration: none; }
-ins, a { text-decoration: none; }
-mark { background: rgb(255, 253, 209); border-bottom: 1px solid rgb(255, 237, 206); padding: 2px; margin: 0px 5px; }
-pre, code, pre tt { font-family: Courier, "Courier New", monospace; }
-#write .md-fences { border: 1px solid rgb(221, 221, 221); padding: 1em 0.5em; display: block; }
-hr { border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1px solid rgb(207, 207, 207); margin-bottom: 0.8em; height: 10px; }
-#write strong { font-weight: 900; color: rgb(56, 56, 56); }
-.code-tooltip.md-hover-tip strong { color: white; }
-#write p, #write .md-fences, #write ul, #write ol, #write dl, #write form, #write hr, #write figure, #write-p, #write-pre, #write-ul, #write-ol, #write-dl, #write-form, #write-hr, #write-table, blockquote { margin-bottom: 1.2em; }
-html { font-family: "PingFang SC", Verdana, "Helvetica Neue", "Microsoft Yahei", "Hiragino Sans GB", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans-serif; }
-#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write-h1, #write-h2, #write-h3, #write-h4, #write-h5, #write-h6 { margin-top: 1.2em; margin-bottom: 0.6em; line-height: 1.35; color: rgb(0, 0, 0); }
-#write h1, #write-h1 { font-size: 2.4em; padding-bottom: 1em; border-bottom: 3px double rgb(238, 238, 238); }
-#write h2, #write-h2 { font-size: 1.8em; }
-#write h3, #write-h3 { font-size: 1.6em; }
-#write h4, #write-h4 { font-size: 1.4em; }
-#write h5, #write h6, #write-h5, #write-h6 { font-size: 1.2em; }
-#write ul, #write-ul { margin-left: 1.3em; list-style: disc; }
-#write ol, #write-ol { list-style: decimal; margin-left: 1.9em; }
-#write li ul, #write li ol, #write-ul ul, #write-ul ol, #write-ol ul, #write-ol ol { margin-bottom: 0.8em; margin-left: 2em; }
-#write li ul, #write-ul ul, #write-ol ul { list-style: circle; }
-#write table th, #write table td { border: 1px solid rgb(221, 221, 221); padding: 0.5em 1em; color: rgb(102, 102, 102); }
-#write table .md-table-edit th { border: none; padding: 0px; color: inherit; }
-#write table th, #write-table th { background: rgb(251, 251, 251); }
-#write table thead th, #write-table thead th { background: rgb(241, 241, 241); }
-#write table caption { border-bottom: none; }
-#write em { font-weight: inherit; font-style: inherit; }
-li > p { margin-bottom: 0px !important; }
-#write img { max-width: 100%; }
-a.md-toc-inner { border-bottom: 0px !important; }
-.md-toc-h1:first-of-type:last-of-type { display: none; }
-.md-toc { font-size: inherit; }
-.md-toc-h1 .md-toc-inner { font-weight: normal; }
-.md-table-edit th { padding: 0px !important; border: 0px !important; }
-.mac-seamless-mode #write { min-height: calc((100vh - 6em) - 20px); }
-.typora-quick-open-item.active { color: var(--active-file-text-color); }
-.in-text-selection, ::selection { background: var(--active-file-bg-color); text-shadow: none; color: white; }
-.btn-primary { background-color: rgb(45, 45, 45); border-color: rgb(2, 2, 2); }
-.btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary { background-color: rgb(78, 76, 78); border: rgb(78, 76, 78); }
-#preference-dialog .modal-content { background: rgb(110, 117, 122); --bg-color: #6e757a; --text-color: #f1f1f1; color: rgb(241, 241, 241); }
-#typora-source, .typora-sourceview-on { --bg-color: #eee; background: rgb(238, 238, 238); }
-.cm-s-typora-default .cm-header, .cm-s-typora-default .cm-property { color: rgb(17, 96, 152); }
-.cm-s-typora-default .cm-link { color: rgb(17, 152, 125); }
-.cm-s-typora-default .cm-em { font-family: Georgia-Italic, STSongti-SC-Light, serif; color: rgb(111, 100, 0); }
-.cm-s-typora-default .cm-em { color: rgb(0, 22, 45); }
-.CodeMirror.cm-s-typora-default div.CodeMirror-cursor { border-left: 3px solid rgb(110, 117, 122); }
-.cm-s-typora-default .CodeMirror-selectedtext, .typora-sourceview-on .CodeMirror-focused .CodeMirror-selected { background: rgb(110, 117, 122); color: white; }
-.file-node-icon.fa.fa-folder::before { color: rgba(32, 43, 51, 0.49); }
-#preference-dialog .megamenu-menu-panel h1 { margin-bottom: 1em; }
-::-webkit-scrollbar-corner { display: none; background: transparent; }
-.cm-s-inner { background-color: rgb(38, 50, 56); color: rgb(233, 237, 237); }
-.cm-s-inner .CodeMirror-gutters { background: rgb(38, 50, 56); color: rgb(83, 127, 126); border: none; }
-.cm-s-inner .CodeMirror-guttermarker, .cm-s-inner .CodeMirror-guttermarker-subtle, .cm-s-inner .CodeMirror-linenumber { color: rgb(83, 127, 126); }
-.cm-s-inner .CodeMirror-cursor { border-left: 1px solid rgb(248, 248, 240); }
+
+/* ����߾�ͨ���ø����������ʽ�ı���λ�ò�ͬ */
+body, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, menu, nav, section {
+  margin: 0;
+  padding: 0;
+}
+
+/* ���� HTML5 ��ǩ, IE ��Ҫ�� js �� createElement(TAG) */
+article, aside, details, figcaption, figure, footer, header, menu, nav, section {
+  display: block;
+}
+
+/* HTML5 ý���ļ��� img ����һ�� */
+audio, canvas, video {
+  display: inline-block;
+}
+
+/* Ҫע�����Ԫ�ز����̳и��� font ������ */
+body, button, input, select, textarea {
+  font: 300 1em/1.8 "PingFang SC", "Lantinghei SC", "Microsoft Yahei", "Hiragino Sans GB", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans;
+}
+
+body {
+  font-family: "PingFang SC", "Lantinghei SC", "Microsoft Yahei", "Hiragino Sans GB", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "TimesNewRomanPS-ItalicMT", "PingFang SC", "Lantinghei SC", "Microsoft Yahei", "Hiragino Sans GB", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans;
+  /*font-family: "PingFang SC", "Lantinghei SC", "Microsoft Yahei", "Hiragino Sans GB", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans;*/
+  -webkit-font-smoothing: initial;
+  font-weight: 100;
+  color: var(--text-color);
+  line-height: 1.35;
+  font-variant-numeric: lining-nums;
+  margin-bottom: 1em;
+}
+
+em {
+  font-family: Georgia-Italic, STSongti-SC-Light, serif;
+}
+
+strong em,
+em strong {
+  font-family: Georgia-BoldItalic, STSongti-SC-Regular, serif;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+/* ȥ����Table cell �ı߾ಢ������غ� */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* ȥ��Ĭ�ϱ߿� */
+fieldset, img {
+  border: 0;
+}
+
+/* ��/�������� */
+blockquote {
+  position: relative;
+  color: #999;
+  font-weight: 400;
+  border-left: 1px solid #1abc9c;
+  padding-left: 1em;
+  margin: 1em 3em 1em 2em;
+}
+
+@media only screen and ( max-width: 640px ) {
+  blockquote {
+    margin: 1em 0;
+  }
+}
+
+/* Firefox ���⣬Ԫ��û���»��ߣ������� */
+acronym, abbr {
+  border-bottom: 1px dotted;
+  font-variant: normal;
+}
+
+/* ��������ʺţ���һ��ȷ��Ӧ�õ���������ȷ�ģ�Ҫ֪������������Ҳ�н�񱣬����㲻ȥ�����ǵö໨����ࣩ */
+abbr {
+  cursor: help;
+}
+
+address, caption, cite, code, dfn, th, var {
+  font-style: normal;
+  font-weight: 400;
+}
+
+/* ȥ���б�ǰ�ı�ʶ, li ��̳У��󲿷���վͨ�����б����ܶ����ݣ�����Ӧ�õ�ȥ */
+ul, ol {
+  list-style: none;
+}
+
+/* �������Ű�����Ҫ������, ����ʲô������ */
+caption, th {
+  text-align: left;
+}
+
+q:before, q:after {
+  content: '';
+}
+
+/* ͳһ�ϱ���±� */
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+}
+
+:root sub, :root sup {
+  vertical-align: baseline; /* for ie9 and other modern browsers */
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+/* �������� hover ״̬����ʾ�»��� */
+a {
+  color: #1abc9c;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#write a {
+  border-bottom: 1px solid #1abc9c;
+}
+
+#write a:hover {
+  border-bottom-color: #555;
+  color: #555;
+  text-decoration: none;
+}
+
+/* Ĭ�ϲ���ʾ�»��ߣ�����ҳ���� */
+ins, a {
+  text-decoration: none;
+}
+
+/* ��ǣ���������д��ӫ��ʵ����� */
+mark {
+  background: #fffdd1;
+  border-bottom: 1px solid #ffedce;
+  padding: 2px;
+  margin: 0 5px;
+}
+
+/* ����Ƭ�� */
+pre, code, pre tt {
+  font-family: Courier, 'Courier New', monospace;
+}
+
+#write .md-fences {
+  border: 1px solid #ddd;
+  padding: 1em 0.5em;
+  display: block;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* һ�»� horizontal rule */
+hr {
+  border: none;
+  border-bottom: 1px solid #cfcfcf;
+  margin-bottom: 0.8em;
+  height: 10px;
+}
+
+#write strong {
+  font-weight: 900;
+  color:#383838;
+  /*font-weight: bloder;
+  /*color: #000;*/
+}
+
+.code-tooltip.md-hover-tip strong {
+  color: white;
+}
+
+/* ��֤��/����֮��Ŀհ׸��� */
+#write p, #write .md-fences, #write ul, #write ol, #write dl, #write form, #write hr, #write figure,
+#write-p, #write-pre, #write-ul, #write-ol, #write-dl, #write-form, #write-hr, #write-table, blockquote {
+  margin-bottom: 1.2em
+}
+
+html {
+  font-family: PingFang SC, Verdana, Helvetica Neue, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+}
+
+/* ����Ӧ�ø��������ݣ��������������֣�margin ֵҪ��Ӧ���Ż� */
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6,
+#write-h1, #write-h2, #write-h3, #write-h4, #write-h5, #write-h6 {
+  margin-top: 1.2em;
+  margin-bottom: 0.6em;
+  line-height: 1.35;
+  color: #000;
+}
+
+#write h1, #write-h1 {
+  font-size: 2.4em;
+  padding-bottom: 1em;
+  border-bottom: 3px double #eee;
+}
+
+#write h2, #write-h2 {
+  font-size: 1.8em;
+}
+
+#write h3, #write-h3 {
+  font-size: 1.6em;
+}
+
+#write h4, #write-h4 {
+  font-size: 1.4em;
+}
+
+#write h5, #write h6, #write-h5, #write-h6 {
+  font-size: 1.2em;
+}
+
+/* �������У�Ӧ�û�ԭ ul �� ol ����ʽ */
+#write ul, #write-ul {
+  margin-left: 1.3em;
+  list-style: disc;
+}
+
+#write ol, #write-ol {
+  list-style: decimal;
+  margin-left: 1.9em;
+}
+
+#write li ul, #write li ol, #write-ul ul, #write-ul ol, #write-ol ul, #write-ol ol {
+  margin-bottom: 0.8em;
+  margin-left: 2em;
+}
+
+#write li ul, #write-ul ul, #write-ol ul {
+  list-style: circle;
+}
+
+#write table th, #write table td {
+  border: 1px solid #ddd;
+  padding: 0.5em 1em;
+  color: #666;
+}
+
+#write table .md-table-edit th {
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+
+#write table th, #write-table th {
+  background: #fbfbfb;
+}
+
+#write table thead th, #write-table thead th {
+  background: #f1f1f1;
+}
+
+#write table caption {
+  border-bottom: none;
+}
+
+#write em {
+  font-weight: inherit;
+  font-style: inherit;
+}
+
+li>p {
+    margin-bottom: 0 !important;
+}
+
+/* Responsive images */
+#write img {
+  max-width: 100%;
+}
+
+a.md-toc-inner {
+    border-bottom: 0 !important;
+}
+
+.md-toc-h1:first-of-type:last-of-type{
+  display: none;
+}
+
+.md-toc {
+  font-size: inherit;
+}
+
+.md-toc-h1 .md-toc-inner {
+  font-weight: normal;
+}
+
+.md-table-edit th {
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.mac-seamless-mode #write {
+  min-height: calc(100vh - 6em - 20px);
+}
+
+.typora-quick-open-item.active {
+    color: var(--active-file-text-color);
+}
+
+*.in-text-selection, ::selection {
+    background: var(--active-file-bg-color);
+    text-shadow: none;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #2d2d2d;
+    border-color: #020202;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background-color: #4e4c4e;
+    border: #4e4c4e;
+}
+
+#preference-dialog .modal-content{
+  background: #6e757a;
+  --bg-color: #6e757a;
+  --text-color: #f1f1f1;
+  color: #f1f1f1;
+}
+
+#typora-source,
+.typora-sourceview-on  {
+  --bg-color: #eee;
+  background: #eee;
+}
+
+.cm-s-typora-default .cm-header, .cm-s-typora-default .cm-property {
+    color: #116098;
+}
+
+.cm-s-typora-default .cm-link {
+    color: #11987d;
+}
+
+.cm-s-typora-default .cm-em {
+  font-family: Georgia-Italic, STSongti-SC-Light, serif;
+  color: #6f6400;
+}
+
+.cm-s-typora-default .cm-em{
+    color: rgb(0, 22, 45);
+}
+
+.CodeMirror.cm-s-typora-default div.CodeMirror-cursor{
+    border-left: 3px solid #6e757a;
+}
+
+.cm-s-typora-default .CodeMirror-selectedtext,
+.typora-sourceview-on .CodeMirror-focused .CodeMirror-selected {
+    background: #6e757a;
+    color: white;
+}
+
+.file-node-icon.fa.fa-folder:before {
+  color: rgba(32, 43, 51, 0.49);
+}
+
+#preference-dialog .megamenu-menu-panel h1 {
+  margin-bottom: 1em;
+}
+
+::-webkit-scrollbar-corner {
+  display: none;
+  background: transparent;
+}
+
+.cm-s-inner {
+  background-color: #263238;
+  color: rgba(233, 237, 237, 1);
+}
+.cm-s-inner .CodeMirror-gutters {
+  background: #263238;
+  color: rgb(83,127,126);
+  border: none;
+}
+.cm-s-inner .CodeMirror-guttermarker, .cm-s-inner .CodeMirror-guttermarker-subtle, .cm-s-inner .CodeMirror-linenumber { color: rgb(83,127,126); }
+.cm-s-inner .CodeMirror-cursor { border-left: 1px solid #f8f8f0; }
 .cm-s-inner div.CodeMirror-selected { background: rgba(255, 255, 255, 0.15); }
-.cm-s-inner.CodeMirror-focused div.CodeMirror-selected { background: rgba(255, 255, 255, 0.1); }
-.cm-s-inner .CodeMirror-line::selection, .cm-s-inner .CodeMirror-line > span::selection, .cm-s-inner .CodeMirror-line > span > span::selection { background: rgba(255, 255, 255, 0.1); }
+.cm-s-inner.CodeMirror-focused div.CodeMirror-selected { background: rgba(255, 255, 255, 0.10); }
+.cm-s-inner .CodeMirror-line::selection, .cm-s-inner .CodeMirror-line > span::selection, .cm-s-inner .CodeMirror-line > span > span::selection { background: rgba(255, 255, 255, 0.10); }
+.cm-s-inner .CodeMirror-line::-moz-selection, .cm-s-inner .CodeMirror-line > span::-moz-selection, .cm-s-inner .CodeMirror-line > span > span::-moz-selection { background: rgba(255, 255, 255, 0.10); }
+
 .cm-s-inner .CodeMirror-activeline-background { background: rgba(0, 0, 0, 0); }
-.cm-s-inner .cm-keyword { color: rgb(199, 146, 234); }
-.cm-s-inner .cm-operator { color: rgb(233, 237, 237); }
-.cm-s-inner .cm-variable-2 { color: rgb(128, 203, 196); }
-.cm-s-inner .cm-variable-3 { color: rgb(130, 177, 255); }
-.cm-s-inner .cm-builtin { color: rgb(222, 203, 107); }
-.cm-s-inner .cm-atom { color: rgb(247, 118, 105); }
-.cm-s-inner .cm-number { color: rgb(247, 118, 105); }
-.cm-s-inner .cm-def { color: rgb(233, 237, 237); }
-.cm-s-inner .cm-string { color: rgb(195, 232, 141); }
-.cm-s-inner .cm-string-2 { color: rgb(128, 203, 196); }
-.cm-s-inner .cm-comment { color: rgb(84, 110, 122); }
-.cm-s-inner .cm-variable { color: rgb(130, 177, 255); }
-.cm-s-inner .cm-tag { color: rgb(128, 203, 196); }
-.cm-s-inner .cm-meta { color: rgb(128, 203, 196); }
-.cm-s-inner .cm-attribute { color: rgb(255, 203, 107); }
-.cm-s-inner .cm-property { color: rgb(128, 203, 174); }
-.cm-s-inner .cm-qualifier { color: rgb(222, 203, 107); }
-.cm-s-inner .cm-variable-3 { color: rgb(222, 203, 107); }
-.cm-s-inner .cm-tag { color: rgb(255, 83, 112); }
-.cm-s-inner .cm-error { color: rgb(255, 255, 255); background-color: rgb(236, 95, 103); }
-.cm-s-inner .CodeMirror-matchingbracket { text-decoration: underline; color: white !important; }
-.md-fences { background-color: rgb(38, 50, 56); color: rgb(233, 237, 237); border: none; }
-.md-fences .code-tooltip { background-color: rgb(38, 50, 56); }
+.cm-s-inner .cm-keyword { color: rgba(199, 146, 234, 1); }
+.cm-s-inner .cm-operator { color: rgba(233, 237, 237, 1); }
+.cm-s-inner .cm-variable-2 { color: #80CBC4; }
+.cm-s-inner .cm-variable-3 { color: #82B1FF; }
+.cm-s-inner .cm-builtin { color: #DECB6B; }
+.cm-s-inner .cm-atom { color: #F77669; }
+.cm-s-inner .cm-number { color: #F77669; }
+.cm-s-inner .cm-def { color: rgba(233, 237, 237, 1); }
+.cm-s-inner .cm-string { color: #C3E88D; }
+.cm-s-inner .cm-string-2 { color: #80CBC4; }
+.cm-s-inner .cm-comment { color: #546E7A; }
+.cm-s-inner .cm-variable { color: #82B1FF; }
+.cm-s-inner .cm-tag { color: #80CBC4; }
+.cm-s-inner .cm-meta { color: #80CBC4; }
+.cm-s-inner .cm-attribute { color: #FFCB6B; }
+.cm-s-inner .cm-property { color: #80CBAE; }
+.cm-s-inner .cm-qualifier { color: #DECB6B; }
+.cm-s-inner .cm-variable-3 { color: #DECB6B; }
+.cm-s-inner .cm-tag { color: rgba(255, 83, 112, 1); }
+.cm-s-inner .cm-error {
+  color: rgba(255, 255, 255, 1.0);
+  background-color: #EC5F67;
+}
+.cm-s-inner .CodeMirror-matchingbracket {
+  text-decoration: underline;
+  color: white !important;
+}
 
+/**apply to code fences with plan text**/
+.md-fences {
+  background-color: #263238;
+  color: rgba(233, 237, 237, 1);
+  border: none;
+}
 
-
-
+.md-fences .code-tooltip {
+  background-color: #263238;
+}
 
 
 </style>
 </head>
 <body class='typora-export os-windows' >
-<div  id='write'  class = 'is-node'><div class='md-toc' mdtype='toc'><p class="md-toc-content"><span class="md-toc-item md-toc-h2" data-ref="n395"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n395">编程相关</a></span><span class="md-toc-item md-toc-h3" data-ref="n396"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n396">术语</a></span><span class="md-toc-item md-toc-h4" data-ref="n397"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n397">ACK、utACK</a></span><span class="md-toc-item md-toc-h3" data-ref="n424"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n424">JavaScript</a></span><span class="md-toc-item md-toc-h4" data-ref="n425"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n425">var、let、const 区别</a></span><span class="md-toc-item md-toc-h3" data-ref="n436"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n436">Solidity</a></span><span class="md-toc-item md-toc-h4" data-ref="n437"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n437">不同合约中共享 enum</a></span><span class="md-toc-item md-toc-h4" data-ref="n446"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n446">合约函数可见性修饰符</a></span><span class="md-toc-item md-toc-h4" data-ref="n460"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n460">How to get contract internal transactions?</a></span><span class="md-toc-item md-toc-h3" data-ref="n465"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n465">Bitcoin</a></span><span class="md-toc-item md-toc-h4" data-ref="n466"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n466">minrelaytxfee、mintxfee</a></span><span class="md-toc-item md-toc-h4" data-ref="n480"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n480">挖空块</a></span><span class="md-toc-item md-toc-h5" data-ref="n481"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n481">空块出现的原因</a></span><span class="md-toc-item md-toc-h5" data-ref="n494"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n494">如何解决空块问题</a></span><span class="md-toc-item md-toc-h4" data-ref="n497"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n497">Stopping Hash field in GetBlocks Message</a></span><span class="md-toc-item md-toc-h3" data-ref="n513"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n513">Ethereum</a></span><span class="md-toc-item md-toc-h4" data-ref="n514"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n514">Can I Speed Up My Transaction?</a></span><span class="md-toc-item md-toc-h4" data-ref="n525"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n525">Gas/Gas Price/Gas Limit 之间的关系</a></span><span class="md-toc-item md-toc-h3" data-ref="n542"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n542">数据库</a></span><span class="md-toc-item md-toc-h4" data-ref="n543"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n543">SQL 注入</a></span><span class="md-toc-item md-toc-h3" data-ref="n560"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n560">curl</a></span><span class="md-toc-item md-toc-h4" data-ref="n561"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n561">--data 与 --data-binary 选项</a></span><span class="md-toc-item md-toc-h3" data-ref="n569"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n569">微信小程序审核发布回退</a></span><span class="md-toc-item md-toc-h4" data-ref="n570"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n570">环境与分支说明</a></span><span class="md-toc-item md-toc-h4" data-ref="n594"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n594">Nginx 配置</a></span><span class="md-toc-item md-toc-h4" data-ref="n596"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n596">审核、发布、回退流程</a></span><span class="md-toc-item md-toc-h4" data-ref="n606"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n606">版本迭代原则</a></span><span class="md-toc-item md-toc-h3" data-ref="n609"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n609">哈希冲突解决</a></span><span class="md-toc-item md-toc-h4" data-ref="n610"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n610">开放地址法</a></span><span class="md-toc-item md-toc-h4" data-ref="n624"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n624">再哈希法</a></span><span class="md-toc-item md-toc-h4" data-ref="n627"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n627">链地址法（拉链法）</a></span><span class="md-toc-item md-toc-h3" data-ref="n787"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n787">线程数目设置共性认识</a></span><span class="md-toc-item md-toc-h2" data-ref="n630"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n630">计算机组成原理</a></span><span class="md-toc-item md-toc-h3" data-ref="n631"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n631">原码、反码、补码</a></span><span class="md-toc-item md-toc-h3" data-ref="n684"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n684">LRU Cache</a></span><span class="md-toc-item md-toc-h2" data-ref="n691"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n691">计算机网络</a></span><span class="md-toc-item md-toc-h3" data-ref="n692"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n692"><code>MSL</code></a></span><span class="md-toc-item md-toc-h3" data-ref="n697"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n697"><code>TTL</code></a></span><span class="md-toc-item md-toc-h3" data-ref="n700"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n700"><code>TCP_NODELAY</code></a></span><span class="md-toc-item md-toc-h3" data-ref="n712"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n712">HTTP Error Code</a></span><span class="md-toc-item md-toc-h4" data-ref="n713"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n713">50x 错误码</a></span><span class="md-toc-item md-toc-h2" data-ref="n735"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n735">数据通信</a></span><span class="md-toc-item md-toc-h3" data-ref="n736"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n736">单工、半双工、全双工</a></span><span class="md-toc-item md-toc-h2" data-ref="n758"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n758">社会经济学</a></span><span class="md-toc-item md-toc-h3" data-ref="n759"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n759">马太效应</a></span><span class="md-toc-item md-toc-h3" data-ref="n766"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n766">公地悲剧</a></span><span class="md-toc-item md-toc-h2" data-ref="n773"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n773">语言学</a></span><span class="md-toc-item md-toc-h3" data-ref="n774"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n774">逻辑自洽</a></span></p></div><hr /><h2><a name='header-n395' class='md-header-anchor '></a>编程相关</h2><h3><a name='header-n396' class='md-header-anchor '></a>术语</h3><h4><a name='header-n397' class='md-header-anchor '></a>ACK、utACK</h4><ul><li><p><code>Concept ACK</code></p><p>Agree with the idea and overall direction, but haven&#39;t reviewed the code changes or tested them.</p></li><li><p><code>utACK (untested ACK)</code></p><p>Reviewed and agree with the code changes but haven&#39;t actually tested them.</p></li><li><p><code>Tested ACK</code></p><p>Reviewed the code changes and have verified the functionality or bug fix.</p></li><li><p><code>ACK</code></p><p>A loose ACK can be confusing. It&#39;s best to avoid them unless it&#39;s a documentation/comment only change in which case there is nothing to test/verify; therefore the tested/untested distinction is not there.</p></li><li><p><code>NACK</code></p><p>Disagree with the code changes/concept. Should be accompanied by an explanation.</p></li></ul><h3><a name='header-n424' class='md-header-anchor '></a>JavaScript</h3><h4><a name='header-n425' class='md-header-anchor '></a>var、let、const 区别</h4><ul><li>使用 var 声明的变量，其作用域为该语句所在的函数内，且存在变量提升现象</li><li>使用 let 声明的变量，其作用域为该语句所在的代码块内，不存在变量提升</li><li>使用 const 声明的是常量，在后面出现的代码中不能再修改该常量的值</li></ul><h3><a name='header-n436' class='md-header-anchor '></a>Solidity</h3><h4><a name='header-n437' class='md-header-anchor '></a>不同合约中共享 enum</h4><p>在合约 Supplier 中定义枚举</p><pre class="md-fences md-end-block" lang="javascript"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 30px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">contract</span> <span class="cm-variable">Supplier</span> {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-variable">enum</span> <span class="cm-variable">State</span> { <span class="cm-variable">inactive</span>, <span class="cm-variable">active</span>, <span class="cm-variable">kaput</span> }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-variable">State</span> <span class="cm-variable">constant</span> <span class="cm-variable">DEFAULT_STATE</span> <span class="cm-operator">=</span> <span class="cm-variable">State</span>.<span class="cm-property">inactive</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-variable">State</span> <span class="cm-variable">public</span> <span class="cm-variable">status</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-keyword">function</span> <span class="cm-def">Supplier</span>() {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">status</span> <span class="cm-operator">=</span> <span class="cm-variable">DEFAULT_STATE</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 228px;"></div><div class="CodeMirror-gutters" style="display: none; height: 258px;"></div></div></div></pre><p>在合约 Producer 中使用</p><pre class="md-fences md-end-block" lang="javascript"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 30px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">contract</span> <span class="cm-variable">Producer</span> {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-keyword">function</span> <span class="cm-def">addSupplier</span>(<span class="cm-def">Supplier</span> <span class="cm-variable">_supplier</span>) {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">require</span>(<span class="cm-variable">_supplier</span>.<span class="cm-property">status</span>() <span class="cm-operator">==</span> <span class="cm-variable-2">Supplier</span>.<span class="cm-property">State</span>.<span class="cm-property">active</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 118px;"></div><div class="CodeMirror-gutters" style="display: none; height: 148px;"></div></div></div></pre><p>总结：使用时，加上枚举所在合约作为域前缀即可，例如 <code>Supplier.State.active</code></p><h4><a name='header-n446' class='md-header-anchor '></a>合约函数可见性修饰符</h4><ul><li><strong>public</strong> - all can access</li><li><strong>external</strong> - Cannot be accessed internally, only externally</li><li><strong>internal</strong> - only this contract and contracts deriving from it can access</li><li><strong>private</strong> - can be accessed only from this contract</li></ul><h4><a name='header-n460' class='md-header-anchor '></a>How to get contract internal transactions?</h4><p>There&#39;s not currently any way to do this using the web3 API. Internal transactions, despite the name (which isn&#39;t part of the yellowpaper; it&#39;s a convention people have settled on) aren&#39;t actual transactions, and aren&#39;t included directly in the blockchain; they&#39;re value transfers that were initiated by executing a contract.</p><p>As such, they&#39;re not stored explicitly anywhere: they&#39;re the effects of running the transaction in question on the blockchain state. Blockchain explorers like etherscan obtain them by running a modified node with an instrumented EVM, which record all the value transfers that took place as part of transaction execution, storing them separately.</p><h3><a name='header-n465' class='md-header-anchor '></a>Bitcoin</h3><h4><a name='header-n466' class='md-header-anchor '></a>minrelaytxfee、mintxfee</h4><blockquote><p>参考资料：<a href='https://bitcointalk.org/index.php?topic=2045575.0' target='_blank' class='url'>https://bitcointalk.org/index.php?topic=2045575.0</a></p></blockquote><ul><li>minrelaytxfee is used to define what the minimum fee should be on a transaction for your node to relay it</li><li>mintxfee is the minimum fee that the client will <em>create</em> a transaction with</li></ul><blockquote><p>So, if minrelaytxfee is set to 0.00001 your node will happily relay any transactions with that fee or higher (ie. yours and other peoples txes)... however, if you then set mintxfee to 0.00005, then any transaction you create will have that value as the minimum possible fee, but you&#39;ll still relay other peoples txes with fees of only 0.00001. </p></blockquote><h4><a name='header-n480' class='md-header-anchor '></a>挖空块</h4><h5><a name='header-n481' class='md-header-anchor '></a>空块出现的原因</h5><p>挖空块是因为区块的传输需要时间，比如 1M 区块现在一般需要 6 秒传完， 那矿池就有 1% 的概率（6 秒/区块间隔 600秒），在传输区块 N 的过程中又挖出了一个块。 这时候矿池就有 2 个选择： </p><ul><li>原始方案：在块 N 传输结束后，才开始在 N 的基础上挖 N+1块， 传输过程中，认为别人还没挖出 N 块，所以把自己挖出的块，也打包交易，作为 N 块广播， 当然这样自己的 N 块大概率被孤立（因为别人已经先于你打包，广播出去了） </li><li>改进方案：在收到块 N 的区块头，还没传完区块数据时，就认为别人已经挖出了 N 块，开始在N的基础上挖 N+1 块， 但这就有个问题，N 块没传完，不知道别人打包了什么交易，如果 N+1 打包交易，那有可能打包到 N 块已打包的交易，就冲突了， 所以用这种提早挖 N+1 块的方法，如果在 6 秒内挖出了，那就只能打空块。 也就是说，这 6 秒的块，矿池 要么选择被孤立掉，损失 1% 产出（原始方案） 要么选择不被孤立，打空块（改进方案） </li></ul><blockquote><p><strong>利益驱动尽量不挖空块，</strong>包含基础奖励的 12.5 BTC，但没有打包交易费的奖励（现在约 1.5 BTC） 矿池每打一个空块，就会损失 1.5 BTC 的打包手续费，所以矿池都在想尽办法，不打空块。 </p></blockquote><h5><a name='header-n494' class='md-header-anchor '></a>如何解决空块问题</h5><p>因为挖空块不去打包交易，本质是为了避免打包了已经被上一个区块打包的交易导致区块无效，从而造成更大的经济损失。因此，通过精心构造一些不可能出现在上一个区块的交易即可。例如，自己找一些零散的 UTXO 来整合，和交易所合作，交易所使用端到端独家提供一些交易，这些交易不被广播，只可能出现在挖空块的矿池里，这样空块就不会“空”了。</p><h4><a name='header-n497' class='md-header-anchor '></a>Stopping Hash field in GetBlocks Message</h4><ul><li>Node1 announces block B3, using an <code>inv</code> message with B3&#39;s gash.</li><li>Node2 does not know about B3, or its parent B2, but does know the grandparent B1. It sends a <code>getblocks</code> message, starting from B1, but stopping at B3.</li><li>Node1 replies with an <code>inv</code> for B2, but not with B3 or any potential successor B4 thay may have appeared.</li></ul><p>The purpose is just avoiding sending too many hashes in case the sender already knows some successor.</p><blockquote><p>Note that since Bitcoin Core 0.10.0, getblocks is no longer used. getheaders has similar logic though.</p></blockquote><h3><a name='header-n513' class='md-header-anchor '></a>Ethereum</h3><h4><a name='header-n514' class='md-header-anchor '></a>Can I Speed Up My Transaction?</h4><blockquote><p>可通过 <a href='https://ethgasstation.info/'>https://ethgasstation.info/</a> 查看最近交易的平均交易费，以及交易费对应的优先级、大概确认时间等信息。</p></blockquote><p>可以通过设置高额的 <code>gas price</code> 提高交易处理的优先级，进而达到加快交易确认速度。</p><blockquote><p>You can actually choose the priority level of your transaction. Miners will “work on” and execute transactions that offer a <strong>higher gas price</strong>, as they’ll get to keep the fees that you pay. Therefore, they will be incentivized to prioritize transactions that have a higher Gwei.</p><p>If you want your transaction to be executed at a faster speed, then you have to be willing to pay a higher gas price. You’re essentially “jumping the line”, beating everybody that paid a lower gas price. </p></blockquote><h4><a name='header-n525' class='md-header-anchor '></a>Gas/Gas Price/Gas Limit 之间的关系</h4><p><img src='pic/commonsense/gas_gasprice_gaslimit.png' alt='' referrerPolicy='no-referrer' /> </p><p>Looking at this transaction at <a href='https://etherscan.io/'>Etherscan</a>, we can see the breakdown of all terms associated with gas. Here’s what they mean:</p><p><strong>Gas Limit:</strong> Maximum amount of gas that a user will pay for this transaction. The default amount for a standard ETH transfer is 21,000 gas</p><p><strong>Gas Used by Txn</strong>: Actual amount of gas used to execute the transaction. Since this is a standard transfer, the gas used is also 21,000</p><p><strong>Gas Price:</strong> Amount of ETH a user is prepared to pay for each unit of gas. The user chose to pay 8 Gwei for every gas unit, which is considered a “high priority” transaction and would be executed very fast</p><p><strong>Actual Tx Cost Fee:</strong> This is the actual amount of fees that the user will pay for the transaction in Ether value (USD value is in brackets). Not bad; the user paid a total of 2 cents for his ETH to be transferred in less than 1 minutes!</p><p>In summary, the ultimate formula to calculate the amount of fees you&#39;ll end up paying for a transaction is:</p><p><code>实际交易费用 = 交易实际消耗的 Gas * Gas Price</code></p><h3><a name='header-n542' class='md-header-anchor '></a>数据库</h3><h4><a name='header-n543' class='md-header-anchor '></a>SQL 注入</h4><p>SQL 注入攻击（SQL Injection），简称注入攻击，是 Web 开发中最常见的一种安全漏洞。可以用它来从数据库获取敏感信息，或者利用数据库的特性执行添加用户，导出文件等一系列恶意操作，甚至有可能获取数据库乃至系统用户最高权限。而造成 SQL 注入的原因是因为程序没有有效过滤用户的输入，使攻击者成功的向服务器提交恶意的 SQL 查询代码，程序在接收后错误的将攻击者的输入作为查询语句的一部分执行，导致原始的查询逻辑被改变，额外的执行了攻击者精心构造的恶意代码。</p><p>假设有如下登陆表单：</p><pre class="md-fences md-end-block" lang="html"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 30px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">form</span> <span class="cm-attribute">action</span>=<span class="cm-string">"/login"</span> <span class="cm-attribute">method</span>=<span class="cm-string">"POST"</span><span class="cm-tag cm-bracket">&gt;</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Username: <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">"text"</span> <span class="cm-attribute">name</span>=<span class="cm-string">"username"</span> <span class="cm-tag cm-bracket">/&gt;&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Password: <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">"password"</span> <span class="cm-attribute">name</span>=<span class="cm-string">"password"</span> <span class="cm-tag cm-bracket">/&gt;&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">"submit"</span> <span class="cm-attribute">value</span>=<span class="cm-string">"登陆"</span> <span class="cm-tag cm-bracket">/&gt;&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">form</span><span class="cm-tag cm-bracket">&gt;</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 118px;"></div><div class="CodeMirror-gutters" style="display: none; height: 148px;"></div></div></div></pre><p>登陆逻辑的 SQL 可能是这样的：</p><pre class="md-fences md-end-block" lang="go"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 30px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">username</span>:<span class="cm-operator">=</span><span class="cm-variable">r</span><span class="cm-number">.</span><span class="cm-variable">Form</span><span class="cm-number">.</span><span class="cm-variable">Get</span>(<span class="cm-string">"username"</span>)</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">password</span>:<span class="cm-operator">=</span><span class="cm-variable">r</span><span class="cm-number">.</span><span class="cm-variable">Form</span><span class="cm-number">.</span><span class="cm-variable">Get</span>(<span class="cm-string">"password"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">sql</span>:<span class="cm-operator">=</span><span class="cm-string">"SELECT * FROM user WHERE username='"</span><span class="cm-operator">+</span><span class="cm-variable">username</span><span class="cm-operator">+</span><span class="cm-string">"' AND password='"</span><span class="cm-operator">+</span><span class="cm-variable">password</span><span class="cm-operator">+</span><span class="cm-string">"'"</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 74px;"></div><div class="CodeMirror-gutters" style="display: none; height: 104px;"></div></div></div></pre><p>如果用户的输入的用户名如下，密码任意</p><pre class="md-fences md-end-block" lang="bash"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 30px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">myuser<span class="cm-string">' or '</span>foo<span class="cm-string">' = '</span>foo<span class="cm-string">' --</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 30px;"></div><div class="CodeMirror-gutters" style="display: none; height: 60px;"></div></div></div></pre><p>那么我们的 SQL 就变成了如下所示</p><pre class="md-fences md-end-block" lang="sql"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 30px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">SELECT</span> * <span class="cm-keyword">FROM</span> user <span class="cm-keyword">WHERE</span> username=<span class="cm-string">'myuser'</span> <span class="cm-keyword">or</span> <span class="cm-string">'foo'</span> = <span class="cm-string">'foo'</span> <span class="cm-comment">--'' AND password='xxx'</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 30px;"></div><div class="CodeMirror-gutters" style="display: none; height: 60px;"></div></div></div></pre><p>在 SQL 里面 <code>--</code> 是注释标记，所以查询语句会在此中断。这就让攻击者在不知道任何合法用户名和密码的情况下成功登录了。</p><h3><a name='header-n560' class='md-header-anchor '></a>curl</h3><h4><a name='header-n561' class='md-header-anchor '></a>--data 与 --data-binary 选项</h4><ul><li>参数内容从标准输入读取，无差别</li><li>参数从文件读取，<code>--data</code> 会将回车换行符去掉，<code>--data-binary</code> 反之</li></ul><h3><a name='header-n569' class='md-header-anchor '></a>微信小程序审核发布回退</h3><h4><a name='header-n570' class='md-header-anchor '></a>环境与分支说明</h4><p>假设小程序开发分支、生产分支、提交审核（待发布）分支分别为 fat2、v1、v2，通过 Nginx 匹配 URL 实现开发、生产、审核环境的隔离。</p><figure><table><thead><tr><th>环境</th><th>git 分支</th><th>URL 匹配前缀</th><th>后台服务监听端口</th></tr></thead><tbody><tr><td>开发环境</td><td>fat2</td><td>/boardgame</td><td>10000</td></tr><tr><td>生产环境</td><td>v1</td><td>/boardgame/v1</td><td>10001</td></tr><tr><td>审核版本</td><td>v2</td><td>/boardgame/v2</td><td>10002</td></tr></tbody></table></figure><h4><a name='header-n594' class='md-header-anchor '></a>Nginx 配置</h4><pre class="md-fences md-end-block" lang="bash" style="break-inside: unset;"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 30px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  upstream boardgame_server {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  server <span class="cm-number">127</span>.0.0.1:10000;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  upstream boardgame_server_v1 {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  server <span class="cm-number">127</span>.0.0.1:10001;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  upstream boardgame_server_v2 {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  server <span class="cm-number">127</span>.0.0.1:10002;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  server {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  listen &nbsp; &nbsp; &nbsp; <span class="cm-number">443</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  listen &nbsp; &nbsp; &nbsp; [::]:443;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  server_name  api.bigsillybear.com;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  root &nbsp; &nbsp; &nbsp; &nbsp; /usr/share/nginx/html;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  ssl_certificate &nbsp; &nbsp; &nbsp; &nbsp; <span class="cm-string">"/etc/letsencrypt/live/api.bigsillybear.com/fullchain.pem"</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  ssl_certificate_key &nbsp; &nbsp; <span class="cm-string">"/etc/letsencrypt/live/api.bigsillybear.com/privkey.pem"</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  ssl_session_cache shared:SSL:1m;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  ssl_session_timeout  10m;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  ssl_ciphers HIGH:!aNULL:!MD5;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  ssl_prefer_server_ciphers on;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># Load configuration files for the default server block.</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  include /etc/nginx/default.d/*.conf;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  location /boardgame/v1/ {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_redirect &nbsp; &nbsp; &nbsp; &nbsp;  off;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  Host &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-def">$host</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  X-Real-IP &nbsp; &nbsp; &nbsp; <span class="cm-def">$remote_addr</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  X-Forwarded-For <span class="cm-def">$proxy_add_x_forwarded_for</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_pass &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  http://boardgame_server_v1;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  location /boardgame/v2 {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_redirect &nbsp; &nbsp; &nbsp; &nbsp;  off;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  Host &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-def">$host</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  X-Real-IP &nbsp; &nbsp; &nbsp; <span class="cm-def">$remote_addr</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  X-Forwarded-For <span class="cm-def">$proxy_add_x_forwarded_for</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_pass &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  http://boardgame_server_v2;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  location /boardgame/ {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_redirect &nbsp; &nbsp; &nbsp; &nbsp;  off;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  Host &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-def">$host</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  X-Real-IP &nbsp; &nbsp; &nbsp; <span class="cm-def">$remote_addr</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  X-Forwarded-For <span class="cm-def">$proxy_add_x_forwarded_for</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_pass &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  http://boardgame_server;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  error_page <span class="cm-number">404</span> /404.html;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  location <span class="cm-operator">=</span> /40x.html {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  error_page <span class="cm-number">500</span> <span class="cm-number">502</span> <span class="cm-number">503</span> <span class="cm-number">504</span> /50x.html;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  location <span class="cm-operator">=</span> /50x.html {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 1350px;"></div><div class="CodeMirror-gutters" style="display: none; height: 1380px;"></div></div></div></pre><h4><a name='header-n596' class='md-header-anchor '></a>审核、发布、回退流程</h4><ul><li>审核通过之后，将生产环境升级为 v2（如果涉及到数据库结构变更，需要先对数据库结构及其数据备份，然后升级）</li><li>升级到 v2 之后，如果存在重大 bug，需要对 v2 进行回滚，即，将生产环境回滚到 v1</li></ul><p><img src='pic/commonsense/wechat_review_publish_rollback.png' alt='' referrerPolicy='no-referrer' /></p><h4><a name='header-n606' class='md-header-anchor '></a>版本迭代原则</h4><p>假设 V(n) 成为生产环境版本，提交审核版本为 V(n+1)，此时，V(n)、V(n+1) 即对应上图中的 v1、v2</p><h3><a name='header-n609' class='md-header-anchor '></a>哈希冲突解决</h3><h4><a name='header-n610' class='md-header-anchor '></a>开放地址法</h4><p>开放地址法使用公式：<code>Hi=(H(key)+di) MOD m i=1,2,…,k(k&lt;=m-1)</code>
-其中，<code>m</code> 为哈希表的表长。<code>di</code> 是产生冲突的时候的增量序列。</p><ul><li>如果 <code>di</code> 取值连续，如 <code>1,2,3,…m-1</code>，称线性探测再散列</li><li>如果 <code>di</code> 按绝对值取值，如 <code>1,-1,2,-2,4,-4,9,-9,16,-16,…k*k,-k*k(k&lt;=m/2)</code>，称二次探测再散列</li><li>如果 <code>di</code> 取值可能为伪随机数列，称伪随机探测再散列</li></ul><h4><a name='header-n624' class='md-header-anchor '></a>再哈希法</h4><p>有多个候选哈希函数，当发生冲突时，使用下一个哈希函数，直到无冲突</p><h4><a name='header-n627' class='md-header-anchor '></a>链地址法（拉链法）</h4><p>将所有关键字为同义词的记录存储在同一线性链表中</p><h3><a name='header-n787' class='md-header-anchor '></a>线程数目设置共性认识</h3><p><strong>提问：工作线程数是不是设置的越大越好？</strong></p><p>回答：肯定不是的</p><p>1）一来服务器 CPU 核数有限，同时并发的线程数是有限的，1 核 CPU 设置 10000 个工作线程没有意义</p><p>2）线程切换是有开销的，如果线程切换过于频繁，反而会使性能降低</p><p><strong>提问：调用 sleep() 函数的时候，线程是否一直占用 CPU？</strong></p><p>回答：不占用，等待时会把 CPU 让出来，给其他需要 CPU 资源的线程使用</p><p>不止调用 <code>sleep()</code> 函数，在进行一些阻塞调用，例如网络编程中的<strong>阻塞</strong> <code>accept()</code>【等待客户端连接】和<strong>阻塞</strong> <code>recv()</code>【等待下游回包】也不占用 CPU 资源</p><p> <strong>提问：如果 CPU 是单核，设置多线程有意义么，能提高并发性能么？</strong></p><p>回答：即使是单核，使用多线程也是有意义的</p><p>1）多线程编码可以让我们的服务/代码更加清晰，有些 IO 线程收发包，有些 Worker 线程进行任务处理，有些 Timeout 线程进行超时检测</p><p>2）如果有一个任务一直占用 CPU 资源在进行计算，那么此时增加线程并不能增加并发，例如这样的一个代码</p><p> <code>while(1){ i++; }</code></p><p>该代码一直不停的占用 CPU 资源进行计算，会使 CPU 占用率达到 100%</p><p>3）通常来说，Worker 线程一般不会一直占用 CPU 进行计算，此时即使 CPU 是单核，增加 Worker 线程也能够提高并发，因为这个线程在休息的时候，其他的线程可以继续工作</p><h2><a name='header-n630' class='md-header-anchor '></a>计算机组成原理</h2><h3><a name='header-n631' class='md-header-anchor '></a>原码、反码、补码</h3><blockquote><p><strong>总结：</strong>补码的补码等于原码</p></blockquote><ul><li>原码</li></ul><p>原码就是符号位加上真值的绝对值，即用第一位表示符号，其余位表示值。比如如果是 8 位二进制</p><blockquote><p>[+1]<sub>原</sub> = 0000 0001</p><p>[-1]<sub>原</sub> = 1000 0001</p></blockquote><p>第一位是符号位。因为第一位是符号位，所以 8 位二进制数的取值范围就是</p><blockquote><p>[1111 1111, 0111 1111]</p></blockquote><p>即</p><blockquote><p>[-127, 127]</p></blockquote><p>原码是人脑最容易理解和计算的表示方式</p><ul><li>反码</li></ul><p>反码的表示方法是：正数的反码是其本身；负数的反码是在其原码的基础上，符号位不变，其余各个位取反。</p><blockquote><p>[+1] = [00000001]<sub>原</sub> = [00000001]<sub>反</sub></p><p>[-1] = [10000001]<sub>原</sub> = [11111110]<sub>反</sub></p></blockquote><p>可见，如果一个反码表示的是负数，人脑无法直观的看出来它的数值。通常要将其转换成原码再计算。</p><ul><li>补码</li></ul><p>补码的表示方法是：正数的补码就是其本身；负数的补码是在其原码的基础上，符号位不变，其余各位取反，最后 +1（即在反码的基础上 +1）</p><blockquote><p>[+1] = [00000001]<sub>原</sub> = [00000001]<sub>反</sub> = [00000001]<sub>补</sub></p><p>[-1] = [10000001]<sub>原</sub> = [11111110]<sub>反</sub> = [11111111]<sub>补</sub></p></blockquote><p>对于负数，补码表示方式也是人脑无法直观看出其数值的。通常也需要转换成原码再计算其数值。</p><h3><a name='header-n684' class='md-header-anchor '></a>LRU Cache</h3><p><code>LRU</code> 是 Latest Recently Used 的缩写，即，最近最少使用，它是一种 Cache 替换算法。</p><p>狭义的 Cache 指的是位于 CPU 和主存间的快速 RAM， 通常它不像系统主存那样使用 DRAM 技术，而使用昂贵但较快速的SRAM 技术。 广义上的 Cache 指的是位于速度相差较大的两种硬件之间， 用于协调两者数据传输速度差异的结构。除了CPU 与主存之间有 Cache， 内存与硬盘之间也有 Cache，乃至在硬盘与网络之间也有某种意义上的 Cache —— Internet 临时文件夹或网络内容缓存等。</p><p>Cache 的容量有限，因此当 Cache 的容量用完后，而又有新的内容需要添加进来时， 就需要挑选并舍弃原有的部分内容，从而腾出空间来放新内容。LRU Cache 的替换原则就是将最近最少使用的内容替换掉，即，每次替换掉的就是一段时间内最久没有使用过的内容。</p><h2><a name='header-n691' class='md-header-anchor '></a>计算机网络</h2><h3><a name='header-n692' class='md-header-anchor '></a><code>MSL</code></h3><p>概念：<code>MSL</code>，<code>Maximum Segment Lifetime</code>，报文最长存活时间，是任何报文在网络上存在的最长时间，超过这个时间报文将被丢弃。</p><p><code>2 MSL</code> 即两倍的 <code>MSL</code>，TCP 的 <code>TIME_WAIT</code> 状态也称为 <code>2 MSL</code> 等待状态，当 TCP 的一端发起主动关闭，在发出最后一个<code>ACK</code> 包后，即第 3 次握手完成后发送了第四次握手的 <code>ACK</code> 包后就进入了 <code>TIME_WAIT</code> 状态，必须在此状态上停留两倍的 <code>MSL</code> 时间，等待 <code>2 MSL</code> 时间主要目的是怕最后一个  <code>ACK</code> 包对方没收到，那么对方在超时后将重发第三次握手的 <code>FIN</code> 包，主动关闭端接到重发的 <code>FIN</code> 包后可以再发一个 <code>ACK</code> 应答包。在 <code>TIME_WAIT</code> 状态时两端的端口不能使用，要等到 <code>2 MSL</code> 时间结束才可继续使用。当连接处于 <code>2 MSL</code> 等待阶段时任何迟到的报文段都将被丢弃。在实际应用中可以通过设置 <code>SO_REUSEADDR</code> 选项达到不必等待 <code>2 MSL</code> 时间结束再使用此端口。<code>RFC 793</code> 中规定 <code>MSL</code> 为2分钟，实际应用中常用的是 30 秒，1 分钟和 2 分钟等。</p><h3><a name='header-n697' class='md-header-anchor '></a><code>TTL</code></h3><p>概念：<code>TTL</code>，<code>time to live</code>，生存时间，IP 数据报包含 <code>TTL</code> 字段，这个生存时间是由源主机设置初始值但不是存的具体时间，而是存储了一个 IP 数据报可以经过的最大路由数，每经过一个处理它的路由器此值就减 1，当此值为 0 则数据报将被丢弃，同时发送 <code>ICMP</code> 报文通知源主机。</p><h3><a name='header-n700' class='md-header-anchor '></a><code>TCP_NODELAY</code></h3><p><code>Nagle</code> 化在这里的含义是采用 <code>Nagle</code> 算法把较小的包组装为更大的帧。 John Nagle 是 <code>Nagle</code> 算法的发明人，后者就是用他的名字来命名的，他在 1984 年首次用这种方法来尝试解决福特汽车公司的网络拥塞问题（欲了解详情请参看 IETF RFC 896）。他解决的问题就是所谓的 <code>silly window syndrome</code>，中文称“愚蠢窗口症候群”，具体含义是，因为普遍终端应用程序每产生一次击键操作就会发送一个包，而典型情况下一个包会拥有一个字节的数据载荷以及 40 个字节长的包头，于是产生 4000% 的过载，很轻易地就能令网络发生拥塞。 <code>Nagle</code> 化后来成了一种标准并且立即在因特网上得以实现。它现在已经成为缺省配置了，但在我们看来，有些场合下把这一选项关掉也是合乎需要的。</p><p>现在让我们假设某个应用程序发出了一个请求，希望发送小块数据。我们可以选择立即发送数据或者等待产生更多的数据然后再一次发送两种策略。如果我们马上发送数据，那么交互性的以及客户/服务器型的应用程序将极大地受益。如果请求立即发出那么响应时间也会快一些。以上操作可以通过设置套接字的 <code>TCP_NODELAY</code> 选项来完成，这样就禁用了 <code>Nagle</code> 算法。</p><blockquote><p>在 C++ 中，可以通过 <code>setsockopt</code> 启用 <code>TCP_NODELAY</code></p></blockquote><pre class="md-fences md-end-block" lang="cpp"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 4px; left: 4px;"></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 30px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">static</span> <span class="cm-variable-3">void</span> <span class="cm-def">_set_tcp_nodelay</span>(<span class="cm-variable-3">int</span> <span class="cm-variable">fd</span>) {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-variable-3">int</span> <span class="cm-variable">enable</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-variable">setsockopt</span>(<span class="cm-variable">fd</span>, <span class="cm-variable">IPPROTO_TCP</span>, <span class="cm-variable">TCP_NODELAY</span>, (<span class="cm-variable-3">void*</span>)<span class="cm-operator">&amp;</span><span class="cm-variable">enable</span>, <span class="cm-keyword">sizeof</span>(<span class="cm-variable">enable</span>));</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 96px;"></div><div class="CodeMirror-gutters" style="display: none; height: 126px;"></div></div></div></pre><blockquote><p>在 Java 中，Socket 对象上有一个 <code>setTcpNoDelay</code> 的方法，直接设置成 true 即可</p></blockquote><h3><a name='header-n712' class='md-header-anchor '></a>HTTP Error Code</h3><h4><a name='header-n713' class='md-header-anchor '></a>50x 错误码</h4><blockquote><p>参考资料：<a href='https://www.section.io/blog/504-503-errors-difference/'>https://www.section.io/blog/504-503-errors-difference/</a></p></blockquote><ul><li>502 Bad GateWay</li></ul><p>服务器作为反向代理从业务服务器收到了无效的（无法解析的）响应</p><ul><li>503 Service Unavailable</li></ul><p>业务服务器服务实例活着，但是服务不可用（如负载过高，且通常负载降低后能够恢复）</p><ul><li>504 Gateway Timeout</li></ul><p>服务器作为反向代理，在超时之前未收到业务服务器的响应</p><h2><a name='header-n735' class='md-header-anchor '></a>数据通信</h2><h3><a name='header-n736' class='md-header-anchor '></a>单工、半双工、全双工</h3><blockquote><p>根据数据信息在传输线上的传送方向，数据通信方式分为单工通信 半双工通信和全双工通信 3 种。</p></blockquote><ul><li>单工通信</li></ul><p>数据信息在通信线上始终向一个方向传输，数据信息永远从发送端传输到接收端，任何时候都不能改变信号的传输方向。例如，计算机发送打印数据给打印机，打印机只能从计算机接收数据信息，不能进行相反方向的信息传输。</p><ul><li>半双工通信</li></ul><p>数据信息可以双向传输，但必须交替进行，同一时刻只允许信号在<strong>一个信道</strong>上单向传输。半双工通信要求两端都具有发送装置和接受装置，因此，半双工通信实际上是一种可切换方向的单工通信。例如，对讲机通信就是典型的半双工通信方式，由于对讲机传送和接收使用相同的频率，在一方讲话的时候另一方不能讲话（只能听），但双方可以交互切换模式（讲或听）。</p><ul><li>全双工通信</li></ul><p>全双工通信允许数据同时在两个方向的传输，即有<strong>两个信道</strong>，可同时进行双向的数据传输。全双工通信是两个单工通信的结合，要求收发双方都有独立的接收和发送能力。全双工通信效率高，控制简单，但造价高。例如，计算机之间的通信是全双工方式。</p><h2><a name='header-n758' class='md-header-anchor '></a>社会经济学</h2><h3><a name='header-n759' class='md-header-anchor '></a>马太效应</h3><blockquote><p>马太效应的名字就来源于圣经《新约·马太福音》中的一则寓言：从前，一个国王要出门远行，临行前，交给 3个仆人每人一锭银子，吩咐道:“你们去做生意，等我回来时，再来见我。”国王回来时，第一个仆人说:“主人，你交给我的一锭银子，我已赚了 10 锭。”于是，国王奖励他 10 座城邑。第二个仆人报告:“主人，你给我的一锭银子，我已赚了 5 锭。”于是，国王奖励他 5 座城邑。第三仆人报告说:“主人，你给我的 1 锭银子，我一直包在手帕里，怕丢失，一直没有拿出来。”于是，国王命令将第三个仆人的1锭银子赏给第一个仆人，说:“凡是少的，就连他所有的，也要夺过来。凡是多的，还要给他，叫他多多益善。”这就是“马太效应”，反映当今社会中存在的一个普遍现象，即赢家通吃 。</p></blockquote><p>马太效应 <code>Matthew Effect</code>，指强者愈强、弱者愈弱的现象，广泛应用于社会心理学、教育、金融以及科学领域。马太效应，是社会学家和经济学家们常用的术语，反映的社会现象是两极分化，富的更富，穷的更穷。
-马太效应，名字来自圣经《新约·马太福音》一则寓言： “凡有的，还要加倍给他叫他多余；没有的，连他所有的也要夺过来”。表面看起来“马太效应”与“平衡之道”相悖，与“二八定则”类似，但是实则它只不过是“平衡之道”的一极。</p><h3><a name='header-n766' class='md-header-anchor '></a>公地悲剧</h3><p>1968年英国加勒特·哈丁教授(Garrett Hardin)在《The tragedy of the commons》一文中首先提出“公地悲剧”理论模型。</p><p>他说，作为理性人，每个牧羊者都希望自己的收益最大化。在公共草地上，每增加一只羊会有两种结果：一是获得增加一只羊的收入；二是加重草地的负担，并有可能使草地过度放牧。经过思考，牧羊者决定不顾草地的承受能力而增加羊群数量。于是他便会因羊只的增加而收益增多。看到有利可图。许多牧羊者也纷纷加入这一行列。由于羊群的进入不受限制，所以牧场被过度使用，草地状况迅速恶化，悲剧就这样发生了。</p><p>公地作为一项资源或财产有许多拥有者，他们中的每一个都有使用权，但没有权利阻止其他人使用，从而造成资源过度使用和枯竭。过度砍伐的森林、过度捕捞的渔业资源及污染严重的河流和空气，都是“公地悲剧”的典型例子。之所以叫悲剧，是因为每个当事人都知道资源将由于过度使用而枯竭，但每个人对阻止事态的继续恶化都感到无能为力。而且都抱着“及时捞一把”的心态加剧事态的恶化。公共物品因产权难以界定(界定产权的交易成本太高)而被竞争性地过度使用或侵占是必然的结果。</p><h2><a name='header-n773' class='md-header-anchor '></a>语言学</h2><h3><a name='header-n774' class='md-header-anchor '></a>逻辑自洽</h3><p>逻辑自洽 <code>logic self-consistency</code>，指的是一个语言学的原则，即一个理论在语言本身的陈述上是不矛盾的，人们通过仔细分析这个理论的文字符号，没有发现任何的矛盾，达到了自我的完备。</p><p>逻辑的英文是 <code>logic</code>，其中 <code>log</code> 是语言的意思，所以 <code>logic</code> 就是“语言的规则”，或者说“语言的可分析性”。因此“逻辑自洽”其实是一个语言学的原则，即一个理论在语言本身的陈述上是不矛盾的，人们通过仔细分析这个理论的文字符号，没有发现任何的矛盾，达到了自我的完备。“逻辑”是一种语言上的可证伪性，人们不用借助实验，仅仅依靠分析语言陈述和符号结构就可以对一个理论进行证伪，<strong>因此“逻辑”是科学理论的思维基础，“逻辑自洽”是科学理论成立的基本前提</strong>。</p><blockquote><p>任何一种科学学说之所以能被称之为科学，是因为它具有可证伪性。“逻辑自洽”是科学理论成立的必要条件，需要通过实践来检验其正确性。</p></blockquote></div>
+<div  id='write'  class = 'is-node'><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n3"><a class="md-toc-inner" href="#编程相关">编程相关</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n4"><a class="md-toc-inner" href="#术语">术语</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n5"><a class="md-toc-inner" href="#ackutack">ACK、utACK</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n22"><a class="md-toc-inner" href="#javascript">JavaScript</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n23"><a class="md-toc-inner" href="#varletconst-区别">var、let、const 区别</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n31"><a class="md-toc-inner" href="#solidity">Solidity</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n32"><a class="md-toc-inner" href="#不同合约中共享-enum">不同合约中共享 enum</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n38"><a class="md-toc-inner" href="#合约函数可见性修饰符">合约函数可见性修饰符</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n48"><a class="md-toc-inner" href="#how-to-get-contract-internal-transactions">How to get contract internal transactions?</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n51"><a class="md-toc-inner" href="#bitcoin">Bitcoin</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n52"><a class="md-toc-inner" href="#minrelaytxfeemintxfee">minrelaytxfee、mintxfee</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n62"><a class="md-toc-inner" href="#挖空块">挖空块</a></span><span role="listitem" class="md-toc-item md-toc-h5" data-ref="n63"><a class="md-toc-inner" href="#空块出现的原因">空块出现的原因</a></span><span role="listitem" class="md-toc-item md-toc-h5" data-ref="n72"><a class="md-toc-inner" href="#如何解决空块问题">如何解决空块问题</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n74"><a class="md-toc-inner" href="#stopping-hash-field-in-getblocks-message">Stopping Hash field in GetBlocks Message</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n85"><a class="md-toc-inner" href="#ethereum">Ethereum</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n86"><a class="md-toc-inner" href="#can-i-speed-up-my-transaction">Can I Speed Up My Transaction?</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n93"><a class="md-toc-inner" href="#gasgas-pricegas-limit-之间的关系">Gas/Gas Price/Gas Limit 之间的关系</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n102"><a class="md-toc-inner" href="#数据库">数据库</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n103"><a class="md-toc-inner" href="#sql-注入">SQL 注入</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n114"><a class="md-toc-inner" href="#curl">curl</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n115"><a class="md-toc-inner" href="#--data-与---data-binary-选项">--data 与 --data-binary 选项</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n121"><a class="md-toc-inner" href="#微信小程序审核发布回退">微信小程序审核发布回退</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n122"><a class="md-toc-inner" href="#环境与分支说明">环境与分支说明</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n145"><a class="md-toc-inner" href="#nginx-配置">Nginx 配置</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n147"><a class="md-toc-inner" href="#审核发布回退流程">审核、发布、回退流程</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n154"><a class="md-toc-inner" href="#版本迭代原则">版本迭代原则</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n156"><a class="md-toc-inner" href="#哈希冲突解决">哈希冲突解决</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n157"><a class="md-toc-inner" href="#开放地址法">开放地址法</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n166"><a class="md-toc-inner" href="#再哈希法">再哈希法</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n168"><a class="md-toc-inner" href="#链地址法拉链法）">链地址法（拉链法）</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n170"><a class="md-toc-inner" href="#线程数目设置共性认识">线程数目设置共性认识</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n185"><a class="md-toc-inner" href="#计算机组成原理">计算机组成原理</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n186"><a class="md-toc-inner" href="#原码反码补码">原码、反码、补码</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n219"><a class="md-toc-inner" href="#lru-cache">LRU Cache</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n223"><a class="md-toc-inner" href="#计算机网络">计算机网络</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n224"><a class="md-toc-inner" href="#msl"><code>MSL</code></a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n227"><a class="md-toc-inner" href="#ttl"><code>TTL</code></a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n229"><a class="md-toc-inner" href="#tcpnodelay"><code>TCP_NODELAY</code></a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n237"><a class="md-toc-inner" href="#http-error-code">HTTP Error Code</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n238"><a class="md-toc-inner" href="#50x-错误码">50x 错误码</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n284"><a class="md-toc-inner" href="#http-简单请求">HTTP 简单请求</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n253"><a class="md-toc-inner" href="#数据通信">数据通信</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n254"><a class="md-toc-inner" href="#单工半双工全双工">单工、半双工、全双工</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n269"><a class="md-toc-inner" href="#社会经济学">社会经济学</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n270"><a class="md-toc-inner" href="#马太效应">马太效应</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n274"><a class="md-toc-inner" href="#公地悲剧">公地悲剧</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n278"><a class="md-toc-inner" href="#语言学">语言学</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n279"><a class="md-toc-inner" href="#逻辑自洽">逻辑自洽</a></span></p></div><hr /><h2><a name="编程相关" class="md-header-anchor"></a><span>编程相关</span></h2><h3><a name="术语" class="md-header-anchor"></a><span>术语</span></h3><h4><a name="ackutack" class="md-header-anchor"></a><span>ACK、utACK</span></h4><ul><li><p><code>Concept ACK</code></p><p><span>Agree with the idea and overall direction, but haven&#39;t reviewed the code changes or tested them.</span></p></li><li><p><code>utACK (untested ACK)</code></p><p><span>Reviewed and agree with the code changes but haven&#39;t actually tested them.</span></p></li><li><p><code>Tested ACK</code></p><p><span>Reviewed the code changes and have verified the functionality or bug fix.</span></p></li><li><p><code>ACK</code></p><p><span>A loose ACK can be confusing. It&#39;s best to avoid them unless it&#39;s a documentation/comment only change in which case there is nothing to test/verify; therefore the tested/untested distinction is not there.</span></p></li><li><p><code>NACK</code></p><p><span>Disagree with the code changes/concept. Should be accompanied by an explanation.</span></p></li></ul><h3><a name="javascript" class="md-header-anchor"></a><span>JavaScript</span></h3><h4><a name="varletconst-区别" class="md-header-anchor"></a><span>var、let、const 区别</span></h4><ul><li><span>使用 var 声明的变量，其作用域为该语句所在的函数内，且存在变量提升现象</span></li><li><span>使用 let 声明的变量，其作用域为该语句所在的代码块内，不存在变量提升</span></li><li><span>使用 const 声明的是常量，在后面出现的代码中不能再修改该常量的值</span></li></ul><h3><a name="solidity" class="md-header-anchor"></a><span>Solidity</span></h3><h4><a name="不同合约中共享-enum" class="md-header-anchor"></a><span>不同合约中共享 enum</span></h4><p><span>在合约 Supplier 中定义枚举</span></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="javascript"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="javascript"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><span><span>​</span>x</span></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style="text-rendering: auto;"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">contract</span> <span class="cm-variable">Supplier</span> {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-variable">enum</span> <span class="cm-variable">State</span> { <span class="cm-variable">inactive</span>, <span class="cm-variable">active</span>, <span class="cm-variable">kaput</span> }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-variable">State</span> <span class="cm-variable">constant</span> <span class="cm-variable">DEFAULT_STATE</span> <span class="cm-operator">=</span> <span class="cm-variable">State</span>.<span class="cm-property">inactive</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-variable">State</span> <span class="cm-variable">public</span> <span class="cm-variable">status</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-keyword">function</span> <span class="cm-def">Supplier</span>() {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">status</span> <span class="cm-operator">=</span> <span class="cm-variable">DEFAULT_STATE</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 220px;"></div><div class="CodeMirror-gutters" style="display: none; height: 220px;"></div></div></div></pre><p><span>在合约 Producer 中使用</span></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="javascript"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="javascript"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style="text-rendering: auto;"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">contract</span> <span class="cm-variable">Producer</span> {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-keyword">function</span> <span class="cm-def">addSupplier</span>(<span class="cm-def">Supplier</span> <span class="cm-variable">_supplier</span>) {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">require</span>(<span class="cm-variable">_supplier</span>.<span class="cm-property">status</span>() <span class="cm-operator">==</span> <span class="cm-variable-2">Supplier</span>.<span class="cm-property">State</span>.<span class="cm-property">active</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 110px;"></div><div class="CodeMirror-gutters" style="display: none; height: 110px;"></div></div></div></pre><p><span>总结：使用时，加上枚举所在合约作为域前缀即可，例如 </span><code>Supplier.State.active</code></p><h4><a name="合约函数可见性修饰符" class="md-header-anchor"></a><span>合约函数可见性修饰符</span></h4><ul><li><strong><span>public</span></strong><span> - all can access</span></li><li><strong><span>external</span></strong><span> - Cannot be accessed internally, only externally</span></li><li><strong><span>internal</span></strong><span> - only this contract and contracts deriving from it can access</span></li><li><strong><span>private</span></strong><span> - can be accessed only from this contract</span></li></ul><h4><a name="how-to-get-contract-internal-transactions" class="md-header-anchor"></a><span>How to get contract internal transactions?</span></h4><p><span>There&#39;s not currently any way to do this using the web3 API. Internal transactions, despite the name (which isn&#39;t part of the yellowpaper; it&#39;s a convention people have settled on) aren&#39;t actual transactions, and aren&#39;t included directly in the blockchain; they&#39;re value transfers that were initiated by executing a contract.</span></p><p><span>As such, they&#39;re not stored explicitly anywhere: they&#39;re the effects of running the transaction in question on the blockchain state. Blockchain explorers like etherscan obtain them by running a modified node with an instrumented EVM, which record all the value transfers that took place as part of transaction execution, storing them separately.</span></p><h3><a name="bitcoin" class="md-header-anchor"></a><span>Bitcoin</span></h3><h4><a name="minrelaytxfeemintxfee" class="md-header-anchor"></a><span>minrelaytxfee、mintxfee</span></h4><blockquote><p><span>参考资料：</span><a href='https://bitcointalk.org/index.php?topic=2045575.0' target='_blank' class='url'>https://bitcointalk.org/index.php?topic=2045575.0</a></p></blockquote><ul><li><span>minrelaytxfee is used to define what the minimum fee should be on a transaction for your node to relay it</span></li><li><span>mintxfee is the minimum fee that the client will </span><em><span>create</span></em><span> a transaction with</span></li></ul><blockquote><p><span>So, if minrelaytxfee is set to 0.00001 your node will happily relay any transactions with that fee or higher (ie. yours and other peoples txes)... however, if you then set mintxfee to 0.00005, then any transaction you create will have that value as the minimum possible fee, but you&#39;ll still relay other peoples txes with fees of only 0.00001. </span></p></blockquote><h4><a name="挖空块" class="md-header-anchor"></a><span>挖空块</span></h4><h5><a name="空块出现的原因" class="md-header-anchor"></a><span>空块出现的原因</span></h5><p><span>挖空块是因为区块的传输需要时间，比如 1M 区块现在一般需要 6 秒传完， 那矿池就有 1% 的概率（6 秒/区块间隔 600秒），在传输区块 N 的过程中又挖出了一个块。 这时候矿池就有 2 个选择： </span></p><ul><li><span>原始方案：在块 N 传输结束后，才开始在 N 的基础上挖 N+1块， 传输过程中，认为别人还没挖出 N 块，所以把自己挖出的块，也打包交易，作为 N 块广播， 当然这样自己的 N 块大概率被孤立（因为别人已经先于你打包，广播出去了） </span></li><li><span>改进方案：在收到块 N 的区块头，还没传完区块数据时，就认为别人已经挖出了 N 块，开始在N的基础上挖 N+1 块， 但这就有个问题，N 块没传完，不知道别人打包了什么交易，如果 N+1 打包交易，那有可能打包到 N 块已打包的交易，就冲突了， 所以用这种提早挖 N+1 块的方法，如果在 6 秒内挖出了，那就只能打空块。 也就是说，这 6 秒的块，矿池 要么选择被孤立掉，损失 1% 产出（原始方案） 要么选择不被孤立，打空块（改进方案） </span></li></ul><blockquote><p><strong><span>利益驱动尽量不挖空块，</span></strong><span>包含基础奖励的 12.5 BTC，但没有打包交易费的奖励（现在约 1.5 BTC） 矿池每打一个空块，就会损失 1.5 BTC 的打包手续费，所以矿池都在想尽办法，不打空块。 </span></p></blockquote><h5><a name="如何解决空块问题" class="md-header-anchor"></a><span>如何解决空块问题</span></h5><p><span>因为挖空块不去打包交易，本质是为了避免打包了已经被上一个区块打包的交易导致区块无效，从而造成更大的经济损失。因此，通过精心构造一些不可能出现在上一个区块的交易即可。例如，自己找一些零散的 UTXO 来整合，和交易所合作，交易所使用端到端独家提供一些交易，这些交易不被广播，只可能出现在挖空块的矿池里，这样空块就不会“空”了。</span></p><h4><a name="stopping-hash-field-in-getblocks-message" class="md-header-anchor"></a><span>Stopping Hash field in GetBlocks Message</span></h4><ul><li><span>Node1 announces block B3, using an </span><code>inv</code><span> message with B3&#39;s gash.</span></li><li><span>Node2 does not know about B3, or its parent B2, but does know the grandparent B1. It sends a </span><code>getblocks</code><span> message, starting from B1, but stopping at B3.</span></li><li><span>Node1 replies with an </span><code>inv</code><span> for B2, but not with B3 or any potential successor B4 thay may have appeared.</span></li></ul><p><span>The purpose is just avoiding sending too many hashes in case the sender already knows some successor.</span></p><blockquote><p><span>Note that since Bitcoin Core 0.10.0, getblocks is no longer used. getheaders has similar logic though.</span></p></blockquote><h3><a name="ethereum" class="md-header-anchor"></a><span>Ethereum</span></h3><h4><a name="can-i-speed-up-my-transaction" class="md-header-anchor"></a><span>Can I Speed Up My Transaction?</span></h4><blockquote><p><span>可通过 </span><a href='https://ethgasstation.info/'><span>https://ethgasstation.info/</span></a><span> 查看最近交易的平均交易费，以及交易费对应的优先级、大概确认时间等信息。</span></p></blockquote><p><span>可以通过设置高额的 </span><code>gas price</code><span> 提高交易处理的优先级，进而达到加快交易确认速度。</span></p><blockquote><p><span>You can actually choose the priority level of your transaction. Miners will “work on” and execute transactions that offer a </span><strong><span>higher gas price</span></strong><span>, as they’ll get to keep the fees that you pay. Therefore, they will be incentivized to prioritize transactions that have a higher Gwei.</span></p><p><span>If you want your transaction to be executed at a faster speed, then you have to be willing to pay a higher gas price. You’re essentially “jumping the line”, beating everybody that paid a lower gas price. </span></p></blockquote><h4><a name="gasgas-pricegas-limit-之间的关系" class="md-header-anchor"></a><span>Gas/Gas Price/Gas Limit 之间的关系</span></h4><p><img src="pic/commonsense/gas_gasprice_gaslimit.png" referrerpolicy="no-referrer"><span> </span></p><p><span>Looking at this transaction at </span><a href='https://etherscan.io/'><span>Etherscan</span></a><span>, we can see the breakdown of all terms associated with gas. Here’s what they mean:</span></p><p><strong><span>Gas Limit:</span></strong><span> Maximum amount of gas that a user will pay for this transaction. The default amount for a standard ETH transfer is 21,000 gas</span></p><p><strong><span>Gas Used by Txn</span></strong><span>: Actual amount of gas used to execute the transaction. Since this is a standard transfer, the gas used is also 21,000</span></p><p><strong><span>Gas Price:</span></strong><span> Amount of ETH a user is prepared to pay for each unit of gas. The user chose to pay 8 Gwei for every gas unit, which is considered a “high priority” transaction and would be executed very fast</span></p><p><strong><span>Actual Tx Cost Fee:</span></strong><span> This is the actual amount of fees that the user will pay for the transaction in Ether value (USD value is in brackets). Not bad; the user paid a total of 2 cents for his ETH to be transferred in less than 1 minutes!</span></p><p><span>In summary, the ultimate formula to calculate the amount of fees you&#39;ll end up paying for a transaction is:</span></p><p><code>实际交易费用 = 交易实际消耗的 Gas * Gas Price</code></p><h3><a name="数据库" class="md-header-anchor"></a><span>数据库</span></h3><h4><a name="sql-注入" class="md-header-anchor"></a><span>SQL 注入</span></h4><p><span>SQL 注入攻击（SQL Injection），简称注入攻击，是 Web 开发中最常见的一种安全漏洞。可以用它来从数据库获取敏感信息，或者利用数据库的特性执行添加用户，导出文件等一系列恶意操作，甚至有可能获取数据库乃至系统用户最高权限。而造成 SQL 注入的原因是因为程序没有有效过滤用户的输入，使攻击者成功的向服务器提交恶意的 SQL 查询代码，程序在接收后错误的将攻击者的输入作为查询语句的一部分执行，导致原始的查询逻辑被改变，额外的执行了攻击者精心构造的恶意代码。</span></p><p><span>假设有如下登陆表单：</span></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="html"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="html"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style="text-rendering: auto;"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">form</span> <span class="cm-attribute">action</span>=<span class="cm-string">"/login"</span> <span class="cm-attribute">method</span>=<span class="cm-string">"POST"</span><span class="cm-tag cm-bracket">&gt;</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Username: <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">"text"</span> <span class="cm-attribute">name</span>=<span class="cm-string">"username"</span> <span class="cm-tag cm-bracket">/&gt;&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Password: <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">"password"</span> <span class="cm-attribute">name</span>=<span class="cm-string">"password"</span> <span class="cm-tag cm-bracket">/&gt;&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">"submit"</span> <span class="cm-attribute">value</span>=<span class="cm-string">"登陆"</span> <span class="cm-tag cm-bracket">/&gt;&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">form</span><span class="cm-tag cm-bracket">&gt;</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 110px;"></div><div class="CodeMirror-gutters" style="display: none; height: 110px;"></div></div></div></pre><p><span>登陆逻辑的 SQL 可能是这样的：</span></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="go"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="go"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style="text-rendering: auto;"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">username</span>:<span class="cm-operator">=</span><span class="cm-variable">r</span><span class="cm-number">.</span><span class="cm-variable">Form</span><span class="cm-number">.</span><span class="cm-variable">Get</span>(<span class="cm-string">"username"</span>)</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">password</span>:<span class="cm-operator">=</span><span class="cm-variable">r</span><span class="cm-number">.</span><span class="cm-variable">Form</span><span class="cm-number">.</span><span class="cm-variable">Get</span>(<span class="cm-string">"password"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">sql</span>:<span class="cm-operator">=</span><span class="cm-string">"SELECT * FROM user WHERE username='"</span><span class="cm-operator">+</span><span class="cm-variable">username</span><span class="cm-operator">+</span><span class="cm-string">"' AND password='"</span><span class="cm-operator">+</span><span class="cm-variable">password</span><span class="cm-operator">+</span><span class="cm-string">"'"</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 66px;"></div><div class="CodeMirror-gutters" style="display: none; height: 66px;"></div></div></div></pre><p><span>如果用户的输入的用户名如下，密码任意</span></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="bash"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style="text-rendering: auto;"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">myuser<span class="cm-string">' or '</span>foo<span class="cm-string">' = '</span>foo<span class="cm-string">' --</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 22px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><p><span>那么我们的 SQL 就变成了如下所示</span></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="sql"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="sql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style="text-rendering: auto;"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">SELECT</span> * <span class="cm-keyword">FROM</span> user <span class="cm-keyword">WHERE</span> username=<span class="cm-string">'myuser'</span> <span class="cm-keyword">or</span> <span class="cm-string">'foo'</span> = <span class="cm-string">'foo'</span> <span class="cm-comment">--'' AND password='xxx'</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 22px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><p><span>在 SQL 里面 </span><code>--</code><span> 是注释标记，所以查询语句会在此中断。这就让攻击者在不知道任何合法用户名和密码的情况下成功登录了。</span></p><h3><a name="curl" class="md-header-anchor"></a><span>curl</span></h3><h4><a name="--data-与---data-binary-选项" class="md-header-anchor"></a><span>--data 与 --data-binary 选项</span></h4><ul><li><span>参数内容从标准输入读取，无差别</span></li><li><span>参数从文件读取，</span><code>--data</code><span> 会将回车换行符去掉，</span><code>--data-binary</code><span> 反之</span></li></ul><h3><a name="微信小程序审核发布回退" class="md-header-anchor"></a><span>微信小程序审核发布回退</span></h3><h4><a name="环境与分支说明" class="md-header-anchor"></a><span>环境与分支说明</span></h4><p><span>假设小程序开发分支、生产分支、提交审核（待发布）分支分别为 fat2、v1、v2，通过 Nginx 匹配 URL 实现开发、生产、审核环境的隔离。</span></p><figure><table><thead><tr><th><span>环境</span></th><th><span>git 分支</span></th><th><span>URL 匹配前缀</span></th><th><span>后台服务监听端口</span></th></tr></thead><tbody><tr><td><span>开发环境</span></td><td><span>fat2</span></td><td><span>/boardgame</span></td><td><span>10000</span></td></tr><tr><td><span>生产环境</span></td><td><span>v1</span></td><td><span>/boardgame/v1</span></td><td><span>10001</span></td></tr><tr><td><span>审核版本</span></td><td><span>v2</span></td><td><span>/boardgame/v2</span></td><td><span>10002</span></td></tr></tbody></table></figure><h4><a name="nginx-配置" class="md-header-anchor"></a><span>Nginx 配置</span></h4><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="bash" style="break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style="text-rendering: auto;"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  upstream boardgame_server {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  server <span class="cm-number">127</span>.0.0.1:10000;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  upstream boardgame_server_v1 {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  server <span class="cm-number">127</span>.0.0.1:10001;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  upstream boardgame_server_v2 {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  server <span class="cm-number">127</span>.0.0.1:10002;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  server {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  listen &nbsp; &nbsp; &nbsp; <span class="cm-number">443</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  listen &nbsp; &nbsp; &nbsp; [::]:443;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  server_name  api.bigsillybear.com;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  root &nbsp; &nbsp; &nbsp; &nbsp; /usr/share/nginx/html;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  ssl_certificate &nbsp; &nbsp; &nbsp; &nbsp; <span class="cm-string">"/etc/letsencrypt/live/api.bigsillybear.com/fullchain.pem"</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  ssl_certificate_key &nbsp; &nbsp; <span class="cm-string">"/etc/letsencrypt/live/api.bigsillybear.com/privkey.pem"</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  ssl_session_cache shared:SSL:1m;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  ssl_session_timeout  10m;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  ssl_ciphers HIGH:!aNULL:!MD5;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  ssl_prefer_server_ciphers on;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># Load configuration files for the default server block.</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  include /etc/nginx/default.d/*.conf;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  location /boardgame/v1/ {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_redirect &nbsp; &nbsp; &nbsp; &nbsp;  off;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  Host &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-def">$host</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  X-Real-IP &nbsp; &nbsp; &nbsp; <span class="cm-def">$remote_addr</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  X-Forwarded-For <span class="cm-def">$proxy_add_x_forwarded_for</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_pass &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  http://boardgame_server_v1;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  location /boardgame/v2 {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_redirect &nbsp; &nbsp; &nbsp; &nbsp;  off;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  Host &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-def">$host</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  X-Real-IP &nbsp; &nbsp; &nbsp; <span class="cm-def">$remote_addr</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  X-Forwarded-For <span class="cm-def">$proxy_add_x_forwarded_for</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_pass &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  http://boardgame_server_v2;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  location /boardgame/ {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_redirect &nbsp; &nbsp; &nbsp; &nbsp;  off;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  Host &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-def">$host</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  X-Real-IP &nbsp; &nbsp; &nbsp; <span class="cm-def">$remote_addr</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_set_header &nbsp; &nbsp; &nbsp;  X-Forwarded-For <span class="cm-def">$proxy_add_x_forwarded_for</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  proxy_pass &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  http://boardgame_server;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  error_page <span class="cm-number">404</span> /404.html;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  location <span class="cm-operator">=</span> /40x.html {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  error_page <span class="cm-number">500</span> <span class="cm-number">502</span> <span class="cm-number">503</span> <span class="cm-number">504</span> /50x.html;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  location <span class="cm-operator">=</span> /50x.html {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 1342px;"></div><div class="CodeMirror-gutters" style="display: none; height: 1342px;"></div></div></div></pre><h4><a name="审核发布回退流程" class="md-header-anchor"></a><span>审核、发布、回退流程</span></h4><ul><li><span>审核通过之后，将生产环境升级为 v2（如果涉及到数据库结构变更，需要先对数据库结构及其数据备份，然后升级）</span></li><li><span>升级到 v2 之后，如果存在重大 bug，需要对 v2 进行回滚，即，将生产环境回滚到 v1</span></li></ul><p><img src="pic/commonsense/wechat_review_publish_rollback.png" referrerpolicy="no-referrer"></p><h4><a name="版本迭代原则" class="md-header-anchor"></a><span>版本迭代原则</span></h4><p><span>假设 V(n) 成为生产环境版本，提交审核版本为 V(n+1)，此时，V(n)、V(n+1) 即对应上图中的 v1、v2</span></p><h3><a name="哈希冲突解决" class="md-header-anchor"></a><span>哈希冲突解决</span></h3><h4><a name="开放地址法" class="md-header-anchor"></a><span>开放地址法</span></h4><p><span>开放地址法使用公式：</span><code>Hi=(H(key)+di) MOD m i=1,2,…,k(k&lt;=m-1)</code>
+<span>其中，</span><code>m</code><span> 为哈希表的表长。</span><code>di</code><span> 是产生冲突的时候的增量序列。</span></p><ul><li><span>如果 </span><code>di</code><span> 取值连续，如 </span><code>1,2,3,…m-1</code><span>，称线性探测再散列</span></li><li><span>如果 </span><code>di</code><span> 按绝对值取值，如 </span><code>1,-1,2,-2,4,-4,9,-9,16,-16,…k*k,-k*k(k&lt;=m/2)</code><span>，称二次探测再散列</span></li><li><span>如果 </span><code>di</code><span> 取值可能为伪随机数列，称伪随机探测再散列</span></li></ul><h4><a name="再哈希法" class="md-header-anchor"></a><span>再哈希法</span></h4><p><span>有多个候选哈希函数，当发生冲突时，使用下一个哈希函数，直到无冲突</span></p><h4><a name="链地址法拉链法）" class="md-header-anchor"></a><span>链地址法（拉链法）</span></h4><p><span>将所有关键字为同义词的记录存储在同一线性链表中</span></p><h3><a name="线程数目设置共性认识" class="md-header-anchor"></a><span>线程数目设置共性认识</span></h3><p><strong><span>提问：工作线程数是不是设置的越大越好？</span></strong></p><p><span>回答：肯定不是的</span></p><p><span>1）一来服务器 CPU 核数有限，同时并发的线程数是有限的，1 核 CPU 设置 10000 个工作线程没有意义</span></p><p><span>2）线程切换是有开销的，如果线程切换过于频繁，反而会使性能降低</span></p><p><strong><span>提问：调用 sleep() 函数的时候，线程是否一直占用 CPU？</span></strong></p><p><span>回答：不占用，等待时会把 CPU 让出来，给其他需要 CPU 资源的线程使用</span></p><p><span>不止调用 </span><code>sleep()</code><span> 函数，在进行一些阻塞调用，例如网络编程中的</span><strong><span>阻塞</span></strong><span> </span><code>accept()</code><span>【等待客户端连接】和</span><strong><span>阻塞</span></strong><span> </span><code>recv()</code><span>【等待下游回包】也不占用 CPU 资源</span></p><p><span> </span><strong><span>提问：如果 CPU 是单核，设置多线程有意义么，能提高并发性能么？</span></strong></p><p><span>回答：即使是单核，使用多线程也是有意义的</span></p><p><span>1）多线程编码可以让我们的服务/代码更加清晰，有些 IO 线程收发包，有些 Worker 线程进行任务处理，有些 Timeout 线程进行超时检测</span></p><p><span>2）如果有一个任务一直占用 CPU 资源在进行计算，那么此时增加线程并不能增加并发，例如这样的一个代码</span></p><p><span> </span><code>while(1){ i++; }</code></p><p><span>该代码一直不停的占用 CPU 资源进行计算，会使 CPU 占用率达到 100%</span></p><p><span>3）通常来说，Worker 线程一般不会一直占用 CPU 进行计算，此时即使 CPU 是单核，增加 Worker 线程也能够提高并发，因为这个线程在休息的时候，其他的线程可以继续工作</span></p><h2><a name="计算机组成原理" class="md-header-anchor"></a><span>计算机组成原理</span></h2><h3><a name="原码反码补码" class="md-header-anchor"></a><span>原码、反码、补码</span></h3><blockquote><p><strong><span>总结：</span></strong><span>补码的补码等于原码</span></p></blockquote><ul><li><span>原码</span></li></ul><p><span>原码就是符号位加上真值的绝对值，即用第一位表示符号，其余位表示值。比如如果是 8 位二进制</span></p><blockquote><p><span>[+1]~原~ = 0000 0001</span></p><p><span>[-1]~原~ = 1000 0001</span></p></blockquote><p><span>第一位是符号位。因为第一位是符号位，所以 8 位二进制数的取值范围就是</span></p><blockquote><p><span>[1111 1111, 0111 1111]</span></p></blockquote><p><span>即</span></p><blockquote><p><span>[-127, 127]</span></p></blockquote><p><span>原码是人脑最容易理解和计算的表示方式</span></p><ul><li><span>反码</span></li></ul><p><span>反码的表示方法是：正数的反码是其本身；负数的反码是在其原码的基础上，符号位不变，其余各个位取反。</span></p><blockquote><p><span>[+1] = [00000001]~原~ = [00000001]~反~</span></p><p><span>[-1] = [10000001]~原~ = [11111110]~反~</span></p></blockquote><p><span>可见，如果一个反码表示的是负数，人脑无法直观的看出来它的数值。通常要将其转换成原码再计算。</span></p><ul><li><span>补码</span></li></ul><p><span>补码的表示方法是：正数的补码就是其本身；负数的补码是在其原码的基础上，符号位不变，其余各位取反，最后 +1（即在反码的基础上 +1）</span></p><blockquote><p><span>[+1] = [00000001]~原~ = [00000001]~反~ = [00000001]~补~</span></p><p><span>[-1] = [10000001]~原~ = [11111110]~反~ = [11111111]~补~</span></p></blockquote><p><span>对于负数，补码表示方式也是人脑无法直观看出其数值的。通常也需要转换成原码再计算其数值。</span></p><h3><a name="lru-cache" class="md-header-anchor"></a><span>LRU Cache</span></h3><p><code>LRU</code><span> 是 Latest Recently Used 的缩写，即，最近最少使用，它是一种 Cache 替换算法。</span></p><p><span>狭义的 Cache 指的是位于 CPU 和主存间的快速 RAM， 通常它不像系统主存那样使用 DRAM 技术，而使用昂贵但较快速的SRAM 技术。 广义上的 Cache 指的是位于速度相差较大的两种硬件之间， 用于协调两者数据传输速度差异的结构。除了CPU 与主存之间有 Cache， 内存与硬盘之间也有 Cache，乃至在硬盘与网络之间也有某种意义上的 Cache —— Internet 临时文件夹或网络内容缓存等。</span></p><p><span>Cache 的容量有限，因此当 Cache 的容量用完后，而又有新的内容需要添加进来时， 就需要挑选并舍弃原有的部分内容，从而腾出空间来放新内容。LRU Cache 的替换原则就是将最近最少使用的内容替换掉，即，每次替换掉的就是一段时间内最久没有使用过的内容。</span></p><h2><a name="计算机网络" class="md-header-anchor"></a><span>计算机网络</span></h2><h3><a name="msl" class="md-header-anchor"></a><code>MSL</code></h3><p><span>概念：</span><code>MSL</code><span>，</span><code>Maximum Segment Lifetime</code><span>，报文最长存活时间，是任何报文在网络上存在的最长时间，超过这个时间报文将被丢弃。</span></p><p><code>2 MSL</code><span> 即两倍的 </span><code>MSL</code><span>，TCP 的 </span><code>TIME_WAIT</code><span> 状态也称为 </span><code>2 MSL</code><span> 等待状态，当 TCP 的一端发起主动关闭，在发出最后一个</span><code>ACK</code><span> 包后，即第 3 次握手完成后发送了第四次握手的 </span><code>ACK</code><span> 包后就进入了 </span><code>TIME_WAIT</code><span> 状态，必须在此状态上停留两倍的 </span><code>MSL</code><span> 时间，等待 </span><code>2 MSL</code><span> 时间主要目的是怕最后一个  </span><code>ACK</code><span> 包对方没收到，那么对方在超时后将重发第三次握手的 </span><code>FIN</code><span> 包，主动关闭端接到重发的 </span><code>FIN</code><span> 包后可以再发一个 </span><code>ACK</code><span> 应答包。在 </span><code>TIME_WAIT</code><span> 状态时两端的端口不能使用，要等到 </span><code>2 MSL</code><span> 时间结束才可继续使用。当连接处于 </span><code>2 MSL</code><span> 等待阶段时任何迟到的报文段都将被丢弃。在实际应用中可以通过设置 </span><code>SO_REUSEADDR</code><span> 选项达到不必等待 </span><code>2 MSL</code><span> 时间结束再使用此端口。</span><code>RFC 793</code><span> 中规定 </span><code>MSL</code><span> 为2分钟，实际应用中常用的是 30 秒，1 分钟和 2 分钟等。</span></p><h3><a name="ttl" class="md-header-anchor"></a><code>TTL</code></h3><p><span>概念：</span><code>TTL</code><span>，</span><code>time to live</code><span>，生存时间，IP 数据报包含 </span><code>TTL</code><span> 字段，这个生存时间是由源主机设置初始值但不是存的具体时间，而是存储了一个 IP 数据报可以经过的最大路由数，每经过一个处理它的路由器此值就减 1，当此值为 0 则数据报将被丢弃，同时发送 </span><code>ICMP</code><span> 报文通知源主机。</span></p><h3><a name="tcpnodelay" class="md-header-anchor"></a><code>TCP_NODELAY</code></h3><p><code>Nagle</code><span> 化在这里的含义是采用 </span><code>Nagle</code><span> 算法把较小的包组装为更大的帧。 John Nagle 是 </span><code>Nagle</code><span> 算法的发明人，后者就是用他的名字来命名的，他在 1984 年首次用这种方法来尝试解决福特汽车公司的网络拥塞问题（欲了解详情请参看 IETF RFC 896）。他解决的问题就是所谓的 </span><code>silly window syndrome</code><span>，中文称“愚蠢窗口症候群”，具体含义是，因为普遍终端应用程序每产生一次击键操作就会发送一个包，而典型情况下一个包会拥有一个字节的数据载荷以及 40 个字节长的包头，于是产生 4000% 的过载，很轻易地就能令网络发生拥塞。 </span><code>Nagle</code><span> 化后来成了一种标准并且立即在因特网上得以实现。它现在已经成为缺省配置了，但在我们看来，有些场合下把这一选项关掉也是合乎需要的。</span></p><p><span>现在让我们假设某个应用程序发出了一个请求，希望发送小块数据。我们可以选择立即发送数据或者等待产生更多的数据然后再一次发送两种策略。如果我们马上发送数据，那么交互性的以及客户/服务器型的应用程序将极大地受益。如果请求立即发出那么响应时间也会快一些。以上操作可以通过设置套接字的 </span><code>TCP_NODELAY</code><span> 选项来完成，这样就禁用了 </span><code>Nagle</code><span> 算法。</span></p><blockquote><p><span>在 C++ 中，可以通过 </span><code>setsockopt</code><span> 启用 </span><code>TCP_NODELAY</code></p></blockquote><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="cpp"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="cpp"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style="text-rendering: auto;"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">static</span> <span class="cm-variable-3">void</span> <span class="cm-def">_set_tcp_nodelay</span>(<span class="cm-variable-3">int</span> <span class="cm-variable">fd</span>) {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-variable-3">int</span> <span class="cm-variable">enable</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-variable">setsockopt</span>(<span class="cm-variable">fd</span>, <span class="cm-variable">IPPROTO_TCP</span>, <span class="cm-variable">TCP_NODELAY</span>, (<span class="cm-variable-3">void*</span>)<span class="cm-operator">&amp;</span><span class="cm-variable">enable</span>, <span class="cm-keyword">sizeof</span>(<span class="cm-variable">enable</span>));</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 88px;"></div><div class="CodeMirror-gutters" style="display: none; height: 88px;"></div></div></div></pre><blockquote><p><span>在 Java 中，Socket 对象上有一个 </span><code>setTcpNoDelay</code><span> 的方法，直接设置成 true 即可</span></p></blockquote><h3><a name="http-error-code" class="md-header-anchor"></a><span>HTTP Error Code</span></h3><h4><a name="50x-错误码" class="md-header-anchor"></a><span>50x 错误码</span></h4><blockquote><p><span>参考资料：</span><a href='https://www.section.io/blog/504-503-errors-difference/'><span>https://www.section.io/blog/504-503-errors-difference/</span></a></p></blockquote><ul><li><span>502 Bad GateWay</span></li></ul><p><span>服务器作为反向代理从业务服务器收到了无效的（无法解析的）响应</span></p><ul><li><span>503 Service Unavailable</span></li></ul><p><span>业务服务器服务实例活着，但是服务不可用（如负载过高，且通常负载降低后能够恢复）</span></p><ul><li><span>504 Gateway Timeout</span></li></ul><p><span>服务器作为反向代理，在超时之前未收到业务服务器的响应</span></p><h3><a name="http-简单请求" class="md-header-anchor"></a><span>HTTP 简单请求</span></h3><p><span>简单请求需满足如下两个条件，不满足者为复杂请求</span></p><blockquote><p><span>复杂请求需要处理跨域安全问题</span></p></blockquote><ul><li><span>get/post/head请求</span></li></ul><ul><li><span>content-type 为 text/plain、multipart/form-data、application/x-www-form-urlencoded</span></li></ul><h2><a name="数据通信" class="md-header-anchor"></a><span>数据通信</span></h2><h3><a name="单工半双工全双工" class="md-header-anchor"></a><span>单工、半双工、全双工</span></h3><blockquote><p><span>根据数据信息在传输线上的传送方向，数据通信方式分为单工通信 半双工通信和全双工通信 3 种。</span></p></blockquote><ul><li><span>单工通信</span></li></ul><p><span>数据信息在通信线上始终向一个方向传输，数据信息永远从发送端传输到接收端，任何时候都不能改变信号的传输方向。例如，计算机发送打印数据给打印机，打印机只能从计算机接收数据信息，不能进行相反方向的信息传输。</span></p><ul><li><span>半双工通信</span></li></ul><p><span>数据信息可以双向传输，但必须交替进行，同一时刻只允许信号在</span><strong><span>一个信道</span></strong><span>上单向传输。半双工通信要求两端都具有发送装置和接受装置，因此，半双工通信实际上是一种可切换方向的单工通信。例如，对讲机通信就是典型的半双工通信方式，由于对讲机传送和接收使用相同的频率，在一方讲话的时候另一方不能讲话（只能听），但双方可以交互切换模式（讲或听）。</span></p><ul><li><span>全双工通信</span></li></ul><p><span>全双工通信允许数据同时在两个方向的传输，即有</span><strong><span>两个信道</span></strong><span>，可同时进行双向的数据传输。全双工通信是两个单工通信的结合，要求收发双方都有独立的接收和发送能力。全双工通信效率高，控制简单，但造价高。例如，计算机之间的通信是全双工方式。</span></p><h2><a name="社会经济学" class="md-header-anchor"></a><span>社会经济学</span></h2><h3><a name="马太效应" class="md-header-anchor"></a><span>马太效应</span></h3><blockquote><p><span>马太效应的名字就来源于圣经《新约·马太福音》中的一则寓言：从前，一个国王要出门远行，临行前，交给 3个仆人每人一锭银子，吩咐道:“你们去做生意，等我回来时，再来见我。”国王回来时，第一个仆人说:“主人，你交给我的一锭银子，我已赚了 10 锭。”于是，国王奖励他 10 座城邑。第二个仆人报告:“主人，你给我的一锭银子，我已赚了 5 锭。”于是，国王奖励他 5 座城邑。第三仆人报告说:“主人，你给我的 1 锭银子，我一直包在手帕里，怕丢失，一直没有拿出来。”于是，国王命令将第三个仆人的1锭银子赏给第一个仆人，说:“凡是少的，就连他所有的，也要夺过来。凡是多的，还要给他，叫他多多益善。”这就是“马太效应”，反映当今社会中存在的一个普遍现象，即赢家通吃 。</span></p></blockquote><p><span>马太效应 </span><code>Matthew Effect</code><span>，指强者愈强、弱者愈弱的现象，广泛应用于社会心理学、教育、金融以及科学领域。马太效应，是社会学家和经济学家们常用的术语，反映的社会现象是两极分化，富的更富，穷的更穷。</span>
+<span>马太效应，名字来自圣经《新约·马太福音》一则寓言： “凡有的，还要加倍给他叫他多余；没有的，连他所有的也要夺过来”。表面看起来“马太效应”与“平衡之道”相悖，与“二八定则”类似，但是实则它只不过是“平衡之道”的一极。</span></p><h3><a name="公地悲剧" class="md-header-anchor"></a><span>公地悲剧</span></h3><p><span>1968年英国加勒特·哈丁教授(Garrett Hardin)在《The tragedy of the commons》一文中首先提出“公地悲剧”理论模型。</span></p><p><span>他说，作为理性人，每个牧羊者都希望自己的收益最大化。在公共草地上，每增加一只羊会有两种结果：一是获得增加一只羊的收入；二是加重草地的负担，并有可能使草地过度放牧。经过思考，牧羊者决定不顾草地的承受能力而增加羊群数量。于是他便会因羊只的增加而收益增多。看到有利可图。许多牧羊者也纷纷加入这一行列。由于羊群的进入不受限制，所以牧场被过度使用，草地状况迅速恶化，悲剧就这样发生了。</span></p><p><span>公地作为一项资源或财产有许多拥有者，他们中的每一个都有使用权，但没有权利阻止其他人使用，从而造成资源过度使用和枯竭。过度砍伐的森林、过度捕捞的渔业资源及污染严重的河流和空气，都是“公地悲剧”的典型例子。之所以叫悲剧，是因为每个当事人都知道资源将由于过度使用而枯竭，但每个人对阻止事态的继续恶化都感到无能为力。而且都抱着“及时捞一把”的心态加剧事态的恶化。公共物品因产权难以界定(界定产权的交易成本太高)而被竞争性地过度使用或侵占是必然的结果。</span></p><h2><a name="语言学" class="md-header-anchor"></a><span>语言学</span></h2><h3><a name="逻辑自洽" class="md-header-anchor"></a><span>逻辑自洽</span></h3><p><span>逻辑自洽 </span><code>logic self-consistency</code><span>，指的是一个语言学的原则，即一个理论在语言本身的陈述上是不矛盾的，人们通过仔细分析这个理论的文字符号，没有发现任何的矛盾，达到了自我的完备。</span></p><p><span>逻辑的英文是 </span><code>logic</code><span>，其中 </span><code>log</code><span> 是语言的意思，所以 </span><code>logic</code><span> 就是“语言的规则”，或者说“语言的可分析性”。因此“逻辑自洽”其实是一个语言学的原则，即一个理论在语言本身的陈述上是不矛盾的，人们通过仔细分析这个理论的文字符号，没有发现任何的矛盾，达到了自我的完备。“逻辑”是一种语言上的可证伪性，人们不用借助实验，仅仅依靠分析语言陈述和符号结构就可以对一个理论进行证伪，</span><strong><span>因此“逻辑”是科学理论的思维基础，“逻辑自洽”是科学理论成立的基本前提</span></strong><span>。</span></p><blockquote><p><span>任何一种科学学说之所以能被称之为科学，是因为它具有可证伪性。“逻辑自洽”是科学理论成立的必要条件，需要通过实践来检验其正确性。</span></p></blockquote></div>
 </body>
 </html>

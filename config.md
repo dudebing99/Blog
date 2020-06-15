@@ -4238,22 +4238,13 @@ go install ./cmd/geth
 
 ## Windows 安装配置 nodejs/npm
 
-> **说明：**使用 Node.js 的 npm 命令需要访问国外的站点，但由于国内网络的问题，可能安装 react-native-cli 的速度会比较慢，甚至完全无法安装，淘宝为国内开发者提供了 npm 镜像服务。
-
-> **环境：**node-v8.11.1-x64/Windows 7 64位旗舰版
+> **说明：**使用 Node.js 的 npm 命令需要访问国外的站点，但由于国内网络的问题，安装速度会比较慢，甚至完全无法安装，淘宝为国内开发者提供了 npm 镜像服务。
 
 1. 下载 nodejs（已包含 npm），官网 https://nodejs.org/en/
-2. 使用淘宝 npm 镜像安装 react-native-cli
+2. 使用淘宝 npm 镜像
 
 ```bash
-# 安装 nrm 模块，方便我们切换 npm 下载源
-npm install -g nrm
-# 安装 npm2
-npm install -g npm@2
-# 创建一个名为 cnpm 的安装点，后面我们可以使用这个安装点从淘宝提供的 npm 镜像站点安装 React Native
-npm install -g cnpm --registry=https://registry.npm.taobao.org
-# npm 后接参数的命令都可以把 npm 换为 cnpm 来加快速度，比如安装 react-native-cli
-cnpm install -g react-native-cli
+npm config set registry=https://registry.npm.taobao.org
 ```
 
 ## Windows 安装 Git Bash 支持 wget/make/protoc

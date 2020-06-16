@@ -1463,6 +1463,20 @@ Windows 7
 
 升级 npm 即可：`npm install npm -g`
 
+## [npm] TypeError: this.getResolve is not a function
+
+**系统环境**
+
+Windows 7/npm 6.14.5
+
+**问题描述**
+
+执行 npn run dev 失败，信息如上
+
+**解决方式**
+
+sass-loader 版本过高，在项目 package.json 文件中 sass-loader 版本改为 7.3.1 即可
+
 ## [vue] App.vue{ parser: "babylon" } is deprecated; we now treat it as { parser: "babel" }. 
 
 **系统环境**

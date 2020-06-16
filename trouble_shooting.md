@@ -1449,6 +1449,24 @@ npm install 安装包的时候报错，npm WARN enoent ENOENT: no such file or d
 
 运行 npm init 进行初始化即可
 
+## [vue] App.vue{ parser: "babylon" } is deprecated; we now treat it as { parser: "babel" }. 
+
+**系统环境**
+
+Windows 7/vue 2.9.6
+
+**问题描述**
+
+npm run dev 运行报错
+
+**原因分析**
+
+prettier 版本导致
+
+**解决方式**
+
+npm install prettier@~1.12.0 -D 或者 npm install prettier@~1.12.0 --save-dev
+
 ## [web3.js] Error: Error: Method eth_compileSolidity not supported.
 
 **系统环境**

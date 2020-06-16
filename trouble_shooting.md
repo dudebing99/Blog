@@ -1495,6 +1495,27 @@ prettier 版本导致
 
 npm install prettier@~1.12.0 -D 或者 npm install prettier@~1.12.0 --save-dev
 
+## [vue] http://eslint.org/docs/rules 错误
+
+**系统环境**
+
+Windows 7/vue 2.9.6
+
+**问题描述**
+
+npm run dev 运行报错
+
+**解决方式**
+
+vue 对语法的要求过于严格导致此类错误，理论上，应该严格遵循规则修改错误。也可以采用不太严谨的方式规避，修改 config/index.js 配置项 useEslint 为 false
+
+```javascript
+// Use Eslint Loader?
+// If true, your code will be linted during bundling and
+// linting errors and warnings will be shown in the console.
+useEslint: false,
+```
+
 ## [vue] !!vue-style-loader!css-loader?{“sourceMap”:true}!
 
 **系统环境**

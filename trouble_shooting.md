@@ -1415,7 +1415,7 @@ CentOS 7.2/geth 1.9.8
 
 出于安全考虑，默认禁止了HTTP通道解锁账户，如果了解此风险，可以强制打开，运行加入选项 `--allow-insecure-unlock` 即可。
 
-## [NPM] sh: 1: node: not found npm WARN This failure might be due to the use of legacy binary 
+## [npm] sh: 1: node: not found npm WARN This failure might be due to the use of legacy binary 
 
 **系统环境**
 
@@ -1435,7 +1435,7 @@ npm install 安装包的时候报错，如上所示。
 apt-get install nodejs-legacy
 ```
 
-## [NPM] npm WARN enoent ENOENT: no such file or directory
+## [npm] npm WARN enoent ENOENT: no such file or directory
 
 **系统环境**
 
@@ -1448,6 +1448,20 @@ npm install 安装包的时候报错，npm WARN enoent ENOENT: no such file or d
 **解决方式**
 
 运行 npm init 进行初始化即可
+
+## [npm] You must install peer dependencies yourself.
+
+**系统环境**
+
+Windows 7
+
+**问题描述**
+
+通过 npm 安装依赖，安装失败，且提示如上信息
+
+**解决方式**
+
+升级 npm 即可：`npm install npm -g`
 
 ## [vue] App.vue{ parser: "babylon" } is deprecated; we now treat it as { parser: "babel" }. 
 

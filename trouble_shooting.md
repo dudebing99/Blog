@@ -1481,6 +1481,28 @@ prettier 版本导致
 
 npm install prettier@~1.12.0 -D 或者 npm install prettier@~1.12.0 --save-dev
 
+## [vue] !!vue-style-loader!css-loader?{“sourceMap”:true}!
+
+**系统环境**
+
+Windows 7/vue 2.9.6
+
+**问题描述**
+
+npm run dev 运行报错
+
+**原因分析**
+
+vue 文件中有如下依赖
+
+```css
+<style rel="stylesheet/scss" lang="scss">
+```
+
+**解决方式**
+
+安装 scss 依赖即可：`npm install node-sass sass-loader -D`
+
 ## [web3.js] Error: Error: Method eth_compileSolidity not supported.
 
 **系统环境**

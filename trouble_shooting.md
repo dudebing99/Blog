@@ -1538,6 +1538,101 @@ vue 文件中有如下依赖
 
 安装 scss 依赖即可：`npm install node-sass sass-loader -D`
 
+## [vue] router 嵌套路由在 history 模式下刷新无法渲染页面
+
+**系统环境**
+
+Windows 7/vue 2.9.6
+
+**问题描述**
+
+router 配置如下
+
+```javascript
+const router = new Router({
+
+  mode: 'history',
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      redirect: '/api/user/login',
+      component: dashboard,
+      children: [{
+        path: '/api/message/history',
+        name: 'messageHistory',
+        component: messageHistory,
+      },
+      {
+        path: '/api/user/query',
+        name: 'userQuery',
+        component: userQuery,
+      },
+      {
+        path: '/api/user/logout',
+        name: 'userLogout',
+        component: userLogout,
+      },
+      {
+        path: '/api/token/query',
+        name: 'tokenQuery',
+        component: tokenQuery,
+      },
+      {
+        path: '/api/token/history',
+        name: 'tokenHistory',
+        component: tokenHistory,
+      },
+      {
+        path: '/api/token/recharge',
+        name: 'tokenRecharge',
+        component: tokenRecharge,
+      },
+      {
+        path: '/api/token/consume',
+        name: 'tokenConsume',
+        component: tokenConsume,
+      },
+    ]
+    },
+    {
+      path: '/api/user/login',
+      name: 'userLogin',
+      component: userLogin,
+    },
+  ]
+});
+```
+
+对应的 nginx 配置如下
+
+```bash
+location / {
+	# First attempt to serve request as file, then
+	# as directory, then fall back to displaying a 404.
+	root /opt/go/src/cms_frontend/dist;
+	index index.html index.htm;
+	try_files $uri $uri/ =404;
+}
+```
+
+当前页面位于 `http://ip:port/api/user/query`，当点击浏览器或者右键刷新时，返回 404 页面
+
+**解决方式**
+
+修改 nginx 配置，非根目录跳转到 `index.html`
+
+```bash
+location / {
+	# First attempt to serve request as file, then
+	# as directory, then fall back to displaying a 404.
+	root /opt/go/src/cms_frontend/dist;
+	index index.html index.htm;
+	#try_files $uri $uri/ =404;
+	try_files $uri $uri/  /index.html;
+}
+```
+
 ## [web3.js] Error: Error: Method eth_compileSolidity not supported.
 
 **系统环境**

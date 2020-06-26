@@ -1633,6 +1633,30 @@ location / {
 }
 ```
 
+## [vue] Cannot read property 'commit' of undefined
+
+**系统环境**
+
+Windows 7/vue 2.9.6
+
+**问题描述**
+
+Vuex 时报错提示 Cannot read property ‘commit’ of undefine
+
+**解决方式**
+
+main.js 中导入 store，如下所示
+
+```javascript
+new Vue({
+  el: '#app',
+  router,
+  store: store,
+  components: { App },
+  template: '<App/>'
+})
+```
+
 ## [web3.js] Error: Error: Method eth_compileSolidity not supported.
 
 **系统环境**

@@ -802,6 +802,25 @@ Flask==1.0.2
 Flask-RESTful==0.3.6
 ```
 
+## [Python] TypeError: 'frozenset' object is not callable
+
+**系统环境**
+
+CentOS 7.6/Python 2.7.5
+
+**问题描述**
+
+`pip install hashlib` 出错，如上所示
+
+**解决方式**
+
+```bash
+wget https://files.pythonhosted.org/packages/74/bb/9003d081345e9f0451884146e9ea2cff6e4cc4deac9ffd4a9ee98b318a49/hashlib-20081119.zip
+unzip -u hashlib-20081119.zip
+cd hashlib-20081119
+python setup.py install
+```
+
 ## [Flask] request.remote_addr 无法获取用户真实 IP
 
 **系统环境**

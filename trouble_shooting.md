@@ -1676,6 +1676,27 @@ new Vue({
 })
 ```
 
+## [vue] Error: Avoided redundant navigation to current location
+
+**系统环境**
+
+Windows 7/vue 2.9.6
+
+**问题描述**
+
+刷新页面出现如上错误
+
+**解决方式**
+
+在 `router/index.js` 添加
+
+```javascript
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+```
+
 ## [web3.js] Error: Error: Method eth_compileSolidity not supported.
 
 **系统环境**

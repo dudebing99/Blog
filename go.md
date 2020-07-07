@@ -7,6 +7,7 @@
 - [gobyexample](https://gobyexample.com/)
 - [50 Shades of Go: Traps, Gotchas, and Common Mistakes for New Golang Devs](http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/)
 - [Golang tutorial series](https://golangbot.com/learn-golang-series/)
+- [topgoer.com](http://www.topgoer.com/)
 
 ## Hello World
 

@@ -2184,8 +2184,8 @@ type JWTClaims struct { // token里面添加用户信息，验证token后可能�
 }
 
 var (
-	Secret     = "dong_tech" // 加盐
-	ExpireTime = 3600        // token有效期
+	Secret     = "bisillybear.com" 	// 加盐
+	ExpireTime = 3600        		// token有效期
 )
 
 func login(c *gin.Context) {

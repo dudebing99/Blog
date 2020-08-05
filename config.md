@@ -1363,6 +1363,19 @@ I/O size (minimum/optimal): 512 bytes / 512 bytes
 [root@ ~]# mount /dev/vdb /data
 ```
 
+如果挂载出现如下错误：
+
+```bash
+mount: /dev/vdb is write-protected, mounting read-only
+mount: unknown filesystem type '(null)'
+```
+
+需要对磁盘进行初始化，如下所示：
+
+```bash
+mkfs.ext4 /dev/vdb
+```
+
 4. 确认已挂载
 
 > 卸载磁盘 `umount /data` 即可

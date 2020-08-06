@@ -540,6 +540,22 @@ LANG=en_US.utf-8
 LC_ALL=en_US.utf-8
 ```
 
+## [CentOS] libaio.so.1()(64bit) is needed by mysql-community-server-5.7.24-1.el7.x86_64
+
+**系统环境**
+
+CentOS 7.2
+
+**问题描述**
+
+安装 MySQL 出错，提示缺少如上依赖
+
+**解决方式**
+
+```bash
+yum install -y libaio
+```
+
 ## [Ubuntu] 图形、命令行模式切换
 
 **系统环境**

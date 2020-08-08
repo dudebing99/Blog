@@ -469,8 +469,14 @@ print
 break
 # 查看所有断点信息
 info breakpoints
-# 删除断点
-delete <num>
+# 删除所有断点
+delete
+# 删除某个断点
+delete breakpoint [n]
+# 禁用某个断点
+disable breakpoint [n]
+# 使能某个断点
+enable breakpoint [n]
 
 # 查看本地变量
 info locals

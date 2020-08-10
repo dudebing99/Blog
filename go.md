@@ -1249,6 +1249,211 @@ x:  9 , sum += x:  45
 f(i):  45
 ```
 
+## defer/panic/recover 综合使用
+
+1. defer：延迟调用。多个defer，依次入栈，在函数即将退出时，依次出栈调用
+
+```go
+package main
+import "fmt"
+func main() {
+    defer func() {
+        fmt.Println("defer one")
+    }()
+    defer func() {
+        fmt.Println("defer two")
+    }()
+    defer func() {
+        fmt.Println("defer three")
+    }()
+}
+```
+
+**输出**
+
+```bash
+root@ubuntu:/opt/go/src# go run a.go 
+defer three
+defer two
+defer one
+```
+
+2. panic 和 defer 结合使用：panic 触发错误，defer 依次出栈调用，没有 recover 捕获的情况下，最后才打印错误
+
+```go
+package main
+import "fmt"
+func main() {
+    defer func() {
+        fmt.Println("defer one")
+    }()
+    defer func() {
+        fmt.Println("defer two")
+    }()
+    defer func() {
+        fmt.Println("defer three")
+    }()
+    panic("panic here")
+}
+```
+
+**输出**
+
+```bash
+root@ubuntu:/opt/go/src# go run a.go 
+defer three
+defer two
+defer one
+panic: panic here
+
+goroutine 1 [running]:
+main.main()
+        /opt/go/src/a.go:14 +0xca
+exit status 2
+```
+
+3. defer/panic/recover 结合使用，panic 触发错误，defer 依次出栈调用，直到被 recover 捕获，打印捕获的信息，之后继续 defer 出栈
+
+```go
+package main
+import "fmt"
+func main() {
+    defer func() {
+        fmt.Println("defer one")
+    }()
+    defer func() {
+        if info := recover(); info != nil {
+            fmt.Println("catch: ", info)
+        }
+        fmt.Println("defer two")
+    }()
+    defer func() {
+        fmt.Println("defer three")
+    }()
+    panic("panic here")
+}
+```
+
+**输出**
+
+```bash
+root@ubuntu:/opt/go/src# go run a.go 
+defer three
+catch:  panic here
+defer two
+defer one
+```
+
+4. recover 必须在 defer中 调用，才有效，否则返回 nil
+
+```go
+package main
+import "fmt"
+func main() {
+    if info := recover(); info != nil {
+        fmt.Println("catch: ", info)
+    } else {
+        fmt.Println("recover return nil")
+    }
+    defer func() {
+        fmt.Println("defer one")
+    }()
+    defer func() {
+        fmt.Println("defer two")
+    }()
+    defer func() {
+        fmt.Println("defer three")
+    }()
+    panic("panic here")
+}
+```
+
+**输出**
+
+```bash
+root@ubuntu:/opt/go/src# go run a.go 
+recover return nil
+defer three
+defer two
+defer one
+panic: panic here
+
+goroutine 1 [running]:
+main.main()
+        /opt/go/src/a.go:19 +0x170
+exit status 2
+```
+
+5. panic 其后的代码不会执行
+
+```go
+package main
+import "fmt"
+func main() {
+    defer func() {
+        fmt.Println("defer one")
+    }()
+    defer func() {
+        fmt.Println("defer two")
+    }()
+    defer func() {
+        fmt.Println("defer three")
+    }()
+    panic("panic here")
+    if info := recover(); info != nil {
+        fmt.Println("catch: ", info)
+    } else {
+        fmt.Println("recover return nil")
+    }
+}
+```
+
+**输出**
+
+```bash
+root@ubuntu:/opt/go/src# go run a.go 
+defer three
+defer two
+defer one
+panic: panic here
+
+goroutine 1 [running]:
+main.main()
+        /opt/go/src/a.go:14 +0xca
+exit status 2
+```
+
+```go
+package main
+import "fmt"
+func main() {
+    defer func() {
+        fmt.Println("defer one")
+    }()
+    defer func() {
+        if v := recover(); v != nil {
+            fmt.Println("catch panic error: ", v)
+        }
+        fmt.Println("defer two")
+    }()
+    defer func() {
+        fmt.Println("defer three")
+    }()
+    panic("panic here")
+    fmt.Println("after panic")
+}
+```
+
+**输出**
+
+```bash
+root@ubuntu:/opt/go/src# go run a.go 
+defer three
+catch panic error:  panic here
+defer two
+defer one
+```
+
 ## json 使用
 
 ### 常见数据结构序列为 json

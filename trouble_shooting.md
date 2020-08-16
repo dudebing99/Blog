@@ -1512,6 +1512,49 @@ Windows 7/npm 6.14.5
 
 sass-loader 版本过高，在项目 package.json 文件中 sass-loader 版本改为 7.3.1 即可
 
+## [npm] const wslToWindowsPath = async path
+
+**系统环境**
+
+CentOS 7.2/npm 3.10.10/node v6.17.1
+
+**问题描述**
+
+运行 `npm run build` 编译项目时，提示如下错误
+
+```bash
+const wslToWindowsPath = async path => {
+                               ^^^^
+
+SyntaxError: Unexpected identifier
+    at createScript (vm.js:56:10)
+    at Object.runInThisContext (vm.js:97:10)
+    at Module._compile (module.js:542:28)
+    at Object.Module._extensions..js (module.js:579:10)
+    at Module.load (module.js:487:32)
+    at tryModuleLoad (module.js:446:12)
+    at Function.Module._load (module.js:438:3)
+    at Module.require (module.js:497:17)
+    at require (internal/module.js:20:19)
+```
+
+**原因分析**
+
+node 版本太低
+
+**解决方式**
+
+升级 node 到最新稳定版即可
+
+```bash
+# 安装 nodejs 的版本管理模块 n
+npm install -g n
+# 安装最新稳定版，另外，安装最新版本 n latest，也可以指定版本，例如 n v7.10.0
+n stable
+# 查看已安装版本
+n
+```
+
 ## [vue] App.vue{ parser: "babylon" } is deprecated; we now treat it as { parser: "babel" }. 
 
 **系统环境**

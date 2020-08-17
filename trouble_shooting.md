@@ -1555,6 +1555,24 @@ n stable
 n
 ```
 
+## [npm] Node Sass could not find a binding for your current environment
+
+**系统环境**
+
+CentOS 7.2
+
+**问题描述**
+
+编译时报错，如上所示
+
+**解决方案**
+
+由于升级 node，需要重新安装 saas
+
+```bash
+npm rebuild node-sass
+```
+
 ## [vue] App.vue{ parser: "babylon" } is deprecated; we now treat it as { parser: "babel" }. 
 
 **系统环境**

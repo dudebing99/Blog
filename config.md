@@ -3033,6 +3033,48 @@ server {
 /usr/local/nginx/sbin/nginx -s reload
 ```
 
+## CentOS 安装 Tron
+
+> **环境：**CentOS 7.2/jdk 1.8.0
+
+1. 克隆仓库
+
+```bash
+git clone https://github.com/tronprotocol/java-tron
+```
+
+2. Nile 测试网，切换到分支 `new_hard_fork_nile`，主网使用分支 `master`
+3. 编译
+
+```bash
+cd java-tron
+./gradlew build
+```
+
+编译完成，全节点程序位于 `build/libs/FullNode.jar`
+
+4. 从 `https://github.com/tronprotocol/TronDeployment` 下载测试网或者主网的配置文件，并且重命名为 `config.conf`
+5. 运行
+
+```bash
+java -jar FullNode.jar -c config.conf
+```
+
+最终的目录如下所示
+
+```bash
+[root@~]# tree -L 2
+.
+├── config.conf
+├── FullNode.jar
+├── logs
+│   ├── tron-2020-08-17.0.log.gz
+│   ├── tron-2020-08-17.1.log.gz
+│   └── tron.log
+└── output-directory
+    └── database
+```
+
 ## Ubuntu 替换源
 
 > **环境：**Ubuntu 14.04.5 LTS

@@ -59,6 +59,10 @@
 - [解读 Filecoin 抵押机制]( https://www.8btc.com/article/422466 )
 - [EOS 可用节点列表获取](https://eosnodes.privex.io/?config=1
   )
+- [波场主网浏览器](https://tronscan.org/)
+- [波场测试网 Nile 和水龙头](https://nileex.io/join/getJoinPage)
+- [波场开发者中文文档](https://tronprotocol.github.io/documentation-zh/)
+- [波场官网](https://tron.network/)
 
 ## 缩略词
 

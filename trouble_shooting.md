@@ -146,6 +146,8 @@ MySQL 用户密码丢失，重置用户密码
 
 > 高版本 MySQL 中没有 mysqld_safe，可以在配置文件 my.conf 添加 `skip-grant-tables`  达到同样效果
 
+> 高版本 MySQL user 表列名 `password` 变成了 `authentication_string`
+
 ```bash
 service mysqld stop
 
@@ -153,7 +155,8 @@ mysqld_safe --skip-grant-tables &
 
 mysql -uroot
 > use mysql;
-> update user set password=PASSWORD('123456') where user='root';
+> update user set authentication_string=PASSWORD('123456') where user='root';
+# MySQL 5.7 及以上 update user set authentication_string=PASSWORD('123456') where user='root';
 > flush privileges;
 
 pkill mysqld_safe

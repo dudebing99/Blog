@@ -4424,3 +4424,90 @@ quit | q!
 Please, input commands:
 ```
 
+## iOS APP 使用企业证书签名后分发
+
+1. 将签名后的 ipa 和 plist 文件上传到 OSS/OBS 等
+
+![](archives/config/ipa_plist_oss.png)
+
+plist 文件内容如下
+
+> 替换 `<your ipa url>` 为 ipa 实际路径
+
+> 确保 `dict` 配置跟安装包原始配置信息保持一致，特别是 `<bundle-identifier>`
+
+```bash
+<dict>
+    <key>items</key>
+    <array>
+        <dict>
+            <key>assets</key>
+            <array>
+                <dict>
+                    <key>kind</key>
+                    <string>software-package</string>
+                    <key>url</key>
+                    <string>https://<your ipa url></string>
+                </dict>
+            </array>
+            <key>metadata</key>
+            <dict>
+                <key>bundle-identifier</key>
+                <string>center.vic.flutter</string>
+                <key>bundle-version</key>
+                <string>1.0.0</string>
+                <key>kind</key>
+                <string>software</string>
+                <key>title</key>
+                <string>VIC</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
+```
+
+2. 添加 App 下载页面，iOS 安装包路径配置
+
+> 可复制 `itms-services://?action=download-manifest&url=https://<your plist url>` 到苹果手机浏览器打开，预期结果：可正常下载安装
+
+```bash
+function downloadIOS() {
+		url = "itms-services://?action=download-manifest&url=https://<your plist url>";
+
+		var isWeixin = is_weixin();
+		var winHeight = typeof window.innerHeight != 'undefined' ? window.innerHeight : document.documentElement.clientHeight;
+		var weixinTip = $('<div id="weixinTip"><p><img src="img/live_weixin.png" alt="微信打开"/ style="width: 100%;"></p></div>');
+
+		if (isWeixin) {
+			$("body").append(weixinTip);
+			$("#weixinTip").css({
+				"position": "fixed",
+				"left": "0",
+				"top": "0",
+				"height": winHeight,
+				"width": "100%",
+				"z-index": "1000",
+				"background-color": "rgba(0,0,0,0.8)",
+				"filter": "alpha(opacity=80)",
+			});
+			$("#weixinTip p").css({
+				"text-align": "center",
+				"margin-top": "10%",
+				"padding-left": "5%",
+				"padding-right": "5%"
+			});
+
+			try {
+				var elemIF = document.createElement("iframe");
+				elemIF.src = url;
+				elemIF.style.display = "none";
+				document.body.appendChild(elemIF);
+			} catch (e) {
+			}
+		} else {
+			window.location.href = url;
+		}
+	}
+```
+

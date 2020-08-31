@@ -1344,7 +1344,32 @@ echo -e "\e[1;33m[INFO] Total: $2 certification(s).\e[0m"
 echo -e "\e[1;33m[INFO] Output Directory: ./cert\e[0m"
 echo -e "\e[1;33m[INFO] Congratulations! Everything is done.\e[0m"
 ```
+## NGINX 配置自签证书
+
+```bash
+cd /etc/nginx
+# 生成服务器端私钥
+openssl genrsa -out server.key 1024
+# 生产服务器端公钥
+openssl rsa -in server.key -pubout -out server.pem
+# 生成 CA 私钥
+openssl genrsa -out ca.key 1024
+# Common Name 填写域名或 localhost 或项目代称
+openssl req -new -key ca.key -out ca.csr
+# 生成 CA 证书
+openssl x509 -req -in ca.csr -signkey ca.key -out ca.crt
+# 服务器端需要向 CA 机构申请签名证书，在申请签名证书之前依然是创建自己的 CSR 文件
+openssl req -new -key server.key -out server.csr
+# 向自己的 CA 机构申请证书，签名过程需要 CA 的证书和私钥参与，最终颁发一个带有 CA 签名的证书
+openssl x509 -req -CA ca.crt -CAkey ca.key -CAcreateserial -in server.csr -out server.crt
+# 使用 openssl 进行转换
+openssl x509 -in server.crt -out server.cer -outform der
+```
+
+将 server.crt 和 server.key 拷贝到 NGINX 的配置文件即可
+
 ## sudo 保存 vim 打开的文件
+
 ```bash
 # 方法一
 :w !sudo sh -c "cat >'%'"

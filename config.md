@@ -1460,6 +1460,46 @@ Swap:          4095           0        4095
 [root@ ~]# swapoff /mnt/swap
 ```
 
+## 阿里云系统盘扩容
+
+> 系统：CentOS 7.x
+
+1. 安装工具
+
+```bash
+yum install -y cloud-utils-growpart
+```
+
+2. 查看现有磁盘大小
+
+```bash
+fdisk -l
+```
+
+3. 查看磁盘分区大小
+
+```bash
+df -h
+```
+
+4. 为系统盘的第一个分区扩容
+
+```bash
+growpart /dev/vda 1
+```
+
+5. 为系统盘的 `/dev/vda1` 分区扩容文件系统
+
+```bash
+ resize2fs /dev/vda1
+```
+
+6. 确认磁盘分区大小已变更
+
+```bash
+df -h
+```
+
 ## Prometheus+Grafana 监控告警
 
 > 系统：CentOS 7.6

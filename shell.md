@@ -27,6 +27,24 @@ INET      9         6         3
 FRAG      0         0         0
 ```
 
+## 查看进程号与所在目录
+
+```bash
+[root@ ~]# pidof java
+25941 24975 24645 24258 24057 23569 23389 23278 16969 15711 14765 13091 12251 12104 8727
+
+[root@izwz94pn5a866aolfw77rkz ~]# pwd 25941
+/root
+[root@izwz94pn5a866aolfw77rkz ~]# pwdx 25941
+25941: /opt/mall_service/ppmall-wallet/wallet-vle-service
+
+[root@izwz94pn5a866aolfw77rkz ~]# pidof java|xargs pwdx 
+25941: /opt/mall_service/mall-wallet/wallet-usdt-service
+12251: /opt/mall_service/mall-gateway-server
+12104: /opt/mall_service/mall-user-server
+8727: /opt/mall_service/mall-asset-transfer
+```
+
 ## 统计进程打开的文件句柄数目
 
 ```bash

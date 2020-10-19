@@ -7688,7 +7688,7 @@ SyncMode 类型定义 `type SyncMode int`，实际数据类型为 `int`，三种
 
 ![](pic/blockchain/adjust_sync_mode.png)
 
-**解读：**即使启动节点使用默认同步模式或者通过指定 FastSync 快速同步模式，节点启动时，检查当前区块高度，如果已经同步高一部分数据时，此高度大于 0，程序自动将同步模式切换成 FullSync 全量同步模式，并打印警告信息，如下所示
+**解读：**即使启动节点使用默认同步模式或者通过指定 FastSync 快速同步模式，节点启动时，检查当前区块高度，如果已经同步好一部分数据时，此高度大于 0，程序自动将同步模式切换成 FullSync 全量同步模式，并打印警告信息，如下所示
 
 ```go
 // Figure out whether to allow fast sync or not

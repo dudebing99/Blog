@@ -1831,7 +1831,7 @@ session    required     pam_loginuid.so
 session    include      password-auth
 ```
 
-6. 防火墙开放 21、20、10000-20000 端口
+6. 防火墙开放 21、20、30000-31000 端口
 
 ```bash
 -A INPUT -p tcp -m multiport --dport 20,21  -m state --state NEW -j ACCEPT

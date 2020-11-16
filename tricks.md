@@ -1318,6 +1318,20 @@ INSERT INTO test VALUES ('1', '2018-12-13 21:45:38');
 UPDATE test SET updatetime=CASE WHEN updatetime < '2018-12-13 22:23:23' THEN '2018-12-13 22:23:23' ELSE updatetime END where id = 1;
 ```
 
+### 查询显示行号
+
+```sql
+SELECT
+	( @rownum := @rownum + 1 ) AS rank,
+	a.id
+FROM
+	user_tbl a,
+	( SELECT @rownum := 0 ) b 
+WHERE
+	a.id > 20 
+	LIMIT 10;
+```
+
 ### 删除重复记录
 
 > 删除重复记录，且只保留 ID 最小的那条记录

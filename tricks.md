@@ -90,7 +90,33 @@ tcp        0      0 172.18.219.68:58226     106.14.112.174:7901     ESTABLISHED 
 
 - 利用 `ifstat` 查看系统网络流量是否异常
 
-### 测试 TCP/UDP 端口连通性
+### 测试网络连通性
+
+- HTTP
+
+```bash
+root@ubuntu:~# httpstat httpbin.org/get
+Connected to 52.6.34.179:80 from 172.18.118.11:52422
+
+HTTP/1.1 200 OK
+Date: Thu, 19 Nov 2020 09:36:08 GMT
+Content-Type: application/json
+Content-Length: 255
+Connection: keep-alive
+Server: gunicorn/19.9.0
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+
+Body stored in: /tmp/tmpvrfwhh7m
+
+  DNS Lookup   TCP Connection   Server Processing   Content Transfer
+[    509ms   |     2264ms     |       831ms       |        1ms       ]
+             |                |                   |                  |
+    namelookup:509ms          |                   |                  |
+                        connect:2773ms            |                  |
+                                      starttransfer:3605ms           |
+                                                                 total:3606ms
+```
 
 - TCP
 

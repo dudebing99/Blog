@@ -576,6 +576,22 @@ yum install -y epel-release
 yum install -y glibc-static libstdc++-static
 ```
 
+## [CentOS] PHP 加载 MySQL 失败：缺失 libmysqlclient.so.18
+
+**系统环境**
+
+CentOS 7.8/MySQL 5.7.30
+
+**问题描述**
+
+PHP 运行加载 MySQL 失败，系统中确实 libmysqlclient.so.18
+
+**解决方式**
+
+```bash
+wget -O /usr/lib/libmysqlclient.so.18 http://files.directadmin.com/services/es_7.0_64/libmysqlclient.so.18
+```
+
 ## [Ubuntu] 图形、命令行模式切换
 
 **系统环境**

@@ -559,6 +559,23 @@ CentOS 7.2
 yum install -y libaio
 ```
 
+## [CentOS] cannot find -static-libstdc++
+
+**系统环境**
+
+CentOS 7.8/GCC 4.8.5
+
+**问题描述**
+
+使用 GCC 编译程序报错，提示缺少如上依赖
+
+**解决方式**
+
+```bash
+yum install -y epel-release
+yum install -y glibc-static libstdc++-static
+```
+
 ## [Ubuntu] 图形、命令行模式切换
 
 **系统环境**

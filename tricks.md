@@ -263,9 +263,9 @@ siblings        : 24
 - 保证 Client 发送的最后一个 ACK 报文段能达到 Server
 - 防止失效的报文段出现在连接中
 
-## HTTP 压力测试
+## HTTP 协议
 
-### wrk
+### wrk: HTTP 压力测试
 
 - wrk 是一款现代化的 http 压测工具，提供 lua 脚本的功能可以满足每个请求或部分请求的差异化
 - wrk 中执行 http 请求的时候，调用 lua 分为3个阶段，setup，running，done，每个 wrk 线程中都有独立的脚本环境

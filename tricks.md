@@ -467,6 +467,24 @@ Requests/sec:    142.25
 Transfer/sec:     66.19KB
 ```
 
+### 检测服务器是否支持断点续传
+
+利用 curl 发起请求，响应报文中包含 Content-Range，则表明服务器支持断点续传。
+
+```bash
+✗ curl -i --range 0-9 http://hello.com/1550d654e2b95b5a69bac14d36f25f04.png -I
+HTTP/1.1 206 Partial Content
+Server: nginx/1.16.1
+Date: Mon, 30 Nov 2020 13:30:10 GMT
+Content-Type: image/png
+Content-Length: 10
+Last-Modified: Fri, 30 Oct 2020 06:47:30 GMT
+Connection: keep-alive
+Vary: Accept-Encoding
+ETag: "5f9bb702-c95"
+Content-Range: bytes 0-9/3221
+```
+
 ## GDB 小技巧
 
 ### 基本操作

@@ -2693,5 +2693,66 @@ IE 浏览器
 1. 网站使用 http（不推荐）
 2. 在全站启用 https 前提下，后台接口也启用 https 即可。
 
+## [protobuf] dealing with json omitempty tags in proto3
 
+**系统环境**
+
+proto3
+
+**问题描述**
+
+golang 中使用 protobuf 3，生成的结构体包含 omitempty 属性，导致 protobuf 结构体序列为 json 时，为空的属性被忽略。
+
+golang 结构体定义如下
+
+```go
+type Metadata struct {
+	FileHash             string   `protobuf:"bytes,1,opt,name=file_hash,json=fileHash,proto3" json:"file_hash,omitempty"`
+	Chunks               []*Chunk `protobuf:"bytes,2,rep,name=chunks,proto3" json:"chunks,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+```
+
+如果 index 为 0，那么序列化之后就会被忽略，如下
+
+```json
+{
+    "file_hash": "4c9d8a8375bc5b86e8018e6779374bf6b22b5636efad40060fc9d36f00475767",
+    "chunks": [
+        {
+            "chunk_md5": "e9d34549dfefa2d0ad9681291f6f375a"
+        },
+        {
+            "index": 1,
+            "chunk_md5": "e321e36d284192835cf572c203175545"
+        },
+        {
+            "index": 2,
+            "chunk_md5": "77845cdeb9e94f9d35017abb112714b6"
+        }
+    ]
+}
+```
+
+**问题原因**
+
+protobuf 实现时使用的 json 库的默认行为为如此，可以参考如下`https://godoc.org/github.com/golang/protobuf/jsonpb#Marshaler`
+
+**解决方式**
+
+方法一：
+
+修改源码，删除 `omitempty` 即可
+
+`https://github.com/golang/protobuf/blob/master/protoc-gen-go/generator/generator.go#L2500`
+
+```go
+tag := fmt.Sprintf(“protobuf:%s json:%q”, g.goTag(message, field, wiretype), jsonName+”,omitempty”)
+```
+
+方法二：
+
+修改编译之后生成的 `*.go` 中结构体的定义，删除 `omitempty` 即可
 

@@ -2586,6 +2586,76 @@ func main() {
 }
 ```
 
+## 读文件
+
+### 小文件
+
+```go
+func ReadFile(filePath string) []byte{
+    content, err := ioutil.ReadFile(filePath)
+    if err != nil {
+        log.Println("Read error")
+    }
+
+    return content
+} 
+```
+
+### 大文件
+
+当文件是纯文本文件，有换行符的时候
+
+```go
+func ReadFile(filePath string, handle func(string)) error {
+    f, err := os.Open(filePath)
+    defer f.Close()
+    if err != nil {
+        return err
+    }
+    buf := bufio.NewReader(f)
+
+    for {
+        line, err := buf.ReadLine("\n")
+        line = strings.TrimSpace(line)
+        handle(line)
+        if err != nil {
+            if err == io.EOF{
+                return nil
+            }
+            return err
+        }
+        return nil
+    }
+}
+```
+
+当文件是二进制文件，没有换行符的时候
+
+```go
+func ReadBigFile(fileName string, handle func([]byte)) error {
+    f, err := os.Open(fileName)
+    if err != nil {
+        fmt.Println("can't opened this file")
+        return err
+    }
+    defer f.Close()
+    s := make([]byte, 4096)
+    for {
+        switch nr, err := f.Read(s[:]); true {
+        case nr < 0:
+            fmt.Fprintf(os.Stderr, "error: %s\n", err.Error())
+            os.Exit(1)
+        case nr == 0: // EOF
+            return nil
+        case nr > 0:
+            handle(s[0:nr])
+        }
+    }
+
+    return nil
+}
+```
+
 ## JWT
 
 **功能：**JWT 生成、校验、刷新 token

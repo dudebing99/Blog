@@ -2656,6 +2656,26 @@ func ReadBigFile(fileName string, handle func([]byte)) error {
 }
 ```
 
+## 获取指定目录下文件列表
+
+```go
+package main
+
+import "fmt"
+import "io/ioutil"
+
+func main() {
+    fileInfos, e := ioutil.ReadDir("target_dir")
+    if e != nil {
+        fmt.Println("read dir error")
+        return
+    }
+    for i, v := range fileInfos {
+        fmt.Println(i, ": ", v.Name())
+    }
+}
+```
+
 ## JWT
 
 **功能：**JWT 生成、校验、刷新 token

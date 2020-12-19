@@ -2756,3 +2756,21 @@ tag := fmt.Sprintf(“protobuf:%s json:%q”, g.goTag(message, field, wiretype),
 
 修改编译之后生成的 `*.go` 中结构体的定义，删除 `omitempty` 即可
 
+## [golang] flag provided but not defined: -xxxxx
+
+**系统环境**
+
+go 1.12.9
+
+**问题描述**
+
+使用 flag 包时，运行时报错 flag provided but not defined: -xxxxx
+
+**问题原因**
+
+把 flag.Parse() 调用放在了获取参数之前
+
+**解决方式**
+
+获取所有参数之后再调用 flag.Parse()
+

@@ -714,6 +714,19 @@ git stash drop stash@{id}
 git stash clear
 ```
 
+### git tag
+
+``` bash
+# 查看本地 tag
+git tag -l
+# 查看远程 tag
+git show-ref --tag
+# 删除本地 tag
+git tag -d <tag>
+# 删除远程 tag
+git push ::refs/tags/<tag>
+```
+
 ### 合并分支到主干
 
 ```bash

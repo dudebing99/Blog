@@ -724,7 +724,7 @@ git show-ref --tag
 # 删除本地 tag
 git tag -d <tag>
 # 删除远程 tag
-git push ::refs/tags/<tag>
+git push :refs/tags/<tag>
 ```
 
 ### 合并分支到主干

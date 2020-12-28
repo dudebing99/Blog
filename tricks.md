@@ -717,6 +717,10 @@ git stash clear
 ### git tag
 
 ``` bash
+# 创建本地 tag
+git tag <tag>
+# 推送到远程仓库
+git push origin <tagName>
 # 查看本地 tag
 git tag -l
 # 查看远程 tag

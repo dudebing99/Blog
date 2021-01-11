@@ -2774,3 +2774,26 @@ go 1.12.9
 
 获取所有参数之后再调用 flag.Parse()
 
+## [golang]  WARNING: Missing 'go_package' option in "xxx.proto"
+
+**系统环境**
+
+go 1.13.4/Ubuntu 18.04
+
+**问题描述**
+
+编译 proto相关文件，警告信息如上
+
+**问题原因**
+
+ proto3 的语法中缺少了 option go_package
+
+**解决方式**
+
+proto 文件添加如下定义
+
+```protobuf
+syntax = "proto3";
+option go_package = ".;protocol";
+```
+

@@ -1,8 +1,5 @@
 ## Welcome to Kevin's blog
 
------------
-
-
 
 [Block Chain](https://dudebing99.github.io/Blog/block_chain.html)
 

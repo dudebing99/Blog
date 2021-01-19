@@ -774,6 +774,7 @@ git log -p -2 <filename>
 # 查看最近一次所有的更新内容（如下两种方法）
 git log -p -1
 git diff HEAD^
+git diff HEAD^ --stat
 
 # 查看某个文件的最后一次更新内容由谁提交（对应到每一行）
 git blame <filename>

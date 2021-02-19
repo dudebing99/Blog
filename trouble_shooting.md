@@ -2797,3 +2797,27 @@ syntax = "proto3";
 option go_package = ".;protocol";
 ```
 
+## [redis] listening socket 127.0.0.1:6379: bind: No error
+
+**系统环境**
+
+redis 3.2.100/windows 7
+
+**问题描述**
+
+前台运行 redis-server，自动退出
+
+**问题原因**
+
+<暂不明确>
+
+**解决方式**
+
+另起一个终端，运行如下命令，然后重新运行 redis-server 即可正常启动
+
+```bash
+./redis-cli.exe
+shutdown
+exit
+```
+

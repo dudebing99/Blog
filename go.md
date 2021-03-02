@@ -2676,6 +2676,48 @@ func main() {
 }
 ```
 
+## 获取文件完整路径、当前路径、文件名
+
+```go
+package main
+
+import (
+        "fmt"
+        "os"
+        "path"
+        "path/filepath"
+        "runtime"
+        "syscall"
+)
+
+func main() {
+        fullPath, _ := syscall.FullPath(os.Args[1])
+        fmt.Println(fullPath)
+
+        linuxFullPath:= filepath.ToSlash(fullPath)
+        fmt.Println(linuxFullPath)
+        filename := path.Base(linuxFullPath)
+        fmt.Println(filename)
+
+        currentPath, _ := os.Getwd()
+        fmt.Println(currentPath)
+
+         _, fullFilename, _, _ := runtime.Caller(0)
+         fmt.Println(fullFilename)
+}
+```
+
+**输出**
+
+```bash
+$ go run a.go ../../src/openapi/.gitignore
+E:\repos\go\src\openapi\.gitignore
+E:/repos/go/src/openapi/.gitignore
+.gitignore
+E:\repos\go\src\BigDataServicePlatform
+E:/repos/go/src/BigDataServicePlatform/a.go
+```
+
 ## JWT
 
 **功能：**JWT 生成、校验、刷新 token

@@ -720,7 +720,7 @@ git stash clear
 # 创建本地 tag
 git tag <tag>
 # 推送到远程仓库
-git push origin <tagName>
+git push origin <tag name>
 # 查看本地 tag
 git tag -l
 # 查看远程 tag

@@ -64,6 +64,8 @@
 - [波场开发者中文文档](https://tronprotocol.github.io/documentation-zh/)
 - [波场官网](https://tron.network/)
 - [波场节点状态数据库快照](https://cn.developers.tron.network/docs/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BF%AB%E7%85%A7%E5%A4%87%E4%BB%BD)
+- [以太坊项目分析](https://www.duneanalytics.com/)
+- [Defi 项目分析](https://debank.com/)
 
 ## 缩略词
 

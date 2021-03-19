@@ -2518,6 +2518,20 @@ GCC 4.8.4/Ubuntu 14.04
 
 程序中使用 <thread>，依赖 `pthread`，所以链接加入 `-lpthread` 即可
 
+## [gcc] undefined reference to `std::ios_base::Init::Init()'
+
+**系统环境**
+
+x86_64-w64-mingw32-gcc 9.2.0/Windows 10
+
+**问题描述**
+
+编译 .cpp 报错，如上所示
+
+**解决方式**
+
+使用了C++对象，链接库加入 -lstdc++ 即可
+
 ## [gin] logged twice each request
 
 **系统环境**

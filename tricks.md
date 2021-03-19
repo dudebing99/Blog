@@ -1962,3 +1962,48 @@ brew install boost@1.57
 brew link boost@1.57 --force --overwrite
 ```
 
+## C++调用 golang 动态库
+
+1. 待生成动态库的 .go
+
+![](archives/tricks/golang_dll_export.png)
+
+2. 编译生成动态库
+
+```bash
+export CC=/c/TDM-GCC-64/bin/gcc.exe
+export GXX=/c/TDM-GCC-64/bin/g++.exe
+
+go build -x -v -ldflags "-s -w" -buildmode=c-shared -o sdk.dll main.go
+```
+
+生成 sdk.dll 和头文件 sdk.h
+
+3. C++ 调用动态库
+
+```c++
+#include <iostream>
+#include <string>
+
+#include "sdk.h"
+
+using namespace std;
+
+int main() {
+        GoString host = {"127.0.0.1:50002", 15};
+        GoString filename = {"a.go", 4};
+        GoString retrieveHost = {"", 0};
+        GoString storeHost = {"", 0};
+        UploadFile(host, filename, 10, retrieveHost, storeHost);
+
+        return 0;
+}
+```
+
+4. 编译生成可执行程序
+
+``` bash
+/c/TDM-GCC-64/bin/x86_64-w64-mingw32-g++.exe a.cpp  -I=./ -L=./ -lsdk
+```
+
+生成可执行程序 a.exe

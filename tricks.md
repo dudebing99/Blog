@@ -1971,10 +1971,7 @@ brew link boost@1.57 --force --overwrite
 2. 编译生成动态库
 
 ```bash
-export CC=/c/TDM-GCC-64/bin/gcc.exe
-export GXX=/c/TDM-GCC-64/bin/g++.exe
-
-go build -x -v -ldflags "-s -w" -buildmode=c-shared -o sdk.dll main.go
+CC=/c/TDM-GCC-64/bin/gcc.exe && GXX=/c/TDM-GCC-64/bin/g++.exe && go build -x -v -ldflags "-s -w" -buildmode=c-shared -o sdk.dll main.go
 ```
 
 生成 sdk.dll 和头文件 sdk.h

@@ -83,7 +83,6 @@
 ### 比特币测试网络
 
 > **基础环境： **Ubuntu 14.04.5 LTS/Bitcoin Code Daemon v0.16.99.0-7c32b41
->
 
 #### 启动服务
 
@@ -3431,6 +3430,150 @@ WARN [07-25|16:58:52.399] Block sealing failed                     err="waiting 
 15
 ```
 
+##### 查看自己节点信息
+
+```javascript
+> admin.nodeInfo
+{
+  enode: "enode://f4cde9ac5df20c73d746680736a21a6bf87d1e3b55c9d876ecd17003d68394c446beae0ce6865578c1891fc3a061fff310b87c6354ef0a218a5d6806c02fc72b@127.0.0.1:13668",
+  enr: "enr:-Je4QHViDkCOuADyRdZ-ojGaQuGCoE5p8De5wzd12E0_ghArY4XJILNlwo-Xcc4K0KWQKS_Gfk9RpQigaR5VyRdweFICg2V0aMfGhFd-AnaAgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQP0zemsXfIMc9dGaAc2ohpr-H0eO1XJ2Hbs0XAD1oOUxIN0Y3CCNWSDdWRwgjVk",
+  id: "bd22671c3a302d76607bfe1c20fcae376a87e47815ff18415d794507b754d59d",
+  ip: "127.0.0.1",
+  listenAddr: "[::]:13668",
+  name: "Geth/v1.0.0-stable-fd84c648/linux-amd64/go1.13.4",
+  ports: {
+    discovery: 13668,
+    listener: 13668
+  },
+  protocols: {
+    eth: {
+      config: {
+        byzantiumBlock: 0,
+        chainId: 128,
+        congress: {...},
+        constantinopleBlock: 0,
+        daoForkSupport: true,
+        eip150Block: 0,
+        eip150Hash: "0x0000000000000000000000000000000000000000000000000000000000000000",
+        eip155Block: 0,
+        eip158Block: 0,
+        homesteadBlock: 0,
+        istanbulBlock: 0,
+        petersburgBlock: 0
+      },
+      difficulty: 9026911,
+      genesis: "0x5751d1772ebc82d52d19d96157bb3f13ca8417217e3c0913adf15f04eb4cb144",
+      head: "0x6902dbf68c994d08a87f6a9fe9331d25790f21b08307b64e29ecf7a524467f11",
+      network: 128
+    }
+  }
+}
+```
+
+##### 添加节点
+
+```javascript
+admin.addPeer('enode://8172f03e1fd2c1fe7ecf923d4de8c080bf0483520495c158d4e34c25aaf02acbbb82764b9abf5047fb146b8f61af853d59bc251d75e67a85038264e0be134104@127.0.0.1:8001')
+true
+```
+
+##### 查看节点信息
+
+```javascript
+> admin.peers
+[{
+    caps: ["eth/63", "eth/64", "eth/65"],
+    enode: "enode://ca2b5acf1ecbf96a032b3ced0524f825e6af73426de641256475694ff2e7c328cdfa4346527ef3b870d95fa46dccbca90dab84a564ae02cd57914bda172c6b03@47.99.193.237:32668",
+    id: "4b6b17b531f3695255567f6e5ed871e1cafed9c2384cbf2ad4633bf1a9243b99",
+    name: "Geth/v1.0.1-stable/linux-amd64/go1.13.4",
+    network: {
+      inbound: false,
+      localAddress: "172.18.57.144:40438",
+      remoteAddress: "47.99.193.237:32668",
+      static: true,
+      trusted: false
+    },
+    protocols: {
+      eth: {
+        difficulty: 9026923,
+        head: "0xca8838f13699430afb0c64f26f2bedca216e59a67ad829a90cf936872dfdcfae",
+        version: 65
+      }
+    }
+}, {
+    caps: ["eth/63", "eth/64", "eth/65"],
+    enode: "enode://408987841ecea8cc4804c16c9708297203e0a1aea4cad6527746357af999011338b201383572edfae8d40237bf22afd9ac9a16fdecfd9caa2387b49d592bb05b@120.27.210.80:32668",
+    id: "615aa26b2fbb89734b32ee0862a14518681fb6d755b339fb72f6020323f9b593",
+    name: "Geth/v1.0.1-stable/linux-amd64/go1.13.4",
+    network: {
+      inbound: false,
+      localAddress: "172.18.57.144:35618",
+      remoteAddress: "120.27.210.80:32668",
+      static: true,
+      trusted: false
+    },
+    protocols: {
+      eth: {
+        difficulty: 9026885,
+        head: "0x9ee6efeda00c1c33f15a90c72f925c9b40bfb26e69bea2611dfd1d5d747a0b8b",
+        version: 65
+      }
+    }
+}, {
+    caps: ["eth/63", "eth/64", "eth/65"],
+    enode: "enode://880a7cafcc2a668fb6b79d9c763602520a4e8f5cb64d6c7d87d58b80ff89a410b41ce9fc9b72bc62b4746ac4cff1384940011161777fd75048661fcb3404a3f9@118.178.95.148:32668",
+    id: "6bcc8b19de11ad05532cea08c63bec5ffb190ccd6b49b7ed86d40d049522834d",
+    name: "Geth/v1.0.1-stable/linux-amd64/go1.13.4",
+    network: {
+      inbound: false,
+      localAddress: "172.18.57.144:57604",
+      remoteAddress: "118.178.95.148:32668",
+      static: true,
+      trusted: false
+    },
+    protocols: {
+      eth: {
+        difficulty: 9026907,
+        head: "0xefa544c0a6e0f910bf69f4d562c8de957b92dc2f7b43c211193eb85b8b109a4d",
+        version: 65
+      }
+    }
+}, {
+    caps: ["eth/63", "eth/64", "eth/65"],
+    enode: "enode://3fe1ddfd0fdcb8e795c3c371366f9c61b244eb8405ac386e9eb5cf61275782bc5639048cda8fa78d46b31320f91cdd7537d325e0aac9a8d43ac80c85fd9f1dae@47.99.179.228:32668",
+    id: "d2f284eaa3f9cf1728aada9109426aeb569c62ef93704d7d7eb56a248fef6c94",
+    name: "Geth/v1.0.1-stable/linux-amd64/go1.13.4",
+    network: {
+      inbound: false,
+      localAddress: "172.18.57.144:52170",
+      remoteAddress: "47.99.179.228:32668",
+      static: true,
+      trusted: false
+    },
+    protocols: {
+      eth: {
+        difficulty: 9026889,
+        head: "0x04e68f38c307ee7878fdb68976e239d62924a06821995741f02add7129b903d5",
+        version: 65
+      }
+    }
+}]
+```
+
+##### 节点是否监听
+
+```javascript
+> net.listening
+true
+```
+
+##### 节点连接数量
+
+```javascript
+> net.peerCount
+4
+```
+
 #### 合约
 
 ##### 编写 Solidity 合约脚本
@@ -3748,7 +3891,6 @@ Contract JSON ABI
 ### 以太坊开发基础
 
 > **基础环境：**NPM v5.6.0/nodejs v8.11.3
->
 
 #### web3
 
@@ -5469,7 +5611,6 @@ contract Attack {
 此时，外部账户 `0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db`  的余额如下所示
 
 > **计算思路：**`97.9 + 2 - 1 + 45 * 0.5 = 121.4`，其中，97.9 为部署 `Attack` 合约之后的余额， 2 为转到 `Attack` 合约中的以太坊数量（合约销毁即退回原账户），1 为存入 `IDMoney` 合约的以太坊数量， 45 * 0.5 为递归提现的以太坊数量。
->
 
 > 另外，对于锁定在 `IDMoney` 中的 0.5 以太坊，可以通过在 `IDMoney` 预留销毁合约接口，即可实现销毁合约退回到原账户，大致如下：
 
@@ -6291,7 +6432,6 @@ $ cargo run -p libra-swarm -- -s
 5. 将上一步结果使用 BASE58 进行编码（比特币定制版本），就得到了『钱包地址』。
 
 > **如下详细展示一个钱包地址的生成步骤**
->
 
 第一步，随机选取一个 32 字节的数、大小介于 1 ~ 0xFFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFE BAAE DCE6 AF48 A03B BFD2 5E8C D036 4141 之间，作为私钥
 18E14A7B6A307F426A94F8114701E7C8E774E7F9A47E2C2035DB29A206321725
@@ -6363,7 +6503,6 @@ D61967F6
 ### 交易
 
 > 比特币交易是比特币系统中最重要的部分。根据比特币系统的设计原理，系统中任何其他的部分都是为了确保比特币交易可以被生成、能在比特币网络中得以传播和通过验证，并最终添加入全球比特币交易总账簿（比特币区块链）。比特币交易的本质是数据结构，这些数据结构中含有比特币交易参与者价值转移的相关信息。比特币区块链是一本全球复式记账总账簿，每个比特币交易都是在比特币区块链上的一个公开记录。
->
 
 > 五大标准脚本分别为 P2PKH、P2PK、MS（限15个密钥）、P2SH 和 OP_RETURN
 
@@ -6748,7 +6887,6 @@ EVM（Ethereum Virtual Machine）以太坊虚拟机是以太坊中智能合约�
 智能合约的部署是指把合约字节码发布到区块链上，并使用一个特定的地址来标示这个合约，这个地址称为合约账户。
 
 > 以太坊中有两类账户：
->
 
 - 外部账户
   该类账户被私钥控制（由人控制），没有关联任何代码。

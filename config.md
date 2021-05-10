@@ -2961,6 +2961,92 @@ java -jar FullNode.jar -c config.conf
     └── database
 ```
 
+## CentOS 升级内核
+
+> 环境：CentOS 7.2
+
+系统自带内核版本如下
+
+```bash
+# uname -sr
+Linux 3.10.0-514.26.2.el7.x86_64
+```
+
+1. 添加内核源
+
+```bash
+# rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+# rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+```
+
+2. 查看可用内核包
+
+```bash
+# yum --disablerepo="*" --enablerepo="elrepo-kernel" list available
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * elrepo-kernel: mirror-hk.koddos.net
+Available Packages
+elrepo-release.noarch                                                                7.0-5.el7.elrepo                                                         elrepo-kernel
+kernel-lt.x86_64                                                                     5.4.117-1.el7.elrepo                                                     elrepo-kernel
+kernel-lt-devel.x86_64                                                               5.4.117-1.el7.elrepo                                                     elrepo-kernel
+kernel-lt-doc.noarch                                                                 5.4.117-1.el7.elrepo                                                     elrepo-kernel
+kernel-lt-headers.x86_64                                                             5.4.117-1.el7.elrepo                                                     elrepo-kernel
+kernel-lt-tools.x86_64                                                               5.4.117-1.el7.elrepo                                                     elrepo-kernel
+kernel-lt-tools-libs.x86_64                                                          5.4.117-1.el7.elrepo                                                     elrepo-kernel
+kernel-lt-tools-libs-devel.x86_64                                                    5.4.117-1.el7.elrepo                                                     elrepo-kernel
+kernel-ml-devel.x86_64                                                               5.12.2-1.el7.elrepo                                                      elrepo-kernel
+kernel-ml-doc.noarch                                                                 5.12.2-1.el7.elrepo                                                      elrepo-kernel
+kernel-ml-headers.x86_64                                                             5.12.2-1.el7.elrepo                                                      elrepo-kernel
+kernel-ml-tools.x86_64                                                               5.12.2-1.el7.elrepo                                                      elrepo-kernel
+kernel-ml-tools-libs.x86_64                                                          5.12.2-1.el7.elrepo                                                      elrepo-kernel
+kernel-ml-tools-libs-devel.x86_64                                                    5.12.2-1.el7.elrepo                                                      elrepo-kernel
+perf.x86_64                                                                          5.12.2-1.el7.elrepo                                                      elrepo-kernel
+python-perf.x86_64 
+```
+
+3. 安装最新的主线稳定内核
+
+```bash
+# yum --enablerepo=elrepo-kernel install kernel-ml
+```
+
+4. 修改GRUB选项，使新安装的内核作为优先启动。修改前，先进行备份
+
+```bash
+# cp /etc/default/grub  /etc/default/grub.bak
+```
+
+修改vi /etc/default/grub中GRUB_DEFAULT=saved 为 GRUB_DEFAULT=0
+
+```bash
+# diff /etc/default/grub /etc/default/grub.bak 
+3c3
+< GRUB_DEFAULT=0
+---
+> GRUB_DEFAULT=saved
+```
+
+5. 重新创建内核配置
+
+```bash
+# grub2-mkconfig -o /boot/grub2/grub.cfg
+```
+
+6. 重启
+
+```bash
+# reboot
+```
+
+7. 验证
+
+```bash
+# uname -sr
+Linux 5.12.2-1.el7.elrepo.x86_64
+```
+
+
 ## Ubuntu 替换源
 
 > **环境：**Ubuntu 14.04.5 LTS

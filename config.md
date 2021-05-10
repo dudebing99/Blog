@@ -853,11 +853,13 @@ chmod a+x certbot-auto
 
 2. 生成证书
 
-```bash
-/opt/certbot-auto certonly --webroot -w /usr/share/nginx/html --agree-tos --email xuchao@danbay.cn -d api.danbay.cn
-```
+> 同时生成支持 i-deer.com 和 www.i-deer.com 的证书
 
-![生成证书](pic/certbot/certbot.jpg)
+```bash
+#!/bin/bash
+
+/opt/cert/certbot-auto --no-self-upgrade certonly --webroot -w /usr/share/nginx/html --agree-tos --email c.r2009@163.com -d i-deer.com -d www.i-deer.com
+```
 
 3. 查看证书文件
 
@@ -865,129 +867,68 @@ chmod a+x certbot-auto
 tree /etc/letsencrypt/live/
 ```
 
-![证书文件](pic/certbot/cert.jpg)
-
 ### 证书更新
 
+> 证书默认 90 有效，更新不能太频繁，同一域名一周之内最多只能更新 5 次
+
 ```bash
-# 证书默认 90 有效，更新不能太频繁，同一域名一周之内最多只能更新5次
-/opt/certbot-auto renew --quiet --no-self-upgrade
+#!/bin/bash
+
+#./certbot-auto renew 
+./certbot-auto renew --no-self-upgrade
 ```
 
 ### 综合使用
 
-**基础环境：**Nginx 1.12.2/CentOS 7.4
+**基础环境：**Nginx 1.12.2/CentOS 7.6
 
-**域名解析：**bigsillybear.com/api.bigsillybear.com
+**域名解析：**i-deer.com（同时添加 @ 和 www 两条解析）
 
-**证书：**bigsillybear.com/api.bigsillybear.com
+**证书：**同时支持 i-deer.com 和 i-deer.com
 
 **目标：**
 
-- `Nginx` 监听 80、443、11111 端口，且反向代理 10000 端口
-- 支持 `http://bigsillybear.com` 与 `https://bigsillybear.com`
-- 只支持 `https://bigsllybear.com:11111`
-- 支持 `https://api.bigsillybear.com`
+- www.i-deer.com 跳转 i-deer.com
+- http 跳转 https
+
+即，http://i-deer.com 和 http://www.i-deer.com 和 https://i-deer.com 和 https://www.i-deer.com 最终都跳转到 https://i-deer.com
 
 ```bash
-# For more information on configuration, see:
-#   * Official English Documentation: http://nginx.org/en/docs/
-#   * Official Russian Documentation: http://nginx.org/ru/docs/
-
-user nginx;
-worker_processes auto;
-error_log /var/log/nginx/error.log;
-pid /run/nginx.pid;
-
-# Load dynamic modules. See /usr/share/nginx/README.dynamic.
-include /usr/share/nginx/modules/*.conf;
-
-events {
-    worker_connections 1024;
-}
-
-http {
-    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                      '$status $body_bytes_sent "$http_referer" '
-                      '"$http_user_agent" "$http_x_forwarded_for"';
-
-    access_log  /var/log/nginx/access.log  main;
-
-    sendfile            on;
-    tcp_nopush          on;
-    tcp_nodelay         on;
-    keepalive_timeout   65;
-    types_hash_max_size 2048;
-
-    include             /etc/nginx/mime.types;
-    default_type        application/octet-stream;
-
-    # Load modular configuration files from the /etc/nginx/conf.d directory.
-    # See http://nginx.org/en/docs/ngx_core_module.html#include
-    # for more information.
-    include /etc/nginx/conf.d/*.conf;
-
-    server {
-        listen       80 default_server;
-        listen       [::]:80 default_server;
-        server_name  _;
-        root         /usr/share/nginx/html;
-
-        # Load configuration files for the default server block.
-        include /etc/nginx/default.d/*.conf;
-
-        location / {
-        }
-
-        error_page 404 /404.html;
-            location = /40x.html {
-        }
-
-        error_page 500 502 503 504 /50x.html;
-            location = /50x.html {
-        }
-    }
-
-    # Settings for a TLS enabled server.
-    server {
-        listen       443 ssl http2 default_server;
-        listen       [::]:443 ssl http2 default_server;
-        server_name  bigsillybear.com;
-        root         /usr/share/nginx/html;
-
-        ssl_certificate         "/etc/letsencrypt/live/bigsillybear.com/fullchain.pem";
-        ssl_certificate_key     "/etc/letsencrypt/live/bigsillybear.com/privkey.pem";
-        ssl_session_cache shared:SSL:1m;
-        ssl_session_timeout  10m;
-        ssl_ciphers HIGH:!aNULL:!MD5;
-        ssl_prefer_server_ciphers on;
-
-        # Load configuration files for the default server block.
-        include /etc/nginx/default.d/*.conf;
-
-        location / {
-        }
-
-        error_page 404 /404.html;
-            location = /40x.html {
-        }
-
-        error_page 500 502 503 504 /50x.html;
-            location = /50x.html {
-        }
+	server {
+        listen       80;
+        server_name i-deer.com,www.i-deer.com;
+        return 301 https://i-deer.com$request_uri;
     }
 
     server {
-        listen       11111;
-        listen       [::]:11111;
-        server_name  bigsillybear.com;
-        root         /usr/share/nginx/html;
+        listen 443;
+        server_name www.i-deer.com;
+        return 301 https://i-deer.com$request_uri;
+    }
 
-        ssl                     on;
-        error_page 497          https://$host:443$uri;
+    server {
+        listen 443 default_server ssl;
+        server_name  i-deer.com;
+        ssl on;
+
+        gzip on;
+        gzip_disable "msie6";
+        
+        gzip_vary on;
+        gzip_proxied any;
+        gzip_comp_level 6;
+        gzip_buffers 16 8k;
+        gzip_http_version 1.1;
+        gzip_min_length 256;
+        gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype image/svg+xml image/x-icon image/jpeg image/gif image/png;
+
+
+        #ssl                     on;
+        #error_page 497          https://$host:443$uri;
         #error_page 497         https://$host:443$request_uri?$args;
-        ssl_certificate         "/etc/letsencrypt/live/bigsillybear.com/fullchain.pem";
-        ssl_certificate_key     "/etc/letsencrypt/live/bigsillybear.com/privkey.pem";
+
+        ssl_certificate "/etc/letsencrypt/live/i-deer.com/fullchain.pem";
+        ssl_certificate_key "/etc/letsencrypt/live/i-deer.com/privkey.pem";
         ssl_session_cache shared:SSL:1m;
         ssl_session_timeout  10m;
         ssl_ciphers HIGH:!aNULL:!MD5;
@@ -996,7 +937,18 @@ http {
         # Load configuration files for the default server block.
         include /etc/nginx/default.d/*.conf;
 
+        location /download {
+            alias /opt/rplab-download;
+            index  h5DownLoad.html index.html index.htm;
+        }
+
+        location /yljdownload {
+            alias /opt/ylj-download;
+            index  h5DownLoad.html index.html index.htm;
+        }
+
         location / {
+            root /opt/ideer-website;
         }
 
         error_page 404 /404.html;
@@ -1007,115 +959,9 @@ http {
             location = /50x.html {
         }
     }
-
-    upstream api_server {
-        server 127.0.0.1:10000;
-    }
-
-    server {
-        listen       443;
-        listen       [::]:443;
-        server_name  api.bigsillybear.com;
-        root         /usr/share/nginx/html;
-
-        ssl_certificate         "/etc/letsencrypt/live/api.bigsillybear.com/fullchain.pem";
-        ssl_certificate_key     "/etc/letsencrypt/live/api.bigsillybear.com/privkey.pem";
-        ssl_session_cache shared:SSL:1m;
-        ssl_session_timeout  10m;
-        ssl_ciphers HIGH:!aNULL:!MD5;
-        ssl_prefer_server_ciphers on;
-
-        # Load configuration files for the default server block.
-        include /etc/nginx/default.d/*.conf;
-
-        location / {
-                proxy_redirect          off;
-                proxy_set_header        Host            $host;
-                proxy_set_header        X-Real-IP       $remote_addr;
-                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_pass              http://api_server;
-        }
-
-        error_page 404 /404.html;
-            location = /40x.html {
-        }
-
-        error_page 500 502 503 504 /50x.html;
-            location = /50x.html {
-        }
-    }
-
-}
 ```
 
-**验证结果**
-
-```bash
-root@iZwz978rorvlg75nct99l1Z:~# curl -I http://bigsillybear.com
-HTTP/1.1 200 OK
-Server: nginx/1.12.2
-Date: Wed, 14 Nov 2018 09:16:03 GMT
-Content-Type: text/html
-Content-Length: 3700
-Last-Modified: Tue, 06 Mar 2018 09:26:21 GMT
-Connection: keep-alive
-ETag: "5a9e5ebd-e74"
-Accept-Ranges: bytes
-
-root@iZwz978rorvlg75nct99l1Z:~# curl -I https://bigsillybear.com
-HTTP/1.1 200 OK
-Server: nginx/1.12.2
-Date: Wed, 14 Nov 2018 09:16:06 GMT
-Content-Type: text/html
-Content-Length: 3700
-Last-Modified: Tue, 06 Mar 2018 09:26:21 GMT
-Connection: keep-alive
-ETag: "5a9e5ebd-e74"
-Accept-Ranges: bytes
-```
-
-```bash
-root@iZwz978rorvlg75nct99l1Z:~# curl https://bigsillybear.com:11111 -I
-HTTP/1.1 200 OK
-Server: nginx/1.12.2
-Date: Wed, 14 Nov 2018 08:59:57 GMT
-Content-Type: text/html
-Content-Length: 3700
-Last-Modified: Tue, 06 Mar 2018 09:26:21 GMT
-Connection: keep-alive
-ETag: "5a9e5ebd-e74"
-Accept-Ranges: bytes
-
-root@iZwz978rorvlg75nct99l1Z:~# curl http://bigsillybear.com:11111 -I
-HTTP/1.1 302 Moved Temporarily
-Server: nginx/1.12.2
-Date: Wed, 14 Nov 2018 09:00:04 GMT
-Content-Type: text/html
-Content-Length: 161
-Connection: close
-Location: https://bigsillybear.com:443/
-```
-
-```bash
-root@iZwz978rorvlg75nct99l1Z:~# curl http://bigsillybear.com:10000/
-{
-    "id": 0,
-    "message": "hello world"
-}
-root@iZwz978rorvlg75nct99l1Z:~# curl https://api.bigsillybear.com/
-{
-    "id": 0,
-    "message": "hello world"
-}
-```
-
-> 由于 `api.bigsillybear.com` 只针对 443 端口（未针对 80 端口）配置了规则，相当于只配置了客户端访问`https://api.bigsillybear.com` 的规则而未配置 `http://api.bigsillybear.com` 的规则，使用 `curl https://api.bigsillybear.com/` 将自动匹配到 `http://bigsillybear.com`
-
-使用谷歌浏览器，查看证书信息如下
-
-![](pic/config/cert1.png)
-
-![](pic/config/cert2.png)
+![](pic/config/cert.png)
 
 ## 安装 CURL 支持 http2
 
@@ -4058,7 +3904,6 @@ sub   2048R/3B2770AE 2018-11-01
 3. 获取公钥
 
 > 通过 `gpg --list-keys` 查看 `Pub GPG key ID`
->
 
 ```bash
 $ gpg --armor --export FF939C7E
@@ -4255,11 +4100,11 @@ user: "Kevin (wupolifa1) <c.r2009@163.com>"
      ```bash
      set INCLUDE=C:\deps\libpng-1.6.16;C:\deps\openssl-1.0.1l\include
      set LIB=C:\deps\libpng-1.6.16\.libs;C:\deps\openssl-1.0.1l
-
+     
      cd C:\Qt\5.3.2
      configure.bat -release -opensource -confirm-license -static -make libs -no-sql-sqlite -no-opengl -system-zlib -qt-pcre -no-icu -no-gif -system-libpng -no-libjpeg -no-freetype -no-angle -no-vcproj -openssl -no-dbus -no-audio-backend -no-wmf-backend -no-qml-debug
      mingw32-make -j4
-
+     
      set PATH=%PATH%;C:\Qt\5.3.2\bin
      cd C:\Qt\qttools-opensource-src-5.3.2
      qmake qttools.pro
@@ -4276,9 +4121,9 @@ user: "Kevin (wupolifa1) <c.r2009@163.com>"
 
    ```bash
    cd /c/bitcoin-0.9.4
-
+   
    ./autogen.sh
-
+   
    CPPFLAGS="-I/c/deps/db-4.8.30.NC/build_unix \
    -I/c/deps/openssl-1.0.1l/include \
    -I/c/deps \
@@ -4300,9 +4145,9 @@ user: "Kevin (wupolifa1) <c.r2009@163.com>"
    --with-qt-plugindir=/c/Qt/5.3.2/plugins \
    --with-qt-bindir=/c/Qt/5.3.2/bin \
    --with-protoc-bindir=/c/deps/protobuf-2.6.1/src
-
+   
    make
-
+   
    strip src/bitcoin-cli.exe
    strip src/bitcoind.exe
    strip src/qt/bitcoin-qt.exe

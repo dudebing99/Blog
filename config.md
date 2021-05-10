@@ -867,7 +867,7 @@ chmod a+x certbot-auto
 tree /etc/letsencrypt/live/
 ```
 
-### 证书更新
+4. 证书更新
 
 > 证书默认 90 有效，更新不能太频繁，同一域名一周之内最多只能更新 5 次
 
@@ -876,6 +876,86 @@ tree /etc/letsencrypt/live/
 
 #./certbot-auto renew 
 ./certbot-auto renew --no-self-upgrade
+```
+
+### 使用 snap 制作证书
+
+certbot-auto 不再支持所有的操作系统。certbot 团队认为维护 certbot-auto 在几乎所有流行的 UNIX 系统以及各种环境上的正常运行是一项繁重的工作，加之 certbot-auto 是基于 python 2 编写的，而 python 2 即将寿终正寝，将 certbot-auto 迁移至 python 3 需要大量工作，这非常困难，因此团队决定放弃 certbot-auto 的维护，certbot 团队使用了基于 snap 的新的分发方法。
+
+1. 安装 snapd
+
+```bash
+yum install epel-release
+yum install snapd -y
+```
+
+2. 启用 snapd.socket
+
+```bash
+systemctl enable --now snapd.socket
+```
+
+3. 创建 /var/lib/snapd/snap 和 /snap 之间的链接
+
+```bash
+ln -s /var/lib/snapd/snap /snap
+```
+
+4. 退出账号并重新登陆，或者重启系统，确保 snap 启用
+
+5. 更新 snap
+
+```bash
+snap install core
+snap refresh core
+```
+
+6. 卸载已安装的certbot。
+
+如果之前在系统上已经部署过 certbot，则需要先将其进行卸载。
+
+a. 卸载certbot
+
+```bash
+yum remove certbot
+```
+
+b. 根据 certbot 安装位置删除相关文件
+
+```bash
+rm /usr/local/bin/certbot-auto
+```
+
+ c. 删除 certbot 附加软件包
+
+```bash
+rm -rf /opt/eff.org/certbot
+```
+
+ 安装certbot
+
+7. 通过snap安装certbot。
+
+```bash
+snap install --classic certbot
+```
+
+8. 创建/snap/bin/certbot 软链接，方便 certbot 命令的使用
+
+```bash
+ln -s /snap/bin/certbot /usr/bin/certbot
+```
+
+9.  生成证书
+
+```bash
+certbot certonly --nginx --email xxx@mail.com -d hello.com -d word.com
+```
+
+10. 更新证书
+
+```bash
+certbot renew
 ```
 
 ### 综合使用

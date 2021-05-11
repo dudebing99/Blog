@@ -1113,7 +1113,6 @@ apt-get install build-essential g++ -y
 ```
 
 > 如果是 CentOS，运行如下命令即可 `yum install glibc-headers gcc-c++ -y`
->
 
 ## [Ubuntu] Package libdb4.8++-dev is not available, but is referred to by another package.
 
@@ -2835,3 +2834,32 @@ shutdown
 exit
 ```
 
+## [web] was loaded over https, but requested an insecure xmlhttprequest
+
+**系统环境**
+
+windows 7/google browser 89.0
+
+**问题描述**
+
+前端页面报错，提示 http/https 混合使用
+
+**问题原因**
+
+HTTPS 是 HTTP over Secure Socket Layer，以安全为目标的 HTTP 通道，所以在 HTTPS 承载的页面上不允许出现 HTTP 请求，一旦出现就是提示或报错
+
+**解决方式**
+
+从使用侧来看，可以通过 nginx 强制让 HTTP 请求转为 HTTPS
+
+```bash
+add_header Content-Security-Policy "upgrade-insecure-requests;connect-src *";
+```
+
+或者在前端页面加入
+
+```bash
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
+```
+
+从后端服务而言，通过代理服务器 NGINX 或者 Tomcat 将前端和后台接口都支持 HTTPS 即可

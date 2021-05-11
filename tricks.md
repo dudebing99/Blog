@@ -2004,3 +2004,122 @@ int main() {
 ```
 
 生成可执行程序 a.exe
+
+## 使用 frp 实现 Windows 远程桌面连接
+
+**前置条件：**
+
+- 需要一台具备公网 IP 的服务器
+- frp 服务端(frps)、客户端(frpc)下载地址：https://github.com/fatedier/frp/releases
+
+1. 安装 frps
+
+frp 服务器端搭建
+
+```bash
+wget https://github.com/fatedier/frp/releases/download/v0.36.2/frp_0.36.2_linux_amd64.tar.gz
+tar -zxvf frp_0.36.2_linux_amd64.tar.gz
+cd frp_0.36.2_linux_amd64
+```
+
+
+作为服务器端，你只需要关心 2 个文件：
+
+- frps
+- frps.ini
+
+其中 frps 是服务端运行程序，frps.ini 是配置文件。frps.ini 配置如下
+
+```bash
+root@ubuntu:/opt# cat frp/frp_0.36.2_linux_amd64/frps.ini 
+[common]
+bind_port = 17000
+dashboard_port = 17500
+token = laowang
+dashboard_user = laowang
+dashboard_pwd = laowang_pwd
+```
+
+这里主要是配置了绑定的端口（17000），控制面板的端口（17500），token（会在客户端用到），控制面板的 user 用户名和 pwd 密码。
+
+运行 frps
+
+```
+root@ubuntu:/opt/frp/frp_0.36.2_linux_amd64# ./frps -c frps.ini
+2021/05/11 07:30:25 [I] [root.go:200] frps uses config file: frps.ini
+2021/05/11 07:30:25 [I] [service.go:192] frps tcp listen on 0.0.0.0:17000
+2021/05/11 07:30:25 [I] [service.go:294] Dashboard listen on 0.0.0.0:17500
+2021/05/11 07:30:25 [I] [root.go:209] frps started successfully
+```
+
+访问控制面板，如下
+
+![](pic/tricks/frps_dashboard.png)
+
+2. 安装 frpc
+
+作为客户端端，你只需要关心 2 个文件：
+
+- frpc
+- frpc.ini
+
+其中 frpc 是客户端运行程序，frpc.ini 是配置文件。frpc.ini 配置如下
+
+```bash
+$ cat frpc.ini
+[common]
+server_addr = 183.61.252.7
+server_port = 17000
+token = laowang
+[rdp]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 3389
+remote_port = 17001
+[smb]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 445
+remote_port = 17002
+```
+
+“server_addr” 是服务端 IP 地址，填入即可，“server_port” 为服务器端口，即 bind_port 的值，“token” 是你在服务器上设置的连接口令。
+
+这里用到了 2 个自定义规则，一个是 rdp，一个是 smb：
+
+- RDP，即 Remote Desktop 远程桌面，Windows 的 RDP 默认端口是 3389，协议为 TCP，本条规则可以实现远程桌面连接
+- SMB，即 Windows 文件共享所使用的协议，默认端口号 445，协议 TCP，本条规则可实现远程文件访问。
+
+其中，remote_port 对应该客户端某项服务通过服务端暴露到公网的端口。例如，上述配置中 RDP 服务，本地端口 3389，暴露在外网的端口为 17001，即，最终远程桌面连接地址为：<服务端 IP>:<17001>
+
+运行 frpc
+
+```bash
+$ ./frpc -c frpc.ini
+2021/05/11 15:40:26 [I] [service.go:304] [2c2711f8fd2144c8] login to server success, get run id [2c2711f8fd2144c8], server udp port [0]
+2021/05/11 15:40:26 [I] [proxy_manager.go:144] [2c2711f8fd2144c8] proxy added: [rdp smb]
+2021/05/11 15:40:26 [I] [control.go:180] [2c2711f8fd2144c8] [smb] start proxy success
+2021/05/11 15:40:26 [I] [control.go:180] [2c2711f8fd2144c8] [rdp] start proxy success
+```
+
+同时，服务端也可以看到对应的连接信息
+
+```bash
+root@ubuntu:/opt/frp/frp_0.36.2_linux_amd64# ./frps -c frps.ini
+2021/05/11 07:40:57 [I] [root.go:200] frps uses config file: frps.ini
+2021/05/11 07:40:57 [I] [service.go:192] frps tcp listen on 0.0.0.0:17000
+2021/05/11 07:40:58 [I] [service.go:294] Dashboard listen on 0.0.0.0:17500
+2021/05/11 07:40:58 [I] [root.go:209] frps started successfully
+2021/05/11 07:40:58 [I] [service.go:449] [2c2711f8fd2144c8] client login info: ip [119.139.196.114:65158] version [0.36.2] hostname [] os [windows] arch [amd64]
+2021/05/11 07:40:58 [I] [tcp.go:63] [2c2711f8fd2144c8] [smb] tcp proxy listen port [17002]
+2021/05/11 07:40:58 [I] [control.go:446] [2c2711f8fd2144c8] new proxy [smb] success
+2021/05/11 07:40:58 [I] [tcp.go:63] [2c2711f8fd2144c8] [rdp] tcp proxy listen port [17001]
+2021/05/11 07:40:58 [I] [control.go:446] [2c2711f8fd2144c8] new proxy [rdp] success
+```
+
+同时，控制面板也可以看到对应的连接信息
+
+![](pic/tricks/frps_dashboard2.png)
+
+3. 确保目标机器开启 Windows 远程桌面连接
+4. 使用者从自己电脑运行远程桌面连接客户端，即可通过 <服务端 IP>:<17001> 连接目标机器

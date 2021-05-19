@@ -2088,3 +2088,15 @@ exit $i
 ret: 99
 ```
 
+## 查看有效配置项（行）
+
+```bash
+$ grep -v "^#" /path/to/config/file
+```
+
+如果要去掉空行
+
+```bash
+egrep -v "^#|^$" /path/to/config/file
+```
+

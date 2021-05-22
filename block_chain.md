@@ -3093,6 +3093,12 @@ root@ubuntu:~/WaykiChain/test/node1# ./node1 -datadir=. decodetransaction 03015f
 [root@~ ]# ./geth attach http://120.22.11.33:11002
 ```
 
+#### 创建账户
+
+```bash
+[root@~ ]# ./geth account new --datadir data
+```
+
 #### 查看系统变量
 
 - eth：包含一些跟操作区块链相关的方法

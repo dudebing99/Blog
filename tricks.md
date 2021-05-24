@@ -1033,6 +1033,17 @@ docker run -it -v /test:/soft centos /bin/bash
             }
 ```
 
+### 解决无法运行 systemctl
+
+构建容器，使用如下指令即可
+
+-  `--privileged` 参数必须加
+- 使用 `/usr/sbin/init` 作为容器的启动命令
+
+```bash
+docker run --privileged -it -d centos:7.6.1810 /usr/sbin/init
+```
+
 ## 机器时间、硬件时钟
 
 ```bash

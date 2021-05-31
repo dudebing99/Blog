@@ -1733,6 +1733,13 @@ const router = new Router({
     },
   ]
 });
+
+//……
+
+export function resetRouter () {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // reset router
+}
 ```
 
 对应的 nginx 配置如下
@@ -1751,7 +1758,7 @@ location / {
 
 **解决方式**
 
-修改 nginx 配置，非根目录跳转到 `index.html`
+history 方式需要服务端支持，浏览器地址栏的路径在刷新时会请求服务端，但服务端找不到文件会返回 404，所以服务端nginx 要增加重定向，将请求重新定位回 index 页面
 
 ```bash
 location / {

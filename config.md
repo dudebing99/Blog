@@ -3172,6 +3172,22 @@ python-perf.x86_64
 Linux 5.12.2-1.el7.elrepo.x86_64
 ```
 
+## CentOS 安装 envoy
+
+```bash
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://getenvoy.io/linux/rpm/tetrate-getenvoy.repo
+# enable/disable
+# sudo yum-config-manager --enable tetrate-getenvoy-nightly
+sudo yum install -y getenvoy-envoy
+```
+
+查看版本信息
+
+```bash
+[root@localhost ~]# envoy --version
+envoy  version: d362e791eb9e4efa8d87f6d878740e72dc8330ac/1.18.2/clean-getenvoy-76c310e-envoy/RELEASE/BoringSSL
+```
 
 ## Ubuntu 替换源
 

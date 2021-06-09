@@ -2846,3 +2846,165 @@ func getToken(claims *JWTClaims) (string, error) {
 }
 ```
 
+## grpc
+
+1. 创建 grpc_helloworld 目录，初始化 golang 工程
+
+```bash
+[root@localhost grpc-helloworld]# mkdir grpc-helloworld
+[root@localhost grpc-helloworld]# cd grpc-helloworld
+[root@localhost grpc-helloworld]# go mod init
+go: creating new go.mod: module grpc-helloworld
+[root@localhost grpc-helloworld]# go mod tidy
+```
+
+2. 创建协议文件 proto/helloworld.proto
+
+```bash
+[root@localhost grpc-helloworld]# cat proto/helloworld.proto 
+syntax = "proto3";
+
+option go_package = "./;helloworld";
+
+package helloworld;
+
+
+service Greeter {
+    rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+message HelloRequest {
+    string name = 1;
+}
+
+message HelloReply {
+    string message = 1;
+}
+```
+
+3. 编译 proto 文件
+
+```bash
+[root@localhost proto]# protoc --go_out=plugins=grpc:. helloworld.proto 
+[root@localhost proto]# ls
+helloworld.pb.go  helloworld.proto
+```
+
+工程目录如下
+
+```bash
+[root@localhost grpc-helloworld]# tree -L 2          
+.
+├── client.go
+├── go.mod
+├── go.sum
+├── proto
+│   ├── helloworld.pb.go
+│   └── helloworld.proto
+└── server.go
+```
+
+4. 创建 server
+
+```golang
+package main
+
+import (
+	"context"
+	pb "grpc-helloworld/proto"
+	"log"
+	"net"
+	"fmt"
+
+	"google.golang.org/grpc"
+)
+
+const (
+	port = ":8888"
+)
+
+type server struct{}
+
+func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	fmt.Println(in)
+	return &pb.HelloReply{Message: "Hello, " + in.Name}, nil
+}
+
+func main() {
+	lis, err := net.Listen("tcp", port)
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+
+	s := grpc.NewServer()
+	pb.RegisterGreeterServer(s, &server{})
+
+	log.Println("Server run ...")
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf("fail to serve: %v", err)
+	}
+}
+```
+
+5. 创建 client
+
+```golang
+package main
+
+import (
+	"context"
+	pb "grpc-helloworld/proto"
+	"log"
+	"os"
+	"time"
+
+	"google.golang.org/grpc"
+)
+
+const (
+	address     = "localhost:8888"
+	defaultName = "world"
+)
+
+func main() {
+	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("failed to connect: %v", err)
+	}
+	defer conn.Close()
+
+	c := pb.NewGreeterClient(conn)
+
+	name := defaultName
+	if len(os.Args) > 1 {
+		name = os.Args[1]
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	r, err := c.SayHello(ctx, &pb.HelloRequest{Name: name})
+	if err != nil {
+		log.Fatalf("failed to greet: %v", err)
+	}
+	log.Printf("Greeting: %s", r.Message)
+}
+```
+
+6. 运行
+
+```bash
+[root@localhost grpc-helloworld]# go run server.go 
+2021/06/09 18:31:18 Server run ...
+```
+
+```bash
+[root@localhost grpc-helloworld]# go run client.go 
+2021/06/09 18:31:31 Greeting: Hello, world
+```
+
+```bash
+[root@localhost grpc-helloworld]# go run server.go 
+2021/06/09 18:31:18 Server run ...
+name:"world"
+```
+

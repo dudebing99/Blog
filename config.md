@@ -3189,6 +3189,46 @@ sudo yum install -y getenvoy-envoy
 envoy  version: d362e791eb9e4efa8d87f6d878740e72dc8330ac/1.18.2/clean-getenvoy-76c310e-envoy/RELEASE/BoringSSL
 ```
 
+## CentOS 安装 nodejs/npm
+
+1. 获取 nodejs 的源
+
+```bash
+curl --silent --location https://rpm.nodesource.com/setup_12.x | bash -
+```
+
+2. 安装 nodejs
+
+```bash
+yum install -y nodejs
+```
+
+3. 安装淘宝镜像 cnpm
+
+```bash
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+```
+
+4. 查看安装版本
+
+```bash
+node -v
+npm -v
+cnpm -v
+```
+
+5. 卸载
+
+```bash
+yum remove nodejs npm -y
+```
+
+手动删除可能的残留
+
+```bash
+rm -rf /usr/bin/node /usr/bin/npm /usr/local/bin/node /usr/local/bin/npm /usr/local/share/man/man1/node.1 /usr/local/lib/node_moudles
+```
+
 ## Ubuntu 替换源
 
 > **环境：**Ubuntu 14.04.5 LTS

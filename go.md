@@ -3095,9 +3095,7 @@ envoy -c envoy.yaml
 2. 编译 proto 文件
 
 ```bash
-protoc -I=. helloworld.proto \
-  --js_out=import_style=commonjs:. \
-  --grpc-web_out=import_style=commonjs,mode=grpcwebtext:.
+protoc -I=. helloworld.proto --js_out=import_style=commonjs:. --grpc-web_out=import_style=commonjs,mode=grpcwebtext:.
 ```
 
 3. 创建客户端相关文件

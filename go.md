@@ -3008,3 +3008,223 @@ func main() {
 name:"world"
 ```
 
+## grpc-web
+
+> 在 grpc 基础上，服务端由 golang 实现，客户端由 node 实现
+
+> 由于浏览器不支持 grpc 特性，需要在后端服务前面架设 envoy 代理降级兼容使用，且目前无法使用 nginx 替代 envoy
+
+### 整体架构
+
+------
+
+**browser -> nginx(58888 端口) -> envoy(8080 端口) -> server(8888 端口)**
+
+------
+
+### 配置
+
+1. 使用 envoy 代理后端服务
+
+配置文件 envoy.yaml
+
+```yaml
+admin:
+  access_log_path: /tmp/admin_access.log
+  address:
+    socket_address: { address: 0.0.0.0, port_value: 9901 }
+
+static_resources:
+  listeners:
+  - name: listener_0
+    address:
+      socket_address: { address: 0.0.0.0, port_value: 8080 }
+    filter_chains:
+    - filters:
+      - name: envoy.filters.network.http_connection_manager
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+          codec_type: auto
+          stat_prefix: ingress_http
+          route_config:
+            name: local_route
+            virtual_hosts:
+            - name: local_service
+              domains: ["*"]
+              routes:
+              - match: { prefix: "/" }
+                route:
+                  cluster: greeter_service
+                  max_stream_duration:
+                    grpc_timeout_header_max: 0s
+              cors:
+                allow_origin_string_match:
+                - prefix: "*"
+                allow_methods: GET, PUT, DELETE, POST, OPTIONS
+                allow_headers: keep-alive,user-agent,cache-control,content-type,content-transfer-encoding,custom-header-1,x-accept-content-transfer-encoding,x-accept-response-streaming,x-user-agent,x-grpc-web,grpc-timeout
+                max_age: "1728000"
+                expose_headers: custom-header-1,grpc-status,grpc-message
+          http_filters:
+          - name: envoy.filters.http.grpc_web
+          - name: envoy.filters.http.cors
+          - name: envoy.filters.http.router
+  clusters:
+  - name: greeter_service
+    connect_timeout: 0.25s
+    type: logical_dns
+    http2_protocol_options: {}
+    lb_policy: round_robin
+    # win/mac hosts: Use address: host.docker.internal instead of address: localhost in the line below
+    load_assignment:
+      cluster_name: cluster_0
+      endpoints:
+        - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: 0.0.0.0
+                    port_value: 8888
+```
+
+运行 envoy 代理
+
+```bash
+envoy -c envoy.yaml
+```
+
+2. 编译 proto 文件
+
+```bash
+protoc -I=. helloworld.proto \
+  --js_out=import_style=commonjs:. \
+  --grpc-web_out=import_style=commonjs,mode=grpcwebtext:.
+```
+
+3. 创建客户端相关文件
+
+创建 client.js
+
+```javascript
+const {HelloRequest, HelloReply} = require('./helloworld_pb.js');
+const {GreeterClient} = require('./helloworld_grpc_web_pb.js');
+
+var client = new GreeterClient('http://' + window.location.hostname + ':8080',
+                               null, null);
+
+// simple unary call
+var request = new HelloRequest();
+request.setName('World');
+
+client.sayHello(request, {}, (err, response) => {
+  if (err) {
+    console.log(`Unexpected error for sayHello: code = ${err.code}` +
+                `, message = "${err.message}"`);
+  } else {
+    console.log(`bingo: `, response.getMessage());
+  }
+});
+```
+
+创建 index.html
+
+````html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>gRPC-Web Example</title>
+<script src="./dist/main.js"></script>
+</head>
+<body>
+  <p>Open up the developer console and see the logs for the output.</p>
+</body>
+</html>
+````
+
+创建 package.json
+
+```json
+{
+  "name": "grpc-web-simple-example",
+  "version": "0.1.0",
+  "description": "gRPC-Web simple example",
+  "main": "server.js",
+  "devDependencies": {
+    "@grpc/grpc-js": "~1.0.5",
+    "@grpc/proto-loader": "~0.5.4",
+    "async": "~1.5.2",
+    "google-protobuf": "~3.14.0",
+    "grpc-web": "~1.2.1",
+    "lodash": "~4.17.0",
+    "webpack": "~4.43.0",
+    "webpack-cli": "~3.3.11"
+  }
+}
+```
+
+4. 编译客户端文件
+
+```bash
+[root@localhost~] npm install
+[root@localhost~] npx webpack client.js
+Hash: 4d2866ff028bff251e25
+Version: webpack 4.43.0
+Time: 547ms
+Built at: 2021-06-10 10:51:59 ├F10: AM┤
+  Asset     Size  Chunks                    Chunk Names
+main.js  287 KiB       0  [emitted]  [big]  main
+Entrypoint main [big] = main.js
+[0] (webpack)/buildin/global.js 472 bytes {0} [built]
+[1] ./helloworld_pb.js 9.38 KiB {0} [built]
+[2] ./client.js 1.17 KiB {0} [built]
+[8] ./helloworld_grpc_web_pb.js 3.46 KiB {0} [built]
+    + 6 hidden modules
+
+WARNING in configuration
+The 'mode' option has not been set, webpack will fallback to 'production' for this value. Set 'mode' option to 'development' or 'production' to enable defaults for each environment.
+You can also set it to 'none' to disable any default behavior. Learn more: https://webpack.js.org/configuration/mode/
+
+WARNING in asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).
+This can impact web performance.
+Assets: 
+  main.js (287 KiB)
+
+WARNING in entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (244 KiB). This can impact web performance.
+Entrypoints:
+  main (287 KiB)
+      main.js
+
+
+WARNING in webpack performance recommendations: 
+You can limit the size of your bundles by using import() or require.ensure to lazy load some parts of your application.
+For more info visit https://webpack.js.org/guides/code-splitting/
+```
+
+5. 使用 web 服务器挂载前端文件
+
+```ngin
+    server {
+        listen       58888;
+        server_name  _;
+        root /opt/go/src/grpc-web/net/grpc/gateway/examples/helloworld;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+                index  index.html index.htm;
+        }
+
+        error_page 404 /404.html;
+        location = /404.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+        }
+    }
+```
+
+6. 通过浏览器访问，并打开开发者模式
+
+![](pic/golang/grpc_web.png)

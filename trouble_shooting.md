@@ -1318,6 +1318,25 @@ done
 rmdir "$DIR"
 ```
 
+## [Ubuntu] Errors were encountered while processing
+
+**系统环境**
+
+Ubuntu 18.04
+
+**问题描述**
+
+apt-get install 报错，Errors were encountered while processing
+
+**解决方式**
+
+```bash
+cd /var/lib/dpkg
+sudo mv info info.bak
+sudo mkdir info
+sudo apt-get update
+```
+
 ## [Golang] package xxx: cannot download, $GOPATH not set. For more details see: go help gopath
 
 **系统环境**

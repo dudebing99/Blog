@@ -1262,6 +1262,62 @@ sudo apt-get update
 sudo apt-get install g++-4.9
 ```
 
+## [Ubuntu] files list file for package 'xxx' missing; assuming package has no files currently installed
+
+**系统环境**
+
+Ubuntu 18.04
+
+**问题描述**
+
+apt-get install 或 apt-get purge 时报错 “files list file for package 'xxx' missing; assuming package has no files currently installed”，其中 xxx 是具体的包名
+
+**解决方式**
+
+- 一个一个处理
+
+```bash
+sudo apt-get update
+sudo apt-get install --reinstall xxx
+```
+
+- 使用脚本批量处理
+
+``` bash
+#!/bin/bash
+set -e
+
+# Clean out /var/cache/apt/archives
+apt-get clean
+# Fill it with all the .debs we need
+apt-get --reinstall -dy install $(dpkg --get-selections | grep '[[:space:]]install' | cut -f1)
+
+DIR=$(mktemp -d -t info-XXXXXX)
+for deb in /var/cache/apt/archives/*.deb
+do
+    # Move to working directory
+    cd "$DIR"
+    # Create DEBIAN directory
+    mkdir -p DEBIAN
+    # Extract control files
+    dpkg-deb -e "$deb"
+    # Extract file list, fixing up the leading ./ and turning / into /.
+    dpkg-deb -c "$deb" | awk '{print $NF}' | cut -c2- | sed -e 's/^\/$/\/./' > DEBIAN/list
+    # Figure out binary package name
+    DEB=$(basename "$deb" | cut -d_ -f1)
+    # Copy each control file into place
+    cd DEBIAN
+    for file in *
+    do
+        cp -a "$file" /var/lib/dpkg/info/"$DEB"."$file"
+    done
+    # Clean up
+    cd ..
+    rm -rf DEBIAN
+done
+rmdir "$DIR"
+```
+
 ## [Golang] package xxx: cannot download, $GOPATH not set. For more details see: go help gopath
 
 **系统环境**

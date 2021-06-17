@@ -2676,6 +2676,50 @@ func main() {
 }
 ```
 
+## 获取指定目录下文件列表（包含子目录）
+
+```go
+package main
+
+import "fmt"
+import "path/filepath"
+import "io/ioutil"
+
+func GetAllFiles(dirPath string) (files []string, err error) {
+	fis, err := ioutil.ReadDir(filepath.Clean(filepath.ToSlash(dirPath)))
+	if err != nil {
+		return nil, err
+	}
+
+	for _, f := range fis {
+		_path := filepath.Join(dirPath, f.Name())
+
+		if f.IsDir() {
+			fs, _ := GetAllFiles(_path)
+			files = append(files, fs...)
+			continue
+		}
+
+		//// 指定格式
+		//switch filepath.Ext(f.Name()) {
+		//case ".png", ".jpg":
+		//      files = append(files, _path)
+		//}
+
+		files = append(files, _path)
+	}
+
+	return files, nil
+}
+
+func main() {
+	files, _ := GetAllFiles("./target_dir")
+	for _, file := range files {
+		fmt.Println(file)
+	}
+}
+```
+
 ## 获取文件完整路径、当前路径、文件名
 
 ```go

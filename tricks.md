@@ -2133,3 +2133,19 @@ root@ubuntu:/opt/frp/frp_0.36.2_linux_amd64# ./frps -c frps.ini
 
 3. 确保目标机器开启 Windows 远程桌面连接
 4. 使用者从自己电脑运行远程桌面连接客户端，即可通过 <服务端 IP>:<17001> 连接目标机器
+
+## 刷新 DNS 缓存
+
+- macOS 刷新 DNS 缓存
+
+```bash
+sudo killall -HUP mDNSResponder
+sudo dscacheutil -flushcache
+```
+
+- Windows 刷新 DNS 缓存
+
+```bash
+ipconfig /flushdns
+```
+

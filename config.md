@@ -885,7 +885,7 @@ certbot-auto 不再支持所有的操作系统。certbot 团队认为维护 cert
 1. 安装 snapd
 
 ```bash
-yum install epel-release
+yum install epel-release -y
 yum install snapd -y
 ```
 

@@ -1462,6 +1462,8 @@ growpart /dev/vdb 1
 
 5. 为系统盘的 `/dev/vdb1` 分区扩容文件系统
 
+> 如果失败，尝试 `resize2fs /dev/vdb`
+
 ```bash
  resize2fs /dev/vdb1
 ```

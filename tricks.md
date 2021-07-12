@@ -719,7 +719,7 @@ git stash clear
 # 创建本地 tag
 git tag <tag>
 # 推送到远程仓库
-git push origin <tag name>
+git push origin <tag>
 # 查看本地 tag
 git tag -l
 # 查看远程 tag
@@ -727,7 +727,7 @@ git show-ref --tag
 # 删除本地 tag
 git tag -d <tag>
 # 删除远程 tag
-git push :refs/tags/<tag>
+git push origin :refs/tags/<tag>
 ```
 
 ### 合并分支到主干

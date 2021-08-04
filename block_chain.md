@@ -3580,6 +3580,15 @@ true
 4
 ```
 
+##### 私钥转 keystore 文件
+
+> keystore 已经存放到了 `--datadir` 指定的目录中
+
+```javascript
+> web3.personal.importRawKey("eaffcd749482e68ca4ccf5a07a52eb7ff876ea461fbab642b2b57bcb33edb280","linjing")
+"0xf2f9e7716cc88944e5ed9f675649532c80d765f8"
+```
+
 #### 合约
 
 ##### 编写 Solidity 合约脚本

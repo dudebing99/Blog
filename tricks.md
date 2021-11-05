@@ -855,6 +855,9 @@ git pull upstream master
 
 ```bash
 git push
+
+# 推送本地指定分支到远程指定分支
+git push upstream <local_branch>:<remote_branch>
 ```
 
 ### github 提交 PR

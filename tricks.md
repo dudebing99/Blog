@@ -653,6 +653,9 @@ git commit --amend
 # 修改本次提交的作者信息
 git commit --amend --author="kevin <dudebing99@gmail.com>" -C HEAD
 
+# 修改本次提交的时间信息
+git commit --amend --date="2017-10-08T09:51:07"
+
 # 查看当前所在分支
 git branch
 # 查看远程分支

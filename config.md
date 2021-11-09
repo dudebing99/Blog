@@ -3207,6 +3207,8 @@ yum install -y nodejs
 
 3. 安装淘宝镜像 cnpm
 
+> 如果是腾讯云服务器，使用腾讯源，否则卡顿到不可用。 `npm config set registry http://mirrors.cloud.tencent.com/npm/`
+
 ```bash
 npm install -g cnpm --registry=https://registry.npm.taobao.org
 ```

@@ -1907,6 +1907,39 @@ Router.prototype.push = function push(location) {
 }
 ```
 
+## [vue] error: Unexpected console statement (no-console)
+
+**系统环境**
+
+Windows 7/vue 2.9.6
+
+**问题描述**
+
+编译出现如上错误
+
+**解决方式**
+
+package.json 中的 eslintConfig:{} 中的 “rules”:{}，增加一行代码: "no-console":"off"
+
+```json
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {
+      "no-console": "off"
+    }
+  }
+```
+
 ## [web3.js] Error: Error: Method eth_compileSolidity not supported.
 
 **系统环境**

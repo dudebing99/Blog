@@ -3233,6 +3233,30 @@ yum remove nodejs npm -y
 rm -rf /usr/bin/node /usr/bin/npm /usr/local/bin/node /usr/local/bin/npm /usr/local/share/man/man1/node.1 /usr/local/lib/node_moudles
 ```
 
+## CentOS 安装 mono
+
+> **环境：**CentOS 7.2
+
+1. 安装基础库
+
+```bash
+yum -y install gcc gcc-c++ bison pkgconfig glib2-devel gettext make libpng-devel libjpeg-devel libtiff-devel libexif-devel giflib-devel libX11-devel freetype-devel fontconfig-devel  cairo-devel python python3
+```
+
+2. 源码编译 mono
+
+```bash
+wget https://download.mono-project.com/sources/mono/mono-6.12.0.122.tar.xz
+tar jxf mono-6.12.0.122.tar.xz
+cd mono-6.12.0.122
+./configure --prefix=/usr/mono
+make -j2
+make install
+echo PATH=/usr/mono/bin:$PATH >> ~/.bash_profile
+source ~/.bash_profile
+ldconfig
+```
+
 ## Ubuntu 替换源
 
 > **环境：**Ubuntu 14.04.5 LTS

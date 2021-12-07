@@ -2251,6 +2251,44 @@ nginx 访问日志（默认路径 `/var/log/nginx/access.log`）存在大量的 
 
 一般情况下，需要优化后端服务，在客户端超时关闭连接之前返回响应就能避免此类问题。
 
+## [nginx] 13: Permission denied) while connecting to upstream
+
+**系统环境**
+
+CentOS 7.2/nginx 1.20.1
+
+**问题描述**
+
+前端调用 API 请求返回 502，对应 nginx 错误日志
+
+```bash
+2021/12/07 18:56:02 [error] 35733#35733: *2 no live upstreams while connecting to upstream, client: 119.139.198.33, server: abc.dummy.com, request: "POST /api/unauthorised/stat/info HTTP/1.1", upstream: "http://localhost/api/unauthorised/stat/info", host: "ndc.squaredsfs.com", referrer: "https://abc.dummy.com/"
+```
+
+进一步确认
+
+```bash
+[root@localhost~]# cat /var/log/audit/audit.log | grep nginx | grep denied | head -n2
+type=AVC msg=audit(1638872587.331:3016): avc:  denied  { name_connect } for  pid=24583 comm="nginx" dest=50001 scontext=system_u:system_r:httpd_t:s0 tcontext=system_u:object_r:ephemeral_port_t:s0 tclass=tcp_socket permissive=0
+type=AVC msg=audit(1638872600.104:3038): avc:  denied  { name_connect } for  pid=24579 comm="nginx" dest=50001 scontext=system_u:system_r:httpd_t:s0 tcontext=system_u:object_r:ephemeral_port_t:s0 tclass=tcp_socket permissive=0
+```
+
+**原因分析**
+
+SELinux 安全策略引发
+
+**解决方式**
+
+```bash
+[root@localhost~]# setsebool -P httpd_can_network_connect 1
+```
+
+或者
+
+```bash
+[root@localhost~]# setsebool -P httpd_can_network_relay 1
+```
+
 ##  [bitcoin] non-mandatory-script-verify-flag (Signature must be zero for failed CHECK(MULTI)SIG operation) (code 64)
 
 **系统环境**

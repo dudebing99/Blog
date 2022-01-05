@@ -2157,3 +2157,34 @@ sudo dscacheutil -flushcache
 ipconfig /flushdns
 ```
 
+## 解决 godaddy 根域名 @ 不支持 cname
+
+**背景：**aws lb 使用动态 ip，无法在 godaddy 中配置根域名的 @ 解析，godaddy 根域名 @ 解析只支持 ip 不支持 cname，可以借助 aws route 53 进行托管解决。
+
+- 创建托管区域
+
+进到 route 53 的菜单，创建托管区域
+
+![在这里插入图片描述](pic/tricks/route_53_1.png)
+
+创建的时候选择公有（因为是外部开放的域名）
+
+创建完毕之后会有下面截图的四个 NS 值
+
+![在这里插入图片描述](pic/tricks/route_53_2.png)
+
+将其保存下来，后续填写到 godaddy
+
+- godaddy 进行托管
+
+进入到 godaddy 管理控制台，然后进入 Domain 中，选择需要托管的域名。点击进入后，选择 Manage DNS 开始设置
+
+![在这里插入图片描述](pic/tricks/route_53_3.png)
+
+可以看到，上面红色标记是你域名解析记录，下面红色标记是可以更改解析服务，选择点击 change：选择使用自己的解析服务
+
+![在这里插入图片描述](pic/tricks/route_53_4.png)
+
+![在这里插入图片描述](pic/tricks/route_53_5.png)
+
+这里将刚才 aws 生成的 NS 的四个记录给填上，保存，等 DNS 解析生效即可。

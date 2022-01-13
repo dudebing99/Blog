@@ -747,8 +747,21 @@ Windows 7 x64 Ultimate/VS Code v1.23.0
 **解决方式**
 
 1. 确认已经正确设置 GOPATH 环境变量，并将  %GOPATH%\bin 追加到 PATH 环境变量
-
 2. 打开 Git Bash，运行 go get github.com/derekparker/delve/cmd/dlv
+
+## [vs2017] 编译错误：未将对象引用设置到对象的实例
+
+**系统环境**
+
+Windows 10/VS2017 社区版
+
+**问题描述**
+
+编译时控制台报错，错误：未将对象引用设置到对象的实例
+
+**解决方式**
+
+将 `C:\Users\用户名\AppData\Local\Microsoft\VisualStudio` 目录删除，即，恢复 vs2017 默认配置，重新打开项目编译即可。
 
 ## [Django] Signal only works in main thread
 

@@ -2616,6 +2616,30 @@ git 提交报错，如上所示。
 
 `git config commit.gpgsign false`
 
+## [git/github] ssh: connect to host github.com port 22: Connection timed out
+
+**系统环境**
+
+windows 7/git version 2.20.1.windows.1`    
+
+**问题描述**
+
+github 拉取/推送仓库失败
+
+**问题原因**
+
+Sometimes, firewalls refuse to allow SSH connections entirely. If using HTTPS cloning with credential caching is not an option, you can attempt to clone using an SSH connection made over the HTTPS port. Most firewall rules should allow this, but proxy servers may interfere.
+
+**解决方式**
+
+在 ~/.ssh/config 添加如下配置
+
+```bash
+Host github.com
+ Hostname ssh.github.com
+ Port 443
+```
+
 ## [swagger] 使用 NGINX 做反向代理调试 swagger，出现端口丢失
 
 **系统环境**

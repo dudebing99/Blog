@@ -755,6 +755,12 @@ git merge dev
 git push origin master
 ```
 
+### 删除远程分支
+
+```bash
+git push origin --delete dev
+```
+
 ### 查看历史提交信息
 
 ```bash

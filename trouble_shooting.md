@@ -2754,6 +2754,74 @@ r.Use(gin.Logger())
 r.Use(gin.Recovery())
 ```
 
+## [gin] [GIN-debug] [WARNING] Headers were already written. Wanted to override status code 400 with 200
+
+**系统环境**
+
+go version go1.13.4 linux/amd64
+
+**问题描述**
+
+gin 服务器在解析请求时，JSON 绑定失败，HTTP 错误码被设置为 400，与用户代码指定的错误码不一致
+
+**原因原因**
+
+代码中使用了 `c.BindJSON(&req)` 去处理 JSON 绑定，查看源码
+
+```go
+// BindJSON is a shortcut for c.MustBindWith(obj, binding.JSON).
+func (c *Context) BindJSON(obj interface{}) error {
+	return c.MustBindWith(obj, binding.JSON)
+}
+```
+
+进一步查看源码
+
+```go
+// MustBindWith binds the passed struct pointer using the specified binding engine.
+// It will abort the request with HTTP 400 if any error occurs.
+// See the binding package.
+func (c *Context) MustBindWith(obj interface{}, b binding.Binding) error {
+	if err := c.ShouldBindWith(obj, b); err != nil {
+		c.AbortWithError(http.StatusBadRequest, err).SetType(ErrorTypeBind) // nolint: errcheck
+		return err
+	}
+	return nil
+}
+```
+
+当 JSON 绑定失败时，调用了 `AbortWithError` 函数设置了错误码 400，并且终止了其他中间件调用，所以此时会忽略用户代码中对错误码的设置
+
+**解决方式**
+
+根据需要，以下方案二选一即可
+
+1. 使用 `ShouldBindJson` 处理 JSON 绑定
+
+```go
+if err := c.ShouldBindJSON(&req); err != nil {
+    c.JSON(http.StatusOK, gin.H{
+        "RequestID": util.ParseRequestID(c),
+        "ErrorCode": util.ErrorCodeInvalidParams,
+        "ErrorMsg":  "invalid params",
+        "Data":      nil})
+    return
+}
+```
+
+2. 如果确认不需要调用其他 handler，重置错误码之后，调用 `Abort` 终止调用链即可
+
+```go
+if err := c.BindJSON(&req); err != nil {
+    c.JSON(http.StatusOK, gin.H{
+        "RequestID": util.ParseRequestID(c),
+        "ErrorCode": util.ErrorCodeInvalidParams,
+        "ErrorMsg":  "invalid params",
+        "Data":      nil})
+    c.Abort()
+}
+```
+
 ## [python] SyntaxError: Non-ASCII character '\xe8' in file
 
 **系统环境**

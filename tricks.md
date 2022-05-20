@@ -761,6 +761,12 @@ git push origin master
 git push origin --delete dev
 ```
 
+推送一个空分支到远程分支，其实就相当于删除远程分支：
+
+```
+$ git push origin :dev
+```
+
 ### 查看历史提交信息
 
 ```bash

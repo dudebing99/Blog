@@ -1366,6 +1366,25 @@ sudo mkdir info
 sudo apt-get update
 ```
 
+## [Linux] Failed to set locale, defaulting to C
+
+**系统环境**
+
+CentOS 7.2
+
+问题描述
+
+连接终端，执行命令时输出上述错误信息
+
+**解决方式**
+
+设置默认的语言环境即可
+
+```bash
+echo "export LC_ALL=en_US.UTF-8"  >>  /etc/profile 
+source /etc/profile
+```
+
 ## [Golang] package xxx: cannot download, $GOPATH not set. For more details see: go help gopath
 
 **系统环境**

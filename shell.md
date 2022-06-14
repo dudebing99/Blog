@@ -782,7 +782,53 @@ hello world
 BCEC2939D42F
 ```
 
+## 生成密码
+
+### 生成不包含特殊字符密码
+
+```bash
+# cat /dev/urandom | base64 | head -n 1 |tr -dc '[:alnum:]' |cut -c -10
+hstFP2uG9y
+```
+
+- 要配置密码的长度，请将 cut 命令中的数字更改为所需的长度，例如 24 个字符
+
+```bash
+# cat /dev/urandom | base64 | head -n 1 |tr -dc '[:alnum:]' |cut -c -30
+LNFDZBoDVSdBDVc21OHVQ2pwYIEB5g
+```
+
+- 不想混淆 0 或 O，1 或 l ？用另一个过滤掉 `tr`
+
+```bash
+# cat /dev/urandom | base64 | head -n 1 |tr -dc '[:alnum:]' | tr -d '0O1l'|cut -c -30
+MHoUrT5GvbStxCdABSzxWUxLDACRbN
+```
+
+### 生成自定义字符密码
+
+```bash
+# cat password.sh 
+#!/bin/bash
+
+n=$1
+
+set="abcdefghijklmonpqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-="
+rand=""
+for i in `seq 1 $n`; do
+    char=${set:$RANDOM % ${#set}:1}
+    rand+=$char
+done
+echo $rand
+```
+
+```bash
+# bash password.sh 30
+q*&2*2XKMZIxet3fcUFWMgDFS!C-@j
+```
+
 ## 编译、打包脚本
+
 ```bash
 #!/bin/sh
 

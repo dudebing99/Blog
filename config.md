@@ -3257,6 +3257,29 @@ source ~/.bash_profile
 ldconfig
 ```
 
+## CentOS 设置时区
+
+> 以设置中国上海时区为例
+
+1. 备份
+
+```bash
+mv /ect/localtime /etc/localtime.bak
+```
+
+2. 设置目标时区
+
+```bash
+ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+```
+
+3. 检查是否生效
+
+```bash
+[root@ip-172-31-28-38 ~]# date
+Tue Jun 28 22:16:31 CST 2022
+```
+
 ## Ubuntu 替换源
 
 > **环境：**Ubuntu 14.04.5 LTS

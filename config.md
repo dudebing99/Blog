@@ -1482,6 +1482,40 @@ growpart /dev/vdb 1
 df -h
 ```
 
+## AWS CloudFront
+
+> 整体逻辑：用户最终访问的域名 -> 域名解析中 CNAME 解析找到分配器对应的域名 -> 分配器访问源站点
+
+1. 配置分配器
+
+![image-20220704213308337](archives/config/cloudfront1.png)
+
+![image-20220704214138676](archives/config/cloudfront2.png)
+
+![image-20220704214217450](archives/config/cloudfront3.png)
+
+AWS CloudFront 分配器对应的域名 `https://d123bfsrk43iz.cloudfront.net`，备用域名填写用户最终访问的域名 X，换言之，用户通过访问 X 来访问通过 AWS CloudFront 实现加速的站点
+
+![image-20220704214700934](archives/config/cloudfront4.png)
+
+在域名解析添加 CNAME 别名解析
+
+![image-20220704215111333](archives/config/cloudfront5.png)
+
+2. 配置源
+
+![image-20220704215335532](archives/config/cloudfront6.png)
+
+![image-20220704215402505](archives/config/cloudfront7.png)
+
+3. 配置行为
+
+> 如果要实现用户通过 http 访问站点自动跳转到 https，则选择 `Redirect HTTP to HTTPS` 策略
+
+![image-20220704215859853](archives/config/cloudfront8.png)
+
+![image-20220704220021421](archives/config/cloudfront9.png)
+
 ## Prometheus+Grafana 监控告警
 
 > 系统：CentOS 7.6

@@ -948,8 +948,16 @@ ln -s /snap/bin/certbot /usr/bin/certbot
 
 9.  生成证书
 
+> `cert-name` 指生成的证书文件的名称，可以与域名无关
+
 ```bash
-certbot certonly --nginx --email xxx@mail.com -d hello.com -d word.com
+certbot certonly --nginx --email <email> --cert-name <cert-file-name> -d hello.com -d word.com
+```
+
+certbot 使用第一个域名作为证书中的 CN(common name)，如果先前申请证书由于子域名传参的顺序导致 CN 与预期不符合，可以通过强制更新重新调整域名参数顺序达到更改 CN 的目的
+
+```bash
+certbot certonly --force-renew -d word.com -d hello.com
 ```
 
 10. 更新证书

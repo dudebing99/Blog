@@ -1348,7 +1348,13 @@ tmpfs          tmpfs     1.6G     0  1.6G   0% /run/user/0
 
 3. 修改内核参数
 
-> 配置为空闲内存少于 60% 时才使用 swap 分区
+> 值越大，表示越积极使用 swap 分区，越小表示越积极使用物理内存
+
+> 默认值 `swappiness=60`，表示内存使用率超过 `100-60=40%` 时开始使用交换分区
+
+> `swappiness=0` 的时候表示最大限度使用物理内存，然后才是 swap 空间` 
+
+> `swappiness＝100` 的时候表示积极使用 swap 分区，并把内存上的数据及时搬运到 swap空间
 
 ```bash
 [root@ ~]# vim /etc/sysctl.conf

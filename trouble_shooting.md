@@ -1731,6 +1731,25 @@ CentOS 7.2
 npm rebuild node-sass
 ```
 
+## [npm] Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+
+**系统环境**
+
+CentOS 7.9/npm 8.11.0
+
+**问题描述**
+
+编译时报错，如上所示
+
+**解决方案**
+
+项目大，启动或打包会抛出内存溢出，需要扩展使用的内存。执行如下命令之后重新编译即可
+
+```bash
+npm install -g increase-memory-limit
+increase-memory-limit
+```
+
 ## [vue] App.vue{ parser: "babylon" } is deprecated; we now treat it as { parser: "babel" }. 
 
 **系统环境**

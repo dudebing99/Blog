@@ -2400,6 +2400,7 @@ echo "install mysql rpm"
 rpm -ivh mysql57-community-release-el7-11.noarch.rpm
 
 echo "install mysql server"
+rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
 yum install -y mysql-community-server
 
 echo "enable mysql"

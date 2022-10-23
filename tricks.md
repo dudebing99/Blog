@@ -1426,7 +1426,7 @@ WHERE
 
 ### 删除重复记录
 
-> 删除重复记录，且只保留 ID 最小的那条记录
+- 删除重复记录，只保留 ID 最小的那条记录
 
 ```sql
 DELETE 
@@ -1438,6 +1438,19 @@ WHERE
 		id 
 FROM
 	( SELECT min( id ) AS id FROM test GROUP BY number ) AS t)
+```
+
+- 删除重复记录，只保留最后一条
+
+> 只保留第一条 t1.id > t2.id
+
+```sql
+DELETE t1 FROM
+	test t1
+	INNER JOIN test t2 
+WHERE
+	t1.id < t2.id 
+	AND t1.number = t2.number 
 ```
 
 ### 数据备份与恢复

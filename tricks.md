@@ -1431,22 +1431,13 @@ WHERE
 ```sql
 DELETE 
 FROM
- project_info 
+	test 
 WHERE
- id IN (
-SELECT
- tmp_result.id 
+	id NOT IN (
+	SELECT
+		id 
 FROM
- (
-SELECT
- id 
-FROM
- project_info 
-WHERE
- project_name IN ( SELECT project_name FROM project_info GROUP BY project_name HAVING count( project_name ) > 1 ) 
- AND id NOT IN ( SELECT min( id ) FROM project_info GROUP BY project_name HAVING count( project_name ) > 1 ) 
- ) AS tmp_result 
- )
+	( SELECT min( id ) AS id FROM test GROUP BY number ) AS t)
 ```
 
 ### 数据备份与恢复

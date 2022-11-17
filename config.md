@@ -972,7 +972,7 @@ certbot renew
 
 **域名解析：**i-deer.com（同时添加 @ 和 www 两条解析）
 
-**证书：**同时支持 i-deer.com 和 i-deer.com
+**证书：**同时支持 i-deer.com 和 www.i-deer.com
 
 **目标：**
 
@@ -984,7 +984,7 @@ certbot renew
 ```bash
 	server {
         listen       80;
-        server_name i-deer.com,www.i-deer.com;
+        server_name i-deer.com www.i-deer.com;
         return 301 https://i-deer.com$request_uri;
     }
 

@@ -2445,7 +2445,7 @@ mysql -h 127.0.0.1 -u root -p'89bwv3O/HGo5';
 4. 允许远程访问
 
 ```bash
-> CREATE USER 'root'@'%' IDENTIFIED BY '123456!'; # MySQL8.0 以后已经不支持，所以必须先创建用户，然后再授权
+> CREATE USER 'root'@'%' IDENTIFIED BY '123456'; # MySQL8.0 以后已经不支持，所以必须先创建用户，然后再授权
 > grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
 ```
 ## CentOS 安装 Redis 4.0.9

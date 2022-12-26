@@ -68,6 +68,7 @@
 - Defi 项目分析
   - https://debank.com/
   - https://www.dextools.io/
+  - https://avedex.cc/
 - 锁仓工具（代币锁仓、流动性锁仓）
   - https://unilocker.app/
   - https://app.unicrypt.network/
@@ -77,6 +78,8 @@
   - https://www.pinksale.finance/
 - 空投工具
   - https://www.pinksale.finance/airdrop/
+- 项目安全性检测
+  - https://avedex.cc/check
 
 ## 缩略词
 

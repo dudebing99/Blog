@@ -833,6 +833,17 @@ git config --global unset http.proxy
 git config --global unset https.proxy
 ```
 
+### git pull/push 记住密码
+
+>  cache 是存储在内存中，可以设定有效时间但是时间过去后，将会失效；store 是存储在磁盘上，不过用户名和密码是明文存储的
+
+```bash
+git config credential.helper store
+
+# 删除密码
+git config --unset credential.helper store
+```
+
 ### github 同步 fork 仓库
 
 > 以同步 `master` 分支为例，其他分支同理

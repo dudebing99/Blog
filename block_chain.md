@@ -65,7 +65,18 @@
 - [波场官网](https://tron.network/)
 - [波场节点状态数据库快照](https://cn.developers.tron.network/docs/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BF%AB%E7%85%A7%E5%A4%87%E4%BB%BD)
 - [以太坊项目分析](https://www.duneanalytics.com/)
-- [Defi 项目分析](https://debank.com/)
+- Defi 项目分析
+  - https://debank.com/
+  - https://www.dextools.io/
+- 锁仓工具（代币锁仓、流动性锁仓）
+  - https://unilocker.app/
+  - https://app.unicrypt.network/
+  - https://dx.app/
+  - https://www.team.finance/
+  - https://mudra.website/
+  - https://www.pinksale.finance/
+- 空投工具
+  - https://www.pinksale.finance/airdrop/
 
 ## 缩略词
 

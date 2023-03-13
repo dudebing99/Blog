@@ -212,6 +212,14 @@ done.
 - nohup
 - systemd/supervisor
 
+### 删除 - 开头文件
+
+加入当前目录前缀即可，例如
+
+```bash
+rm -rf ./-ef\ \|\ grep\ nginx
+```
+
 ## 查看系统信息
 
 ### CPU

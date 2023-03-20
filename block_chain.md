@@ -69,6 +69,7 @@
   - https://debank.com/
   - https://www.dextools.io/
   - https://avedex.cc/
+  - https://www.nansen.ai/
 - 锁仓工具（代币锁仓、流动性锁仓）
   - https://unilocker.app/
   - https://app.unicrypt.network/
@@ -7872,3 +7873,6 @@ if mode == downloader.FastSync && blockchain.CurrentBlock().NumberU64() > 0 {
 - 同步模式共有三种：全量、快速、轻量，默认采用快速同步模式
 - 同步模式可能发生自动切换
 - 同步区块数据量的多少与使用同步模式 FullSync 的时机、**同步节点启停次数有一定关系**
+
+## OP(optimism)
+

@@ -7874,5 +7874,5 @@ if mode == downloader.FastSync && blockchain.CurrentBlock().NumberU64() > 0 {
 - 同步模式可能发生自动切换
 - 同步区块数据量的多少与使用同步模式 FullSync 的时机、**同步节点启停次数有一定关系**
 
-## OP(optimism)
+
 

@@ -1472,6 +1472,14 @@ WHERE
 	AND t1.number = t2.number 
 ```
 
+### 替换字段
+
+> UPDATE 表名 SET 字段名=replace(字段名, ‘被替换字符串’, ‘用来替换的字符串’) ;
+
+```sql
+UPDATE t1 SET name=replace(name, 'old', 'new') ;
+```
+
 ### 数据备份与恢复
 
 ```sql

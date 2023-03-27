@@ -1886,3 +1886,18 @@ $ grep -v "^#" /path/to/config/file
 egrep -v "^#|^$" /path/to/config/file
 ```
 
+## 批量设置文件、文件夹属性
+
+对所有的文件夹设置755，所有的文件设置644
+
+```bash
+find . -exec sh -c 'if [[ -d "{}" ]]; then chmod 755 "{}"; else chmod 644 "{}"; fi ' \;
+```
+
+或
+
+```bash
+find ./ -type d -print|xargs chmod 755
+find ./ -type f -print |xargs chmod 644
+```
+

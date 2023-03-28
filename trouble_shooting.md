@@ -1385,6 +1385,24 @@ echo "export LC_ALL=en_US.UTF-8"  >>  /etc/profile
 source /etc/profile
 ```
 
+## [Linux] sudo command not found
+
+**系统环境**
+
+Linux
+
+**问题描述**
+
+如上
+
+**解决方式**
+
+安装 sudo 即可，例如 Ubuntu 系统
+
+```bash
+apt-get install sudo
+```
+
 ## [Golang] package xxx: cannot download, $GOPATH not set. For more details see: go help gopath
 
 **系统环境**

@@ -1211,7 +1211,7 @@ find . -maxdepth 1 -type f|grep  -v "\./\."|wc -l
 cmd1 &
 cmd2 &
 # ...
-cmdN&
+cmdN &
 # 必须加上，否则脚本执行完毕导致所以进程被结束
 wait
 ```
@@ -1899,5 +1899,28 @@ find . -exec sh -c 'if [[ -d "{}" ]]; then chmod 755 "{}"; else chmod 644 "{}"; 
 ```bash
 find ./ -type d -print|xargs chmod 755
 find ./ -type f -print |xargs chmod 644
+```
+
+## 命令行设置取消代理
+
+```bash
+$ vim ~/.zshrc
+# proxy
+proxy () {
+  export http_proxy="http://127.0.0.1:8080"
+  export https_proxy=$http_proxy
+  export socks5_proxy="socks5://127.0.0.1:8080"
+  echo "HTTP Proxy on"
+}
+
+# noproxy
+noproxy () {
+  unset http_proxy
+  unset https_proxy
+  unset socks5_proxy
+  echo "HTTP Proxy off"
+}
+
+$ source ~/.zshrc
 ```
 

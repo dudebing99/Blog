@@ -82,6 +82,8 @@
   - https://www.pinksale.finance/airdrop/
 - 项目安全性检测
   - https://avedex.cc/check
+- NFT 分析
+  - https://www.nftscan.com/
 
 ## 缩略词
 

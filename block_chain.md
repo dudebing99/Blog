@@ -3607,6 +3607,14 @@ true
 "0xf2f9e7716cc88944e5ed9f675649532c80d765f8"
 ```
 
+### keystore 文件转私钥
+
+> 利用 go-ethereum 自带的 ethkey 工具，需自行编译
+
+```bash
+ethkey inspect --private dummy.keystore
+```
+
 #### 合约
 
 ##### 编写 Solidity 合约脚本

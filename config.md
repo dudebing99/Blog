@@ -966,6 +966,17 @@ certbot certonly --force-renew -d word.com -d hello.com
 certbot renew
 ```
 
+### Amazon Linux 2023 安装 certbot
+
+```bash
+dnf remove certbot
+dnf install python3 augeas-libs
+python3 -m venv /opt/certbot/
+/opt/certbot/bin/pip install --upgrade pip
+/opt/certbot/bin/pip install certbot certbot-nginx
+ln -s /opt/certbot/bin/certbot /usr/bin/certbot
+```
+
 ### 综合使用
 
 **基础环境：**Nginx 1.12.2/CentOS 7.6

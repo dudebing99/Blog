@@ -68,7 +68,8 @@
 - [以太坊项目分析](https://www.duneanalytics.com/)
 - 开发指南
   - [用 Go 来做以太坊开发](https://goethereumbook.org/zh/)
-
+  - [WTF Solidity极简入门](https://github.com/AmazingAng/WTF-Solidity)
+  
 - Defi 项目分析
   - https://debank.com/
   - https://www.dextools.io/

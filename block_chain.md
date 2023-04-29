@@ -3602,23 +3602,6 @@ true
 4
 ```
 
-##### 私钥转 keystore 文件
-
-> keystore 已经存放到了 `--datadir` 指定的目录中
-
-```javascript
-> web3.personal.importRawKey("eaffcd749482e68ca4ccf5a07a52eb7ff876ea461fbab642b2b57bcb33edb280","linjing")
-"0xf2f9e7716cc88944e5ed9f675649532c80d765f8"
-```
-
-##### keystore 文件转私钥
-
-> 利用 go-ethereum 自带的 ethkey 工具，需自行编译
-
-```bash
-ethkey inspect --private dummy.keystore
-```
-
 #### 基础概念
 
 ##### 以太坊外部账户 EOA 与合约账户 CA
@@ -7099,6 +7082,15 @@ mac：验证密码的编码;
 
 **所以，一方面，要确保你的密码足够强，这样能保证即使有人得到了你的 keystore 文件，也无法获得你的私钥。另一方面， 要将钥匙备份文件备份保存，并且要牢记你自己的密码，如果你丢失了钥匙备份文件或者忘记了密码，那么你的币将丢失，密码是无法找回的。 **
 
+##### 私钥转 keystore
+
+> keystore 已经存放到了 `--datadir` 指定的目录中
+
+```javascript
+> web3.personal.importRawKey("eaffcd749482e68ca4ccf5a07a52eb7ff876ea461fbab642b2b57bcb33edb280","linjing")
+"0xf2f9e7716cc88944e5ed9f675649532c80d765f8"
+```
+
 #### keystore 导出私钥
 
 ##### 使用 metamask 获取私钥
@@ -7140,6 +7132,14 @@ console.log(web3.eth.accounts.decrypt({ version: 3,
       'f0de8846997ab4e266a7203bf112cf11f9eeb4a9df9cf743dc8c51837e13068d' 
   }
 },'password1'));//第二个参数是你自己设的密码
+```
+
+##### 使用 ethkey 工具获取私钥
+
+> go-ethereum 自带的工具，需自行编译
+
+```bash
+ethkey inspect --private dummy.keystore
 ```
 
 ## Solidity

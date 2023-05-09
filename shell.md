@@ -1947,3 +1947,27 @@ unset http_proxy
 unset https_proxy
 ```
 
+## 保存所有登录用户的操作历史
+
+```bash
+USER_IP=`who -u am i 2>/dev/null| awk '{print $NF}'|sed -e 's/[()]//g'`
+if [ "$USER_IP" = "" ]
+then
+USER_IP=`hostname`
+fi
+if [ ! -d /tmp/dbasky ]
+then
+mkdir /tmp/dbasky
+chmod 777 /tmp/dbasky
+fi
+if [ ! -d /tmp/dbasky/${LOGNAME} ]
+then
+mkdir /tmp/dbasky/${LOGNAME}
+chmod 300 /tmp/dbasky/${LOGNAME}
+fi
+export HISTSIZE=40960
+DT=`date "+%Y-%m-%d_%H-%M-%S"`
+export HISTFILE="/tmp/dbasky/${LOGNAME}/${USER_IP}-dbasky.$DT"
+export HISTTIMEFORMAT="%F %T "
+chmod 600 /tmp/dbasky/${LOGNAME}/*dbasky* 2>/dev/null
+```

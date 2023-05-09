@@ -1378,7 +1378,12 @@ CentOS 7.2
 
 **解决方式**
 
-设置默认的语言环境即可
+1. 安装语言包
+
+- 安装中文语言包，命令 `yum install glibc-langpack-zh`
+- 安装英文语言包，命令 `dnf install glibc-langpack-en` 或 `dnf install langpacks-en glibc-all-langpacks -y`
+
+2. 设置默认的语言环境即可
 
 ```bash
 echo "export LC_ALL=en_US.UTF-8"  >>  /etc/profile 

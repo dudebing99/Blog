@@ -3173,3 +3173,29 @@ add_header Content-Security-Policy "upgrade-insecure-requests;connect-src *";
 ```
 
 从后端服务而言，通过代理服务器 NGINX 或者 Tomcat 将前端和后台接口都支持 HTTPS 即可
+
+## [aws/rds] Cannot modify a default parameter group. (Service: AmazonRDS; Status Code: 400; Error Code: InvalidParameterValue
+
+**系统环境**
+
+AWS RDS/MySQL
+
+**问题描述**
+
+修改 MySQL 参数组配置，例如打开 general 操作日志
+
+**问题原因**
+
+AWS 的 RDS 是不允许修改 default 参数组的。因此先要确认下当前 RDS 采用的参数组是不是 default 参数组
+
+**解决方式**
+
+> 参数组名称会发生更改并立即应用，但在您手动重启实例之前，参数组不会应用
+
+1. 从左侧的参数组菜单进入，即可新建参数组。一般我们都会从把当前在使用的参数组作为模版来复制一份新的来调整。（默认的参数组不可复制，复制按钮是灰显，我们需要重新创建一个参数组进行修改）。
+
+   选择当前在使用的参数组，Actions->Copy 即可。当前在使用的参数组为 default.mysql5.7，复制过来的新的参数组为 hello.parameter.group
+
+2. 在该参数组上调整相关参数，保存
+
+3. 然后变更 RDS 使用的参数组，使用新的参数组

@@ -558,7 +558,23 @@ pkill -9 进程名
 killall -9 进程名
 ```
 
+## 踢终端
+
+```bash
+[root@ip-172-31-41-16 ~]# who
+root     pts/0        2023-05-11 23:42 (113.118.147.45)
+root     pts/1        2023-05-11 23:32 (113.118.147.45)
+[root@ip-172-31-41-16 ~]# w
+ 23:42:38 up 43 days, 12:38,  2 users,  load average: 0.12, 0.12, 0.16
+USER     TTY        LOGIN@   IDLE   JCPU   PCPU WHAT
+root     pts/0     23:42    4.00s  0.02s  0.01s w
+root     pts/1     23:32    9:58   0.06s  0.02s tail -f nohup.out
+[root@ip-172-31-41-16 ~]# pkill -9 -t pts/0
+Connection to 1.1.1.1 closed.
+```
+
 ## 查询、启动、停止服务
+
 ```bash
 # 新管理方式，如 Cent OS >= 7.x
 systemctl start/status/enable/disable/stop/restart xxx_service

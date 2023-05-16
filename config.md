@@ -3343,6 +3343,19 @@ ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 Tue Jun 28 22:16:31 CST 2022
 ```
 
+## Amazon Linux 2023 安装 iftop
+
+```bash
+yum  install -y ncurses-devel byacc flex
+mkdir iftop && cd iftop
+wget http://www.tcpdump.org/release/libpcap-1.9.1.tar.gz
+tar -xzvf libpcap-1.9.1.tar.gz && cd libpcap-1.9.1 && ./configure && make -j10 &&  make install && cd ../
+wget http://www.ex-parrot.com/~pdw/iftop/download/iftop-0.17.tar.gz
+tar -xzvf iftop-0.17.tar.gz && cd iftop-0.17 && ./configure && make -j10 && make install && cd ../
+cd ..
+rm -rf iftop
+```
+
 ## Ubuntu 替换源
 
 > **环境：**Ubuntu 14.04.5 LTS

@@ -4813,6 +4813,9 @@ curl -fsSL https://packages.gitlab.cn/repository/raw/scripts/setup.sh | /bin/bas
 
 ```bash
 apt-get install gitlab-jh
+
+# 查看版本信息
+cat /opt/gitlab/embedded/service/gitlab-rails/VERSION
 ```
 
 3. 配置

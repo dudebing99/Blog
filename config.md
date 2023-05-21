@@ -4791,3 +4791,217 @@ function downloadIOS() {
 	}
 ```
 
+## gitlab 极狐私有部署
+
+> https://docs.gitlab.cn/jh/install/
+
+### gitlab 极狐安装、配置
+
+0. 安装基础依赖
+
+```bash
+yum install -y curl openssh-server openssh-clients postfix cronie policycoreutils-python
+```
+
+1. 通过如下命令来配置GitLab软件镜像
+
+```bash
+curl -fsSL https://packages.gitlab.cn/repository/raw/scripts/setup.sh | /bin/bash
+```
+
+2. 安装
+
+```bash
+apt-get install gitlab-jh
+```
+
+3. 配置
+
+> 首次安装之后进行初始化默认配置，配置时间较长
+
+> 初始化配置生成 `root` 密码，以文件形式存放 `/etc/gitlab/initial_root_password`
+
+```bash
+gitlab-ctl reconfigure
+```
+
+4. 启动服务
+
+> 如下命令包含先停止老进程再启动，具体可查看 `help` 说明
+
+```bash
+gitlab-ctl start
+```
+
+5. 查看状态
+
+```bash
+gitlab-ctl status
+```
+
+6. 设置开机自启动
+
+```bash
+systemctl enable gitlab-runsvdir.service
+```
+
+### gitlab 邮件配置
+
+以配置 163 免费邮箱为例
+
+0. 注册 163 免费邮箱，设置启用 `smtp` 服务
+
+1. 在配置文件 `/etc/gitlab/gitlab.rb` 添加如下核心配置
+
+```bash
+gitlab_rails['smtp_enable'] = true
+gitlab_rails['smtp_address'] = "smtp.163.com"
+gitlab_rails['smtp_port'] = 465
+gitlab_rails['smtp_user_name'] = "<user@163.com>"
+gitlab_rails['smtp_password'] = "<password>"
+gitlab_rails['smtp_authentication'] = "login"
+gitlab_rails['smtp_enable_starttls_auto'] = false
+gitlab_rails['smtp_tls'] = true
+gitlab_rails['gitlab_email_from'] = "<user@163.com>"
+gitlab_rails['smtp_domain'] = "smtp.163.com"
+```
+
+2. 重新配置并启动
+
+```bash
+gitlab-ctl reconfigure
+gitlab-ctl start
+```
+
+3. 后续在 gitlab 的各项活动都能收到邮件
+
+### <可选>配置外部访问域名、启用 https
+
+编辑 `/etc/gitlab/gitlab.rb` 并将 `external_url` 更改为您的首选 URL
+
+```bash
+external_url "http://gitlab.example.com"
+```
+
+或者 IP 地址
+
+```bash
+external_url "http://10.0.0.1"
+```
+
+或者安装时指定
+
+```bash
+EXTERNAL_URL="https://gitlab.example.com" apt-get install gitlab-jh
+```
+
+### 配置 ci/cd
+
+> https://docs.gitlab.com/15.11/ee/ci/quick_start/
+
+1. 安装 gitlab-runner
+
+```bash
+# 安装程序
+wget -O /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
+
+# 等待下载完成后分配权限
+chmod +x /usr/local/bin/gitlab-runner
+
+# 创建 runner 用户
+useradd --comment 'gitlab-runner' --create-home gitlab-runner --shell /bin/bash
+
+# 安装程序
+gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
+
+# 启动程序
+gitlab-runner start
+```
+
+2. 假设要给某个项目配置 ci/cd，从项目设置中获取 gitlab-runner 所需的授权信息
+
+![image-20230521162037357](pic/config/gitlab-runner-ci-cd.png)
+
+3. 配置 gitlab-runner
+
+> 特别注意标签名字，后续 gitlab 项目中 ci/cd 配置需要指定此 runner 的标签，假设标签为 `jupiter`
+
+```bash
+gitlab-runner register
+
+>> Enter the GitLab instance URL (for example, https://gitlab.com/):
+# 输入刚才获取到的gitlab仓库地址
+>> Enter the registration token:
+# 输入刚才获取到的token
+>> Enter a description for the runner:
+# 自定义runner描述
+>> Enter tags for the runner (comma-separated):
+# 自定义runner标签
+>> Enter an executor: docker-ssh, docker+machine, docker-ssh+machine, docker, parallels, shell, ssh, virtualbox, kubernetes, custom:
+# 选择执行器，此处我们输入 shell
+```
+
+4. 配置 gitlab 项目中的 ci/cd 配置，对应文件 `.gitlab-ci.yml`
+
+> `tags` 对应 `gitlab-runner` 注册所填写的 `tag`
+
+> 配置文件也可以通过在 gitlab 项目前端 `CI/CD` 子菜单 `Editor` 生成更改
+
+`.gitlab-ci.yml` 文件是流水线执行的流程文件，Runner 会据此完成规定的一系列流程。我们在项目根目录中创建`.gitlab-ci.yml` 文件，然后在其中编写内容
+
+```bash
+# 阶段
+stages:
+  - install
+  - build
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+# 安装依赖
+install:
+  stage: install
+  # 此处的tags必须填入之前注册时自定的tag
+  tags: 
+    - jupiter
+  # 规定仅在package.json提交时才触发此阶段
+  only:
+    changes:
+      - package.json
+  # 执行脚本
+  script:
+    yarn
+
+# 打包项目
+build:
+  stage: build 
+  tags: 
+    - jupiter
+  script: 
+    - yarn build
+  # 将此阶段产物传递至下一阶段 
+  artifacts: 
+    paths:
+        - dist/
+
+# 部署项目
+deploy:
+  stage: deploy
+  tags: 
+    - jupiter
+  script: 
+    # 自定义命令
+    - <command line>
+    # ...
+    - <command line ...> 
+```
+
+5. 执行、查看结果
+
+![image-20230521163128060](pic/config/gitlab-ci-cd-pipelines.png)
+
+![image-20230521163238346](pic/config/gitlab-ci-cd-task.png)
+
+![image-20230521163404700](pic/config/gitlab-runner-ci-cd-job.png)

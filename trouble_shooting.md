@@ -1408,6 +1408,26 @@ Linux
 apt-get install sudo
 ```
 
+## [Linux] sed: 1: extra characters at the end of p command
+
+**系统环境**
+
+Linux/Mac
+
+**问题描述**
+
+使用 sed 进行批量替换
+
+```bash
+sed -i "s/\"scan/\"scan_backend/g" `grep -ril '"scan/' pkg`
+```
+
+**解决方式**
+
+```bash
+sed -i '' "s/\"scan/\"scan_backend/g" `grep -ril '"scan/' pkg`
+```
+
 ## [Golang] package xxx: cannot download, $GOPATH not set. For more details see: go help gopath
 
 **系统环境**

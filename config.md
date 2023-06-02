@@ -5008,3 +5008,50 @@ deploy:
 ![image-20230521163238346](pic/config/gitlab-ci-cd-task.png)
 
 ![image-20230521163404700](pic/config/gitlab-runner-ci-cd-job.png)
+
+## aws ec2 ami 制作
+
+> 控制台可以制作 ami 但无法下载到本地
+
+1. aws 账户个人中心 -> 安全凭证，创建 `Access keys`
+2. 使用 aws 客户端制作镜像
+
+> 初始化 aws
+
+```bash
+aws ec2 create-image --instance-id i-02c15e7f30162d565 --name "centos_ami_20230601" --description "centos ami 20230601"
+{
+    "ImageId": "ami-06e8ec0e3bd53ce40"
+}
+```
+
+3. 创建 s3 存储桶
+
+```bash
+aws s3api create-bucket --bucket centosami --region ap-southeast-1 --create-bucket-configuration LocationConstraint=ap-southeast-1
+{
+    "Location": "http://centosami.s3.amazonaws.com/"
+}
+```
+
+4. 上传镜像到存储桶
+
+```bash
+
+[root@ip-172-31-46-112 ~]# aws ec2 create-store-image-task --image-id ami-06e8ec0e3bd53ce40 --bucket centosami
+{
+    "ObjectKey": "ami-06e8ec0e3bd53ce40.bin"
+}
+```
+
+5. 从 s3 下载镜像
+
+```bash
+aws s3 cp s3://centosami/ami-06e8ec0e3bd53ce40.bin ./
+```
+
+6. 如果要将此镜像再次还原成 ami
+
+```bash
+aws ec2 create-restore-image-task --object-key ami-06e8ec0e3bd53ce40.bin --bucket centosami --name "migration-centos-ami"
+```

@@ -4902,6 +4902,8 @@ EXTERNAL_URL="https://gitlab.example.com" apt-get install gitlab-jh
 
 > https://docs.gitlab.com/15.11/ee/ci/quick_start/
 
+> runner 可以设置为组内共享，多个项目可以复用
+
 1. 安装 gitlab-runner
 
 ```bash
@@ -4928,6 +4930,8 @@ gitlab-runner start
 3. 配置 gitlab-runner
 
 > 特别注意标签名字，后续 gitlab 项目中 ci/cd 配置需要指定此 runner 的标签，假设标签为 `jupiter`
+
+> 如果 runner 跟 gitlab 实例在同一台服务器或者同一个内网，使用 `localhost` 或者内网 IP，否则在编译完成上传文件（uploading  artifacts）特别慢
 
 ```bash
 gitlab-runner register

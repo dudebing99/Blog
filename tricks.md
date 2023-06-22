@@ -949,6 +949,10 @@ docker rmi <image-id>
 docker search <TERM>
 # 拉取镜像
 docker pull centos:7.6.1810
+# 删除无标签且无容器引用的镜像
+docker image prune
+# 删除所有无容器引用的镜像
+docker image prune -a
 ```
 
 ### 标签

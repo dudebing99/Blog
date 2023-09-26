@@ -3233,3 +3233,30 @@ AWS 的 RDS 是不允许修改 default 参数组的。因此先要确认下当�
 2. 在该参数组上调整相关参数，保存
 
 3. 然后变更 RDS 使用的参数组，使用新的参数组
+
+## [docker] Error response from daemon: missing signature key
+
+**系统环境**
+
+CentOS 7
+
+**问题描述**
+
+yum 安装 docker，拉取镜像报错
+
+```bash
+Error response from daemon: missing signature key
+```
+
+**问题原因**
+
+docker 版本不兼容，卸载安装最新社区版本即可
+
+```bash
+yum erase docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux docker-engine-selinux docker-engine docker-ce -y
+yum install -y yum-utils
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum install docker-ce -y
+systemctl start docker
+```
+

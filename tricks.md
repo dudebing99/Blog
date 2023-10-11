@@ -265,7 +265,9 @@ siblings        : 24
 
 ![](pic/tcp/disconnect.png)
 
-**为什么 Client 进入 TIME-WAIT 后必须等待 2 MSL？**
+**为什么 Client 进入 TIME-WAIT 后必须等待 2 MSL**
+
+> 报文段最大生存时间 MSL（Maximum Segment Lifetime），它是任何报文段被丢弃前在网络内的最长时间，实现中的常用值是 30秒，1 分钟，或 2 分钟
 
 - 保证 Client 发送的最后一个 ACK 报文段能达到 Server
 - 防止失效的报文段出现在连接中

@@ -5498,7 +5498,7 @@ contract Dummy {
         owner = msg.sender;
     }
 
-    // fallbakc 函数为匿名函数，一个合约示例有且只有一个，无参数和返回值
+    // fallback 函数为匿名函数，一个合约示例有且只有一个，无参数和返回值
     function () public {
     }
 }

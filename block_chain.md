@@ -90,6 +90,8 @@
   - https://avedex.cc/check
 - NFT 分析
   - https://www.nftscan.com/
+- 减半倒计时
+  - https://explorer.coinex.com/halving
 
 ## 缩略词
 

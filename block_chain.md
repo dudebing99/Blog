@@ -92,6 +92,9 @@
   - https://www.nftscan.com/
 - 减半倒计时
   - https://explorer.coinex.com/halving
+- 区块链工具
+  - [合约方法 Method Id](https://www.4byte.directory)
+  
 
 ## 缩略词
 

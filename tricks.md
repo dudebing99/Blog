@@ -1496,6 +1496,49 @@ mysql -uroot -p'123456' -e "create database mytest2 CHARSET=UTF8;"
 mysql -uroot -p'123456' mytest2 < mysql.sql 
 ```
 
+## Golang 小技巧
+
+### 判断 goproxy 是否缓存了某个 Go 模块的特定版本
+
+```bash
+# 格式 <GOPROXY_URL>/<module>/@v/<version>.info
+curl https://proxy.golang.org/github.com/gin-gonic/gin/@v/v1.8.1.info
+```
+
+如果缓存中存在该模块版本，会返回模块的元信息（JSON 格式）
+
+```json
+{
+  "Version": "v1.8.1",
+  "Time": "2022-04-29T16:02:13Z"
+}
+```
+
+如果缓存中不存在该模块版本，会返回 HTTP 404 错误
+
+### 查看每个依赖项的完整 HTTP 请求路径
+
+```bash
+GODEBUG=http2debug=2 go get github.com/gin-gonic/gin@v1.8.1
+
+# 指定代理
+GODEBUG=http2debug=2 GOPROXY=https://proxy.golang.org go get github.com/gin-gonic/gin@v1.8.1
+```
+
+**参数说明**：
+
+GODEBUG=http2debug=2：启用 HTTP/2 的调试日志，会显示完整的 HTTP 请求和响应路径。
+
+GOPROXY：指定 goproxy URL，可以是官方的或自定义的代理服务。
+
+**输出结果**：
+
+```bash
+http2: Transport creating client conn to proxy.golang.org
+http2: Transport creating HTTP/2 stream
+http2: sending request: POST /github.com/gin-gonic/gin/@v/v1.8.1.info
+```
+
 ## Redis 小技巧
 
 ### 批量删除 key

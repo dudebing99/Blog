@@ -3356,6 +3356,24 @@ cd ..
 rm -rf iftop
 ```
 
+## Amazon Linux 2023 安装 ab
+
+```bash
+amazon-linux-extras enable epel
+dnf install httpd-tools -y
+```
+
+示例命令
+
+```bash
+ab -n 1000 -c 10 -p post_data.json -T "application/json" http://127.0.0.1:8888/api/new_addres
+```
+
+- -n 1000：总共发送 1000 个请求
+- -c 10：并发数为 10
+- -p post_data.json：指定包含请求数据的文件（如 POST 的 JSON 数据）
+- -T "application/json"：设置 Content-Type 为 JSON
+
 ## Ubuntu 替换源
 
 > **环境：**Ubuntu 14.04.5 LTS

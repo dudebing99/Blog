@@ -735,7 +735,20 @@ bash     6936 kevin  cwd    DIR  253,2     4096 3675368 /home/kevin/Blog
 vim     24969 kevin  cwd    DIR  253,2     4096 3675368 /home/kevin/Blog
 vim     24969 kevin    4u   REG  253,2    20480 3675605 /home/kevin/Blog/.SHELL.md.swp
 ```
+### 清空文件
+
+```bash
+cat /dev/null > target.file
+
+# 批量清空文件
+find /data/java -name *.out | xargs -I {} sh -c 'cat /dev/null > "{}"'
+
+# 执行 truncate 文件的内容被清空，但文件的 inode 仍然存在，因此文件占用的磁盘空间不会被立刻释放，当文件被删除才会被真正释放
+truncate -s 0 target.file
+```
+
 ### 删除文件（少量）
+
 ```bash
 find /tmp -type f -exec rm {} \;
 
